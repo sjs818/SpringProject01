@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<c:set var="root" value="${pageContext.request.contextPath }/" />
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -25,7 +26,7 @@
 						<h3>로그인 실패</h3>
 						<p>아이디 비밀번호를 확인해주세요</p>
 					</div> -->
-                    <form:form action="#" method="post" modelAttribute="tmpLoginUserDTO" >
+                    <form:form action="${root }user/login_proc" method="post" modelAttribute="tmpLoginUserDTO" >
 						<div class="form-group">
 							<form:label path="">아이디</form:label>
 							<form:input path="" class="form-control"/>
