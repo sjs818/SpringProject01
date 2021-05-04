@@ -23,7 +23,7 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller"})
+@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
@@ -71,42 +71,42 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Bean
 	public MapperFactoryBean<Board01Mapper> getBoard01Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board01Mapper> factoryBean = new MapperFactoryBean<Board01Mapper>();
+		MapperFactoryBean<Board01Mapper> factoryBean = new MapperFactoryBean<Board01Mapper>(Board01Mapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 	
 	@Bean
 	public MapperFactoryBean<Board02Mapper> getBoard02Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board02Mapper> factoryBean = new MapperFactoryBean<Board02Mapper>();
+		MapperFactoryBean<Board02Mapper> factoryBean = new MapperFactoryBean<Board02Mapper>(Board02Mapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 	
 	@Bean
 	public MapperFactoryBean<Board03Mapper> getBoard03Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board03Mapper> factoryBean = new MapperFactoryBean<Board03Mapper>();
+		MapperFactoryBean<Board03Mapper> factoryBean = new MapperFactoryBean<Board03Mapper>(Board03Mapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 	
 	@Bean
 	public MapperFactoryBean<Board04Mapper> getBoard04Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board04Mapper> factoryBean = new MapperFactoryBean<Board04Mapper>();
+		MapperFactoryBean<Board04Mapper> factoryBean = new MapperFactoryBean<Board04Mapper>(Board04Mapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 	
 	@Bean
 	public MapperFactoryBean<Board05Mapper> getBoard05Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board05Mapper> factoryBean = new MapperFactoryBean<Board05Mapper>();
+		MapperFactoryBean<Board05Mapper> factoryBean = new MapperFactoryBean<Board05Mapper>(Board05Mapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
 	
 	@Bean
 	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
-		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>();
+		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
