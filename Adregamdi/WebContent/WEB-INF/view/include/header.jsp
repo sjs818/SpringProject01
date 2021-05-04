@@ -3,38 +3,23 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
-<div>
-	<h1><a href="#">로고</a></h1>
-	<div>
-		<ul>
-			<li>
-				메뉴_01
-				<ul>
-					<li><a href="#">하위 메뉴_01</a></li>
-					<li><a href="#">하위 메뉴_02</a></li>
-				</ul>
-			</li>
-			<li>
-				메뉴_02
-				<ul>
-					<li><a href="#">하위 메뉴_01</a></li>
-					<li><a href="#">하위 메뉴_02</a></li>
-				</ul>
-			</li>
-			<li>
-				메뉴_03
-				<ul>
-					<li><a href="#">하위 메뉴_01</a></li>
-					<li><a href="#">하위 메뉴_02</a></li>
-					<li><a href="#">하위 메뉴_03</a></li>
-				</ul>
-			</li>			
+<nav class="navbar navbar-inverse navbar-fixed-top">
+	<a href="#" class="navbar-brand">LOGO</a>
+	<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navMenu">
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+		<span class="icon-bar"></span>
+	</button>
+	<div id="navMenu" class="collapse navbar-collapse">
+		<ul class="nav navbar-nav">
+			<li><a href="#">게시판 1</a></li>
+			<li><a href="#">게시판 2</a></li>
+			<li><a href="#">게시판 3</a></li>
+			<li><a href="#">자유게시판</a></li>
 		</ul>
-	</div>
-	<div>
-		<ul>
+		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#">로그인</a></li>
 			<li><a href="#">회원가입</a></li>
 		</ul>
 	</div>
-</div>
+</nav>
