@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.adregamdi.mapper.Board01Mapper;
+import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.Board02Mapper;
 import com.adregamdi.mapper.Board03Mapper;
 import com.adregamdi.mapper.Board04Mapper;
@@ -23,7 +23,7 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = {"com.adregamdi.controller","com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
@@ -70,8 +70,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<Board01Mapper> getBoard01Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board01Mapper> factoryBean = new MapperFactoryBean<Board01Mapper>(Board01Mapper.class);
+	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}

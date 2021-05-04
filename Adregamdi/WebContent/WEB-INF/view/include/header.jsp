@@ -14,13 +14,7 @@
 					<li><a href="#">하위 메뉴_02</a></li>
 				</ul>
 			</li>
-			<li>
-				메뉴_02
-				<ul>
-					<li><a href="#">하위 메뉴_01</a></li>
-					<li><a href="#">하위 메뉴_02</a></li>
-				</ul>
-			</li>
+			<li><a href="${root }schedule/list">메뉴_02</a></li>
 			<li>
 				메뉴_03
 				<ul>
