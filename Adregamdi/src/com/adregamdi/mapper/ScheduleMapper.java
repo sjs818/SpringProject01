@@ -1,5 +1,5 @@
 package com.adregamdi.mapper;
 
-public interface Board01Mapper {
+public interface ScheduleMapper {
 
 }
