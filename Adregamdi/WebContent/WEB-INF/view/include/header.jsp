@@ -19,7 +19,7 @@
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="#">로그인</a></li>
-			<li><a href="#">회원가입</a></li>
+			<li><a href="#">회원가입g</a></li>
 		</ul>
 	</div>
 </nav>
