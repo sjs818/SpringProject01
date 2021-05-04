@@ -46,22 +46,22 @@
   	--%>
   	
   	<div>
-  		<form action="${root }board01/write_proc" method="post">
+  		<form action="${root }schedule/write_proc" method="post" >
   			
   			<div>
-  				<label>제목</label>
-  				<input type="text">
+  				<label for="schedule_title">제목</label>
+  				<input type="text" id="schedule_title" name="schedule_title">
   			</div>
   			
   			<div>
   				<label>기간</label>
-  				출발 : <input type="date">
-  				도착 : <input type="date">
+  				출발 : <input type="date" id="schedule_start" name="schedule_start">
+  				도착 : <input type="date" id="schedule_end" name="schedule_end">
   			</div>
   			
   			<div>
-  				<label>내용</label>
-  				<textarea rows="30" cols="50"></textarea>
+  				<label for="schedule_content">내용</label>
+  				<textarea id="schedule_content" name="schedule_content" rows="30" cols="50"></textarea>
   			</div>
   			
   			<div>
