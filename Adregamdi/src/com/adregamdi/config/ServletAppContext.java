@@ -20,6 +20,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.interceptor.LoginInterceptor;
+import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.TogetherMapper;
@@ -108,12 +109,18 @@ public class ServletAppContext implements WebMvcConfigurer{
 	public void addInterceptors(InterceptorRegistry registry) {
 	    WebMvcConfigurer.super.addInterceptors(registry);
 		
+	  	TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
 		
 		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
+		
+		
+	  	InterceptorRegistration topReg
+	  	  = registry.addInterceptor(topMenuInterceptor);
 		
 	  	InterceptorRegistration userReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
+	  	topReg.addPathPatterns("/**");
 	  	userReg.addPathPatterns("/user/modify", "/user/logout");
 	
 	}

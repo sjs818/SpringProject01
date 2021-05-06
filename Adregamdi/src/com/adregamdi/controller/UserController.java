@@ -54,4 +54,11 @@ public class UserController {
 		}	
 	}
 	
+	
+	@GetMapping("/logout")
+	public String logout() {
+		loginUserDTO.setUserLogin(false);
+		return "/user/logout";
+	}
+	
 }
