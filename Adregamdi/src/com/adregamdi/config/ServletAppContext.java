@@ -12,15 +12,19 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.adregamdi.dto.UserDTO;
+import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
+import com.adregamdi.interceptor.TopMenuInterceptor;
+import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.TogetherMapper;
-import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.UserMapper;
 
 @Configuration
@@ -102,5 +106,32 @@ public class ServletAppContext implements WebMvcConfigurer{
 		return factoryBean;
 	}
 	
-	LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
+	
+	public void addInterceptors(InterceptorRegistry registry) {
+	    WebMvcConfigurer.super.addInterceptors(registry);
+		
+	  	TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
+		
+		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
+		
+		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
+		
+		
+	  	InterceptorRegistration topReg
+	  	  = registry.addInterceptor(topMenuInterceptor);
+		
+	  	InterceptorRegistration userReg
+		  = registry.addInterceptor(loginInterceptor);
+	  	
+	  	InterceptorRegistration loginReg
+		  = registry.addInterceptor(loginBlockInterceptor);
+	  	
+	  	topReg.addPathPatterns("/**");
+	  	userReg.addPathPatterns("/user/modify", "/user/logout");
+	  	loginReg.addPathPatterns("/user/login");
+	
+	}
+	
+	
+	
 }

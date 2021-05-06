@@ -14,7 +14,10 @@ public class UserDTO {
 	private boolean userLogin;
 	
 	
-	
+	public UserDTO() {
+		this.setInputUserID(false);
+		this.setUserLogin(false);
+	}
 	
 	
 	public int getUser_no() {
