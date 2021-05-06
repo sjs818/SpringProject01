@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
-<div class="container-fluid bg-dark text-white">
+<div class="container-fluid bg-dark text-white" style="margin-top:100px">
 	<div class="container">
 		<h1>footer</h1>
 	</div>

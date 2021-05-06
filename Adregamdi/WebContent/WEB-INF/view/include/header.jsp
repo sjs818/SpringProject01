@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <nav class="navbar navbar-expand-md bg-dark navbar-dark fixed-top shadow-lg">
-	<a href="${root }main" class="navbar-brand">LOGO</a>
+	<a href="${root }" class="navbar-brand">LOGO</a>
 	<div id="navMenu" class="collapse navbar-collapse">
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown">
@@ -16,7 +16,7 @@
 					<a class="dropdown-item" href="${root}spot/thema">서브 메뉴2</a> <!-- 테마별 -->
 				</div>
 			</li>
-			<li class="nav-item"><a class="nav-link" href="${root }schedule/list">메뉴_02</a></li>
+			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">게시판 3</a></li>
 			<li><a class="nav-link" href="#">자유게시판</a></li>
 		</ul>
