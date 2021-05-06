@@ -14,7 +14,7 @@
 <body>
   <script type="text/javascript">
   	alert('일정이 삭제되었습니다.');
-  	location.href='${root }schedule/list';
+  	location.href='${root }schedule/list?page=${page }';
   </script>
 </body>
 </html>

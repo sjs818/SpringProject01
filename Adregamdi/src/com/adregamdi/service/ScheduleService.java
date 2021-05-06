@@ -26,9 +26,17 @@ public class ScheduleService {
 		return scheduleDAO.getScheduleList(rowBounds);
 	}
 	
-	public PageDTO getContentCnt(int currentPage, int listCnt) {
+	public PageDTO getContentCnt(int currentPage, int listCnt, int pagination) {
 		int contentCnt = scheduleDAO.getContentCnt();
-		PageDTO pageDTO = new PageDTO(contentCnt, currentPage, listCnt);
+		PageDTO pageDTO = new PageDTO(contentCnt, currentPage, listCnt, pagination);
 		return pageDTO;
+	}
+	
+	public ScheduleDTO getSchedule(int schedule_no) {
+		return scheduleDAO.getSchedule(schedule_no);
+	}
+	
+	public void deleteSchedule(int schedule_no) {
+		scheduleDAO.deleteSchedule(schedule_no);
 	}
 }

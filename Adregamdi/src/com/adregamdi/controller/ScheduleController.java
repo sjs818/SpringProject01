@@ -25,22 +25,26 @@ public class ScheduleController {
 	@GetMapping("/list")
 	public String list(@RequestParam("page") int page, Model model) {
 		
-		List<ScheduleDTO> scheduleList = scheduleService.getScheduleList(page, 12);
+		List<ScheduleDTO> scheduleList = scheduleService.getScheduleList(page, 4);
 		model.addAttribute("scheduleList", scheduleList);
 		
-		PageDTO pageDTO = scheduleService.getContentCnt(page, 12);
+		PageDTO pageDTO = scheduleService.getContentCnt(page, 4, 10);
 		model.addAttribute("pageDTO", pageDTO);
 		
 		return "schedule/list";
 	}
 	
 	@GetMapping("/write")
-	public String write(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO) {
+	public String write(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO, @RequestParam("page") int page, Model model) {
+		
 		return "schedule/write";
 	}
 	
 	@PostMapping("/write_proc")
 	public String write_proc(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO) {
+		
+		System.out.println(writeScheduleDTO.getSchedule_start());
+		System.out.println(writeScheduleDTO.getSchedule_end());
 		
 		scheduleService.writeSchedule(writeScheduleDTO);
 		
@@ -48,17 +52,36 @@ public class ScheduleController {
 	}
 	
 	@GetMapping("/read")
-	public String read() {
+	public String read(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
+		
+		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
+		model.addAttribute("scheduleDTO", scheduleDTO);
+		model.addAttribute("page", page);
+		
 		return "schedule/read";
 	}
 	
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
+		
+		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
+		model.addAttribute("scheduleDTO", scheduleDTO);
+		model.addAttribute("page", page);
+		
 		return "schedule/modify";
 	}
 	
+	@PostMapping("/modify_proc")
+	public String modify_proc(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
+		return "schedule/modify_success";
+	}
+	
 	@GetMapping("/delete")
-	public String delete() {
+	public String delete(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
+		
+		scheduleService.deleteSchedule(schedule_no);
+		model.addAttribute("page", page);
+		
 		return "schedule/delete";
 	}
 }
