@@ -18,7 +18,7 @@ import com.adregamdi.mapper.Board01Mapper;
 import com.adregamdi.mapper.Board02Mapper;
 import com.adregamdi.mapper.Board03Mapper;
 import com.adregamdi.mapper.Board04Mapper;
-import com.adregamdi.mapper.Board05Mapper;
+import com.adregamdi.mapper.TogetherMapper;
 import com.adregamdi.mapper.UserMapper;
 
 @Configuration
@@ -98,8 +98,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<Board05Mapper> getBoard05Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board05Mapper> factoryBean = new MapperFactoryBean<Board05Mapper>(Board05Mapper.class);
+	public MapperFactoryBean<TogetherMapper> getTogetherMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<TogetherMapper> factoryBean = new MapperFactoryBean<TogetherMapper>(TogetherMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
