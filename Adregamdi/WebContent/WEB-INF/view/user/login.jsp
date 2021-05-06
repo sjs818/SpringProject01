@@ -16,19 +16,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-	<%
-		String strReferer = request.getHeader("referer");
 
-		if (strReferer == null) {
-	%>
-		<script language="javascript">
-			alert("정상적인 경로를 통해 다시 접근해 주십시오.");
-			document.location.href = "${root}";
-		</script>
-	<%
-			return;
-		}
-	%>
 
 	<!-- 상단 메뉴 부분 -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />

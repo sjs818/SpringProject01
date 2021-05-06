@@ -61,4 +61,14 @@ public class UserController {
 		return "/user/logout";
 	}
 	
+	@GetMapping("/not_login")
+	  public String notLogin() {
+	  return "user/not_login";
+	}
+	
+	@GetMapping("/null_login")
+	public String nullLogin() {
+		return "user/null_login";
+	}
+	
 }

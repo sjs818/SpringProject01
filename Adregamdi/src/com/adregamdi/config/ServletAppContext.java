@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.adregamdi.dto.UserDTO;
+import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
@@ -113,6 +114,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 		
 		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
 		
+		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
+		
 		
 	  	InterceptorRegistration topReg
 	  	  = registry.addInterceptor(topMenuInterceptor);
@@ -120,8 +123,12 @@ public class ServletAppContext implements WebMvcConfigurer{
 	  	InterceptorRegistration userReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
+	  	InterceptorRegistration loginReg
+		  = registry.addInterceptor(loginBlockInterceptor);
+	  	
 	  	topReg.addPathPatterns("/**");
 	  	userReg.addPathPatterns("/user/modify", "/user/logout");
+	  	loginReg.addPathPatterns("/user/login");
 	
 	}
 	
