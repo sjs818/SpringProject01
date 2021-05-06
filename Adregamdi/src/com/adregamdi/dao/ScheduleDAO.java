@@ -26,4 +26,12 @@ public class ScheduleDAO {
 	public int getContentCnt() {
 		return scheduleMapper.getContentCnt();
 	}
+	
+	public ScheduleDTO getSchedule(int schedule_no) {
+		return scheduleMapper.getSchedule(schedule_no);
+	}
+	
+	public void deleteSchedule(int schedule_no) {
+		scheduleMapper.deleteSchedule(schedule_no);
+	}
 }

@@ -25,7 +25,8 @@ public class PageDTO {
 	
 	// contentCnt : 전체 게시글 수
 	// contentPageCnt : 페이지 당 게시글 수
-	public  PageDTO(int contentCnt, int currentPage, int contentPageCnt) {
+	// pagination : 한 번에 나타낼 페이지 번호 수
+	public  PageDTO(int contentCnt, int currentPage, int contentPageCnt, int pagination) {
 		
 		// 현재 페이지 번호
 		this.currentPage = currentPage;
@@ -37,8 +38,8 @@ public class PageDTO {
 			pageCount++;
 		}
 		
-		min = ((currentPage-1) / contentPageCnt) * contentPageCnt + 1;
-		max = min + contentPageCnt - 1;
+		min = ((currentPage-1) / pagination) * pagination + 1;
+		max = min + pagination - 1;
 		
 		if(max > pageCount) {
 			max = pageCount;

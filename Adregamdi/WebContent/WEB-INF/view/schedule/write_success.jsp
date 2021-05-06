@@ -14,7 +14,7 @@
 <body>
   <script type="text/javascript">
   	alert('작성이 완료되었습니다.');
-  	location.href='${root }schedule/list';
+  	location.href='${root }schedule/list?page=1';
   </script>
 </body>
 </html>
