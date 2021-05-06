@@ -18,6 +18,11 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.interceptor.LoginInterceptor;
+import com.adregamdi.mapper.ScheduleMapper;
+import com.adregamdi.mapper.Board02Mapper;
+import com.adregamdi.mapper.Board03Mapper;
+import com.adregamdi.mapper.TogetherMapper;
+import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.UserMapper;
 
 @Configuration
@@ -38,10 +43,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Value("${db.password}")
 	private String db_password;
 	
-	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
-	
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -72,7 +75,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		return factory;
 	}
-	/*
+	
 	@Bean
 	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
@@ -95,8 +98,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<Board04Mapper> getBoard04Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board04Mapper> factoryBean = new MapperFactoryBean<Board04Mapper>(Board04Mapper.class);
+	public MapperFactoryBean<TogetherMapper> getTogetherMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<TogetherMapper> factoryBean = new MapperFactoryBean<TogetherMapper>(TogetherMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
@@ -107,7 +110,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	*/
+	
 	@Bean
 	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
@@ -115,21 +118,5 @@ public class ServletAppContext implements WebMvcConfigurer{
 		return factoryBean;
 	}
 	
-	
-	
-	
 	LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 }
