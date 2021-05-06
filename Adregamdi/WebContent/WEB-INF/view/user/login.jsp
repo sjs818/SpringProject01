@@ -28,14 +28,14 @@
 					</div> -->
                     <form:form action="${root }user/login_proc" method="post" modelAttribute="tmpLoginUserDTO" >
 						<div class="form-group">
-							<form:label path="">아이디</form:label>
-							<form:input path="" class="form-control"/>
-                            <form:errors path="" style="color: red;"/>
+							<form:label path="user_id">아이디</form:label>
+							<form:input path="user_id" class="form-control"/>
+                            <form:errors path="user_id" style="color: red;"/>
 						</div>
 						<div class="form-group">
-							<form:label path="">비밀번호</form:label>
-							<form:password path="" class="form-control"/>
-                            <form:errors path="" style="color: red;"/>
+							<form:label path="user_pw">비밀번호</form:label>
+							<form:password path="user_pw" class="form-control"/>
+                            <form:errors path="user_pw" style="color: red;"/>
 						</div>
 						<div class="form-group text-right">
 							<form:button class="btn btn-primary">로그인</form:button>

@@ -1,5 +1,7 @@
 package com.adregamdi.config;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -14,6 +16,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import com.adregamdi.dto.UserDTO;
+import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.Board02Mapper;
 import com.adregamdi.mapper.Board03Mapper;
@@ -38,6 +42,9 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Value("${db.password}")
 	private String db_password;
+	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -110,4 +117,6 @@ public class ServletAppContext implements WebMvcConfigurer{
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
+	
+	LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
 }
