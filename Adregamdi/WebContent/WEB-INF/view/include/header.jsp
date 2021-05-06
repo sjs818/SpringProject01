@@ -15,7 +15,7 @@
 			<li><a href="#">게시판 1</a></li>
 			<li><a href="${root }schedule/list">메뉴_02</a></li>
 			<li><a href="#">게시판 3</a></li>
-			<li><a href="#">자유게시판</a></li>
+			<li><a href="${root }freedom/list">자유게시판</a></li>
 		</ul>
 		<ul class="nav navbar-nav navbar-right">
 			<li><a href="${root }user/login">로그인</a></li>
