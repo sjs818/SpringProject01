@@ -21,10 +21,10 @@ public class UserDAO {
 		userMapper.addUserInfo(joinUserDTO);
 	}
 	
-	public UserDTO getLoginUser(UserDTO tmpLoginUserDTO) {
-		UserDTO formUserDTO = userMapper.getLoginUser(tmpLoginUserDTO);
+	public UserDTO getLoginUserDTO(UserDTO loginUserDTO) {
+		UserDTO formDBUserDTO = userMapper.getLoginUser(loginUserDTO);
 		
-		return formUserDTO;
+		return formDBUserDTO;
 	}
 	
 }
