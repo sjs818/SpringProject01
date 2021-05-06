@@ -1,5 +1,7 @@
 package com.adregamdi.config;
 
+import javax.annotation.Resource;
+
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
@@ -14,16 +16,13 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.adregamdi.mapper.Board01Mapper;
-import com.adregamdi.mapper.Board02Mapper;
-import com.adregamdi.mapper.Board03Mapper;
-import com.adregamdi.mapper.Board04Mapper;
-import com.adregamdi.mapper.Board05Mapper;
+import com.adregamdi.dto.UserDTO;
+import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = {"com.adregamdi.controller","com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
@@ -38,6 +37,11 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Value("${db.password}")
 	private String db_password;
+	
+	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -68,10 +72,10 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		return factory;
 	}
-	
+	/*
 	@Bean
-	public MapperFactoryBean<Board01Mapper> getBoard01Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board01Mapper> factoryBean = new MapperFactoryBean<Board01Mapper>(Board01Mapper.class);
+	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
@@ -98,16 +102,34 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<Board05Mapper> getBoard05Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board05Mapper> factoryBean = new MapperFactoryBean<Board05Mapper>(Board05Mapper.class);
+	public MapperFactoryBean<FreedomBoardMapper> FreedomBoardMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<FreedomBoardMapper> factoryBean = new MapperFactoryBean<FreedomBoardMapper>(FreedomBoardMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+	*/
 	@Bean
 	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
+	
+	
+	
+	
+	LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
