@@ -3,6 +3,7 @@ package com.adregamdi.controller;
 import javax.annotation.Resource;
 import javax.validation.Valid;
 
+import org.mybatis.spring.MyBatisSystemException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -41,17 +42,23 @@ public class UserController {
 	@PostMapping("/login_proc")
 	public String loginProc(@Valid @ModelAttribute("tmpLoginUserDTO") UserDTO tmpLoginUserDTO, BindingResult result) {
 		
-		if(result.hasErrors()) {
-			return "user/login";
+		try {
+			if(result.hasErrors()) {
+				return "user/login";
+			}
+			
+			userService.getLoginUserDTO(tmpLoginUserDTO);
+			
+			if(loginUserDTO.isUserLogin() == true) {
+				return "user/login_success";
+			}else {
+				return "user/login_fail";
+			}
+		} catch (MyBatisSystemException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		
-		userService.getLoginUserDTO(tmpLoginUserDTO);
-		
-		if(loginUserDTO.isUserLogin() == true) {
-			return "user/login_success";
-		}else {
-			return "user/login_fail";
-		}	
+		return "user/login_fail";	
 	}
 	
 	
