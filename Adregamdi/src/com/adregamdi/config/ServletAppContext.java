@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.Board02Mapper;
 import com.adregamdi.mapper.Board03Mapper;
-import com.adregamdi.mapper.Board04Mapper;
+import com.adregamdi.mapper.TogetherMapper;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.UserMapper;
 
@@ -91,8 +91,8 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<Board04Mapper> getBoard04Mapper(SqlSessionFactory factory) {
-		MapperFactoryBean<Board04Mapper> factoryBean = new MapperFactoryBean<Board04Mapper>(Board04Mapper.class);
+	public MapperFactoryBean<TogetherMapper> getTogetherMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<TogetherMapper> factoryBean = new MapperFactoryBean<TogetherMapper>(TogetherMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
