@@ -9,11 +9,11 @@
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					메뉴_01 
+					여행지 
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="${root}spot/local_main">서브 메뉴1</a> <!-- 지역별 -->
-					<a class="dropdown-item" href="${root}spot/thema">서브 메뉴2</a> <!-- 테마별 -->
+					<a class="dropdown-item" href="${root}spot/local_main">지역별</a> <!-- 지역별 -->
+					<a class="dropdown-item" href="${root}spot/thema_main">테마별</a> <!-- 테마별 -->
 				</div>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list">메뉴_02</a></li>

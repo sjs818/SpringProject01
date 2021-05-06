@@ -27,15 +27,16 @@ CREATE SEQUENCE CONTENT_CNT_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-DROP TABLE SPOT_INFO;
+DROP TABLE SPOT_INFO PURGE;
 CREATE TABLE SPOT_INFO(
     spot_idx    NUMBER        CONSTRAINT spot_info_pk primary key,
     spot_name   varchar2(20)  not null,
     local_no    number        not null,
     theme_no    number        not null,
-    content     varchar2(500) not null,
+    spot_content     varchar2(500) not null,
     spot_writer number        CONSTRAINT spot_writer_fk References User_info(user_no),
-    spot_addr   varchar2(100) not null
+    spot_addr   varchar2(100) not null,
+    spot_cnt        number      not null
 );
 
 CREATE SEQUENCE spot_cnt_seq

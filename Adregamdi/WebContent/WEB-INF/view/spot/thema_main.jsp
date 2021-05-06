@@ -27,12 +27,12 @@
 	<div class="container" style = "margin-top:100px">
 		<div class="contents">
 			<div class="wrap_contView padB10">
-				<h3>지역</h3>
+				<h3>테마</h3>
 				<div class="area_List m_none">
 					<ul class="clfix">
-						<li id="0"><a href="${root }spot/local_detail">전체 지역</a></li>
-						<li id="1"><a href="${root }spot/local_detail">제주시</a> </li>
-						<li id="2"><a href="${root }spot/local_detail">서귀포시</a></li>
+						<li id="0"><a href="${root }spot/thema_detail">볼거리</a></li>
+						<li id="1"><a href="${root }spot/thema_detail">먹거리</a> </li>
+						<li id="2"><a href="${root }spot/thema_detail">놀거리</a></li>
 					</ul>
 				</div>
 			</div>
@@ -43,7 +43,7 @@
 					<span class="date">제주의 추천 여행지를 소개합니다.</span>
 					<div class="listBn_msPc m_none" id="msmain0">
 						<ul class="clfix">
-							<li><a href="${root }spot/read?">1</a></li>
+							<li><a href="#">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
 							<li><a href="#">4</a></li>
