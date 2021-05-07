@@ -6,69 +6,66 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<!-- CKEditor -->
+<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+<script type="text/javascript">
+	$(function() {
+		CKEDITOR.replace('schedule_content');
+	})
+</script>
+<title>Document</title>
 </head>
 <body>
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
   <!-- Main -->
-  <div>
-  	<div>
-  		<h1>title</h1>
-  		<p>explanation</p>
-  	</div>
+  <div class="container" style="margin-top:100px">
+  	<div class="card shadow">
+	  	<div class="card-header">
+	  		<h1>title</h1>
+	  		<p>explanation</p>
+	  	</div>
   	
-  	<%--
-  	<div>
-  		<form:form action="${root }board01/write_proc" method="post" modelAttribute="" enctype="">
-  			<div>
-  				<form:label path="">제목</form:label>
-  				<form:input path=""/>
-  			</div>
-  			<div>
-  				<form:label path="">기간</form:label>
-  				<form:input path=""/>
-  				<form:input path=""/>
-  			</div>
-  			<div>
-  				<form:label path="">내용</form:label>
-  				<form:textarea path=""></form:textarea>
-  			</div>
-  			<div>
-  				<form:button>등록하기</form:button>
-  			</div>
-  		</form:form>
-  	</div>
-  	--%>
-  	
-  	<div>
-  		<form action="${root }schedule/write_proc" method="post" >
-  			
-  			<div>
-  				<label for="schedule_title">제목</label>
-  				<input type="text" id="schedule_title" name="schedule_title">
-  			</div>
-  			
-  			<div>
-  				<label>기간</label>
-  				출발 : <input type="date" id="schedule_start" name="schedule_start">
-  				도착 : <input type="date" id="schedule_end" name="schedule_end">
-  			</div>
-  			
-  			<div>
-  				<label for="schedule_content">내용</label>
-  				<textarea id="schedule_content" name="schedule_content" rows="30" cols="50"></textarea>
-  			</div>
-  			
-  			<div>
-  				<input type="submit" value="등록하기">
-  			</div>
-  			
-  		</form>
+  		<div class="card-body">
+	  		<form action="${root }schedule/write_proc" method="post" >
+	  			
+	  			<div class="form-group">
+	  				<label for="schedule_title">제목</label>
+	  				<input class="form-control" type="text" id="schedule_title" name="schedule_title">
+	  			</div>
+	  			
+	  			<div class="row">
+		  			<div class="form-group col-6">
+		  				<label>출발</label>
+		  				<input class="form-control" type="date" id="schedule_start" name="schedule_start">
+		  			</div>
+		  			
+		  			<div class="form-group col-6">
+		  				<label>도착</label>
+		  				<input class="form-control" type="date" id="schedule_end" name="schedule_end">
+		  			</div>
+		  		</div>
+		  		
+	  			<div class="form-group">
+	  				<label for="schedule_content">내용</label>
+	  				<textarea id="schedule_content" class="form-control" name="schedule_content" rows="30" cols="50"></textarea>
+	  			</div>
+	  			
+	  			<div class="text-right">
+	  				<input class="btn btn-primary" type="submit" value="등록하기">
+	  			</div>
+	  			
+	  		</form>
+  		</div>
   	</div>
   </div>
   

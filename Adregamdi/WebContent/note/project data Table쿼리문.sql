@@ -57,3 +57,16 @@ CREATE SEQUENCE schedule_cnt_SEQ
 START with 1
 increment by 1;
 
+CREATE TABLE community_to(
+    to_no         INT              CONSTRAINT community_co_pk primary key,
+    to_writer     INT              CONSTRAINT community_co_fk REFERENCES user_info(user_no),
+    to_title      VARCHAR2(50)     NOT NULL, 
+    to_cnt        INT              NOT NULL, 
+    to_date       DATE             NOT NULL, 
+    to_content    VARCHAR2(500)    NOT NULL, 
+);
+
+CREATE SEQUENCE community_to_SEQ
+START WITH 1
+INCREMENT BY 1;
+
