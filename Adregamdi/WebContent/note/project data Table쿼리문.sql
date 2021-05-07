@@ -50,21 +50,31 @@ CREATE SEQUENCE CONTENT_CNT_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-DROP TABLE SPOT_INFO PURGE;
-CREATE TABLE SPOT_INFO(
-    spot_idx    NUMBER        CONSTRAINT spot_info_pk primary key,
-    spot_name   varchar2(20)  not null,
-    local_no    number        not null,
-    theme_no    number        not null,
-    spot_content     varchar2(500) not null,
-    spot_writer number        CONSTRAINT spot_writer_fk References User_info(user_no),
-    spot_addr   varchar2(100) not null,
-    spot_cnt        number      not null
-);
+-------------------------------------------------------------------------
 
-CREATE SEQUENCE spot_cnt_seq
-start with 1 
-increment by 1;
+DROP TABLE SPOT_INFO PURGE;
+CREATE TABLE SPOT_INFO (
+    SPOT_IDX        NUMBER          CONSTRAINT SPOT__PK PRIMARY KEY,
+    SPOT_NAME       VARCHAR2(20)    NOT NULL,
+    LOCAL_NO        NUMBER          NOT NULL,
+    THEMA_NO        NUMBER          NOT NULL,
+    SPOT_CONTENT    VARCHAR2(500)   NOT NULL,
+    SPOT_WRITER     NUMBER,
+    SPOT_ADDR       VARCHAR2(100)   NOT NULL
+);
+DROP SEQUENCE SPOT_SEQ;
+CREATE SEQUENCE SPOT_SEQ
+START WITH 1
+INCREMENT BY 1
+MINVALUE 0;
+
+insert into spot_info values (spot_seq.nextval, '새별오름', 1, 1, '오름 중 가장 유명한 곳', 1, '제주 제주시 애월읍 봉성리 산59-8');
+
+SELECT * FROM SPOT_INFO;
+SELECT SPOT_SEQ.NEXTVAL FROM DUAL;
+ROLLBACK;
+
+------------------------------------------------------------------------
 
 DROP TABLE scheduling_custom purge;
 CREATE TABLE scheduling_custom(

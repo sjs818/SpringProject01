@@ -15,4 +15,8 @@ public class SpotDAO {
 	public void addSpotInfo(SpotDTO writeSpotDTO) {
 		spotMapper.addSpotInfo(writeSpotDTO);
 	}
+	
+	public SpotDTO getSpotInfo(int spot_idx) {
+		return spotMapper.getSpotInfo(spot_idx);
+	}
 }

@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -30,7 +32,7 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller","com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
@@ -48,6 +50,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
+	
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -68,6 +71,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		source.setUrl(db_url);
 		source.setUsername(db_username);
 		source.setPassword(db_password);
+		
 		return source;
 	}
 	
@@ -87,7 +91,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 	}
 	
 	@Bean
-	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) {
+	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) throws Exception {
 		MapperFactoryBean<SpotMapper> factoryBean = new MapperFactoryBean<SpotMapper>(SpotMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
@@ -139,7 +143,18 @@ public class ServletAppContext implements WebMvcConfigurer{
 	  	loginReg.addPathPatterns("/user/login");
 	
 	}
+	/*
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+	*/
 	
+	// 파일 처리
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
 	
-	
+		
 }
