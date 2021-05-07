@@ -19,5 +19,13 @@ public class FreedomBoardService {
 		return contentList;
 	}
 	
+	// 크으... 미련하게 List<FreedomBoardDTO>로 받고 있었어....
+	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
+		FreedomBoardDTO content = freedomBoardDAO.getFreedomBoardContent(content_idx);
+		return content;
+	}
 	
+	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
+		freedomBoardDAO.InsertFreedomBoardContent(freedomBoardDTO);
+	}
 }

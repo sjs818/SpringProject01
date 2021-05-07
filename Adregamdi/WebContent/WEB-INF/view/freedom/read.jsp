@@ -16,27 +16,25 @@
 </head>
 
 <body>
+<!-- Header Import -->
+<c:import url="/WEB-INF/view/include/header.jsp" />
+
   <div class="container" style="margin-top: 80px;">
     <h3 class="InputSubject">
-      <b>게시글 작성</b>
+      <b>${readContentDTO.free_title}</b>
     </h3>
+    <h5>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h5>
     <hr>
     <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
         <div class="panel">
           <div class="panel-body">
-            <form:form action="${root}freedom/modifyProc" method="post" modelAttribute="FreedomWriteDTO" class="form-horizontal">
+            <form class="form-horizontal">
               <div class="form-group">
-                <label for="identification" class="control-label col-sm-2">글 제 목</label>
+                <label for="content" class="control-label col-sm-2">글 내 용</label>
                 <div class="col-sm-8">
-                  <input type="text" id="identification" class="form-control">
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="content" class="control-label col-sm-2">글입력</label>
-                <div class="col-sm-8">
-                  <textarea id="content" class="form-control" rows=6 style="resize:none;"></textarea>
+                  <textarea id="content" class="form-control" rows=6 style="resize:none;" disabled>${readContentDTO.free_content}</textarea>
                 </div>
               </div>
               <div class="form-group">
@@ -47,11 +45,11 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-10 text-right">
-                  <button type="button" class="btn btn-success">수정하기</button>
+                  <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
                   <a href="${root}freedom/list" class="btn btn-info">글목록</a>
                 </div>
               </div>
-            </form:form>
+            </form>
           </div>
         </div>
       </div>

@@ -16,9 +16,12 @@
 </head>
 
 <body>
+<!-- Header Import -->
+<c:import url="/WEB-INF/view/include/header.jsp" />
+
   <div class="container" style="margin-top: 80px;">
-    <h3 class="InputSubject">
-      <b>게시글 작성</b>
+     <h3 class="InputSubject">
+      <b>글 수 정</b>
     </h3>
     <hr>
     <div class="row">
@@ -26,18 +29,16 @@
       <div class="col-sm-8">
         <div class="panel">
           <div class="panel-body">
-            <form:form action="${root}freedom/modifyProc" method="post" modelAttribute="FreedomWriteDTO" class="form-horizontal">
+            <form:form action="${root}freedom/modifyProc" method="post" modelAttribute="freedomModifyDTO" class="form-horizontal">
               <div class="form-group">
-                <label for="identification" class="control-label col-sm-2">글 제 목</label>
-                <div class="col-sm-8">
-                  <input type="text" id="identification" class="form-control">
-                </div>
+                <form:label path="free_title">글 제 목</form:label>
+                <form:input path="free_title" class="form-control" />
+                <form:errors path="free_title" style="color:red;" />
               </div>
               <div class="form-group">
-                <label for="content" class="control-label col-sm-2">글입력</label>
-                <div class="col-sm-8">
-                  <textarea id="content" class="form-control" rows=6 style="resize:none;"></textarea>
-                </div>
+                <form:label path="free_content">글 내 용</form:label>
+                <form:textarea path="free_content" class="form-control" rows="10" style="resize:none" />
+                <form:errors path="free_content" style="color:red;" />
               </div>
               <div class="form-group">
                 <label for="pw" class="control-label col-sm-2">첨부파일</label>
@@ -46,8 +47,8 @@
                 </div>
               </div>
               <div class="form-group">
-                <div class="col-sm-10 text-right">
-                  <button type="button" class="btn btn-success">수정완료</button>
+                <div class="col-sm-10 text-center">
+                  <form:button class="btn btn-success">수정완료</form:button>
                   <a href="${root}freedom/read" class="btn btn-danger">취소</a>
                 </div>
               </div>

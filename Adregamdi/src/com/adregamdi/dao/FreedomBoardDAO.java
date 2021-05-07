@@ -20,4 +20,12 @@ public class FreedomBoardDAO {
 		return contentList;
 	}
 	
+	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
+		FreedomBoardDTO content = freedomBoardMapper.getFreedomBoardContent(content_idx);
+		return content;
+	}
+	
+	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
+		freedomBoardMapper.InsertFreedomBoardContent(freedomBoardDTO);
+	}
 }

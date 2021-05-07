@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.service.FreedomBoardService;
@@ -37,26 +38,43 @@ public class FreedomBoardController {
 	}
 	
 	@GetMapping("/read")
-	public String BoardRead() {
+	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
+		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		model.addAttribute("readContentDTO", readContentDTO);
 		return "freedom/read";
 	}
 	
 	@GetMapping("/write")
-	public String BoardWrite() {
+	public String BoardWrite
+	(@ModelAttribute("freedomWriteDTO") FreedomBoardDTO freedomWriteDTO) {
 		return "freedom/write";
 	}
 	
-	@PostMapping("/write_proc")
+	@PostMapping("/writeProc")
 	public String BoardWrite_Proc
-	(@Valid @ModelAttribute("FreedomWriteDTO") FreedomBoardDTO FreedomWriteDTO, BindingResult result) {
+	(@Valid @ModelAttribute("FreedomWriteDTO") FreedomBoardDTO freedomWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "freedom/write";
 		
-		return "freedom/write_proc";
+		freedomBoardService.InsertFreedomBoardContent(freedomWriteDTO);
+		
+		return "freedom/write_success";
 	}
 	
 	@GetMapping("/modify")
-	public String BoardModify() {
+	public String BoardModify
+	(@ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO, 
+	 @RequestParam("content_idx") int content_idx, Model model) {
+		
+		FreedomBoardDTO freedomContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		
+		freedomModifyDTO.setFree_no(freedomContentDTO.getFree_no());
+		freedomModifyDTO.setFree_title(freedomContentDTO.getFree_title());
+		freedomModifyDTO.setFree_content(freedomContentDTO.getFree_content());
+		freedomModifyDTO.setFree_cnt(freedomContentDTO.getFree_cnt());
+		freedomModifyDTO.setContent_writer_id(freedomContentDTO.getContent_writer_id());
+		freedomModifyDTO.setContent_date(freedomContentDTO.getContent_date());
+		
 		return "freedom/modify";
 	}
 	
