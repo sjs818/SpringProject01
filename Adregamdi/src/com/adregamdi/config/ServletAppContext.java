@@ -13,6 +13,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -26,12 +27,13 @@ import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.ScheduleMapper;
+import com.adregamdi.mapper.SpotMapper;
 import com.adregamdi.mapper.TogetherMapper;
 import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller","com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	
@@ -49,6 +51,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
+	
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
@@ -69,6 +72,7 @@ public class ServletAppContext implements WebMvcConfigurer{
 		source.setUrl(db_url);
 		source.setUsername(db_username);
 		source.setPassword(db_password);
+		
 		return source;
 	}
 	
@@ -83,6 +87,13 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Bean
 	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+	@Bean
+	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) throws Exception {
+		MapperFactoryBean<SpotMapper> factoryBean = new MapperFactoryBean<SpotMapper>(SpotMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
@@ -133,7 +144,18 @@ public class ServletAppContext implements WebMvcConfigurer{
 	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
+	/*
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+	*/
 	
+	// 파일 처리
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
 	
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer
@@ -154,4 +176,5 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	
 	
+		
 }
