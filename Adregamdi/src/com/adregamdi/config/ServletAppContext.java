@@ -24,6 +24,7 @@ import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.ScheduleMapper;
+import com.adregamdi.mapper.SpotMapper;
 import com.adregamdi.mapper.TogetherMapper;
 import com.adregamdi.mapper.UserMapper;
 
@@ -81,6 +82,13 @@ public class ServletAppContext implements WebMvcConfigurer{
 	@Bean
 	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+	@Bean
+	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<SpotMapper> factoryBean = new MapperFactoryBean<SpotMapper>(SpotMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
