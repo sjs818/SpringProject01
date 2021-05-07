@@ -6,9 +6,14 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Bootstrap CDN -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <title>Document</title>
 </head>
 <body>
@@ -16,63 +21,47 @@
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
   <!-- Main -->
-  <div>
-  	<div>
-  		<h1>title</h1>
-  		<p>explanation</p>
-  	</div>
+  <div class="container" style="margin-top:100px">
+  	<div class="card shadow">
+	  	<div class="card-header">
+	  		<h1>title</h1>
+	  		<p>explanation</p>
+	  	</div>
   	
-  	<%--
-  	<div>
-  		<form:form action="${root }schedule/write_proc" method="post" modelAttribute="" enctype="">
-  			<div>
-  				<form:label path="">제목</form:label>
-  				<form:input path=""/>
-  			</div>
-  			<div>
-  				<form:label path="">기간</form:label>
-  				<form:input path=""/>
-  				<form:input path=""/>
-  			</div>
-  			<div>
-  				<form:label path="">내용</form:label>
-  				<form:textarea path=""></form:textarea>
-  			</div>
-  			<div>
-  				<form:button>등록하기</form:button>
-  			</div>
-  		</form:form>
-  	</div>
-  	--%>
-  	
-  	<div>
-  		<form action="${root }schedule/write_proc" method="post">
-  			
-  			<div>
-  				<label>제목</label>
-  				<input type="text">
-  			</div>
-  			
-  			<div>
-  				<label>기간</label>
-  				출발 : <input type="date">
-  				도착 : <input type="date">
-  			</div>
-  			
-  			<div>
-  				<label>내용</label>
-  				<textarea rows="30" cols="50"></textarea>
-  			</div>
-  			
-  			<div>
-  				<input type="submit" value="수정하기">
-  				<a href="${root }schedule/list">취소</a>
-  			</div>
-  			
-  		</form>
+  		<div class="card-body">
+	  		<form action="${root }schedule/modify_proc" method="post" >
+	  			
+	  			<div class="form-group">
+	  				<label for="schedule_title">제목</label>
+	  				<input class="form-control" type="text" id="schedule_title" name="schedule_title" value="${scheduleDTO.schedule_title }">
+	  			</div>
+	  			
+	  			<div class="row">
+		  			<div class="form-group col-6">
+		  				<label>출발</label>
+		  				<input class="form-control" type="date" id="schedule_start" name="schedule_start" value="${scheduleDTO.schedule_start }">
+		  			</div>
+		  			
+		  			<div class="form-group col-6">
+		  				<label>도착</label>
+		  				<input class="form-control" type="date" id="schedule_end" name="schedule_end" value="${scheduleDTO.schedule_end }">
+		  			</div>
+		  		</div>
+		  		
+	  			<div class="form-group">
+	  				<label for="schedule_content">내용</label>
+	  				<textarea id="schedule_content" class="form-control" name="schedule_content" rows="30" cols="50">${scheduleDTO.schedule_content }</textarea>
+	  			</div>
+	  			
+	  			<div class="text-right">
+	  				<input class="btn btn-primary" type="submit" value="수정하기">
+	  				<a class="btn btn-danger" href="${root }schedule/list?page=${page }">취소</a>
+	  			</div>
+	  			
+	  		</form>
+  		</div>
   	</div>
   </div>
-  
   <!-- Footer -->
   <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>

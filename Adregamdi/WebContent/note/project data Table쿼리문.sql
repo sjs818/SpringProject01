@@ -56,9 +56,10 @@ CREATE TABLE SPOT_INFO(
     spot_name   varchar2(20)  not null,
     local_no    number        not null,
     theme_no    number        not null,
-    content     varchar2(500) not null,
+    spot_content     varchar2(500) not null,
     spot_writer number        CONSTRAINT spot_writer_fk References User_info(user_no),
-    spot_addr   varchar2(100) not null
+    spot_addr   varchar2(100) not null,
+    spot_cnt        number      not null
 );
 
 CREATE SEQUENCE spot_cnt_seq
@@ -79,4 +80,17 @@ CREATE TABLE scheduling_custom(
 CREATE SEQUENCE schedule_cnt_SEQ
 START with 1
 increment by 1;
+
+CREATE TABLE community_to(
+    to_no         INT              CONSTRAINT community_co_pk primary key,
+    to_writer     INT              CONSTRAINT community_co_fk REFERENCES user_info(user_no),
+    to_title      VARCHAR2(50)     NOT NULL, 
+    to_cnt        INT              NOT NULL, 
+    to_date       DATE             NOT NULL, 
+    to_content    VARCHAR2(500)    NOT NULL, 
+);
+
+CREATE SEQUENCE community_to_SEQ
+START WITH 1
+INCREMENT BY 1;
 

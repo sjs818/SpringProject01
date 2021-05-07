@@ -1,5 +1,5 @@
 package com.adregamdi.mapper;
 
-public interface Board02Mapper {
+public interface TogetherMapper {
 
 }
