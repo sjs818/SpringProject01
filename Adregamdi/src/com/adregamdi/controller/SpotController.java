@@ -25,7 +25,7 @@ public class SpotController {
 	}
 	
 	@GetMapping("/local_detail")
-	public String localDetail(@RequestParam("spot_no") int spot_no) {
+	public String localDetail(@RequestParam("local_no") int local_no) {
 		return "spot/local_detail";
 	}
 	

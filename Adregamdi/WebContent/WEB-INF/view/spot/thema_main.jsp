@@ -30,9 +30,9 @@
 				<h3>테마</h3>
 				<div class="area_List m_none">
 					<ul class="clfix">
-						<li id="0"><a href="${root }spot/thema_detail">볼거리</a></li>
-						<li id="1"><a href="${root }spot/thema_detail">먹거리</a> </li>
-						<li id="2"><a href="${root }spot/thema_detail">놀거리</a></li>
+						<li id="0"><a href="${root }spot/thema_detail?thema_no=1">볼거리</a></li>
+						<li id="1"><a href="${root }spot/thema_detail?thema_no=2">먹거리</a> </li>
+						<li id="2"><a href="${root }spot/thema_detail?thema_no=3">놀거리</a></li>
 					</ul>
 				</div>
 			</div>
@@ -43,18 +43,18 @@
 					<span class="date">제주의 추천 여행지를 소개합니다.</span>
 					<div class="listBn_msPc m_none" id="msmain0">
 						<ul class="clfix">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">5</a></li>
+							<li><a href="${root }spot/read">1</a></li>
+							<li><a href="${root }spot/read">2</a></li>
+							<li><a href="${root }spot/read">3</a></li>
+							<li><a href="${root }spot/read">4</a></li>
+							<li><a href="${root }spot/read">5</a></li>
 						</ul>
 						<ul>
-							<li><a href="#">6</a></li>
-							<li><a href="#">7</a></li>
-							<li><a href="#">8</a></li>
-							<li><a href="#">9</a></li>
-							<li><a href="#">10</a></li>
+							<li><a href="${root }spot/read">6</a></li>
+							<li><a href="${root }spot/read">7</a></li>
+							<li><a href="${root }spot/read">8</a></li>
+							<li><a href="${root }spot/read">9</a></li>
+							<li><a href="${root }spot/read">10</a></li>
 						</ul>
 					</div>
 				</div>
@@ -62,7 +62,7 @@
 		</div>
 	</div>
 
-
+	<br><br>
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
