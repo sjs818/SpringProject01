@@ -2,6 +2,7 @@ package com.adregamdi.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -38,21 +39,17 @@ public class SpotController {
 	public String themaDetail(@RequestParam("thema_no") int thema_no) {
 		return "spot/thema_detail";
 	}
-	
-	@GetMapping("/thema")
-	public String thema() {
-		return "spot/thema";
-	}
-	
-	@GetMapping("/write")
-	public String write(@ModelAttribute("spotDTO") SpotDTO writeSpotDTO ) {
 		
+	@GetMapping("/write")
+	public String write(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, Model model ) {
 		
 		return "spot/write";
 	}
 	
+	
 	@PostMapping("/write_proc")
-	public String spotWriteProc(@ModelAttribute("spotDTO") SpotDTO writeSpotDTO, BindingResult result) {
+	public String spotWriteProc(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, BindingResult result, Model model) {
+		
 		
 		if(result.hasErrors()) {
 			return "spot/write";
@@ -60,17 +57,32 @@ public class SpotController {
 		
 		spotService.addSpotInfo(writeSpotDTO);
 		
-		return "spot/success";
+		model.addAttribute("spot_idx", writeSpotDTO.getSpot_idx());
+		
+		
+		
+		return "spot/write_success";
 	}
 	
+	
 	@GetMapping("/read") 
-	public String spotRead(){
+	public String spotRead(@ModelAttribute("readSpotDTO")SpotDTO readSpotDTO, @RequestParam("spot_idx")int spot_idx, Model model){
+		
+		readSpotDTO = spotService.getSpotInfo(spot_idx);
+		model.addAttribute("readSpotDTO", readSpotDTO);
+		
 		return "spot/read";
 	}
 	
 	@GetMapping("/modify")
-	public String spotModify() {
+	public String spotModify(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO) {
 		return "spot/modify";
+	}
+	
+	@PostMapping("/modify_proc")
+	public String spotModifyProc(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO, BindingResult result) {
+		
+		return "spot/modify_success";
 	}
 	
 	@GetMapping("/delete") 

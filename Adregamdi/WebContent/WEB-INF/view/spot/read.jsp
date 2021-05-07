@@ -31,10 +31,12 @@
 				<div class="card shadow">
 					<div class="card-body">
 						<div class="form-group">
-							<label for="spot_writer">작성자</label> <input type="text" id="spot_writer" name="spot_writer" class="form-control" value=${readSpotDTO.spot_writer } disabled="disabled" />
+							<label for="spot_writer">작성자</label> 
+							<input type="text" id="spot_writer" name="spot_writer" class="form-control" value=${readSpotDTO.spot_writer } disabled="disabled" />
 						</div>
 						<div class="form-group">
-							<label for="spot_name">여행지명</label> <input type="text" id="spot_name" name="spot_name" class="form-control" value=${readSpotDTO.spot_name } disabled="disabled" />
+							<label for="spot_name">여행지명</label> 
+							<input type="text" id="spot_name" name="spot_name" class="form-control" value=${readSpotDTO.spot_name } disabled="disabled" />
 						</div>
 
 						<div class="form-group">
@@ -45,7 +47,7 @@
 						<c:if test="${readSpotDTO.content_file != null }">
 							<div class="form-group">
 								<label for="board_file">첨부 이미지</label> 
-								<img src="${root }upload/${readContentDTO.content_file}" width="100%" />
+								<img src="${root }upload/${readSpotDTO.content_file}" width="100%" />
 							</div>
 						</c:if>
 						
@@ -67,11 +69,14 @@
 		<form class="form-group">
 				<div class="text-center">
 					<!-- spotDTO의 check값 확인해서 1이면 local_detail페이지로 2면 thema_detail로 -->
-					<%-- <c:if test=${readSpotDTO.check == 1 } > --%>
-					<a href="${root}spot/local_detail?local_no=1" class="btn btn-secondary">뒤로가기</a>
-					<%-- <c:if> --%>
-	
-					<a href="${root }spot/modify" class="btn btn-info">수정하기</a>
+					<%-- <c:if test="${check == 1 }" > 
+						<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
+					</c:if>
+					<c:if test="${check == 2 }" >
+						<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
+					</c:if>	 --%>
+					<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
+					<a href="${root }spot/modify?spot_idx=${spot_idx}" class="btn btn-info">수정하기</a>
 					<a href="${root }spot/delete?spot_idx=${spot_idx}" class="btn btn-danger">삭제하기</a>
 				</div>
 			</form>

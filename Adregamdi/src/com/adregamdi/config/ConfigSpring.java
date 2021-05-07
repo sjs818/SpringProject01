@@ -1,6 +1,7 @@
 package com.adregamdi.config;
 
 import javax.servlet.Filter;
+import javax.servlet.MultipartConfigElement;
 
 import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -27,6 +28,15 @@ public class ConfigSpring extends AbstractAnnotationConfigDispatcherServletIniti
 		CharacterEncodingFilter encodingFilter = new CharacterEncodingFilter();
 		encodingFilter.setEncoding("UTF-8");
 		return new Filter[] {encodingFilter};
+	}
+		
+	@Override
+	protected void customizeRegistration(javax.servlet.ServletRegistration.Dynamic registration) {
+		super.customizeRegistration(registration);
+		
+		MultipartConfigElement config1 = new MultipartConfigElement(null, 50*1024*1024, 200*1024*1024, 0);
+			
+		registration.setMultipartConfig(config1);
 	}
 	
 }

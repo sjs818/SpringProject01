@@ -30,9 +30,9 @@
 				<h3>지역</h3>
 				<div class="area_List m_none">
 					<ul class="clfix">
-						<li id="0"><a href="${root }spot/local_detail?local_no=0">전체 지역</a></li>
-						<li id="1"><a href="${root }spot/local_detail?local_no=1">제주시</a> </li>
-						<li id="2"><a href="${root }spot/local_detail?local_no=2">서귀포시</a></li>
+						<li id="0"><a href="${root }spot/local_detail?local_no=0&check=1">전체 지역</a></li>
+						<li id="1"><a href="${root }spot/local_detail?local_no=1&check=1">제주시</a> </li>
+						<li id="2"><a href="${root }spot/local_detail?local_no=2&check=1">서귀포시</a></li>
 					</ul>
 				</div>
 			</div>
@@ -43,18 +43,18 @@
 					<span class="date">제주의 추천 여행지를 소개합니다.</span>
 					<div class="listBn_msPc m_none" id="msmain0">
 						<ul class="clfix">
-							<li><a href="${root }spot/read">1</a></li>
-							<li><a href="${root }spot/read">2</a></li>
-							<li><a href="${root }spot/read">3</a></li>
-							<li><a href="${root }spot/read">4</a></li>
-							<li><a href="${root }spot/read">5</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">1</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">2</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">3</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">4</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">5</a></li>
 						</ul>
 						<ul>
-							<li><a href="${root }spot/read">6</a></li>
-							<li><a href="${root }spot/read">7</a></li>
-							<li><a href="${root }spot/read">8</a></li>
-							<li><a href="${root }spot/read">9</a></li>
-							<li><a href="${root }spot/read">10</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">6</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">7</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">8</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">9</a></li>
+							<li><a href="${root }spot/read?check=1&spot_idx=2">10</a></li>
 						</ul>
 					</div>
 				</div>
