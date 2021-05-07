@@ -51,8 +51,8 @@
 								<form:errors path="user_pw" style="color: red;" />
 							</div>
 							<div class="form-group text-right">
-								<form:button class="btn btn-info">로그인</form:button>
-								<a href="${root }user/join" class="btn btn-secondary">회원가입</a>
+								<form:button class="btn btn-success ">로그인</form:button>
+								<a href="${root }user/join" class="btn btn-info">회원가입</a>
 							</div>
 						</form:form>
 					</div>

@@ -73,7 +73,7 @@
                       <div class="input-group">
                         <form:input path="user_id" class="form-control" onkeypress="resetinputUserID()"/>
                         <div class="input-group-append">
-                          <button type="button" class="btn btn-primary" onClick="checkID();">중복확인</button>
+                          <button type="button" class="btn btn-success" onClick="checkID();">중복확인</button>
                         </div>
                       </div>
                       <form:errors path="user_id" style="color:red;" />
@@ -101,7 +101,7 @@
   					</div> 
                     <div class="form-group">
                       <div class="text-right">
-                        <form:button class="btn btn-primary">회원가입</form:button>
+                        <form:button class="btn btn-success">회원가입</form:button>
                       </div> 
                     </div>                  
                     </form:form>
