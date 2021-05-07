@@ -11,6 +11,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -120,17 +122,35 @@ public class ServletAppContext implements WebMvcConfigurer{
 	  	InterceptorRegistration topReg
 	  	  = registry.addInterceptor(topMenuInterceptor);
 		
-	  	InterceptorRegistration userReg
+	  	InterceptorRegistration not_loginReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
-	  	InterceptorRegistration loginReg
+	  	InterceptorRegistration null_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
-	  	userReg.addPathPatterns("/user/modify", "/user/logout");
-	  	loginReg.addPathPatterns("/user/login");
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
+	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
+	
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer
+	propertySourcePlaceholderConfigurer() {
+	 	return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource res =
+				new ReloadableResourceBundleMessageSource();
+		res.setBasenames("/WEB-INF/properties/error_message");
+		return res;
+	}
+	
+	
+	
 	
 	
 	

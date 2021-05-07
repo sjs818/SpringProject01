@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
+import com.adregamdi.validator.UserValidator;
 
 @Controller
 @RequestMapping("/user")
@@ -89,6 +92,15 @@ public class UserController {
 	}
 	
 	
+	@PostMapping("/join_proc")
+	public String joinProc(@Valid @ModelAttribute("joinUserDTO") UserDTO joinUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/join";
+		}
+		userService.addUserInfo(joinUserDTO);
+		
+		return "user/join_success";		
+	}
 	
 	
 	
@@ -96,7 +108,9 @@ public class UserController {
 	
 	
 	
-	
-	
-	
+	@InitBinder
+  public void initBinder(WebDataBinder binder) {
+	  	UserValidator validator1 = new UserValidator();
+	  	binder.addValidators(validator1);
+	  }
 }
