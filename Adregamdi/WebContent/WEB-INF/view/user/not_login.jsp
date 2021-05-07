@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <script>
-  alert('로그인하셔야 사용하실 수 있습니다');
+  alert('로그인 후 이용가능합니다.');
   location.href = '${root}user/login';
 </script>
