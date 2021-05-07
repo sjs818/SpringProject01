@@ -78,4 +78,25 @@ public class UserController {
 		return "user/null_login";
 	}
 	
+	
+	
+	
+	
+	@GetMapping("/join")
+	public String join(@ModelAttribute("joinUserDTO") UserDTO joinUserDTO) {
+		
+		return "user/join";
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }
