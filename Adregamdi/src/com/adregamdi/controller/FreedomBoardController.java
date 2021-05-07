@@ -78,5 +78,13 @@ public class FreedomBoardController {
 		return "freedom/modify";
 	}
 	
+	@PostMapping("/modifyProc")
+	public String BoardModify_Proc
+	(@Valid @ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO, BindingResult result) {
+		
+		freedomBoardService.ModifyFreedomBoardContent(freedomModifyDTO);
+		
+		return "freedom/modify_success";
+	}
 	
 }

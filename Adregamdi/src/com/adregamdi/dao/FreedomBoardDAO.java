@@ -28,4 +28,8 @@ public class FreedomBoardDAO {
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
 		freedomBoardMapper.InsertFreedomBoardContent(freedomBoardDTO);
 	}
+	
+	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
+		freedomBoardMapper.modifyFreedomBoardContent(freedomModifyDTO);
+	}
 }

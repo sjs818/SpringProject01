@@ -28,4 +28,8 @@ public class FreedomBoardService {
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
 		freedomBoardDAO.InsertFreedomBoardContent(freedomBoardDTO);
 	}
+	
+	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
+		freedomBoardDAO.ModifyFreedomBoardContent(freedomModifyDTO);
+	}
 }

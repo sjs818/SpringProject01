@@ -30,6 +30,7 @@
         <div class="panel">
           <div class="panel-body">
             <form:form action="${root}freedom/modifyProc" method="post" modelAttribute="freedomModifyDTO" class="form-horizontal">
+              <form:hidden path="free_no" />
               <div class="form-group">
                 <form:label path="free_title">글 제 목</form:label>
                 <form:input path="free_title" class="form-control" />

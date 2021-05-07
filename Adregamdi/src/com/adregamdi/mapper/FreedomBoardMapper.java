@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 
@@ -26,4 +27,8 @@ public interface FreedomBoardMapper {
 	@Insert("INSERT INTO FREEDOMBOARD(FREE_NO, FREE_WRITER, FREE_TITLE, FREE_CNT, FREE_DATE, FREE_CONTENT) " + 
 			"VALUES(CONTENT_CNT_SEQ.nextval, 1, #{free_title}, 0, SYSDATE, #{free_content}) ")
 	void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO);
+	
+	@Update("UPDATE FREEDOMBOARD SET FREE_TITLE=#{free_title}, FREE_CONTENT=#{free_content}, free_date=SYSDATE " + 
+			"WHERE FREE_NO = #{free_no}")
+	void modifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO);
 }
