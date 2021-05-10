@@ -19,7 +19,7 @@ public class SpotService {
 	@Autowired
 	SpotDAO spotDAO;
 	
-	@Value("{path.load}")
+	@Value("${path.load}")
 	private String path_load;
 	
 	// 파일 이름을 조금씩 바꿔 정해준 경로에 저장
@@ -62,8 +62,10 @@ public class SpotService {
 		MultipartFile upload_file = modifySpotDTO.getUpload_file();
 		
 		// 기존 데이터를 가져옴
+		System.out.println("--------------------------------------------------");
+		System.out.println("spot_idx : " + spot_idx);
 		SpotDTO checkSpotDTO = spotDAO.getSpotInfo(spot_idx);
-		
+		System.out.println("--------------------------------------------------");
 		if(upload_file.getSize()>0) {
 			String originFileName = checkSpotDTO.getUpload_file().getOriginalFilename();
 			System.out.println("originFileName : " + originFileName);
