@@ -3,9 +3,10 @@ package com.adregamdi.dto;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.Data;
+import lombok.Getter;
 import lombok.Setter;
 
-@Setter @Data
+@Setter @Data @Getter
 public class TogetherDTO {
 	
 	// 글번호

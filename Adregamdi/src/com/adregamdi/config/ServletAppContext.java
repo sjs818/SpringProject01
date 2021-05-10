@@ -12,6 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
@@ -126,17 +127,21 @@ public class ServletAppContext implements WebMvcConfigurer {
 		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
 
 		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
-
-		InterceptorRegistration topReg = registry.addInterceptor(topMenuInterceptor);
-
-		InterceptorRegistration userReg = registry.addInterceptor(loginInterceptor);
-
-		InterceptorRegistration loginReg = registry.addInterceptor(loginBlockInterceptor);
-
-		topReg.addPathPatterns("/**");
-		userReg.addPathPatterns("/user/modify", "/user/logout");
-		loginReg.addPathPatterns("/user/login");
-
+		
+		
+	  	InterceptorRegistration topReg
+	  	  = registry.addInterceptor(topMenuInterceptor);
+		
+	  	InterceptorRegistration not_loginReg
+		  = registry.addInterceptor(loginInterceptor);
+	  	
+	  	InterceptorRegistration null_loginReg
+		  = registry.addInterceptor(loginBlockInterceptor);
+	  	
+	  	topReg.addPathPatterns("/**");
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
+	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
+	
 	}
 
 	// properties 폴더 안에 있는 properties파일들이 충돌되지 않도록 개별적으로 관리해주는 Bean
@@ -150,5 +155,18 @@ public class ServletAppContext implements WebMvcConfigurer {
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
 	}
-
+	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer
+	propertySourcePlaceholderConfigurer() {
+	 	return new PropertySourcesPlaceholderConfigurer();
+	}
+	
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource res =
+				new ReloadableResourceBundleMessageSource();
+		res.setBasenames("/WEB-INF/properties/error_message");
+		return res;
+	}
 }
