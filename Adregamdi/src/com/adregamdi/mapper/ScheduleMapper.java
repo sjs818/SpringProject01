@@ -25,4 +25,12 @@ public interface ScheduleMapper {
 	
 	@Delete("DELETE FROM SCHEDULE WHERE SCHEDULE_NO = #{schedule_no}")
 	void deleteSchedule(int schedule_no);
+	
+	/*
+	 * @Insert("INSERT INTO PLAN VALUES(PLAN_SEQ.NEXTVAL, 1, #{plan_title}, #{plan_info}, #{plan_img}"
+	 * ) void createPlan(PlanDTO)
+	 */
+	
+	@Select("SELECT PLAN_SEQ.CURVAL FROM DUAL")
+	int getPlanNo();
 }

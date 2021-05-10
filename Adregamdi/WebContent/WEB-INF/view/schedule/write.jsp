@@ -14,13 +14,12 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<!-- CKEditor -->
-<script src="//cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
-<script type="text/javascript">
-	$(function() {
-		CKEDITOR.replace('schedule_content');
-	})
-</script>
+<!-- FontAwesome -->
+<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+<!-- T Map API -->
+<script	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdc109d32e488487dbf0e29b9dfcf1a59"></script>
+<!-- JavaScript -->
+<script src="${root }js/schedule.js"></script>
 <title>Document</title>
 </head>
 <body>
@@ -28,47 +27,57 @@
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
   <!-- Main -->
-  <div class="container" style="margin-top:100px">
-  	<div class="card shadow">
-	  	<div class="card-header">
-	  		<h1>title</h1>
-	  		<p>explanation</p>
-	  	</div>
-  	
-  		<div class="card-body">
-	  		<form action="${root }schedule/write_proc" method="post" >
-	  			
-	  			<div class="form-group">
-	  				<label for="schedule_title">제목</label>
-	  				<input class="form-control" type="text" id="schedule_title" name="schedule_title">
-	  			</div>
-	  			
-	  			<div class="row">
-		  			<div class="form-group col-6">
-		  				<label>출발</label>
-		  				<input class="form-control" type="date" id="schedule_start" name="schedule_start">
-		  			</div>
-		  			
-		  			<div class="form-group col-6">
-		  				<label>도착</label>
-		  				<input class="form-control" type="date" id="schedule_end" name="schedule_end">
-		  			</div>
-		  		</div>
-		  		
-	  			<div class="form-group">
-	  				<label for="schedule_content">내용</label>
-	  				<textarea id="schedule_content" class="form-control" name="schedule_content" rows="30" cols="50"></textarea>
-	  			</div>
-	  			
-	  			<div class="text-right">
-	  				<input class="btn btn-primary" type="submit" value="등록하기">
-	  			</div>
-	  			
-	  		</form>
-  		</div>
-  	</div>
-  </div>
-  
+
+    <!-- SideBar -->
+    <div class="sidebar-wrapper shadow" style="margin-top:55px">
+      <div class="sidebar-content">
+        <div class="sidebar-brand" style="background: #258fff;">
+          <h1>title</h1>
+          <p>explanation</p>
+        </div>
+        <div class="sidebar-search" style="background: #258fff;">
+          <div class="input-group">
+            <input type="text" class="form-control search-menu" placeholder="">
+            <div class="input-group-append" id="search">
+              <span class="input-group-text">
+                <i class="fa fa-search"></i>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-menu" style="background: #f5f5f5;">
+          <!-- 기본 -->
+          <ul style="padding: 10px 20px;">
+            <li class="header-menu">
+            	<span>관광지 리스트</span>
+            </li>
+						<form method="get" name="imgForm" id="imgForm"></form>
+          </ul>
+          <!-- 검색 -->
+          <ul style="display: none; padding: 10px 20px">
+            <li class="header-menu">
+              <span>검색 결과</span>
+            </li>
+            <form method="get" name="keywordForm" id="keywordForm"></form>
+          </ul>
+        </div>
+      </div>
+      <div class="sidebar-footer" style="background: #e9e9e9; border-top: 1px solid #ddd;">
+      	<form action="${root }schedule/write_proc" method="post">
+					<button type="button" class="btn btn-primary">저장</button>
+				</form>
+      </div>
+    </div>
+
+    <!-- Content -->
+    <div class="page-content">
+      <div class="container">
+        <div id="tmap_api"></div>
+      </div>  
+    </div>
+
+    <!-- Modal -->
+
   <!-- Footer -->
   <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>

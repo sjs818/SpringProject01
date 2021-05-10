@@ -29,7 +29,7 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller","com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service", "com.adregamdi.api"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer{
 	

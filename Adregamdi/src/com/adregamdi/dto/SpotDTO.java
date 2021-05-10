@@ -7,28 +7,28 @@ import lombok.Data;
 @Data
 public class SpotDTO {
 	
-	// 관광지 번호 
+	// 愿�愿묒� 踰덊샇 
     private Integer spot_idx;
 
-    // 관광지 이름 
+    // 愿�愿묒� �씠由� 
     private String spot_name;
 
-    // 지역번호 - 1(제주), 2(서귀포시)
+    // 吏��뿭踰덊샇 - 1(�젣二�), 2(�꽌洹��룷�떆)
     private Integer local_no;
 
-    // 테마번호 - 1(놀거리), 2(먹거리), 3(볼거리)
+    // �뀒留덈쾲�샇 - 1(��嫄곕━), 2(癒밴굅由�), 3(蹂쇨굅由�)
     private Integer theme_no;
 
-    // 관광지 주소 
+    // 愿�愿묒� 二쇱냼 
     private String spot_addr;
     
-    // 내용 
+    // �궡�슜 
     private String spot_content;
 
-    // 작성자 
+    // �옉�꽦�옄 
     private Integer spot_writer;
     
-    // 파일 등록
+    // �뙆�씪 �벑濡�
     private MultipartFile upload_file;
 
     
