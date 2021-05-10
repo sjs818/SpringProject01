@@ -10,9 +10,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -26,7 +27,7 @@
     <h5>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h5>
     <hr>
     <div class="row">
-      <div class="col-sm-2"></div>
+      <div class="col-sm-3"></div>
       <div class="col-sm-8">
         <div class="panel">
           <div class="panel-body">
@@ -38,13 +39,7 @@
                 </div>
               </div>
               <div class="form-group">
-                <label for="pw" class="control-label col-sm-2">첨부파일</label>
-                <div class="col-sm-8">
-                  <input type="password" id="pw" class="form-control">
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-10 text-right">
+                <div class="col-sm-6">
                   <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
                   <a href="${root}freedom/list" class="btn btn-info">글목록</a>
                 </div>

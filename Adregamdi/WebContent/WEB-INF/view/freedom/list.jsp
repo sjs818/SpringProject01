@@ -10,9 +10,10 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>어드레 감디 - 자유게시판</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 	<!-- Header Import -->
@@ -24,14 +25,14 @@
 			<b>자유게시판</b>
 		</h3>
 		<hr>
-		<table class="table table-bordered">
+		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="text-center col-md-1">글번호</th>
-					<th class="text-center col-md-6">글제목</th>
-					<th class="text-center col-md-1">작성자</th>
-					<th class="text-center col-md-1">조회수</th>
-					<th class="text-center col-md-2">작성날짜</th>
+			      <th class="text-center" style="width:8%">글번호</th>
+        		  <th class="text-center" style="width:55%">글제목</th>
+                  <th class="text-center" style="width:10%">작성자</th>
+                  <th class="text-center" style="width:8%">조회수</th>
+                  <th class="text-center" style="width:15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,25 +47,25 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="pageNevigation text-center">
-			<ul class="pagination">
-				<li class="disabled"><a href="#">이전</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3 </a></li>
-				<li><a href="#">4 </a></li>
-				<li><a href="#">5 </a></li>
-				<li><a href="#">6 </a></li>
-				<li><a href="#">7 </a></li>
-				<li><a href="#">8 </a></li>
-				<li><a href="#">9 </a></li>
-				<li><a href="#">10 </a></li>
-				<li><a href="#">다음</a></li>
+		<div class="pageNevigation">
+			<ul class="pagination justify-content-center">
+				<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+        		<li class="page-item active"><a class="page-link" href="#">1</a></li>
+       			<li class="page-item"><a class="page-link" href="#">2</a></li>
+        		<li class="page-item"><a class="page-link" href="#">3 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">4 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">5 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">6 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">7 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">8 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">9 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">10 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">다음</a></li>
 			</ul>
 		</div>
 		  <div class="text-right">
       		<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
-      		<a href="#" class="btn btn-danger">글 삭 제</a>
+      		<a href="${root}freedom/delete" class="btn btn-danger">글 삭 제</a>
     	  </div>
 	 </div>
 </body>
