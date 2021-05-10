@@ -40,8 +40,13 @@
               </div>
               <div class="form-group">
                 <div class="col-sm-6">
-                  <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
-                  <a href="${root}freedom/list" class="btn btn-info">글목록</a>
+                <a href="${root}freedom/list" class="btn btn-info">목록보기</a>
+                 <c:if test="${loginUserDTO.userLogin == true}">
+                   <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx }" >
+                    <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
+                    <a href="#" class="btn btn-danger">삭제하기</a>
+                   </c:if>
+                  </c:if>
                 </div>
               </div>
             </form>

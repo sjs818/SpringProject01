@@ -3,6 +3,7 @@ package com.adregamdi.controller;
 
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.FreedomBoardService;
 
 @Controller
@@ -25,9 +27,13 @@ public class FreedomBoardController {
 	@Autowired
 	FreedomBoardService freedomBoardService;
 	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	@GetMapping("/list")
 	public String BoardList(Model model) {
 		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList();
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
 		return "freedom/list";
 	}
@@ -40,6 +46,7 @@ public class FreedomBoardController {
 	@GetMapping("/read")
 	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "freedom/read";
 	}

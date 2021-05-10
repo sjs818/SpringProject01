@@ -17,7 +17,7 @@ public interface FreedomBoardMapper {
 			" ORDER BY F.FREE_NO DESC ")
 	List<FreedomBoardDTO> getFreedomBoardList();
 	
-	@Select("SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
+	@Select("SELECT F.FREE_NO, U.USER_NO FREE_CONTENT_WRITER_IDX, U.USER_ID CONTENT_WRITER_ID, TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			"F.FREE_TITLE, F.FREE_CONTENT, F.FREE_CNT " + 
 			"FROM USER_INFO U, FREEDOMBOARD F " +
 			"WHERE U.USER_NO = F.FREE_WRITER " +
@@ -25,7 +25,7 @@ public interface FreedomBoardMapper {
 	FreedomBoardDTO getFreedomBoardContent(int content_idx);
 	
 	@Insert("INSERT INTO FREEDOMBOARD(FREE_NO, FREE_WRITER, FREE_TITLE, FREE_CNT, FREE_DATE, FREE_CONTENT) " + 
-			"VALUES(CONTENT_CNT_SEQ.nextval, 1, #{free_title}, 0, SYSDATE, #{free_content}) ")
+			"VALUES(CONTENT_CNT_SEQ.nextval, #{free_content_writer_idx}, #{free_title}, 0, SYSDATE, #{free_content}) ")
 	void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO);
 	
 	@Update("UPDATE FREEDOMBOARD SET FREE_TITLE=#{free_title}, FREE_CONTENT=#{free_content}, free_date=SYSDATE " + 

@@ -64,8 +64,9 @@
 			</ul>
 		</div>
 		  <div class="text-right">
-      		<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
-      		<a href="${root}freedom/delete" class="btn btn-danger">글 삭 제</a>
+		    <c:if test="${loginUserDTO.userLogin == true}">
+      			<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
+      		</c:if>
     	  </div>
 	 </div>
 </body>
