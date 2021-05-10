@@ -44,7 +44,7 @@
                  <c:if test="${loginUserDTO.userLogin == true}">
                    <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx }" >
                     <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
-                    <a href="${root}freedom/delete" class="btn btn-danger">삭제하기</a>
+                    <a href="${root}freedom/delete?content_idx=${readContentDTO.free_no}" class="btn btn-danger">삭제하기</a>
                    </c:if>
                   </c:if>
                 </div>

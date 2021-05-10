@@ -24,6 +24,12 @@ public interface FreedomBoardMapper {
 			"AND F.FREE_NO = #{content_idx}")
 	FreedomBoardDTO getFreedomBoardContent(int content_idx);
 	
+	@Select("SELECT U.USER_PW " + 
+			"FROM FREEDOMBOARD F, USER_INFO U " + 
+			"WHERE U.USER_NO = F.FREE_WRITER " + 
+			"AND F.FREE_NO = #{content_idx}")
+	String GetFreedomBoardPassword(int content_idx);
+	
 	@Insert("INSERT INTO FREEDOMBOARD(FREE_NO, FREE_WRITER, FREE_TITLE, FREE_CNT, FREE_DATE, FREE_CONTENT) " + 
 			"VALUES(CONTENT_CNT_SEQ.nextval, #{free_content_writer_idx}, #{free_title}, 0, SYSDATE, #{free_content}) ")
 	void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO);

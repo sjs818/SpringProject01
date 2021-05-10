@@ -26,7 +26,7 @@
     </h3>
     <hr>
     <div class="row">
-      <div class="col-sm-2"></div>
+      <div class="col-sm-3"></div>
       <div class="col-sm-8">
         <div class="panel">
           <div class="panel-body">
@@ -39,14 +39,8 @@
               </div>
               <div class="form-group">
                 <form:label path="free_content">글 내 용</form:label>
-                <form:textarea path="free_content" class="form-control" rows="10" style="resize:none" />
+                <form:textarea path="free_content" class="form-control" rows="10" style="resize:none"/>
                 <form:errors path="free_content" style="color:red;" />
-              </div>
-              <div class="form-group">
-                <label for="pw" class="control-label col-sm-2">첨부파일</label>
-                <div class="col-sm-8">
-                  <input type="password" id="pw" class="form-control">
-                </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-10 text-center">

@@ -39,8 +39,19 @@ public class FreedomBoardController {
 	}
 	
 	@GetMapping("/delete")
-	public String BoardDelete() {
+	public String BoardDelete
+	(@RequestParam("content_idx") int content_idx, Model model) {
+		FreedomBoardDTO freedomDeleteDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		model.addAttribute("freedomDeleteDTO", freedomDeleteDTO);
+		
 		return "freedom/delete";
+	}
+	
+	@PostMapping("/deleteProc")
+	public String BoardDeleteProc
+	(@RequestParam("content_idx") int content_idx) {
+		
+		return "";
 	}
 	
 	@GetMapping("/read")
