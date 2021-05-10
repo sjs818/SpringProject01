@@ -32,38 +32,37 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service"})
+@ComponentScan(basePackages = { "com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service" })
 @PropertySource("/WEB-INF/properties/db.properties")
-public class ServletAppContext implements WebMvcConfigurer{
-	
+public class ServletAppContext implements WebMvcConfigurer {
+
 	@Value("${db.classname}")
 	private String db_classname;
-	
+
 	@Value("${db.url}")
 	private String db_url;
-	
+
 	@Value("${db.username}")
 	private String db_username;
-	
+
 	@Value("${db.password}")
 	private String db_password;
-	
-	@Resource(name="loginUserDTO")
+
+	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
-	
-	
+
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		WebMvcConfigurer.super.configureViewResolvers(registry);
 		registry.jsp("/WEB-INF/view/", ".jsp");
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
 	}
-	
+
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource source = new BasicDataSource();
@@ -71,10 +70,10 @@ public class ServletAppContext implements WebMvcConfigurer{
 		source.setUrl(db_url);
 		source.setUsername(db_username);
 		source.setPassword(db_password);
-		
+
 		return source;
 	}
-	
+
 	@Bean
 	public SqlSessionFactory factory(BasicDataSource source) throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
@@ -82,79 +81,74 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		return factory;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) throws Exception {
 		MapperFactoryBean<SpotMapper> factoryBean = new MapperFactoryBean<SpotMapper>(SpotMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<TogetherMapper> getTogetherMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<TogetherMapper> factoryBean = new MapperFactoryBean<TogetherMapper>(TogetherMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<FreedomBoardMapper> FreedomBoardMapper(SqlSessionFactory factory) {
-		MapperFactoryBean<FreedomBoardMapper> factoryBean = new MapperFactoryBean<FreedomBoardMapper>(FreedomBoardMapper.class);
+		MapperFactoryBean<FreedomBoardMapper> factoryBean = new MapperFactoryBean<FreedomBoardMapper>(
+				FreedomBoardMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
-	
+
 	public void addInterceptors(InterceptorRegistry registry) {
-	    WebMvcConfigurer.super.addInterceptors(registry);
-		
-	  	TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
-		
+		WebMvcConfigurer.super.addInterceptors(registry);
+
+		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
+
 		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
-		
+
 		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
-		
-		
-	  	InterceptorRegistration topReg
-	  	  = registry.addInterceptor(topMenuInterceptor);
-		
-	  	InterceptorRegistration userReg
-		  = registry.addInterceptor(loginInterceptor);
-	  	
-	  	InterceptorRegistration loginReg
-		  = registry.addInterceptor(loginBlockInterceptor);
-	  	
-	  	topReg.addPathPatterns("/**");
-	  	userReg.addPathPatterns("/user/modify", "/user/logout");
-	  	loginReg.addPathPatterns("/user/login");
-	
+
+		InterceptorRegistration topReg = registry.addInterceptor(topMenuInterceptor);
+
+		InterceptorRegistration userReg = registry.addInterceptor(loginInterceptor);
+
+		InterceptorRegistration loginReg = registry.addInterceptor(loginBlockInterceptor);
+
+		topReg.addPathPatterns("/**");
+		userReg.addPathPatterns("/user/modify", "/user/logout");
+		loginReg.addPathPatterns("/user/login");
+
 	}
-	/*
+
+	// properties 폴더 안에 있는 properties파일들이 충돌되지 않도록 개별적으로 관리해주는 Bean
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
-	*/
-	
+
 	// 파일 처리
 	@Bean
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
 	}
-	
-		
+
 }
