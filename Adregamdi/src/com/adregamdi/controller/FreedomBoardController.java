@@ -93,5 +93,4 @@ public class FreedomBoardController {
 		
 		return "freedom/modify_success";
 	}
-	
 }
