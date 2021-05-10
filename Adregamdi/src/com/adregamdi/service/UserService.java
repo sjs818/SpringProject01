@@ -4,16 +4,21 @@ package com.adregamdi.service;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
+import com.adregamdi.mapper.UserMapper;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	@Autowired
+	private UserMapper userMapper;
 	
 	@Resource(name="loginUserDTO") 
 	private UserDTO loginUserDTO;
@@ -43,8 +48,18 @@ public class UserService {
 	
 	
 	
-	public void addUserInfo(UserDTO JoinUserDTO) {
-		userDAO.addUserInfo(JoinUserDTO);
+	/*
+	 * public void addUserInfo(UserDTO JoinUserDTO) {
+	 * userDAO.addUserInfo(JoinUserDTO); }
+	 */
+	
+
+	
+	public void addUserInfo(UserDTO user) {
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		String securePw = encoder.encode(user.getUser_pw());
+		user.setUser_pw(securePw);
+		userMapper.addUserInfo(user);
 	}
 	
 	
