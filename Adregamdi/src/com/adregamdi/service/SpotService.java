@@ -17,7 +17,7 @@ public class SpotService {
 	@Autowired
 	SpotDAO spotDAO;
 	
-	@Value("${path.load}")
+	@Value("{path.load}")
 	private String path_load;
 	
 	// 파일 이름을 조금씩 바꿔주는 메소드
