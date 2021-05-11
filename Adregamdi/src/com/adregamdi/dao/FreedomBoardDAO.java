@@ -22,7 +22,6 @@ public class FreedomBoardDAO {
 	
 	public List<FreedomBoardDTO> getFreedomBoardList() {
 		List<FreedomBoardDTO> contentList = freedomBoardMapper.getFreedomBoardList();
-		System.out.println(contentList);
 		return contentList;
 	}
 	

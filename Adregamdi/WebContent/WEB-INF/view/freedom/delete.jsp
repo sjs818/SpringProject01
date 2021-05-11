@@ -32,11 +32,12 @@
             <form:form action="${root}freedom/deleteProc?content_idx=${freedomDeleteDTO.free_no}" 
             method="post" modelAttribute="inputPwUserDTO">
             	<div class="form-group row">
-            		<form:label path="user_pw" class="text-sm-right"><b>비밀번호</b></form:label>
-            		  <div class="col-sm-3">
-            		    <form:password path="user_pw" class="form-control" />
-            		  </div>
-            		  <button class="btn btn-danger">삭제하기</button>
+            	  <form:label path="user_pw" class="text-sm-right"><b>비밀번호</b></form:label>
+            		<div class="col-sm-3">
+            		  <form:password path="user_pw" class="form-control" />
+            		  <form:errors path="user_pw" style="color:red;" />
+            		</div>
+            	  <button class="btn btn-danger">삭제하기</button>
             	</div>
             </form:form>
           </div>

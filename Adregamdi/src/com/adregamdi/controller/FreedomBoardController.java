@@ -7,6 +7,7 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -51,12 +52,23 @@ public class FreedomBoardController {
 	public String BoardDeleteProc
 	(@Valid @ModelAttribute("inputPwUserDTO") UserDTO inputPwUserDTO, @RequestParam("content_idx") int content_idx) {
 		
-		String password = freedomBoardService.GetFreedomBoardPassword(content_idx);
-		if(inputPwUserDTO.getUser_pw().equals(password)) {
+		//데이터 베이스에서 불러오는 비밀번호
+		String user_pw = freedomBoardService.GetFreedomBoardPassword(content_idx);
+		
+		//입력 받은 비밀번호
+		String input_pw = inputPwUserDTO.getUser_pw();
+		
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		
+		//인코더에 넣어줌(입력받은 비번, 암호와된 유저비번)
+		boolean pwMatchRes = encoder.matches(input_pw, user_pw);
+		
+		if(input_pw != null && pwMatchRes == true) {
 			freedomBoardService.FreedomBoardDeleteContent(content_idx);
 			return "freedom/delete_success";
 		} else {
-			return "freedom/delete";
+			//model.addAttribute("content_idx", content_idx);
+			return "freedom/delete_fail";
 		}
 	}
 	
