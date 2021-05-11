@@ -159,13 +159,11 @@ sup {
 }
 
 a {
-  color: #fed136;
   text-decoration: none;
   background-color: transparent;
 }
 a:hover {
   color: #e6b301;
-  text-decoration: underline;
 }
 
 a:not([href]):not([class]) {
@@ -1766,7 +1764,7 @@ pre code {
 .table-info,
 .table-info > th,
 .table-info > td {
-  background-color: #bee5eb;
+  background-color: #ffffff;
 }
 .table-info th,
 .table-info td,

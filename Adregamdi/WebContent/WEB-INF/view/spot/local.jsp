@@ -27,9 +27,10 @@ h2, h3 {
 	font-family: 'Stylish', sans-serif
 };
 
-.local_label { 
+#please { 
 	font-size: 20px; 
-	font-family: 'Stylish', sans-serif
+	font-family: 'Stylish', sans-serif;
+	color: white;
 };
 </style>
 <body>
@@ -42,26 +43,27 @@ h2, h3 {
 			<div class="text-center">
 				<h2 class="section-heading">지역별 제주 탐방</h2>
 				<div style="margin: 50px">
-						<table class=""
-						border="1" width="100%">
+						<table id="please" class="table-light" border="1" width="100%" >
 							<tbody>
 								<tr align="center">
-									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
-											전체 지역 </a></td>
-									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
-											제주시 </a></td>
-									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
-											서귀포시 </a></td>
+									<td>
+										<a href="${root }spot/local?local_no=0">전체 지역 </a>
+									</td>
+									<td>
+										<a href="${root }spot/local?local_no=0">제주시 </a>
+									</td>
+									<td>
+										<a  href="${root }spot/local?local_no=0">서귀포시</a>
+									</td>
 								<tr>
 							</tbody>
 						</table>
 					</div>
 			</div>
-		
-			
 		</div>
 	</section>
-	<div class="container" style="margin-top: 100px">
+	
+	<%-- <div class="container" style="margin-top: 100px">
 		<div class="wrap_contView padB10">
 			<h3>지역</h3>
 			<div class="area_List m_none">
@@ -78,7 +80,7 @@ h2, h3 {
 				<!-- model.addAttribute("board_info_idx", board_info_idx);값 받아옴 -->
 				<a href="${root }spot/write" class="btn btn-dark">글쓰기</a>
 			</div>
-		</div>
+		</div> --%>
 		<!-- 3개씩 정보 보여주기 -->
 
 		<table class="tg" border="1">
