@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <script>
-  alert('이미 로그인 되었습니다.');
+  alert('비정상적인 접근입니다.');
   location.href = '${root}';
 </script>

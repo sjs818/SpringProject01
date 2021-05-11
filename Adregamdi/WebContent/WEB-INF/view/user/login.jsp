@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>login</title>
+<title>Adregamdi 로그인</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -30,10 +30,14 @@
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<div class="card-body">
-						<!--<div class="alert alert-danger">
+					
+					<c:if test="${param.fail eq 'true'}">
+						<div class="alert alert-danger">
 							<h3>로그인 실패</h3>
 							<p>아이디 비밀번호를 확인해주세요</p>
-						</div> -->
+						</div>
+					</c:if>
+
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
 							<div class="form-group">
@@ -47,8 +51,8 @@
 								<form:errors path="user_pw" style="color: red;" />
 							</div>
 							<div class="form-group text-right">
-								<form:button class="btn btn-info">로그인</form:button>
-								<a href="#" class="btn btn-secondary">회원가입</a>
+								<form:button class="btn btn-success ">로그인</form:button>
+								<a href="${root }user/join" class="btn btn-info">회원가입</a>
 							</div>
 						</form:form>
 					</div>

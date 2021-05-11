@@ -21,7 +21,7 @@ public class UserService {
 	public boolean checkID(String user_id) {
 		String checking_id = userDAO.checkID(user_id);
 		
-		if(checking_id == null ) {
+		if(checking_id == null) {
 			return true;
 		}else {
 			return false;
@@ -35,7 +35,19 @@ public class UserService {
 		if(fromDBUserDTO != null) {
 			loginUserDTO.setUser_no(fromDBUserDTO.getUser_no());
 			loginUserDTO.setUser_name(fromDBUserDTO.getUser_name());
+			loginUserDTO.setUser_email(fromDBUserDTO.getUser_email());
+			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
 			loginUserDTO.setUserLogin(true);
 		}
 	}	
+	
+	
+	
+	public void addUserInfo(UserDTO JoinUserDTO) {
+		userDAO.addUserInfo(JoinUserDTO);
+	}
+	
+	
+	
+	
 }
