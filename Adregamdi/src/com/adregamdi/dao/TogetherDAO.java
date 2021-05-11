@@ -25,7 +25,11 @@ public class TogetherDAO {
 		  = togetherMapper.getTogetherContent(content_idx);
 		return content;
 	}
-	public void modifyTogetherContentInfo(TogetherDTO togetherDTO) {
-		togetherMapper.modifyTogetherContentInfo(modifyTogetherDTO);
+	public void InsertTogetherContent(TogetherDTO togetherDTO) {
+		togetherMapper.InsertTogetherContent(togetherDTO);
+	}
+	
+	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
+		togetherMapper.modifyTogetherContent(togetherModifyDTO);
 	}
 }

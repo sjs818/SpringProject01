@@ -24,7 +24,7 @@ public class TogetherController {
 	
 	@GetMapping("/list")
 	public String BoardList(Model model) {
-		List<TogetherDTO> contentList = TogetherService.getToghetherList();
+		List<TogetherDTO> contentList = togetherService.getTogetherList();
 		model.addAttribute("contentList", contentList);
 		return "together/list";
 	}
@@ -36,7 +36,7 @@ public class TogetherController {
 	
 	@GetMapping("/read")
 	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
-		TogetherDTO readContentDTO = TogetherService.getTogetherContent(content_idx);
+		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "together/read";
 	}
@@ -49,11 +49,11 @@ public class TogetherController {
 	
 	@PostMapping("/writeProc")
 	public String Together_Proc
-	(@Valid @ModelAttribute("TogetherDTO") TogetherDTO TogetherDTO, BindingResult result) {
+	(@Valid @ModelAttribute("TogetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
-		
-		TogetherService.InsertTogetherContent(togetherWriteDTO);
+	
+		togetherService.InsertTogetherContent(togetherWriteDTO);
 		
 		return "together/write_success";
 	}
@@ -79,7 +79,7 @@ public class TogetherController {
 	public String BoardModify_Proc
 	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
 		
-		togetherService.ModifytogetherContent(togetherModifyDTO);
+		togetherService.ModifyTogetherContent(togetherModifyDTO);
 		
 		return "together/modify_success";
 	}
