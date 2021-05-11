@@ -24,7 +24,7 @@
     <h3 class="InputSubject">
       <b>${readContentDTO.free_title}</b>
     </h3>
-    <h5>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h5>
+    <h6>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h6>
     <hr>
     <div class="row">
       <div class="col-sm-3"></div>
