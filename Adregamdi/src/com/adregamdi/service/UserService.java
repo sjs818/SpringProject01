@@ -9,16 +9,12 @@ import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
-import com.adregamdi.mapper.UserMapper;
 
 @Service
 public class UserService {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	@Autowired
-	private UserMapper userMapper;
 	
 	@Resource(name="loginUserDTO") 
 	private UserDTO loginUserDTO;
@@ -35,15 +31,21 @@ public class UserService {
 	}
 
 	public void getLoginUserDTO(UserDTO tmpLoginUserDTO) {
-		UserDTO fromDBUserDTO = userDAO.getLoginUserDTO(tmpLoginUserDTO);
+		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+		UserDTO dtoPw = userDAO.getPw(tmpLoginUserDTO);
+		boolean pwdMatch = encoder.matches(tmpLoginUserDTO.getUser_pw(), dtoPw.getUser_pw());
 		
-		if(fromDBUserDTO != null) {
+		if(dtoPw != null && pwdMatch == true) {
+			UserDTO fromDBUserDTO = userDAO.getLoginUserDTO(tmpLoginUserDTO);
+			
 			loginUserDTO.setUser_no(fromDBUserDTO.getUser_no());
 			loginUserDTO.setUser_name(fromDBUserDTO.getUser_name());
 			loginUserDTO.setUser_email(fromDBUserDTO.getUser_email());
 			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
 			loginUserDTO.setUserLogin(true);
+			
 		}
+
 	}	
 	
 	
@@ -55,11 +57,11 @@ public class UserService {
 	
 
 	
-	public void addUserInfo(UserDTO user) {
+	public void addUserInfo(UserDTO JoinUserDTO) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		String securePw = encoder.encode(user.getUser_pw());
-		user.setUser_pw(securePw);
-		userMapper.addUserInfo(user);
+		String securePw = encoder.encode(JoinUserDTO.getUser_pw());
+		JoinUserDTO.setUser_pw(securePw);
+		userDAO.addUserInfo(JoinUserDTO);
 	}
 	
 	
