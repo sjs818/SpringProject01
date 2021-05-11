@@ -4,22 +4,22 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
-<nav class="navbar navbar-expand-md bg-white navbar fixed-top" >
-	<a href="${root }" class="navbar-brand"><img src="${root }images/logo1.png" style="height: 70px;"></a>
+<nav class="navbar navbar-expand-md navbar-white fixed-top shadow-sm">
+	<a href="${root }" class="navbar-brand"><img src="${root }images/logo.png" style="height: 60px"></a>
 	<div id="navMenu" class="collapse navbar-collapse">
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					메뉴_01 
+					여행지 
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="${root}spot/local_main">서브 메뉴1</a> <!-- 지역별 -->
-					<a class="dropdown-item" href="${root}spot/thema">서브 메뉴2</a> <!-- 테마별 -->
+					<a class="dropdown-item" href="${root}spot/local_main">지역별</a> <!-- 지역별 -->
+					<a class="dropdown-item" href="${root}spot/thema_main">테마별</a> <!-- 테마별 -->
 				</div>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">게시판 3</a></li>
-			<li><a class="nav-link" href="#">자유게시판</a></li>
+			<li><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
 		</ul>
 		
 	    <ul class="navbar-nav ml-auto">

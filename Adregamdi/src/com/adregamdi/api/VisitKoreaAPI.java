@@ -24,12 +24,16 @@ public class VisitKoreaAPI {
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 	
 	public static String getTagValue(String tag, Element element) {
-		NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
-		Node value = (Node) nodeList.item(0);
-		if(value == null) {
+		try {
+			NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
+			Node value = (Node) nodeList.item(0);
+			if(value == null) {
+				return null;
+			}
+			return value.getNodeValue();
+		} catch (NullPointerException e) {
 			return null;
 		}
-		return value.getNodeValue();
 	}
 	
 	// VisitKorea 지역기반 관광정보조회 (Content ID)
@@ -37,7 +41,7 @@ public class VisitKoreaAPI {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
 							 + "&pageNo=" + pageNo
-							 + "&numOfRow=" + numOfRow 					 // numOfROW : 한 페이지 결과 수
+							 + "&numOfRows=" + numOfRow 				 // numOfROW : 한 페이지 결과 수
 							 + "&MobileOS=ETC"
 							 + "&MobileApp=AppTest"
 							 + "&arrange=P"            					 // arrange(정렬기준) = P(조회순)
@@ -65,7 +69,7 @@ public class VisitKoreaAPI {
 			Node node = nodeList.item(i);
 			if(node.getNodeType() == Node.ELEMENT_NODE) {
 				Element element = (Element) node;
-				contentIdList.add(getTagValue("contentID", element));
+				contentIdList.add(getTagValue("contentid", element));
 			}
 		}
 		return contentIdList;
@@ -81,6 +85,9 @@ public class VisitKoreaAPI {
 								 + "&pageNo=1"
 								 + "&MobileOS=ETC"
 								 + "&MobileApp=AppTest"
+								 + "&areacodeYN=Y"
+								 + "&catcodeYN=Y"
+								 + "&addrinfoYN=Y"
 								 + "&contentId=" + contentIdList.get(i)
 								 + "&contentTypeId="
 								 + "&defaultYN=Y"
@@ -150,12 +157,12 @@ public class VisitKoreaAPI {
 						spot.setFirstImage2(getTagValue("firstimage2", element));
 					}
 					spot.setTitle(getTagValue("title", element));
-					if(!spot.getContentTypeId().equals("25")) {
+					if(!visitKoreaDTO.getContentTypeId().equals("25")) {
 						spot.setAddr1(getTagValue("addr1", element));
 					}
 					spot.setOverview(getTagValue("overview", element));
 					spot.setContentId(getTagValue("contentid", element));
-					spot.setContentTypeId(getTagValue("overview", element));
+					spot.setContentTypeId(getTagValue("contenttypeid", element));
 					spot.setMapX(getTagValue("mapx", element));
 					spot.setMapY(getTagValue("mapy", element));
 					spot.setTotalCount(Integer.toString(totalCount));

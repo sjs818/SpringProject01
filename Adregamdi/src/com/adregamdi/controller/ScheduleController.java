@@ -58,11 +58,7 @@ public class ScheduleController {
 	@ResponseBody
 	@GetMapping("/information")
 	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException {
-		
-		System.out.println(visitKoreaDTO.getPageNo());
-		System.out.println(visitKoreaDTO.getSigunguCode());
-		System.out.println(visitKoreaDTO.getContentTypeId());
-		
+				
 		if(visitKoreaDTO.getPageNo() == null) {
 			visitKoreaDTO.setPageNo("1");
 		}
@@ -74,16 +70,8 @@ public class ScheduleController {
 		if(visitKoreaDTO.getContentTypeId() == null) {
 			visitKoreaDTO.setContentTypeId("");
 		}
-		System.out.println(visitKoreaDTO.getSigunguCode());
-		System.out.println(visitKoreaDTO.getContentTypeId());
+		
 		int totalCount = visitKoreaAPI.getTotalCount(visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getSigunguCode());
-		System.out.println(totalCount);
-		
-		 List<VisitKoreaDTO> list = visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
-		 for(VisitKoreaDTO dto : list) {
-			 System.out.println(dto.getTitle());
-		 }
-		
 		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	

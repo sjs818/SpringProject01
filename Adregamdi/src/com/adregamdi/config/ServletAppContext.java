@@ -1,5 +1,7 @@
 package com.adregamdi.config;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -11,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -47,6 +51,11 @@ public class ServletAppContext implements WebMvcConfigurer{
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
+	
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new MappingJackson2HttpMessageConverter());
+	}
 	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
