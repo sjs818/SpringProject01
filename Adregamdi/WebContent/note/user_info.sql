@@ -2,7 +2,7 @@ CREATE TABLE user_info
 (
     user_no       INT             NOT NULL, 
     user_name     VARCHAR2(20)    NOT NULL, 
-    user_id       VARCHAR2(20)    NOT NULL, 
+    user_id       VARCHAR2(20)    NOT NULL UNIQUE, 
     user_pw       VARCHAR2(100)    NOT NULL, 
     user_email    VARCHAR2(50)    NOT NULL, 
     user_phone    VARCHAR2(13)    NOT NULL, 

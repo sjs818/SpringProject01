@@ -58,7 +58,6 @@ public class UserController {
 				return "user/login_fail";
 			}
 		} catch (MyBatisSystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "user/login_fail";	
@@ -78,7 +77,7 @@ public class UserController {
 	
 	@GetMapping("/null_login")
 	public String nullLogin() {
-		return "user/null_login";
+		return "user/active_login";
 	}
 	
 	
@@ -103,7 +102,22 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/modify")
+	public String modify(@ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO) {
+		
+		userService.getModifyUserDTO(modifyUserDTO);
+		return "user/modify";
+	}
 	
+	
+	@PostMapping("/modify_proc")
+	public String modifyProc(@Valid @ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/modify";
+		}
+		userService.modifyUserInfo(modifyUserDTO);
+		return "user/modify_success";
+	}
 	
 	
 	
