@@ -18,5 +18,5 @@ public interface UserMapper {
 	UserDTO getLoginUser(UserDTO tmpLoginUserDTO);
 	
 	@Select("SELECT USER_PW FROM USER_INFO WHERE USER_ID=#{user_id}")
-	UserDTO getPw(UserDTO tmpLoginUserDTO);
+	String getPw(String user_id);
 }

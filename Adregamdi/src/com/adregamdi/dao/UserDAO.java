@@ -27,9 +27,7 @@ public class UserDAO {
 		return formDBUserDTO;
 	}
 	
-	public UserDTO getPw(UserDTO tmpLoginUserDTO) {
-		UserDTO dtoPw = userMapper.getPw(tmpLoginUserDTO);
-		
-		return dtoPw;
+	public String getPw(String user_id) {
+		return userMapper.getPw(user_id);
 	}
 }

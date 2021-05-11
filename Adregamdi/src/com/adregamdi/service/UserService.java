@@ -32,8 +32,8 @@ public class UserService {
 
 	public void getLoginUserDTO(UserDTO tmpLoginUserDTO) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		UserDTO dtoPw = userDAO.getPw(tmpLoginUserDTO);
-		boolean pwdMatch = encoder.matches(tmpLoginUserDTO.getUser_pw(), dtoPw.getUser_pw());
+		String dtoPw = userDAO.getPw(tmpLoginUserDTO.getUser_id());
+		boolean pwdMatch = encoder.matches(tmpLoginUserDTO.getUser_pw(), dtoPw);
 		
 		if(dtoPw != null && pwdMatch == true) {
 			UserDTO fromDBUserDTO = userDAO.getLoginUserDTO(tmpLoginUserDTO);
