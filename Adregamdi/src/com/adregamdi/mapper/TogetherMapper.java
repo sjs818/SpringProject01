@@ -1,5 +1,7 @@
 package com.adregamdi.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -26,7 +28,7 @@ public interface TogetherMapper {
 				+ "AND T.TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
 	
-	@update("UPDATE COMMUNITY_TO SET TO_TITLE=#{to_title}, "
+	@Update("UPDATE COMMUNITY_TO SET TO_TITLE=#{to_title}, "
 			  +"TO_CONTENT=#{to_content}, to_date=SYSDATE "
 			  +"WHERE TO_NO = #{to_no}")
 	void modifyTogetherContent(TogetherDTO togetherDTO);

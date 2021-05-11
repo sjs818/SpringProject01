@@ -65,12 +65,12 @@ public class TogetherController {
 		
 		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
 		
-		togetherModifyDTO.setto_no(TogetherDTO.getto_no());
-		togetherModifyDTO.setto_writer(TogetherDTO.getto_writher());
-		togetherModifyDTO.setto_title(TogetherDTO.getto_title());
-		togetherModifyDTO.setto_cnt(TogetherDTO.getto_cnt());
-		togetherModifyDTO.setto_date(TogetherDTO.getto_date());
-		togetherModifyDTO.setto_content(TogetherDTO.getto_content());
+		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
+		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
+		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
+		togetherModifyDTO.setTo_cnt(TogetherDTO.getTo_cnt());
+		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
+		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
 		
 		return "together/modify";
 	}
