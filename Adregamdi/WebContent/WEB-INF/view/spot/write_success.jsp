@@ -5,6 +5,6 @@
 
 <script>
 	alert("글쓰기 완료!")
-	location.href="${root}spot/read?spot_idx=${spot_idx}"
+	location.href="${root}spot/read?spot_idx=${writeSpotDTO.spot_idx}"
 </script>
     

@@ -42,7 +42,6 @@ public class SpotController {
 		
 	@GetMapping("/write")
 	public String write(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, Model model ) {
-		
 		return "spot/write";
 	}
 	
@@ -50,16 +49,13 @@ public class SpotController {
 	@PostMapping("/write_proc")
 	public String spotWriteProc(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, BindingResult result, Model model) {
 		
-		
 		if(result.hasErrors()) {
 			return "spot/write";
 		}
-		
 		spotService.addSpotInfo(writeSpotDTO);
+		model.addAttribute("spot_idx", writeSpotDTO.getSpot_idx());		
 		
-		model.addAttribute("spot_idx", writeSpotDTO.getSpot_idx());
-		
-		
+		System.out.println("writeProc : " + writeSpotDTO.getSpot_file());
 		
 		return "spot/write_success";
 	}
@@ -69,18 +65,31 @@ public class SpotController {
 	public String spotRead(@ModelAttribute("readSpotDTO")SpotDTO readSpotDTO, @RequestParam("spot_idx")int spot_idx, Model model){
 		
 		readSpotDTO = spotService.getSpotInfo(spot_idx);
+		System.out.println("read : " + readSpotDTO.getSpot_file());
 		model.addAttribute("readSpotDTO", readSpotDTO);
 		
+		System.out.println("파일이름 : " + readSpotDTO.getSpot_file());
 		return "spot/read";
 	}
 	
 	@GetMapping("/modify")
-	public String spotModify(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO) {
+	public String spotModify(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO, @RequestParam("spot_idx")int spot_idx, Model model) {
+		
+		modifySpotDTO = spotService.getSpotInfo(spot_idx);
+		model.addAttribute("modifySpotDTO", modifySpotDTO);		
+		
 		return "spot/modify";
 	}
 	
 	@PostMapping("/modify_proc")
-	public String spotModifyProc(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO, BindingResult result) {
+	public String spotModifyProc(@ModelAttribute("modifySpotDTO")SpotDTO modifySpotDTO, @RequestParam("spot_idx")int spot_idx, BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			return "spot/modify";
+		}
+		
+		spotService.updateSpotInfo(modifySpotDTO, spot_idx);
+		model.addAttribute("spot_idx", modifySpotDTO.getSpot_idx());
 		
 		return "spot/modify_success";
 	}

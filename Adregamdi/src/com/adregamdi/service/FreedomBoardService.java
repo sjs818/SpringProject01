@@ -32,4 +32,13 @@ public class FreedomBoardService {
 	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
 		freedomBoardDAO.ModifyFreedomBoardContent(freedomModifyDTO);
 	}
+	
+	public String GetFreedomBoardPassword(int content_idx) {
+		String password = freedomBoardDAO.GetFreedomBoardPassword(content_idx);
+		return password;
+	}
+	
+	public void FreedomBoardDeleteContent(int content_idx) {
+		freedomBoardDAO.FreedomBoardDeleteContent(content_idx);
+	}
 }
