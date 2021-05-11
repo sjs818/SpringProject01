@@ -15,7 +15,7 @@ public class TogetherDAO {
   TogetherMapper togetherMapper;
 	
 	public List<TogetherDTO> getTogetherList() {
-		List<togetherDTO> contentList
+		List<TogetherDTO> contentList
 		  = togetherMapper.getTogetherList();
 		return contentList;
 	}
