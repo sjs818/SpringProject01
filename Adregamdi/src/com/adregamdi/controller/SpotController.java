@@ -42,7 +42,6 @@ public class SpotController {
 		
 	@GetMapping("/write")
 	public String write(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, Model model ) {
-		
 		return "spot/write";
 	}
 	

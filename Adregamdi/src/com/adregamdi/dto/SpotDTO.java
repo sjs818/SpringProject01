@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class SpotDTO {
 	
-	private int spot_idx;					//
+	  private int spot_idx;					//
     private String spot_name;				//
     private int local_no;					//
     private int thema_no;					//
