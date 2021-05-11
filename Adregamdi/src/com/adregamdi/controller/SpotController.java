@@ -20,24 +20,20 @@ public class SpotController {
 	@Autowired
 	SpotService spotService;
 
-	@GetMapping("/local_main")
-	public String localMain() {
-		return "spot/local_main";
+	@GetMapping("/main")
+	public String spotMain() {
+		
+		return "spot/main";
 	}
 	
-	@GetMapping("/local_detail")
+	@GetMapping("/local")
 	public String localDetail(@RequestParam("local_no") int local_no) {
-		return "spot/local_detail";
+		return "spot/local";
 	}
 	
-	@GetMapping("/thema_main")
-	public String themaMain() {
-		return "spot/thema_main";
-	}
-	
-	@GetMapping("/thema_detail")
+	@GetMapping("/thema")
 	public String themaDetail(@RequestParam("thema_no") int thema_no) {
-		return "spot/thema_detail";
+		return "spot/thema";
 	}
 		
 	@GetMapping("/write")
@@ -96,7 +92,10 @@ public class SpotController {
 	}
 	
 	@GetMapping("/delete") 
-	public String spotDelete() {
+	public String spotDelete(@RequestParam("spot_idx") int spot_idx) {
+		
+		spotService.deleteSpotInfo(spot_idx);
+		
 		return "spot/delete";
 	}
 	

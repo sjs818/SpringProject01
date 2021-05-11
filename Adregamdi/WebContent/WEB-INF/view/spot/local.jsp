@@ -16,15 +16,51 @@
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${root }bootstrap/css/styles.css">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
 
 </head>
+
 <style>
+h2, h3 {
+	font-family: 'Stylish', sans-serif
+};
+
+.local_label { 
+	font-size: 20px; 
+	font-family: 'Stylish', sans-serif
+};
 </style>
 <body>
 	<!-- 상단 메뉴바  -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 지역별로 보여주기 -->
+	<section class="page-section bg-light" id="portfolio">
+		<div class="container" style="margin-top: 100px">
+			<div class="text-center">
+				<h2 class="section-heading">지역별 제주 탐방</h2>
+				<div style="margin: 50px">
+						<table class=""
+						border="1" width="100%">
+							<tbody>
+								<tr align="center">
+									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
+											전체 지역 </a></td>
+									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
+											제주시 </a></td>
+									<td><a class="local_label"  href="${root }spot/local_detail?local_no=0&check=1">
+											서귀포시 </a></td>
+								<tr>
+							</tbody>
+						</table>
+					</div>
+			</div>
+		
+			
+		</div>
+	</section>
 	<div class="container" style="margin-top: 100px">
 		<div class="wrap_contView padB10">
 			<h3>지역</h3>

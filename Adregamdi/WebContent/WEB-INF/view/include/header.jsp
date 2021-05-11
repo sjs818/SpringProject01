@@ -13,8 +13,9 @@
 					여행지 
 				</a>
 				<div class="dropdown-menu">
-					<a class="dropdown-item" href="${root}spot/local_main">지역별</a> <!-- 지역별 -->
-					<a class="dropdown-item" href="${root}spot/thema_main">테마별</a> <!-- 테마별 -->
+					<a class="dropdown-item" href="${root}spot/main">인기</a> <!-- 지역별 -->
+					<a class="dropdown-item" href="${root}spot/local?local_no=0&check=1">지역별</a> <!-- 지역별 -->
+					<a class="dropdown-item" href="${root}spot/thema?thema_no=0&check=1">테마별</a> <!-- 테마별 -->
 				</div>
 			</li>
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>

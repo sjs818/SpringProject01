@@ -12,5 +12,5 @@
    } else {
 	   location.href='${root}spot/thema_detail';
    } */
-   location.href='${root}spot/local_detail?local_no=1';
+   location.href='${root}spot/local?local_no=1';
 </script>

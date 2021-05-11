@@ -82,7 +82,7 @@
 					class="btn btn-secondary">뒤로가기</a> <a
 					href="${root }spot/modify?spot_idx=${readSpotDTO.spot_idx}"
 					class="btn btn-info">수정하기</a> <a
-					href="${root }spot/delete?spot_idx=${spot_idx}"
+					href="${root }spot/delete?spot_idx=${readSpotDTO.spot_idx}"
 					class="btn btn-danger">삭제하기</a>
 			</div>
 		</form>

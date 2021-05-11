@@ -20,7 +20,7 @@ public class SpotDTO {
     private MultipartFile upload_file;
     
     private int spot_cnt;				// 조회수
-    private int spot_like;
+    private int spot_like;				// 좋아요
     private String spot_file;		// 파일 이름
 
 	private int check;					// 어떤 페이지에서 넘어왔는지 확인하기(1:지역, 2:테마)

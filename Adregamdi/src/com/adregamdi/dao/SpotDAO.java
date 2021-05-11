@@ -23,4 +23,8 @@ public class SpotDAO {
 	public void updateSpotInfo(SpotDTO modifySpotDTO) {
 		spotMapper.updateSpotInfo(modifySpotDTO);
 	}
+	
+	public void deleteSpotInfo(int spot_idx) {
+		spotMapper.deleteSpotInfo(spot_idx);
+	}
 }
