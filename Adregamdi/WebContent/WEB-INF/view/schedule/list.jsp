@@ -113,7 +113,7 @@
 	  			<form id="writeNewPlan" action="${root }schedule/write" method="get">
 	  				<div class="modal-body">
 	  					<input type="hidden" id="plan_term" name="plan_term">
-	  					<input type="hidden" name="info" value="temporary">
+	  					<input type="hidden" name="plan_info" value="temporary">
 	  					<input type="hidden" name="plan_img" value="/images/thumbnail.png">
 	  					<div class="form-group">
 	  						<label for="plan_title">일정 제목</label>

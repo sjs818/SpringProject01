@@ -4,8 +4,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
-<nav class="navbar navbar-expand-md bg-white navbar fixed-top shadow-lg" >
-	<a href="${root }" class="navbar-brand"><img src="${root }images/logo.png" style="height: 70px;"></a>
+<nav class="navbar navbar-expand-md bg-white navbar fixed-top" >
+	<a href="${root }" class="navbar-brand"><img src="${root }images/logo1.png" style="height: 70px;"></a>
 	<div id="navMenu" class="collapse navbar-collapse">
 		<ul class="navbar-nav">
 			<li class="nav-item dropdown">
