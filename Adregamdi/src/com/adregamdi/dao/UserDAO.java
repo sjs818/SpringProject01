@@ -30,4 +30,15 @@ public class UserDAO {
 	public String getPw(String user_id) {
 		return userMapper.getPw(user_id);
 	}
+	
+	
+	public UserDTO getModifyUserDTO(int user_no) {
+		return userMapper.getModifyUserDTO(user_no);
+	}
+	
+	public void modifyUserInfo(UserDTO modifyUserDTO) {
+		userMapper.modifyUserInfo(modifyUserDTO);
+	}
+	
+	
 }
