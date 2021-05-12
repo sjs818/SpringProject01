@@ -41,7 +41,8 @@ public class FreedomBoardController {
 	
 	@GetMapping("/delete")
 	public String BoardDelete
-	(@RequestParam("content_idx") int content_idx, @ModelAttribute("inputPwUserDTO") UserDTO inputPwUserDTO, Model model) {
+	(@RequestParam("content_idx") int content_idx, 
+	 @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO, BindingResult result, Model model) {
 		FreedomBoardDTO freedomDeleteDTO = freedomBoardService.getFreedomBoardContent(content_idx);
 		model.addAttribute("freedomDeleteDTO", freedomDeleteDTO);
 		
@@ -50,13 +51,14 @@ public class FreedomBoardController {
 	
 	@PostMapping("/deleteProc")
 	public String BoardDeleteProc
-	(@Valid @ModelAttribute("inputPwUserDTO") UserDTO inputPwUserDTO, @RequestParam("content_idx") int content_idx) {
+	(@RequestParam("content_idx") int content_idx, 
+	 @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO, BindingResult result, Model model) {
 		
 		//데이터 베이스에서 불러오는 비밀번호
 		String user_pw = freedomBoardService.GetFreedomBoardPassword(content_idx);
 		
-		//입력 받은 비밀번호
-		String input_pw = inputPwUserDTO.getUser_pw();
+		//입력받은 비밀번호
+		String input_pw = tmpfreedomDeleteDTO.getFree_user_pw();
 		
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		
@@ -67,7 +69,7 @@ public class FreedomBoardController {
 			freedomBoardService.FreedomBoardDeleteContent(content_idx);
 			return "freedom/delete_success";
 		} else {
-			//model.addAttribute("content_idx", content_idx);
+			model.addAttribute("content_idx", content_idx);
 			return "freedom/delete_fail";
 		}
 	}
