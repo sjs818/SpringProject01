@@ -1,6 +1,9 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,9 +13,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.xml.sax.SAXException;
 
+import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.ScheduleDTO;
+import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.ScheduleService;
 
 @Controller
@@ -22,11 +30,11 @@ public class ScheduleController {
 	@Autowired
 	private ScheduleService scheduleService;
 	
+	@Autowired
+	private VisitKoreaAPI visitKoreaAPI;
+	
 	@GetMapping("/list")
 	public String list(@RequestParam("page") int page, Model model) {
-		
-		List<ScheduleDTO> scheduleList = scheduleService.getScheduleList(page, 4);
-		model.addAttribute("scheduleList", scheduleList);
 		
 		PageDTO pageDTO = scheduleService.getContentCnt(page, 4, 10);
 		model.addAttribute("pageDTO", pageDTO);
@@ -34,10 +42,40 @@ public class ScheduleController {
 		return "schedule/list";
 	}
 	
-	@GetMapping("/write")
-	public String write(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO, @RequestParam("page") int page, Model model) {
+	@PostMapping("/write")
+	public String write(@ModelAttribute PlanDTO planDTO, @RequestParam String plan_date, @RequestParam String plan_term, Model model) {
+		
+		scheduleService.createPlan(planDTO);
+		
+		model.addAttribute("plan_title", planDTO.getPlan_title());
+		model.addAttribute("plan_date",  plan_date);
+		model.addAttribute("plan_term", plan_term);
+		model.addAttribute("planNo", scheduleService.getPlanNo());
 		
 		return "schedule/write";
+	}
+	
+	@ResponseBody
+	@GetMapping("/information")
+	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException {
+		
+		
+		
+		if(visitKoreaDTO.getPageNo() == null) {
+			visitKoreaDTO.setPageNo("1");
+		}
+		
+		if(visitKoreaDTO.getSigunguCode() == null) {
+			visitKoreaDTO.setSigunguCode("");
+		}
+		
+		if(visitKoreaDTO.getContentTypeId() == null) {
+			visitKoreaDTO.setContentTypeId("");
+		}
+		
+		int totalCount = visitKoreaAPI.getTotalCount(visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getSigunguCode());
+		
+		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	
 	@PostMapping("/write_proc")
