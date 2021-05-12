@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.FreedomBoardService;
 
@@ -32,10 +33,14 @@ public class FreedomBoardController {
 	private UserDTO loginUserDTO;
 	
 	@GetMapping("/list")
-	public String BoardList(Model model) {
-		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList();
+	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList(page);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		
+		PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+		model.addAttribute("pageDTO", pageDTO);
+		
 		return "freedom/list";
 	}
 	

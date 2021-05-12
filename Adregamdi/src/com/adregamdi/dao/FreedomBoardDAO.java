@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,14 +21,19 @@ public class FreedomBoardDAO {
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
 	
-	public List<FreedomBoardDTO> getFreedomBoardList() {
-		List<FreedomBoardDTO> contentList = freedomBoardMapper.getFreedomBoardList();
+	public List<FreedomBoardDTO> getFreedomBoardList(RowBounds rowBounds) {
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getFreedomBoardList(rowBounds);
 		return contentList;
 	}
 	
 	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
 		FreedomBoardDTO content = freedomBoardMapper.getFreedomBoardContent(content_idx);
 		return content;
+	}
+	
+	public int GetFreedomBoardContentCount() {
+		int contentCount = freedomBoardMapper.GetFreedomBoardContentCount();
+		return contentCount;
 	}
 	
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
