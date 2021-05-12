@@ -141,7 +141,7 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 	
-	// VisitKorea ����������ȸ
+	// VisitKorea ����������ȸ		// FirstImage2 가 필요한가?!
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException {
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
@@ -167,10 +167,14 @@ public class VisitKoreaAPI {
 					spot.setMapX(getTagValue("mapx", element));
 					spot.setMapY(getTagValue("mapy", element));
 					spot.setTotalCount(Integer.toString(totalCount));
+					
+					
 				}
 			}
+			//System.out.println(spot.getFirstImage2());
 			information.add(spot);
 		}
+		
 		return information;
 	}
 	
@@ -180,4 +184,6 @@ public class VisitKoreaAPI {
 	 * 
 	 * }
 	 */
+	
+	
 }
