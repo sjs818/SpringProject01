@@ -37,22 +37,22 @@ public class VisitKoreaAPI {
 		}
 	}
 	
-	// VisitKorea Áö¿ª±â¹Ý °ü±¤Á¤º¸Á¶È¸ (Content ID)
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ (Content ID)
 	public ArrayList<String> getContentIdList(String pageNo, String sigunguCode, String contentTypeId, String numOfRow) throws SAXException, IOException, ParserConfigurationException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
 							 + "&pageNo=" + pageNo
-							 + "&numOfRows=" + numOfRow 				 // numOfROW : ÇÑ ÆäÀÌÁö °á°ú ¼ö
+							 + "&numOfRows=" + numOfRow 				 // numOfROW : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
 							 + "&MobileOS=ETC"
 							 + "&MobileApp=AppTest"
-							 + "&arrange=P"            					 // arrange(Á¤·Ä±âÁØ) = P(Á¶È¸¼ø)
+							 + "&arrange=P"            					 // arrange(ï¿½ï¿½ï¿½Ä±ï¿½ï¿½ï¿½) = P(ï¿½ï¿½È¸ï¿½ï¿½)
 							 + "&cat1="
-							 + "&contentTypeId=" + contentTypeId // contentTypeId : °ü±¤Å¸ÀÔ(°ü±¤Áö, ¼÷¹Ú µî) ID
-							 + "&areaCode=39"          					 // areaCode(Áö¿ªÄÚµå) = 39(Á¦ÁÖµµ)
-							 + "&sigunguCode=" + sigunguCode     // sigunguCode : ½Ã±º±¸ÄÚµå
+							 + "&contentTypeId=" + contentTypeId // contentTypeId : ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½) ID
+							 + "&areaCode=39"          					 // areaCode(ï¿½ï¿½ï¿½ï¿½ï¿½Úµï¿½) = 39(ï¿½ï¿½ï¿½Öµï¿½)
+							 + "&sigunguCode=" + sigunguCode     // sigunguCode : ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Úµï¿½
 							 + "&cat2="
 							 + "&cat3="
-							 + "&listYN=Y"                       // listYN : ¸ñ·Ï ±¸ºÐ (Y = ¸ñ·Ï, N = °³¼ö)
+							 + "&listYN=Y"                       // listYN : ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Y = ï¿½ï¿½ï¿½, N = ï¿½ï¿½ï¿½ï¿½)
 							 + "&modifiedtime=";
 		
 		// XML Parsing
@@ -76,7 +76,7 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
-	// VisitKorea °øÅëÁ¤º¸Á¶È¸
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList) throws ParserConfigurationException, SAXException, IOException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
 		for(int i = 0; i < contentIdList.size(); i++) {
@@ -109,7 +109,7 @@ public class VisitKoreaAPI {
 		return infoList;
 	}
 	
-	//VisitKorea Áö¿ª±â¹Ý °ü±¤Á¤º¸Á¶È¸ (TotalCount)
+	//VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ (TotalCount)
 	public int getTotalCount(String contentTypeId, String sigunguCode) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
@@ -141,7 +141,7 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 	
-	// VisitKorea °øÅëÁ¤º¸Á¶È¸
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException {
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
