@@ -58,7 +58,6 @@ public class UserController {
 				return "user/login_fail";
 			}
 		} catch (MyBatisSystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "user/login_fail";	

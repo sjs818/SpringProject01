@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.ScheduleDTO;
 import com.adregamdi.mapper.ScheduleMapper;
 
@@ -33,5 +34,13 @@ public class ScheduleDAO {
 	
 	public void deleteSchedule(int schedule_no) {
 		scheduleMapper.deleteSchedule(schedule_no);
+	}
+	
+	public int createPlan(PlanDTO planDTO) {
+		return scheduleMapper.createPlan(planDTO);
+	}
+	
+	public int getPlanNo() {
+		return scheduleMapper.getPlanNo();
 	}
 }
