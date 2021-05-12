@@ -43,7 +43,7 @@ public class TogetherController {
 	
 	@GetMapping("/write")
 	public String BoardWrite
-	(@ModelAttribute("TogetherWriteDTO") TogetherDTO TogetherDTO) {
+	(@ModelAttribute("TogetherWriteDTO") TogetherDTO togetherWriteDTO) {
 		return "together/write";
 	}
 	

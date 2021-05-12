@@ -23,13 +23,13 @@
 	<c:import url="/WEB-INF/view/include/header/jsp"/>
 	
 	<!-- 메인 -->
-	<div class="container" style="margin-top:100px">
+	<div class="container" style="margin-top:80pxx">
 	  <div class="row">
 	    <div class="col-sm-3"></div>
 	    <div class="col-sm-6">
 	      <div class="card shadow">
 	        <div class="card-body">
-	          <form:form action="${root }together/write_proc" method="post" modelAttribute="writeTogetherDTO" enctype="multipart/form-data">
+	          <form:form action="${root }together/write_proc" method="post" modelAttribute="TogetherWriteDTO" enctype="multipart/form-data">
 	            <div class="form-group">
 	              <form:label path ="to_title">동행자 구인공고</form:label>
 	              <form:input path ="to_title" class="form-control"/>
@@ -40,10 +40,6 @@
 	              <form:textarea path="to_content" class="form=control" rows="10" style="resize:none" />
 	              <form:errors path ="to_content" style="color:red"/>
  	            </div>
- 	            <div class="form-group">
- 	              <form:label path ="upload_file">첨부파일</form:label>
- 	              <form:input type="file" path="upload_file" class="form-control" accept="image/*" />
-	            </div>
 	            <div class="form-group">
 	              <div class="text-right">
 	                <form:button class="btn btn-primary">작성하기</form:button>

@@ -30,11 +30,11 @@
 		<table class="table table-bordered">
 			<thead>
 				<tr>
-					<th class="text-center width : 40%">글번호</th>
-					<th class="text-center width : 30%">글제목</th>
-					<th class="text-center c">작성자</th>
-					<th class="text-center col-md-1">조회수</th>
-					<th class="text-center col-md-2">작성날짜</th>
+					<th class="text-center" style="width : 8%">글번호</th>
+					<th class="text-center" style="width : 55%">글제목</th>
+					<th class="text-center" style="width : 10%">작성자</th>
+					<th class="text-center" style="width : 8%">조회수</th>
+					<th class="text-center" style="width : 15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
