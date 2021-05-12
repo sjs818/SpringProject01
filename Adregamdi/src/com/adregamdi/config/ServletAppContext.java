@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
+import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -28,6 +31,7 @@ import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.ScheduleMapper;
+import com.adregamdi.mapper.SpotMapper;
 import com.adregamdi.mapper.TogetherMapper;
 import com.adregamdi.mapper.UserMapper;
 
@@ -35,23 +39,23 @@ import com.adregamdi.mapper.UserMapper;
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service", "com.adregamdi.api"})
 @PropertySource("/WEB-INF/properties/db.properties")
-public class ServletAppContext implements WebMvcConfigurer{
-	
+public class ServletAppContext implements WebMvcConfigurer {
+
 	@Value("${db.classname}")
 	private String db_classname;
-	
+
 	@Value("${db.url}")
 	private String db_url;
-	
+
 	@Value("${db.username}")
 	private String db_username;
-	
+
 	@Value("${db.password}")
 	private String db_password;
-	
-	@Resource(name="loginUserDTO")
+
+	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
-	
+
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
 		converters.add(new MappingJackson2HttpMessageConverter());
@@ -62,13 +66,13 @@ public class ServletAppContext implements WebMvcConfigurer{
 		WebMvcConfigurer.super.configureViewResolvers(registry);
 		registry.jsp("/WEB-INF/view/", ".jsp");
 	}
-	
+
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		WebMvcConfigurer.super.addResourceHandlers(registry);
 		registry.addResourceHandler("/**").addResourceLocations("/resources/");
 	}
-	
+
 	@Bean
 	public BasicDataSource dataSource() {
 		BasicDataSource source = new BasicDataSource();
@@ -76,9 +80,10 @@ public class ServletAppContext implements WebMvcConfigurer{
 		source.setUrl(db_url);
 		source.setUsername(db_username);
 		source.setPassword(db_password);
+
 		return source;
 	}
-	
+
 	@Bean
 	public SqlSessionFactory factory(BasicDataSource source) throws Exception {
 		SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
@@ -86,61 +91,91 @@ public class ServletAppContext implements WebMvcConfigurer{
 		SqlSessionFactory factory = factoryBean.getObject();
 		return factory;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<ScheduleMapper> getScheduleMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<ScheduleMapper> factoryBean = new MapperFactoryBean<ScheduleMapper>(ScheduleMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
+	@Bean
+	public MapperFactoryBean<SpotMapper> getSpotMapper(SqlSessionFactory factory) throws Exception {
+		MapperFactoryBean<SpotMapper> factoryBean = new MapperFactoryBean<SpotMapper>(SpotMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+
 	@Bean
 	public MapperFactoryBean<TogetherMapper> getTogetherMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<TogetherMapper> factoryBean = new MapperFactoryBean<TogetherMapper>(TogetherMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<FreedomBoardMapper> FreedomBoardMapper(SqlSessionFactory factory) {
-		MapperFactoryBean<FreedomBoardMapper> factoryBean = new MapperFactoryBean<FreedomBoardMapper>(FreedomBoardMapper.class);
+		MapperFactoryBean<FreedomBoardMapper> factoryBean = new MapperFactoryBean<FreedomBoardMapper>(
+				FreedomBoardMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
+
 	@Bean
 	public MapperFactoryBean<UserMapper> getUserMapper(SqlSessionFactory factory) {
 		MapperFactoryBean<UserMapper> factoryBean = new MapperFactoryBean<UserMapper>(UserMapper.class);
 		factoryBean.setSqlSessionFactory(factory);
 		return factoryBean;
 	}
-	
-	
+
 	public void addInterceptors(InterceptorRegistry registry) {
-	    WebMvcConfigurer.super.addInterceptors(registry);
-		
-	  	TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
-		
+		WebMvcConfigurer.super.addInterceptors(registry);
+
+		TopMenuInterceptor topMenuInterceptor = new TopMenuInterceptor(loginUserDTO);
+
 		LoginInterceptor loginInterceptor = new LoginInterceptor(loginUserDTO);
-		
+
 		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
 		
 		
 	  	InterceptorRegistration topReg
 	  	  = registry.addInterceptor(topMenuInterceptor);
 		
-	  	InterceptorRegistration userReg
+	  	InterceptorRegistration not_loginReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
-	  	InterceptorRegistration loginReg
+	  	InterceptorRegistration null_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
-	  	userReg.addPathPatterns("/user/modify", "/user/logout");
-	  	loginReg.addPathPatterns("/user/login");
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
+	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
+
+	// properties 占쎈쨨占쎈쐭 占쎈툧占쎈퓠 占쎌뿳占쎈뮉 properties占쎈솁占쎌뵬占쎈굶占쎌뵠 �빊�뫖猷롳옙由븝쭪占� 占쎈륫占쎈즲嚥∽옙 揶쏆뮆�롳옙�읅占쎌몵嚥∽옙 �꽴占썹뵳�뗫퉸雅뚯눖�뮉 Bean
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+		return new PropertySourcesPlaceholderConfigurer();
+	}
+
+	// 占쎈솁占쎌뵬 筌ｌ꼶�봺
+	@Bean
+	public StandardServletMultipartResolver multipartResolver() {
+		return new StandardServletMultipartResolver();
+	}
 	
+	@Bean
+	public static PropertySourcesPlaceholderConfigurer
+	propertySourcePlaceholderConfigurer() {
+	 	return new PropertySourcesPlaceholderConfigurer();
+	}
 	
-	
+	@Bean
+	public ReloadableResourceBundleMessageSource messageSource() {
+		ReloadableResourceBundleMessageSource res =
+				new ReloadableResourceBundleMessageSource();
+		res.setBasenames("/WEB-INF/properties/error_message");
+		return res;
+	}
 }

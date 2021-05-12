@@ -42,7 +42,7 @@ public class ScheduleController {
 		return "schedule/list";
 	}
 	
-	@GetMapping("/write")
+	@PostMapping("/write")
 	public String write(@ModelAttribute PlanDTO planDTO, @RequestParam String plan_date, @RequestParam String plan_term, Model model) {
 		
 		scheduleService.createPlan(planDTO);
@@ -58,7 +58,9 @@ public class ScheduleController {
 	@ResponseBody
 	@GetMapping("/information")
 	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException {
-				
+		
+		
+		
 		if(visitKoreaDTO.getPageNo() == null) {
 			visitKoreaDTO.setPageNo("1");
 		}
@@ -72,6 +74,7 @@ public class ScheduleController {
 		}
 		
 		int totalCount = visitKoreaAPI.getTotalCount(visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getSigunguCode());
+		
 		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	

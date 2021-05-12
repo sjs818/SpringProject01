@@ -110,7 +110,7 @@
 	  				<h4>새로운 일정 만들기</h4>
 	  				<button type="button" class="close" data-dismiss="modal" aria-label="close">×</button>
 	  			</div>
-	  			<form id="writeNewPlan" action="${root }schedule/write" method="get">
+	  			<form id="writeNewPlan" action="${root }schedule/write" method="post">
 	  				<div class="modal-body">
 	  					<input type="hidden" id="plan_term" name="plan_term">
 	  					<input type="hidden" name="plan_info" value="temporary">

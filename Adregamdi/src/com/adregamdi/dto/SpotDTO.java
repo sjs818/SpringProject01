@@ -2,34 +2,30 @@ package com.adregamdi.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 public class SpotDTO {
-	
-	// 愿�愿묒� 踰덊샇 
-    private Integer spot_idx;
 
-    // 愿�愿묒� �씠由� 
-    private String spot_name;
-
-    // 吏��뿭踰덊샇 - 1(�젣二�), 2(�꽌洹��룷�떆)
-    private Integer local_no;
-
-    // �뀒留덈쾲�샇 - 1(��嫄곕━), 2(癒밴굅由�), 3(蹂쇨굅由�)
-    private Integer theme_no;
-
-    // 愿�愿묒� 二쇱냼 
-    private String spot_addr;
-    
-    // �궡�슜 
-    private String spot_content;
-
-    // �옉�꽦�옄 
-    private Integer spot_writer;
-    
-    // �뙆�씪 �벑濡�
+	private int spot_idx;					//
+    private String spot_name;				//
+    private int local_no;					//
+    private int thema_no;					//
+    private String spot_content;			//
+    private int spot_writer;				//
+    private String spot_addr;				//
     private MultipartFile upload_file;
-
     
+    private int spot_cnt;				// 조회수
+    private int spot_like;
+    private String spot_file;		// 파일 이름
+
+	private int check;					// 어떤 페이지에서 넘어왔는지 확인하기(1:지역, 2:테마)
+    
+    public SpotDTO() {
+    	spot_cnt=0;
+    	spot_like=0;
+    }	
 }
