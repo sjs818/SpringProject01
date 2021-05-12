@@ -20,7 +20,7 @@
 </head>
 <body>
 	<!-- 상단 메뉴 -->
-	<c:import url="/WEB-INF/view/include/header/jsp"/>
+	<c:import url="/WEB-INF/view/include/header.jsp"/>
 	
 	<!-- 메인 -->
 	<div class="container" style="margin-top:75px">
