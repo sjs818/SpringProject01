@@ -299,14 +299,18 @@
             <li class="header-menu">
             	<span>관광지 리스트</span>
             </li>
-						<form method="get" name="imgForm" id="imgForm"></form>
+						<form action="" method="get" name="imgForm" id="imgForm">
+						
+						</form>
           </ul>
           <!-- 검색 -->
           <ul style="display: none; padding: 10px 20px">
             <li class="header-menu">
               <span>검색 결과</span>
             </li>
-            <form method="get" name="keywordForm" id="keywordForm"></form>
+            <form method="get" name="keywordForm" id="keywordForm">
+            
+            </form>
           </ul>
         </div>
       </div>
