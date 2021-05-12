@@ -62,7 +62,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 								</div>
 							</div> 
-							<img class="img-fluid" src="${root }images/spot/1620634047204_alone.jfif" alt="...">
+							<img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
 						</a>
 						<div class="portfolio-caption">
 							<div class="portfolio-caption-heading"> Top 1 </div>
@@ -84,7 +84,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 									<!-- <i class="fas fa-plus fa-3x"></i> Font Awesome fontawesome.com -->
 								</div>
-							</div> <img class="img-fluid" src="${root }images/thumbnail.png"
+							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
 							alt="...">
 						</a>
 						<div class="portfolio-caption">
@@ -106,7 +106,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 								</div>
 							</div> 
-							<img class="img-fluid" src="${root }images/spot/1620634047204_alone.jfif" alt="...">
+							<img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
 						</a>
 						<div class="portfolio-caption">
 							<div class="portfolio-caption-heading"> Top 3 </div>
@@ -127,7 +127,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 								</div>
 							</div> 
-							<img class="img-fluid" src="${root }images/thumbnail.png" alt="...">
+							<img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
 						</a>
 						<div class="portfolio-caption">
 							<div class="portfolio-caption-heading"> Top 4 </div>
@@ -148,7 +148,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 								</div>
 							</div> 
-							<img class="img-fluid" src="${root }images/thumbnail.png" alt="...">
+							<img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
 						</a>
 						<div class="portfolio-caption">
 							<div class="portfolio-caption-heading"> Top 5 </div>
@@ -169,7 +169,7 @@ h2, h3 {
 											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 								</div>
 							</div> 
-							<img class="img-fluid" src="${root }images/thumbnail.png" alt="...">
+							<img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
 						</a>
 						<div class="portfolio-caption">
 							<div class="portfolio-caption-heading">More</div>
@@ -194,7 +194,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -208,7 +208,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -222,7 +222,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -236,7 +236,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -250,7 +250,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -264,7 +264,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -278,7 +278,7 @@ h2, h3 {
                             <div class="portfolio-hover">
                                 <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                             </div>
-                            <img class="img-fluid" src="${root }images/thumbnail.png" alt="..." />
+                            <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="..." />
                         </a>
                         <div class="portfolio-caption">
                             <div class="portfolio-caption-heading">Threads</div>
@@ -304,7 +304,7 @@ h2, h3 {
                                 <!-- Project Details Go Here-->
                                 <h2 class="text-uppercase">Project Name</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/01-full.jpg"
+                                <img class="img-fluid d-block mx-auto" src="${root }images/spot/jeju.jpg"
                                     alt="..." />
                                 <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
@@ -339,7 +339,7 @@ h2, h3 {
                                 <!-- Project Details Go Here-->
                                 <h2 class="text-uppercase">Project Name</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/02-full.jpg"
+                                <img class="img-fluid d-block mx-auto" src="${root }images/spot/jeju.jpg"
                                     alt="..." />
                                 <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
@@ -374,7 +374,7 @@ h2, h3 {
                                 <!-- Project Details Go Here-->
                                 <h2 class="text-uppercase">Project Name</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/03-full.jpg"
+                                <img class="img-fluid d-block mx-auto" src="${root }images/spot/jeju.jpg"
                                     alt="..." />
                                 <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
@@ -409,7 +409,7 @@ h2, h3 {
                                 <!-- Project Details Go Here-->
                                 <h2 class="text-uppercase">Project Name</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/04-full.jpg"
+                                <img class="img-fluid d-block mx-auto" src="${root }images/spot/jeju.jpg"
                                     alt="..." />
                                 <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
@@ -444,7 +444,7 @@ h2, h3 {
                                 <!-- Project Details Go Here-->
                                 <h2 class="text-uppercase">Project Name</h2>
                                 <p class="item-intro text-muted">Lorem ipsum dolor sit amet consectetur.</p>
-                                <img class="img-fluid d-block mx-auto" src="assets/img/portfolio/05-full.jpg"
+                                <img class="img-fluid d-block mx-auto" src="${root }images/spot/jeju.jpg"
                                     alt="..." />
                                 <p>Use this area to describe your project. Lorem ipsum dolor sit amet, consectetur
                                     adipisicing elit. Est blanditiis dolorem culpa incidunt minus dignissimos deserunt
