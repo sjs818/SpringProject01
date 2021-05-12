@@ -8,16 +8,7 @@
 	<a href="${root }" class="navbar-brand"><img src="${root }images/logo.png" style="height: 60px"></a>
 	<div id="navMenu" class="collapse navbar-collapse">
 		<ul class="navbar-nav">
-			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-					여행지 
-				</a>
-				<div class="dropdown-menu">
-					<a class="dropdown-item" href="${root}spot/main">인기</a> <!-- 지역별 -->
-					<a class="dropdown-item" href="${root}spot/local?local_no=0&check=1">지역별</a> <!-- 지역별 -->
-					<a class="dropdown-item" href="${root}spot/thema?thema_no=0&check=1">테마별</a> <!-- 테마별 -->
-				</div>
-			</li>
+			<li class="nav-item"><a class="nav-link" href="${root }spot/main">메뉴_1</a></li>
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">게시판 3</a></li>
 			<li><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
