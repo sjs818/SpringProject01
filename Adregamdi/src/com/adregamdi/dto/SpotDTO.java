@@ -8,7 +8,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SpotDTO {
-	
+
 	private int spot_idx;					//
     private String spot_name;				//
     private int local_no;					//
@@ -16,7 +16,6 @@ public class SpotDTO {
     private String spot_content;			//
     private int spot_writer;				//
     private String spot_addr;				//
-    
     private MultipartFile upload_file;
     
     private int spot_cnt;				// 조회수
