@@ -90,7 +90,7 @@ public class FreedomBoardController {
 	@GetMapping("/write")
 	public String BoardWrite
 	(@ModelAttribute("freedomWriteDTO") FreedomBoardDTO freedomWriteDTO) {
-		return "freedom/write";
+		return "freedom/write_ckeditor_demo";
 	}
 	
 	@PostMapping("/writeProc")
