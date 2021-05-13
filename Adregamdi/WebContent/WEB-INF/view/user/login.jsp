@@ -10,10 +10,14 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 로그인</title>
 <!-- Bootstrap CDN -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 
@@ -30,13 +34,13 @@
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<div class="card-body">
-					
-					<c:if test="${param.fail eq 'true'}">
-						<div class="alert alert-danger">
-							<h3>로그인 실패</h3>
-							<p>아이디 비밀번호를 확인해주세요</p>
-						</div>
-					</c:if>
+
+						<c:if test="${param.fail eq 'true'}">
+							<div class="alert alert-danger">
+								<h3>로그인 실패</h3>
+								<p>아이디 비밀번호를 확인해주세요</p>
+							</div>
+						</c:if>
 
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
@@ -53,21 +57,27 @@
 							<div class="form-group text-right">
 								<form:button class="btn btn-success ">로그인</form:button>
 								<a href="${root }user/join" class="btn btn-info">회원가입</a>
-							</div>
+							</div>							
 						</form:form>
+							<div class="form-group text-right">
+								<a href="${root}user/naver_login"> <img width="223"
+									src="https://developers.naver.com/doc/review_201802/CK_bEFnWMeEBjXpQ5o8N_20180202_7aot50.png" /></a>
+							</div>
 					</div>
 				</div>
 			</div>
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-	
-<a href="https://kauth.kakao.com/oauth/authorize?client_id=d868d655e54c5bc80caa98fd505f3cef&redirect_uri=http://localhost:8090/user/kakao_proc&response_type=code" class="btn btn-info">카카오로그인</a>
-	
-	
+
+	<a
+		href="https://kauth.kakao.com/oauth/authorize?client_id=d868d655e54c5bc80caa98fd505f3cef&redirect_uri=http://localhost:8090/user/kakao_proc&response_type=code"
+		class="btn btn-info">카카오로그인</a>
+
+
 	<!-- 하단 정보 부분 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
-	
-	
+
+
 </body>
 </html>
