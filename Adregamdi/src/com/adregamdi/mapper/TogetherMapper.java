@@ -10,7 +10,7 @@ import com.adregamdi.dto.TogetherDTO;
 public interface TogetherMapper {
 	
 	@Insert("INSERT INTO TOGETHER(TO_NO, TO_WRITHER, TO_TITLE, TO_CNT, TO_DATE, TO_CONTENT)" +
-			"VALUES(TO_CNT_SEQ*nextval, 1, #{to_title}, 0, SYSDATE, #{to_content})" )
+			"VALUES(TO_CNT_SEQ.nextval,#{to_writer}, #{to_title}, 0, SYSDATE, #{to_content})" )
 	void InsertTogetherContent(TogetherDTO togetherDTO);
 	
 	@Select(" SELECT T.TO_NO, U.USER_ID TO_WRITER, T.TO_TITLE, T.TO_CNT, "
