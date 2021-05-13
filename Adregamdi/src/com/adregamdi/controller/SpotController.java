@@ -42,7 +42,6 @@ public class SpotController {
 		
 	@GetMapping("/write")
 	public String write(@ModelAttribute("writeSpotDTO") SpotDTO writeSpotDTO, Model model ) {
-		
 		return "spot/write";
 	}
 	
@@ -69,7 +68,7 @@ public class SpotController {
 		System.out.println("read : " + readSpotDTO.getSpot_file());
 		model.addAttribute("readSpotDTO", readSpotDTO);
 		
-		System.out.println("파일이름 : " + readSpotDTO.getSpot_file());
+		System.out.println("�뙆�씪�씠由� : " + readSpotDTO.getSpot_file());
 		return "spot/read";
 	}
 	

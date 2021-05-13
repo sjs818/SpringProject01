@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.ScheduleDAO;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.ScheduleDTO;
 
 @Service
@@ -38,5 +39,13 @@ public class ScheduleService {
 	
 	public void deleteSchedule(int schedule_no) {
 		scheduleDAO.deleteSchedule(schedule_no);
+	}
+	
+	public boolean createPlan(PlanDTO planDTO) {
+		return scheduleDAO.createPlan(planDTO) > 0;
+	}
+	
+	public int getPlanNo() {
+		return scheduleDAO.getPlanNo();
 	}
 }

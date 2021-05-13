@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
@@ -63,13 +64,14 @@
 		<div class="col-sm-3"></div>
 	  </div>	
     </div>
-<!-- 수정을 위한 주석 -->
+
+  
     <!-- 하단 정보 -->  
+    <c:import url="/WEB-INF/view/include/bottom_info.jsp" />
 
 
 </body>
 </html>
-	          
 	          
 	          
 	          
