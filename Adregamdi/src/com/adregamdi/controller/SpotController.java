@@ -56,12 +56,22 @@ public class SpotController {
 		
 		return spot.getInformation(visitKoreaDTO, totalCount);
 	}
-	/*
-	@GetMapping("/main")
-	public String spotMain() {
+	
+	@GetMapping("/detail")
+	public String spotDetail(VisitKoreaDTO visitKoreaDTO, Model model) throws Exception{
 		
-		return "spot/main";
-	}*/
+		System.out.println("detail");
+		model.addAttribute("contentId", visitKoreaDTO.getContentId());
+		model.addAttribute("contentTypeId", visitKoreaDTO.getContentTypeId());
+		
+		return "spot/detail";
+	}
+	
+	@ResponseBody
+	@GetMapping("/details")
+	public List<String> getDetailsInfo(VisitKoreaDTO visitKoreaDTO) throws Exception {
+		return spot.getEachInformation(visitKoreaDTO);
+	}
 	
 	@GetMapping("/local")
 	public String localDetail(@RequestParam("local_no") int local_no) {

@@ -55,125 +55,27 @@ h2, h3 {
 					수 있습니다. 각 지역의 Top5 유명지를 소개합니다.</h3>
 			</div>
 
-			<!-- 지역별  -->
+			<!-- Best 여행지  -->
 			<div class="row" style="margin-top: 50px">
-				<div class="col-lg-4 col-sm-6 mb-4">
-					<div class="portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-										aria-hidden="true" focusable="false" data-prefix="fas"
-										data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 448 512" data-fa-i2svg="">
-										<path fill="currentColor"
-											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-								</div>
-							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-							alt="...">
-						</a>
-						<div class="portfolio-caption">
-							<div class="portfolio-caption-heading">Top 1</div>
-							<div class="portfolio-caption-subheading text-muted">Graphic
-								Design</div>
+				<c:forEach var="order" begin="0" end="4" >
+					<div class="col-lg-4 col-sm-6 mb-4">
+						<div class="portfolio-item">
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${order }">
+								<div class="portfolio-hover">
+									<div class="portfolio-hover-content">
+										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x" aria-hidden="true" focusable="false" data-prefix="fas"
+											data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+											<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+									</div>
+								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
+							</a>
+							<div class="portfolio-caption">
+								<div class="portfolio-caption-heading">Top ${order +1 }</div>
+								<div class="portfolio-caption-subheading text-muted">Graphic Design</div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 mb-4">
-					<div class="portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-										aria-hidden="true" focusable="false" data-prefix="fas"
-										data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 448 512" data-fa-i2svg="">
-										<path fill="currentColor"
-											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-									<!-- <i class="fas fa-plus fa-3x"></i> Font Awesome fontawesome.com -->
-								</div>
-							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-							alt="...">
-						</a>
-						<div class="portfolio-caption">
-							<div class="portfolio-caption-heading">Top 2</div>
-							<div class="portfolio-caption-subheading text-muted">Graphic
-								Design</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 mb-4">
-					<div class="portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-										aria-hidden="true" focusable="false" data-prefix="fas"
-										data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 448 512" data-fa-i2svg="">
-										<path fill="currentColor"
-											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-								</div>
-							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-							alt="...">
-						</a>
-						<div class="portfolio-caption">
-							<div class="portfolio-caption-heading">Top 3</div>
-							<div class="portfolio-caption-subheading text-muted">Graphic
-								Design</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 mb-4">
-					<div class="portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-										aria-hidden="true" focusable="false" data-prefix="fas"
-										data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 448 512" data-fa-i2svg="">
-										<path fill="currentColor"
-											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-								</div>
-							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-							alt="...">
-						</a>
-						<div class="portfolio-caption">
-							<div class="portfolio-caption-heading">Top 4</div>
-							<div class="portfolio-caption-subheading text-muted">Graphic
-								Design</div>
-						</div>
-					</div>
-				</div>
-				<div class="col-lg-4 col-sm-6 mb-4">
-					<div class="portfolio-item">
-						<a class="portfolio-link" data-toggle="modal"
-							href="#portfolioModal2">
-							<div class="portfolio-hover">
-								<div class="portfolio-hover-content">
-									<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-										aria-hidden="true" focusable="false" data-prefix="fas"
-										data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg"
-										viewBox="0 0 448 512" data-fa-i2svg="">
-										<path fill="currentColor"
-											d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
-								</div>
-							</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-							alt="...">
-						</a>
-						<div class="portfolio-caption">
-							<div class="portfolio-caption-heading">Top 5</div>
-							<div class="portfolio-caption-subheading text-muted">Graphic
-								Design</div>
-						</div>
-					</div>
-				</div>
-				
+				</c:forEach>				
 			</div>
 		</div>
 
@@ -190,236 +92,62 @@ h2, h3 {
 					보석 같은 여행지가 여러분의 선택을 기다린다.</h3>
 			</div>
 			<div class="row">
-				<c:forEach var="i" begin="0" end="5">
+				<c:forEach var="i" begin="0" end="0">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item" >
-							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}">
+							<%-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}" > --%>
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}" onclick="setNumber(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
 										<i class="fas fa-plus fa-3x"></i>
 									</div>
-								</div> 
+								</div>
 								<img class="img-fluid photo" id="photo${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
 								<div id="title${i}" class="portfolio-caption-heading"></div>
-								<div id="addr${i}"
-									class="portfolio-caption-subheading text-muted"></div>
+								<div id="addr${i}" 	class="portfolio-caption-subheading text-muted"></div>
 							</div>
 						</div>
 					</div>
-				</c:forEach>
-				
+				</c:forEach>				
 			</div>
 		</div>
 	</section>
 
-	<!-- Portfolio Modals-->
-	<!-- Modal 1-->
-	
-		<div class="portfolio-modal modal fade" id="portfolioModal1"
-			tabindex="-1" role="dialog" aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="close-modal" data-dismiss="modal">
-						<img src="${root }bootstrap/assets/img/close-icon.svg"
-							alt="Close modal" />
-					</div>
-					<div class="container">
-						<div class="row justify-content-center">
-							<div class="col-lg-8">
-								<div class="modal-body">
-									<!-- Project Details Go Here-->
-									<h2 class="text-uppercase">Project Name</h2>
-									<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-										consectetur.</p>
-									<img class="img-fluid d-block mx-auto"
-										src="${root }images/spot/jeju.jpg" alt="..." />
-									<p>Use this area to describe your project. Lorem ipsum dolor
-										sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-										culpa incidunt minus dignissimos deserunt repellat aperiam
-										quasi sunt officia expedita beatae cupiditate, maiores
-										repudiandae, nostrum, reiciendis facere nemo!</p>
-									<ul class="list-inline">
-										<li>Date: January 2021</li>
-										<li>Client: Threads</li>
-										<li>Category: Illustration</li>
-									</ul>
-									<button class="btn btn-primary" data-dismiss="modal"
-										type="button">
-										<i class="fas fa-times mr-1"></i> Close Project
-									</button>
+	<!-- 세부사항 --> 
+	<c:forEach var="num" begin="0" end="0">
+		<div class="portfolio-modal modal fade" id="portfolioModal${num }"
+				tabindex="-1" role="dialog" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="close-modal" data-dismiss="modal">
+							<img src="${root }bootstrap/assets/img/close-icon.svg" alt="Close modal" />
+						</div>
+						<div class="container">
+							<div class="row justify-content-center">
+								<div class="col-lg-8">
+									<div class="modal-body">
+										<h2 id="modalTitle${num }" class="text-uppercase"></h2>
+										<p id="modalAddr${num }" class="item-intro text-muted"></p>
+										<img id="modalPhoto${num }" class="img-fluid d-block mx-auto" src="" alt="..." />
+										<p id="modalOverview${num }"></p>
+										<ul class="list-inline">
+											<li>Date: January 2021</li>
+											<li>Client: Threads</li>
+											<li>Category: Illustration</li>
+										</ul>
+										<button class="btn btn-primary" data-dismiss="modal" type="button">
+											<i class="fas fa-times mr-1"></i> Close Project
+										</button>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
-		
-		
-		
-	<!-- Modal 2-->
-	<div class="portfolio-modal modal fade" id="portfolioModal2"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<img src="${root }bootstrap/assets/img/close-icon.svg"
-						alt="Close modal" />
-				</div>
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="modal-body">
-								<!-- Project Details Go Here-->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="${root }images/spot/jeju.jpg" alt="..." />
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2021</li>
-									<li>Client: Explore</li>
-									<li>Category: Graphic Design</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal 3-->
-	<div class="portfolio-modal modal fade" id="portfolioModal3"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<img src="${root }bootstrap/assets/img/close-icon.svg"
-						alt="Close modal" />
-				</div>
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="modal-body">
-								<!-- Project Details Go Here-->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="${root }images/spot/jeju.jpg" alt="..." />
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2021</li>
-									<li>Client: Finish</li>
-									<li>Category: Identity</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal 4-->
-	<div class="portfolio-modal modal fade" id="portfolioModal4"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<img src="${root }bootstrap/assets/img/close-icon.svg"
-						alt="Close modal" />
-				</div>
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="modal-body">
-								<!-- Project Details Go Here-->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="${root }images/spot/jeju.jpg" alt="..." />
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2021</li>
-									<li>Client: Lines</li>
-									<li>Category: Branding</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- Modal 5-->
-	<div class="portfolio-modal modal fade" id="portfolioModal5"
-		tabindex="-1" role="dialog" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="close-modal" data-dismiss="modal">
-					<img src="${root }bootstrap/assets/img/close-icon.svg"
-						alt="Close modal" />
-				</div>
-				<div class="container">
-					<div class="row justify-content-center">
-						<div class="col-lg-8">
-							<div class="modal-body">
-								<!-- Project Details Go Here-->
-								<h2 class="text-uppercase">Project Name</h2>
-								<p class="item-intro text-muted">Lorem ipsum dolor sit amet
-									consectetur.</p>
-								<img class="img-fluid d-block mx-auto"
-									src="${root }images/spot/jeju.jpg" alt="..." />
-								<p>Use this area to describe your project. Lorem ipsum dolor
-									sit amet, consectetur adipisicing elit. Est blanditiis dolorem
-									culpa incidunt minus dignissimos deserunt repellat aperiam
-									quasi sunt officia expedita beatae cupiditate, maiores
-									repudiandae, nostrum, reiciendis facere nemo!</p>
-								<ul class="list-inline">
-									<li>Date: January 2021</li>
-									<li>Client: Southwest</li>
-									<li>Category: Website Design</li>
-								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
+		</c:forEach>
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 
