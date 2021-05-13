@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
@@ -24,7 +26,10 @@ public class LoginController {
 	private NaverLoginBO naverLoginBO;
 	private String apiResult = null;
 	
-	@Resource(name="loginUserDTO") 
+	@Autowired
+	private UserDAO userDAO;
+	
+	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
 
 	@Autowired
@@ -66,44 +71,30 @@ public class LoginController {
 		String id = (String) response_obj.get("id");
 		String mobile = (String) response_obj.get("mobile");
 		String name = (String) response_obj.get("name");
-		System.out.println(email);
 		System.out.println(id);
-		System.out.println(mobile);
-		System.out.println(name);
 		
 		
-		// if ( id != db) -> 저장
 		
-		// 4.파싱 닉네임 세션으로 저장
-		session.setAttribute("sessionEmail", email);
-		session.setAttribute("sessionNo", id);
-		session.setAttribute("sessionPhone", mobile);
-		session.setAttribute("sessionName", name);
-		model.addAttribute("result", apiResult);
-		
-		
-		/*
-		 * if(session != null) { loginUserDTO.setUser_email((String)
-		 * session.getAttribute("sessionEmail")); loginUserDTO.setUser_id((String)
-		 * session.getAttribute("sessionEmail")); loginUserDTO.setUser_phone((String)
-		 * session.getAttribute("sessionPhone")); loginUserDTO.setUser_name((String)
-		 * session.getAttribute("sessionName")); loginUserDTO.setUserLogin(true);
-		 * System.out.println(loginUserDTO.getUser_email());
-		 * System.out.println(loginUserDTO.getUser_id());
-		 * System.out.println(loginUserDTO.getUser_name());
-		 * System.out.println(loginUserDTO.getUser_phone()); }
-		 */
-		
+		if(response_obj != null) {
+			loginUserDTO.setUser_email(email);
+			loginUserDTO.setUser_id(email);
+			loginUserDTO.setUser_phone(mobile);
+			loginUserDTO.setUser_name(name);
+  		model.addAttribute("result", apiResult);
+  		
+  		String checkName = userDAO.checkName(loginUserDTO.getUser_name());
+  		
+  		if(checkName == null) {
+  			userDAO.addNaverInfo(loginUserDTO);
+  		}
+  		
+  		loginUserDTO.setUserLogin(true);
+  		
+		}
+
 		return "user/login_success";
 		
 	}
 
-	// 로그아웃
-	@RequestMapping(value = "/logout", method = { RequestMethod.GET, RequestMethod.POST })
-	public String logout(HttpSession session) throws IOException {
-		System.out.println("여기는 logout");
-		session.invalidate();
-		return "main";
-	}
 
 }

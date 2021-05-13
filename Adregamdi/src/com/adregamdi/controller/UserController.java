@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.KakaoService;
 import com.adregamdi.service.UserService;
@@ -29,6 +30,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
     @Autowired
     private KakaoService kakaoService;
@@ -123,9 +127,15 @@ public class UserController {
 		if(result.hasErrors()) {
 			return "user/join";
 		}
-		userService.addUserInfo(joinUserDTO);
 		
-		return "user/join_success";		
+		String checking_name = userDAO.checkName(joinUserDTO.getUser_name());
+		
+		if(checking_name == null) {
+			userService.addUserInfo(joinUserDTO);			
+			return "user/join_success";		
+		}else {
+			return "user/join_fail";
+		}
 	}
 	
 	

@@ -16,9 +16,17 @@ public class UserDAO {
 		String checking_id = userMapper.checkID(user_id);
 		return checking_id;
 	}
+
+	public String checkName(String user_name) {
+		return userMapper.checkName(user_name);
+	}
 	
-	public void addUserInfo(UserDTO joinUserDTO) {
+	public void addUserInfo(UserDTO joinUserDTO) {	
 		userMapper.addUserInfo(joinUserDTO);
+	}
+	
+	public void addNaverInfo(UserDTO loginUserDTO) {
+		userMapper.addNaverInfo(loginUserDTO);
 	}
 	
 	public UserDTO getLoginUserDTO(UserDTO loginUserDTO) {

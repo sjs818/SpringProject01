@@ -31,7 +31,7 @@
     $.ajax({
       url: '${root}user/checkID/'+ user_id, 
       type: 'get',
-      dataType: 'json',
+      dataType: 'text',
       success: function(result){       	
       	if(result.trim() == 'true'){
       	  alert('사용할 수 있는 아이디입니다');
