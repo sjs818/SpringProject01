@@ -65,7 +65,6 @@
     </div>
 <!-- 수정을 위한 주석 -->
     <!-- 하단 정보 -->  
-    <c:import url="/WEB-INF/view/include/bottom_info.jsp" />
 
 
 </body>
