@@ -36,13 +36,13 @@
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="FreedomBoardDTO" items="${contentList}">
+				<c:forEach var="NoticeDTO" items="${contentList}">
 					<tr>
-						<td class="text-center">${FreedomBoardDTO.free_no }</td>
-						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title }</a></td>
-						<td class="text-center">${FreedomBoardDTO.content_writer_id }</td>
-						<td class="text-center">${FreedomBoardDTO.free_cnt }</td>
-						<td class="text-center">${FreedomBoardDTO.content_date }</td>
+						<td class="text-center">${NoticeDTO.notice_no }</td>
+						<td class="text-center"><a href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
+						<td class="text-center">${NoticeDTO.content_notice_user_no }</td>
+						<td class="text-center">${NoticeDTO.notice_cnt }</td>
+						<td class="text-center">${NoticeDTO.notice_date }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -65,7 +65,7 @@
 		</div>
 		  <div class="text-right">
 		    <c:if test="${loginUserDTO.userLogin == true}">
-      			<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
+      			<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
       		</c:if>
     	  </div>
 	 </div>

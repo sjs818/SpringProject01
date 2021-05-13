@@ -20,7 +20,7 @@
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>
 			<li class="nav-item"><a class="nav-link" href="#">게시판 3</a></li>
 			<li><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
-			<li><a class="nav-link" href="${root }freedom/list">공지사항</a></li>
+			<li><a class="nav-link" href="${root }notice/list">공지사항</a></li>
 		</ul>
 		
 	    <ul class="navbar-nav ml-auto">
