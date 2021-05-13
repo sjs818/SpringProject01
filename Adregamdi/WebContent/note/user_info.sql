@@ -1,13 +1,14 @@
 CREATE TABLE user_info
 (
-    user_no       INT             NOT NULL, 
-    user_name     VARCHAR2(20)    NOT NULL, 
-    user_id       VARCHAR2(20)    NOT NULL UNIQUE, 
-    user_pw       VARCHAR2(100)    NOT NULL, 
-    user_email    VARCHAR2(50)    NOT NULL, 
-    user_phone    VARCHAR2(13)    NOT NULL, 
-    CONSTRAINT user_no_pk PRIMARY KEY (user_no)
-);
+    user_no       INT              NOT NULL, 
+    user_name     VARCHAR2(15)     , 
+    user_id       VARCHAR2(50)     unique, 
+    user_pw       VARCHAR2(100)    , 
+    user_email    VARCHAR2(50)     NOT NULL, 
+    user_phone    VARCHAR2(15)     NOT NULL, 
+    user_provider INT              NOT NULL,
+    CONSTRAINT user_info_pk PRIMARY KEY (user_no)
+)
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, '어드레', 'adre', '123456789!q', 'adre@adre.com', '01012345678');
 
