@@ -5,7 +5,7 @@ CREATE TABLE user_info
     user_id       VARCHAR2(20)    NOT NULL, 
     user_pw       VARCHAR2(100)    NOT NULL, 
     user_email    VARCHAR2(50)    NOT NULL, 
-    user_phone    VARCHAR2(13)    NOT NULL, 
+    user_phone    VARCHAR2(13)    NOT NULL,  
     CONSTRAINT user_no_pk PRIMARY KEY (user_no)
 );
 
