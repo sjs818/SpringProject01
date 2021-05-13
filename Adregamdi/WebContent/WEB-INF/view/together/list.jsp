@@ -31,10 +31,10 @@
 			<thead>
 				<tr>
 					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 55%">글제목</th>
+					<th class="text-center" style="width : 60%">글제목</th>
 					<th class="text-center" style="width : 10%">작성자</th>
+					<th class="text-center" style="width : 14%">작성날짜</th>
 					<th class="text-center" style="width : 8%">조회수</th>
-					<th class="text-center" style="width : 15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -43,31 +43,30 @@
 						<td class="text-center">${TogetherDTO.to_no }</td>
 						<td class="text-center"><a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a></td>
 						<td class="text-center">${TogetherDTO.to_writer }</td>
+						<td class="text-center">${TogetherDTO.to_to_date }</td>
 						<td class="text-center">${TogetherDTO.to_cnt }</td>
-						<td class="text-center">${TogetherDTO.to_date }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="pageNevigation text-center">
-			<ul class="pagination">
-				<li class="disabled"><a href="#">이전</a></li>
-				<li class="active"><a href="#">1</a></li>
-				<li><a href="#">2</a></li>
-				<li><a href="#">3 </a></li>
-				<li><a href="#">4 </a></li>
-				<li><a href="#">5 </a></li>
-				<li><a href="#">6 </a></li>
-				<li><a href="#">7 </a></li>
-				<li><a href="#">8 </a></li>
-				<li><a href="#">9 </a></li>
-				<li><a href="#">10 </a></li>
-				<li><a href="#">다음</a></li>
+		<div class="pageNevigation">
+			<ul class="pagination justify-content-center">
+				<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
+        		<li class="page-item active"><a class="page-link" href="#">1</a></li>
+       			<li class="page-item"><a class="page-link" href="#">2</a></li>
+        		<li class="page-item"><a class="page-link" href="#">3 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">4 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">5 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">6 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">7 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">8 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">9 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">10 </a></li>
+        		<li class="page-item"><a class="page-link" href="#">다음</a></li>
 			</ul>
 		</div>
 		  <div class="text-right">
       		<a href="${root}together/write" class="btn btn-info">동행자 구인공고</a>
-      		<a href="#" class="btn btn-danger">글 삭제</a>
     	  </div>
 	 </div>
 </body>

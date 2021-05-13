@@ -18,42 +18,47 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
+
 <body>
 	<!-- 상단 메뉴 -->
 	<c:import url="/WEB-INF/view/include/header/jsp"/>
 	
 	<!-- 메인 -->
-	<div class="container" style="margin-top:80pxx">
-	  <div class="row">
-	    <div class="col-sm-3"></div>
-	    <div class="col-sm-6">
-	      <div class="card shadow">
-	        <div class="card-body">
-	          <form:form action="${root }together/write_proc" method="post" modelAttribute="TogetherWriteDTO" enctype="multipart/form-data">
-	            <div class="form-group">
-	              <form:label path ="to_title">동행자 구인공고</form:label>
-	              <form:input path ="to_title" class="form-control"/>
-	              <form:errors path ="to_title" style="color:red"/>
-	            </div>  
-	            <div class="form-group">
-	              <form:label path="to_content">내용</form:label>
-	              <form:textarea path="to_content" class="form=control" rows="10" style="resize:none" />
-	              <form:errors path ="to_content" style="color:red"/>
- 	            </div>
-	            <div class="form-group">
-	              <div class="text-right">
-	                <form:button class="btn btn-primary">작성하기</form:button>
-	              </div>
-	            </div>
-	            </form:form>
-	          </div>  
-	        </div>        
-	      </div>
-	      <div class="col-sm-3"></div>
-	    </div>
-	  </div>
-	  
-	  <!-- 하단 -->
-	  <c:import url="/WEB-INF/view/include/footer.jsp" /> 
+
+	<div class="container" style="margin-top: 100px;">
+    <h3 class="InputSubject">
+      <b>동행자 구인공고</b>
+    </h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-3"></div>
+      <div class="col-sm-6">
+        <div class="card shadow">
+          <div class="card-body">
+            <form:form action="${root}together/writeProc" method="post" modelAttribute="togetherWriteDTO" class="form-horizontal">
+              <div class="form-group">
+                <form:label path="to_title">제목</form:label>
+                <form:input path="to_title" class="form-control" />
+                <form:errors path="to_title" style="color:red;" />
+              </div>
+              <div class="form-group">
+                <form:label path="to_content">글 내용</form:label>
+                <form:textarea path="to_content" class="form-control" rows="10" style="resize:none"/>
+                <form:errors path="to_content" style="color:red;" />
+              </div>
+              <div class="form-group">
+              	 <div class="text-right">
+              	 	<form:button class="btn btn-primary">작성완료</form:button>
+                 	<a href="${root}together/list" class="btn btn-danger">취소</a>
+              	 </div>
+              </div>
+            </form:form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
+
+	

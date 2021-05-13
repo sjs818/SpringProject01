@@ -35,21 +35,21 @@ public class TogetherController {
 	}
 	
 	@GetMapping("/read")
-	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
+	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) {
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "together/read";
 	}
 	
 	@GetMapping("/write")
-	public String BoardWrite
-	(@ModelAttribute("TogetherWriteDTO") TogetherDTO togetherWriteDTO) {
+	public String TogetherWrite
+	(@ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO) {
 		return "together/write";
 	}
 	
 	@PostMapping("/writeProc")
-	public String Together_Proc
-	(@Valid @ModelAttribute("TogetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
+	public String TogetherWrite_Proc
+	(@Valid @ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
 	
@@ -59,7 +59,7 @@ public class TogetherController {
 	}
 	
 	@GetMapping("/modify")
-	public String BoardModify
+	public String TogetherModify
 	(@ModelAttribute("TogetherDTO") TogetherDTO togetherModifyDTO, 
 	 @RequestParam("content_idx") int content_idx, Model model) {
 		
