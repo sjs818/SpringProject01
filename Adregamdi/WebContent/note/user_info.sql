@@ -8,7 +8,7 @@ CREATE TABLE user_info
     user_phone    VARCHAR2(15)     NOT NULL, 
     user_provider INT              NOT NULL,
     CONSTRAINT user_info_pk PRIMARY KEY (user_no)
-)
+);
 
 INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, '어드레', 'adre', '123456789!q', 'adre@adre.com', '01012345678');
 

@@ -5,6 +5,6 @@
 
 <script>
 	alert("글 수정 완료!")
-	location.href="${root}/spot/read"
+	location.href="${root}/spot/read?spot_idx=${spot_idx}"
 </script>
     

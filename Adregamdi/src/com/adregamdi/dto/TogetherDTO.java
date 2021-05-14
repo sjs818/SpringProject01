@@ -1,7 +1,5 @@
 package com.adregamdi.dto;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,6 +19,4 @@ public class TogetherDTO {
 	private String to_date;
 	// 글 내용
 	private String to_content;
-	// 첨부파일
-	private MultipartFile upload_file;
 }
