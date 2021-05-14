@@ -20,7 +20,7 @@ public class LoginBlockInterceptor implements HandlerInterceptor {
 		
 		if(loginUserDTO.isUserLogin() == true) {
 			String contextPath = request.getContextPath();
-			response.sendRedirect(contextPath + "/user/null_login");
+			response.sendRedirect(contextPath + "/user/active_login");
 			
 			return false;
 		}

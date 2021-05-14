@@ -110,7 +110,7 @@ public class UserController {
 	  return "user/not_login";
 	}
 	
-	@GetMapping("/null_login")
+	@GetMapping("/active_login")
 	public String nullLogin() {
 		return "user/active_login";
 	}
