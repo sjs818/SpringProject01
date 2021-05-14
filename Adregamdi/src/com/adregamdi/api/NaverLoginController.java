@@ -1,4 +1,4 @@
-package com.adregamdi.controller;
+package com.adregamdi.api;
 
 import java.io.IOException;
 
@@ -19,12 +19,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
-import com.adregamdi.mapper.UserMapper;
 import com.github.scribejava.core.model.OAuth2AccessToken;
 
 @Controller
 @RequestMapping("/user")
-public class LoginController {
+public class NaverLoginController {
 	
 	/* NaverLoginBO */
 	private NaverLoginBO naverLoginBO;

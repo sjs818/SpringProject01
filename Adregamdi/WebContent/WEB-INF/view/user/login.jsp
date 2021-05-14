@@ -69,12 +69,6 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-
-	<a
-		href="https://kauth.kakao.com/oauth/authorize?client_id=d868d655e54c5bc80caa98fd505f3cef&redirect_uri=http://localhost:8090/user/kakao_proc&response_type=code"
-		class="btn btn-info">카카오로그인</a>
-
-
 	<!-- 하단 정보 부분 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 

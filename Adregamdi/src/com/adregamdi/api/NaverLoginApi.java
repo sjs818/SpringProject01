@@ -1,4 +1,4 @@
-package com.adregamdi.controller;
+package com.adregamdi.api;
 
 import org.springframework.stereotype.Component;
 

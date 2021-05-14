@@ -1,4 +1,4 @@
-package com.adregamdi.controller;
+package com.adregamdi.api;
 
 import java.io.IOException;
 import java.util.UUID;

@@ -52,11 +52,7 @@ public class UserService {
 	}	
 	
 	
-	
-	/*
-	 * public void addUserInfo(UserDTO JoinUserDTO) {
-	 * userDAO.addUserInfo(JoinUserDTO); }
-	 */
+
 	
 
 	

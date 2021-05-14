@@ -19,9 +19,9 @@ public interface UserMapper {
 	@Insert("INSERT INTO USER_INFO VALUES(USER_INFO_SEQ.NEXTVAL, #{user_name}, #{user_id},  #{user_pw},  #{user_email},  #{user_phone}, #{user_provider})")
 	void addUserInfo(UserDTO joinUserDTO);
 
-
 	@Select("SELECT USER_NO, USER_NAME, USER_EMAIL, USER_PHONE FROM USER_INFO WHERE USER_ID=#{user_id}")
 	UserDTO getLogin(UserDTO loginUserDTO);
+	
 	@Select("SELECT USER_NO, USER_NAME, USER_EMAIL, USER_PHONE FROM USER_INFO WHERE USER_ID=#{user_id}")
 	UserDTO getLoginUser(UserDTO tmpLoginUserDTO);
 	

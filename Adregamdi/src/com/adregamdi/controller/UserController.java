@@ -1,7 +1,6 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
-import java.util.HashMap;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -22,7 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
-import com.adregamdi.service.KakaoService;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
 
@@ -35,10 +33,6 @@ public class UserController {
 	
 	@Autowired
 	private UserDAO userDAO;
-	
-	
-    @Autowired
-    private KakaoService kakaoService;
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
@@ -76,26 +70,6 @@ public class UserController {
 		return "user/login_fail";	
 	}
 	
-	
-    @RequestMapping("/kakao_proc")
-    public String kakaoProc(@RequestParam(value = "code", required = false) String code) throws Exception{
-        String access_Token = kakaoService.getAccessToken(code);
-        System.out.println("#########" + code);
-        HashMap<String, Object> kakaoInfo = kakaoService.getUserInfo(access_Token);
-        System.out.println("#access_Token# : " + access_Token);
-        System.out.println("#userID# : " + kakaoInfo.get("email"));
-        System.out.println("#nickName# : " + kakaoInfo.get("nickname"));
-        System.out.println(kakaoInfo);
-        loginUserDTO.setUser_name((String) kakaoInfo.get("nickname"));
-        loginUserDTO.setUser_email((String) kakaoInfo.get("email"));
-       
-        if(kakaoInfo.get("email") == null) {
-        	return "user/login_fail";
-        }else {
-			loginUserDTO.setUserLogin(true);
-        	return "user/login_success";        	
-        }
-    }
 	
 	
 	@GetMapping("/logout")

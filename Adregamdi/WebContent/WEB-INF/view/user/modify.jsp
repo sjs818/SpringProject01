@@ -35,7 +35,7 @@
 							<form:label path="user_id">아이디</form:label>
 							<form:input path="user_id" class='form-control' readonly="true"/>
 						</div>
-						<c:if test="${loginUserDTO.user_provider } != 2">
+						<c:if test="${loginUserDTO.user_provider ne 2 }">
 							<div class="form-group">
 								<form:label path="user_pw">비밀번호</form:label>
 								<form:password path="user_pw" class='form-control'/>
@@ -52,11 +52,23 @@
 							<form:input path="user_phone" class='form-control'/>
 							<form:errors path='user_phone' style='color:red'/>
 						</div>
-						<div class="form-group">
-							<div class="text-right">
-								<form:button class='btn btn-info'>정보수정</form:button>
-							</div>
-						</div>
+						
+						<c:choose>
+							<c:when test="${loginUserDTO.user_provider ne 2  }">
+								<div class="form-group">
+									<div class="text-right">
+										<form:button class='btn btn-info'>정보수정</form:button>
+									</div>
+								</div>
+							</c:when>
+							<c:when test="${loginUserDTO.user_provider eq 2  }">
+								<br>
+								<small id="pwHelp" class="form-text text-muted text-right">
+									* 네이버 회원은 정보를 수정하실 수 없습니다.
+								</small>
+							</c:when>
+						</c:choose>
+						
 					</form:form>
 				</div>
 			</div>
