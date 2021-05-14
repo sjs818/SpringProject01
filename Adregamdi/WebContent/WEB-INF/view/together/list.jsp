@@ -43,7 +43,7 @@
 						<td class="text-center">${TogetherDTO.to_no }</td>
 						<td class="text-center"><a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a></td>
 						<td class="text-center">${TogetherDTO.to_writer }</td>
-						<td class="text-center">${TogetherDTO.to_to_date }</td>
+						<td class="text-center">${TogetherDTO.to_date }</td>
 						<td class="text-center">${TogetherDTO.to_cnt }</td>
 					</tr>
 				</c:forEach>

@@ -1,6 +1,8 @@
 package com.adregamdi.controller;
 
 import java.util.List;
+
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.TogetherService;
 
 @Controller
@@ -22,15 +25,18 @@ public class TogetherController {
 	@Autowired
 	TogetherService togetherService;
 	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	@GetMapping("/list")
-	public String BoardList(Model model) {
+	public String TogetherList(Model model) {
 		List<TogetherDTO> contentList = togetherService.getTogetherList();
 		model.addAttribute("contentList", contentList);
 		return "together/list";
 	}
 	
 	@GetMapping("/delete")
-	public String BoardDelete() {
+	public String TogetherDelete() {
 		return "together/delete";
 	}
 	
@@ -76,7 +82,7 @@ public class TogetherController {
 	}
 	
 	@PostMapping("/modifyProc")
-	public String BoardModify_Proc
+	public String TogetherModify_Proc
 	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
 		
 		togetherService.ModifyTogetherContent(togetherModifyDTO);
