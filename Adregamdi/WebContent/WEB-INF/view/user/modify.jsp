@@ -64,7 +64,7 @@
 							<c:when test="${loginUserDTO.user_provider eq 2  }">
 								<br>
 								<small id="pwHelp" class="form-text text-muted text-right">
-									* 네이버 회원은 정보를 수정하실 수 없습니다.
+									* 네이버 회원은 고객센터를 통해 정보수정이 가능합니다.
 								</small>
 							</c:when>
 						</c:choose>
