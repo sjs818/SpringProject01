@@ -69,7 +69,15 @@ public class SpotController {
 	
 	@ResponseBody
 	@GetMapping("/details")
-	public List<String> getDetailsInfo(VisitKoreaDTO visitKoreaDTO) throws Exception {
+	public List<String> getDetailsInfo(String contentId, String contentTypeId) throws Exception {
+		
+		VisitKoreaDTO visitKoreaDTO = new VisitKoreaDTO();
+		
+		visitKoreaDTO.setContentId(contentId);
+		visitKoreaDTO.setContentTypeId(contentTypeId);
+		
+		System.out.println(contentId);
+		
 		return spot.getEachInformation(visitKoreaDTO);
 	}
 	

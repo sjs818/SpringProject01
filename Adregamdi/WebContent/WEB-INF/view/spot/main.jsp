@@ -26,8 +26,123 @@
 
 <link rel="stylesheet" href="${root }bootstrap/css/styles.css">
 
-<script src="${root }js/spot.js"></script>
+
 <link href="${root }css/spot.css" rel="stylesheet">
+
+<script>
+$(function() {
+
+    var sigungu = $("#sigunguCode").val();
+    var contentType = $("#contentTypeId").val();
+    var pNum = $('input[name=pageNum]').val()
+
+    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10 };
+
+    // 무조건 화면에 띄워야함.
+    $.ajax({
+        url: "/spot/information",
+        type: "get",
+        dataType: "json",
+        data: allData,
+        success: function(data) {
+            
+            // 반복함수
+            $.each(data, function(key, val) {  
+            	$("#contentId" + key).html(data[key].contentId);
+            	$("#contentTypeId" + key).html(data[key].contentTypeId);
+				$("#photo" + key).attr("src", data[key].firstImage2);
+				$("#title" + key).text(data[key].title);
+                $("#addr" + key).text(data[key].addr1);
+            });
+        },
+        error: function(error) {
+            alert('첫 페이지 에러');
+        }
+    });
+});
+
+function detail(idx) {
+	
+	var contentId = $("#contentId"+idx).html();
+	var contentTypeId = $("#contentTypeId"+idx).html();
+	var param = {"contentId" : contentId, "contentTypeId" : contentTypeId};
+	
+	$.ajax({
+		
+		url: "/spot/details",
+		type: "get",
+		dataType: "json",
+		data: param,
+		success:function(data) {
+			
+			testData(data,contentTypeId);
+		}, 
+		error: function(error) {
+			alert('detail 에러');
+		}
+	});
+}
+
+function testData(data,contentTypeId) {
+	for(var i=0;i<data.length;i++){
+		if(data[i] == null){
+			data[i] = "";
+		}
+	}		
+	$("#modalPhoto").attr("src",data[0]);
+	$("#modalTitle").text(data[1]);
+	$("#modalOverview").html(data[2]);
+	$(".datails").empty();
+	$(".details").append("<li id='addr'>주소 : "+data[3]+"</li><br>");
+	switch(contentTypeId) {
+	case "12" :
+		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
+		$(".details").append("<li>쉬는날 : "+data[7]+"</li><br>");
+		$(".details").append("<li>이용시간 : "+data[8]+"</li><br>");
+		break;
+	case "14" :
+		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
+		$(".details").append("<li>이용요금 : "+data[7]+"</li><br>");
+		$(".details").append("<li>이용시간 : "+data[8]+"</li><br>");
+		break;
+	case "15" :
+		$(".details").append("<li>행사 홈페이지 : "+data[6]+"</li><br>");
+		$(".details").append("<li>연락처 : "+data[7]+"</li><br>");
+		$(".details").append("<li>공연시간 : "+data[8]+"</li><br>");
+		$(".details").append("<li>이용요금 : "+data[9]+"</li><br>");//여기까지
+		break;
+	case "25" :
+		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
+		$(".details").append("<li>코스 예상 소요시간 : "+data[7]+"</li><br>");
+		$(".details").append("<li>코스 테마 : "+data[8]+"</li><br>");
+		break;
+	case "28" :
+		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
+		$(".details").append("<li>쉬는날 : "+data[7]+"</li><br>");
+		$(".details").append("<li>이용요금 : "+data[8]+"</li><br>");
+		$(".details").append("<li>이용시간 : "+data[9]+"</li><br>");
+		break;
+	case "32" :
+		$(".details").append("<li>문의 및 안내 : "+data[8]+"</li><br>");
+		$(".details").append("<li>체크인 : "+data[6]+"</li><br>");
+		$(".details").append("<li>체크아웃 : "+data[7]+"</li><br>");
+		$(".details").append("<li>홈페이지 : "+data[9]+"</li><br>");
+		$(".details").append("<li>예약안내 : "+data[10]+"</li><br>");
+		break;
+	case "38" :
+		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
+		$(".details").append("<li>영업시간 : "+data[7]+"</li><br>");
+		$(".details").append("<li>쉬는날 : "+data[8]+"</li><br>");
+		break;
+	case "39" :
+		$(".details").append("<li>문의 및 안내 : "+data[7]+"</li><br>");
+		$(".details").append("<li>대표 메뉴 : "+data[6]+"</li><br>");
+		$(".details").append("<li>영업시간 : "+data[8]+"</li><br>");
+		$(".details").append("<li>쉬는날 : "+data[9]+"</li><br>");
+		break;
+	}
+}
+</script>
 
 <style>
 
@@ -91,12 +206,13 @@ h2, h3 {
 					맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의
 					보석 같은 여행지가 여러분의 선택을 기다린다.</h3>
 			</div>
+			
 			<div class="row">
 				<c:forEach var="i" begin="0" end="0">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item" >
 							<%-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}" > --%>
-							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}" onclick="setNumber(${i});">
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
 										<i class="fas fa-plus fa-3x"></i>
@@ -107,6 +223,8 @@ h2, h3 {
 							<div class="portfolio-caption">
 								<div id="title${i}" class="portfolio-caption-heading"></div>
 								<div id="addr${i}" 	class="portfolio-caption-subheading text-muted"></div>
+								<span style="display:none" id="contentId${i }" ></span>
+								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
 						</div>
 					</div>
@@ -116,38 +234,34 @@ h2, h3 {
 	</section>
 
 	<!-- 세부사항 --> 
-	<c:forEach var="num" begin="0" end="0">
-		<div class="portfolio-modal modal fade" id="portfolioModal${num }"
-				tabindex="-1" role="dialog" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="close-modal" data-dismiss="modal">
-							<img src="${root }bootstrap/assets/img/close-icon.svg" alt="Close modal" />
-						</div>
-						<div class="container">
-							<div class="row justify-content-center">
-								<div class="col-lg-8">
-									<div class="modal-body">
-										<h2 id="modalTitle${num }" class="text-uppercase"></h2>
-										<p id="modalAddr${num }" class="item-intro text-muted"></p>
-										<img id="modalPhoto${num }" class="img-fluid d-block mx-auto" src="" alt="..." />
-										<p id="modalOverview${num }"></p>
-										<ul class="list-inline">
-											<li>Date: January 2021</li>
-											<li>Client: Threads</li>
-											<li>Category: Illustration</li>
-										</ul>
-										<button class="btn btn-primary" data-dismiss="modal" type="button">
-											<i class="fas fa-times mr-1"></i> Close Project
-										</button>
-									</div>
-								</div>
+	
+	<div class="portfolio-modal modal fade" id="portfolioModal"	tabindex="-1" role="dialog" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="close-modal" data-dismiss="modal">
+					<img src="${root }bootstrap/assets/img/close-icon.svg" alt="Close modal" />
+				</div>
+				<div class="container">
+					<div class="row justify-content-center">
+						<div class="col-lg-8">
+							<div class="modal-body">
+								<h2 id="modalTitle" class="text-uppercase"></h2>
+								<p id="modalAddr" class="item-intro text-muted"></p>
+								<img id="modalPhoto" class="img-fluid d-block mx-auto" src="" alt="..." />
+								<p id="modalOverview"></p>
+								<ul class="details">
+								</ul>
+								<button class="btn btn-primary" data-dismiss="modal" type="button">
+									<i class="fas fa-times mr-1"></i> Close Project
+								</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-		</c:forEach>
+		</div>
+	</div>
+			
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 
