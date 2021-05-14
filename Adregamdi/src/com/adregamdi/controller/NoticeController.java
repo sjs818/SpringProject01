@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.NoticeService;
@@ -38,17 +37,16 @@ public class NoticeController {
 		return "notice/list";
 	}
 
-	@GetMapping("/delete")
-	public String NoticeDelete() {
-		return "notice/delete";
-	}
 
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
+		System.out.println(readContentDTO.getNotice_content()
+				);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
-		return "freedom/read";
+		return "notice/read";
+		
 	}
 
 	@GetMapping("/write")
@@ -91,6 +89,12 @@ public class NoticeController {
 		noticeService.ModifyNoticeContent(noticeModifyDTO);
 
 		return "notice/modify_success";
+	}
+	
+	@GetMapping("/delete")
+	public String NoticeDelete(@RequestParam("content_idx") int content_idx) {
+		noticeService.DeleteNoticeContent(content_idx);
+		return "notice/delete_success";
 	}
 
 }

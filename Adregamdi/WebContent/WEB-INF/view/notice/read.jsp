@@ -35,16 +35,16 @@
               <div class="form-group">
                 <label for="content" class="control-label col-sm-2">글 내 용</label>
                 <div class="col-sm-8">
-                  <textarea id="content" class="form-control" rows=6 style="resize:none;" disabled>${noticeDTO.notice_content}</textarea>
+                  <textarea id="content" class="form-control" rows=6 style="resize:none;" disabled>${readContentDTO.notice_content}</textarea>
                 </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-6">
                 <a href="${root}notice/list" class="btn btn-info">목록보기</a>
-                 <c:if test="${loginUserDTO.userLogin == true}">
-                   <c:if test="${ loginUserDTO.user_no == noticeDTO.notice_user_no }" >
-                    <a href="${root}notice/modify?content_idx=${noticeDTO.notice_no}" class="btn btn-success">수정하기</a>
-                    <a href="${root}notice/delete" class="btn btn-danger">삭제하기</a>
+                 <c:if test="${loginUserDTO.isUserLogin() == true}">
+                   <c:if test="${ loginUserDTO.user_no == readContentDTO.notice_user_no }" >
+                    <a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success">수정하기</a>
+                    <a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" class="btn btn-danger">삭제하기</a>
                    </c:if>
                   </c:if>
                 </div>

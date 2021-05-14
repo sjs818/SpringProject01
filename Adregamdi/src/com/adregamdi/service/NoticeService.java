@@ -32,5 +32,9 @@ public class NoticeService {
 	public void ModifyNoticeContent(NoticeDTO noticeModifyDTO) {
 		noticeDAO.ModifyNoticeContent(noticeModifyDTO);
 	}
+	
+	public void DeleteNoticeContent(int content_idx) {
+		noticeDAO.DeleteNoticeContent(content_idx);
+	}
 
 }

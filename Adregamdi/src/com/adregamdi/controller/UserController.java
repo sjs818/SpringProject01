@@ -94,7 +94,7 @@ public class UserController {
 	
 	@PostMapping("/join_proc")
 	public String joinProc(@Valid @ModelAttribute("joinUserDTO") UserDTO joinUserDTO, BindingResult result) {
-		if(result.hasErrors()) {
+		if(result.hasErrors()) {                         
 			return "user/join";
 		}
 		userService.addUserInfo(joinUserDTO);
