@@ -31,9 +31,9 @@
     $.ajax({
       url: '${root}user/checkID/'+ user_id, 
       type: 'get',
-      dataType: 'text',
+      dataType: 'json',
       success: function(result){       	
-      	if(result.trim() == 'true'){
+      	if(result.trim() == "true"){
       	  alert('사용할 수 있는 아이디입니다');
       	  $('#inputUserID').val('true');
       	}else{
@@ -65,7 +65,7 @@
                     <form:hidden path="inputUserID" />
                     <div class="form-group" >
                       <form:label path="user_name">이름</form:label>
-                      <form:input path="user_name" class="form-control"/>
+                      <form:input path="user_name" class="form-control" placeholder="한글 이름"/>
                       <form:errors path="user_name" style="color:red;" />
                     </div>    
                     <div class="form-group" >
@@ -81,7 +81,7 @@
                     <div class="form-group">
                       <form:label path="user_pw">비밀번호</form:label>
                       <form:password path="user_pw" class="form-control" />
-                      <small id="pwHelp" class="form-text text-muted">* 숫자, 영문자, 특수문자 조합하여 최소 8자리</small>
+                      <small id="pwHelp" class="form-text text-muted">* 숫자, 영문자 조합하여 최소 8자리</small>
                       <form:errors path="user_pw" style="color:red;" />
                     </div>                   
                     <div class="form-group">
@@ -94,11 +94,6 @@
                       <form:input path="user_phone" class="form-control" placeholder="'-' 을 제외한 11자리" />
                       <form:errors path="user_phone" style="color:red;" />
                     </div>                  
-  					<br>
-                    <div class="form-group form-check">
-   						<input type="checkbox" class="form-check-input" id="check1" >
-   						<label class="form-check-label" for="check1">개인정보 수집 및 이용 동의</label>
-  					</div> 
                     <div class="form-group">
                       <div class="text-right">
                         <form:button class="btn btn-success">회원가입</form:button>

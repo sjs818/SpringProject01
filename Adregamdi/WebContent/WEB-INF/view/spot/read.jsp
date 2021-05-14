@@ -12,10 +12,10 @@
 <title>지역별 관광지</title>
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet" 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 </head>
 
@@ -25,7 +25,7 @@
 
 	<!-- 글 읽기 -->
 	<div class="container" style="margin-top: 100px">
-		<div class="row"> 
+		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
@@ -36,7 +36,7 @@
 						</div>
 						<div class="form-group">
 							<label for="spot_name">여행지명</label> 
-							<input type="text" id="spot_name" name="spot_name" class="form-control" value=${readSpotDTO.spot_name } disabled="disabled" />
+							<input type="text" id="spot_name" name="spot_name" class="form-control" value='${readSpotDTO.spot_name }' disabled="disabled" />
 						</div>
 
 						<div class="form-group">
@@ -44,45 +44,52 @@
 							<input type="text" id="spot_addr" name="spot_addr" class="form-control" value=${readSpotDTO.spot_addr } disabled="disabled" />
 						</div>
 
-						<c:if test="${readSpotDTO.content_file != null }">
+						<c:if test="${readSpotDTO.spot_file != null }">
 							<div class="form-group">
-								<label for="board_file">첨부 이미지</label> 
-								<img src="${root }upload/${readSpotDTO.content_file}" width="100%" />
+								<label for="spot_file">첨부 이미지</label> 
+								<img src="${root }images/spot/${readSpotDTO.spot_file}" width="100%" />
 							</div>
 						</c:if>
-						
+
 						<div class="form-group">
 							<label for="spot_content">내용</label>
-							<textarea id="spot_content" name="spot_content" class="form-control" rows="3" style="resize:none" disabled="disabled">${readSpotDTO.spot_content }</textarea>
+							<textarea id="spot_content" name="spot_content"
+								class="form-control" rows="3" style="resize: none"
+								disabled="disabled">${readSpotDTO.spot_content }</textarea>
 						</div>
 
 					</div>
 				</div>
-				
+
 			</div>
-	
+
 
 		</div>
-		
-		<br><br>
-		
+
+		<br>
+		<br>
+
 		<form class="form-group">
-				<div class="text-center">
-					<!-- spotDTO의 check값 확인해서 1이면 local_detail페이지로 2면 thema_detail로 -->
-					<%-- <c:if test="${check == 1 }" > 
+			<div class="text-center">
+				<!-- spotDTO의 check값 확인해서 1이면 local_detail페이지로 2면 thema_detail로 -->
+				<%-- <c:if test="${check == 1 }" > 
 						<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
 					</c:if>
 					<c:if test="${check == 2 }" >
 						<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
 					</c:if>	 --%>
-					<a href="${root}spot/local_detail?check=${check}&local_no=1" class="btn btn-secondary">뒤로가기</a>
-					<a href="${root }spot/modify?spot_idx=${spot_idx}" class="btn btn-info">수정하기</a>
-					<a href="${root }spot/delete?spot_idx=${spot_idx}" class="btn btn-danger">삭제하기</a>
-				</div>
-			</form>
+				<a href="${root}spot/local_detail?check=${check}&local_no=1"
+					class="btn btn-secondary">뒤로가기</a> <a
+					href="${root }spot/modify?spot_idx=${readSpotDTO.spot_idx}"
+					class="btn btn-info">수정하기</a> <a
+					href="${root }spot/delete?spot_idx=${spot_idx}"
+					class="btn btn-danger">삭제하기</a>
+			</div>
+		</form>
 	</div>
 
-	<br><br>
+	<br>
+	<br>
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />

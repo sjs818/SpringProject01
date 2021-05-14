@@ -39,4 +39,13 @@ public class FreedomBoardDAO {
 	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
 		freedomBoardMapper.modifyFreedomBoardContent(freedomModifyDTO);
 	}
+	
+	public String GetFreedomBoardPassword(int content_idx) {
+		String password = freedomBoardMapper.GetFreedomBoardPassword(content_idx);
+		return password;
+	}
+	
+	public void FreedomBoardDeleteContent(int content_idx) {
+		freedomBoardMapper.FreedomBoardDeleteContent(content_idx);
+	}
 }

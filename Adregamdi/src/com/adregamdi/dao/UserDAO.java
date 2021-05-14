@@ -11,7 +11,7 @@ public class UserDAO {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
+
 	public String checkID(String user_id) {
 		String checking_id = userMapper.checkID(user_id);
 		return checking_id;
@@ -27,4 +27,7 @@ public class UserDAO {
 		return formDBUserDTO;
 	}
 	
+	public String getPw(String user_id) {
+		return userMapper.getPw(user_id);
+	}
 }

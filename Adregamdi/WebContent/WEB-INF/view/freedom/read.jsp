@@ -24,7 +24,7 @@
     <h3 class="InputSubject">
       <b>${readContentDTO.free_title}</b>
     </h3>
-    <h5>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h5>
+    <h6>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h6>
     <hr>
     <div class="row">
       <div class="col-sm-3"></div>
@@ -44,7 +44,7 @@
                  <c:if test="${loginUserDTO.userLogin == true}">
                    <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx }" >
                     <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success">수정하기</a>
-                    <a href="${root}freedom/delete" class="btn btn-danger">삭제하기</a>
+                    <a href="${root}freedom/delete?content_idx=${readContentDTO.free_no}" class="btn btn-danger">삭제하기</a>
                    </c:if>
                   </c:if>
                 </div>

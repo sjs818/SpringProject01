@@ -38,9 +38,28 @@ public class FreedomBoardController {
 	}
 
 	@GetMapping("/delete")
-	public String BoardDelete() {
+	public String BoardDelete
+	(@RequestParam("content_idx") int content_idx, @ModelAttribute("inputPwUserDTO") UserDTO inputPwUserDTO, Model model) {
+		FreedomBoardDTO freedomDeleteDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		model.addAttribute("freedomDeleteDTO", freedomDeleteDTO);
+		
 		return "freedom/delete";
 	}
+
+	
+	@PostMapping("/deleteProc")
+	public String BoardDeleteProc
+	(@Valid @ModelAttribute("inputPwUserDTO") UserDTO inputPwUserDTO, @RequestParam("content_idx") int content_idx) {
+		
+		String password = freedomBoardService.GetFreedomBoardPassword(content_idx);
+		if(inputPwUserDTO.getUser_pw().equals(password)) {
+			freedomBoardService.FreedomBoardDeleteContent(content_idx);
+			return "freedom/delete_success";
+		} else {
+			return "freedom/delete";
+		}
+	}
+	
 
 	@GetMapping("/read")
 	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
