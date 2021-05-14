@@ -20,8 +20,8 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
-	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
-	final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
+	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
+	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 	
 	public static String getTagValue(String tag, Element element) {
@@ -37,7 +37,7 @@ public class VisitKoreaAPI {
 		}
 	}
 	
-	// VisitKorea 지역기반 관광정보조회 (Content ID)
+	// VisitKorea 지역기반 관광정보조회
 	public ArrayList<String> getContentIdList(String pageNo, String sigunguCode, String contentTypeId, String numOfRow) throws SAXException, IOException, ParserConfigurationException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
@@ -77,7 +77,7 @@ public class VisitKoreaAPI {
 	}
 	
 	// VisitKorea 공통정보조회
-	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList) throws ParserConfigurationException, SAXException, IOException {
+	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
 		for(int i = 0; i < contentIdList.size(); i++) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
@@ -141,8 +141,8 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 	
-	// VisitKorea 공통정보조회
-	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException {
+	// VisitKorea 공통정보조회 : getContentIdList() + getSpotInfo()
+	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException, InterruptedException {
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
@@ -174,10 +174,190 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	/*
-	 * public List<String> getCommonInfo(String contentId, String contentTypeId,
-	 * List<String> information) {
-	 * 
-	 * }
-	 */
+	// VisitKorea 공통정보조회
+	public List<String> getCommonInfo(String contentId, String contentTypeId, List<String> information) throws ParserConfigurationException, SAXException, IOException {
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
+							 + "serviceKey=" + serviceKey
+							 + "&numOfRows=1"
+							 + "&pageNo=1"
+							 + "&MobileOS=ETC"
+							 + "&MobileApp=AppTest"
+							 + "&contentId=" + contentId
+							 + "&contentTypeId=" + contentTypeId
+							 + "&defaultYN=Y"
+							 + "&firstImageYN=Y"
+							 + "&areacodeYN=Y"
+							 + "&catcodeYN=Y"
+							 + "&addrinfoYN=Y"
+							 + "&mapinfoYN=Y"
+							 + "&overviewYN=Y";
+		
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+		
+		document.getDocumentElement().normalize();
+		
+		NodeList nodeList = document.getElementsByTagName("item");
+		for(int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if(getTagValue("firstimage", element) == null) {
+					information.add("/images/schedule/thumbnail.png");
+				} else {
+					information.add(getTagValue("firstimage", element));
+				}
+				information.add(getTagValue("title", element));
+				information.add(getTagValue("overview", element));
+				information.add(getTagValue("addr1", element));
+				information.add(getTagValue("mapy", element));
+				information.add(getTagValue("mapx",element));
+			}
+		}
+		return information;
+	}
+	
+	// VisitKorea 소개정보조회
+	public List<String> getIntroduceInfo(String contentId, String contentTypeId, List<String> information) throws ParserConfigurationException, SAXException, IOException {
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?"
+							 + "serviceKey="+serviceKey
+							 + "&numOfRows=1"
+							 + "&pageNo=1"
+							 + "&MobileOS=ETC"
+							 + "&MobileApp=AppTest"
+							 + "&contentId=" + contentId
+							 + "&contentTypeId=" + contentTypeId;
+		
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+			
+		document.getDocumentElement().normalize();
+			
+		NodeList nodeList = document.getElementsByTagName("item");
+		
+		switch (contentTypeId) {
+			
+			// 관광지(12) : 문의 및 안내(infocenter),  쉬는날(restdate), 이용시간(usetime)
+			case "12":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("infocenter", element));
+						information.add(getTagValue("restdate", element));
+						information.add(getTagValue("usetime", element));
+					}
+				}
+				break;
+			
+			// 문화시설(14) : 문의 및 안내(infocenterculture), 이용요금(usefee), 이용시간(usetimeculture)
+			case "14":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("infocenterculture", element));
+						information.add(getTagValue("usefee", element));
+						information.add(getTagValue("usetimeculture", element));
+					}
+				}
+				break;
+			
+			// 축제 / 공연 / 행사(15) : 행사 홈페이지(eventhompage), 주최자 연락처(sponsor1tel), 공연시간(playtime), 이용요금(usetimefestival)
+			case "15":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("eventhompage", element));
+						information.add(getTagValue("sponsor1tel", element));
+						information.add(getTagValue("playtime", element));
+						information.add(getTagValue("usetimefestival", element));
+					}
+				}
+				break;
+			
+			// 여행코스(25) : 문의 및 안내(infocentertourcourse), 코스 총 소요시간(taketime), 코스 테마(theme)
+			case "25":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("infocentertourcourse", element));
+						information.add(getTagValue("taketime", element));
+						information.add(getTagValue("theme", element));
+					}
+				}
+				break;
+			
+			// 레포츠(28) : 문의 및 안내(infocenterleports), 휴무일(restdateleports), 입장료(usefeeleports), 이용시간(usetimeleports)
+			case "28":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("infocenterleports", element));
+						information.add(getTagValue("restdateleports", element));
+						information.add(getTagValue("usefeeleports", element));
+						information.add(getTagValue("usetimeleports", element));
+					}
+				}
+				break;
+				
+			// 숙박(32) : 입실 시간(checkintime), 퇴실 시간(checkouttime), 문의 및 안내(infocenterlodging), 예약안내 홈페이지(reservationurl), 예약안내(reservationlodging)
+			case "32":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("checkintime", element));
+						information.add(getTagValue("checkouttime", element));
+						information.add(getTagValue("infocenterlodging", element));
+						information.add(getTagValue("reservationurl", element));
+						information.add(getTagValue("reservationlodging", element));
+					}
+				}
+				break;
+			
+			// 쇼핑(38) : 문의 및 안내(infocentershopping), 영업시간(opentime), 휴무일(restdateshopping)
+			case "38":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("infocentershopping", element));
+						information.add(getTagValue("opentime", element));
+						information.add(getTagValue("restdateshopping", element));
+					}
+				}
+				break;
+			
+			// 음식(39) : 대표 메뉴(firstmenu), 문의 및 안내(infocenterfood), 영업시간(opentimefood), 휴무일(restdatefood)
+			case "39":
+				for(int i = 0; i < nodeList.getLength(); i++) {
+					Node node = nodeList.item(i);
+					if(node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						information.add(getTagValue("firstmenu", element));
+						information.add(getTagValue("infocenterfood", element));
+						information.add(getTagValue("opentimefood", element));
+						information.add(getTagValue("restdatefood", element));
+					}
+				}
+				break;
+		}
+		return information;
+	}
+	
+	// 상세정보조회
+	public List<String> getEachInformation(VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
+		List<String> information = new ArrayList<String>();
+		information = getCommonInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
+		information = getIntroduceInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
+		return information;
+	}
 }

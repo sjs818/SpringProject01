@@ -55,11 +55,20 @@ public class ScheduleController {
 		return "schedule/write";
 	}
 	
+	@PostMapping("/write_proc")
+	public String write_proc(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO) {
+		
+		System.out.println(writeScheduleDTO.getSchedule_start());
+		System.out.println(writeScheduleDTO.getSchedule_end());
+		
+		scheduleService.writeSchedule(writeScheduleDTO);
+		
+		return "schedule/write_success";
+	}
+	
 	@ResponseBody
 	@GetMapping("/information")
-	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException {
-		
-		
+	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		
 		if(visitKoreaDTO.getPageNo() == null) {
 			visitKoreaDTO.setPageNo("1");
@@ -78,15 +87,17 @@ public class ScheduleController {
 		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	
-	@PostMapping("/write_proc")
-	public String write_proc(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO) {
-		
-		System.out.println(writeScheduleDTO.getSchedule_start());
-		System.out.println(writeScheduleDTO.getSchedule_end());
-		
-		scheduleService.writeSchedule(writeScheduleDTO);
-		
-		return "schedule/write_success";
+	@ResponseBody
+	@GetMapping("/detail")
+	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
+		return visitKoreaAPI.getEachInformation(visitKoreaDTO);
+	}
+	
+	@GetMapping("/guide")
+	public String guide(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) {
+		model.addAttribute("contentId", visitKoreaDTO.getContentId());
+		model.addAttribute("contentTypeId", visitKoreaDTO.getContentTypeId());
+		return "schedule/detail";
 	}
 	
 	@GetMapping("/read")

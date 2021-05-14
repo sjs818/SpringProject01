@@ -57,7 +57,7 @@ $(function() {
                       + '</p>'
                       + '<ul class="ul-info" style="list-style-type: none; padding: 0px;">'
                         + '<li class="li-addr" style="padding-left: 20px; margin-bottom: 5px;">'
-                          + '<p class="new-addr"><i class="fas fa-map-marker-alt" style="padding--right:3%"></i>' + position.addr + '</p>'
+                          + '<p class="new-addr"><i class="fas fa-map-marker-alt" style="padding-right:3%"></i>' + position.addr + '</p>'
                         + '</li>'
                         + '<li class="li-overview" style="padding-left: 20px;">'
                           + '<p class="overview" style="overflow: hidden; text-overflow: ellipsis; display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical;">'
@@ -244,7 +244,12 @@ $(function() {
     });
     return markers;
   }
-  
+  $(this).click(function(){
+    for(var i = 0; i < markers.length; i++) {
+       markers[i].setVisable(false);
+    }
+    marker.setVisible(true);
+ });
   function callAjaxMain(param, main_markers, map){
     $.ajax({
       url : "/schedule/information",
