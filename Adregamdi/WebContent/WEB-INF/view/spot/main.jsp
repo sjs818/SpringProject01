@@ -23,7 +23,6 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
-
 <link rel="stylesheet" href="${root }bootstrap/css/styles.css">
 
 
@@ -143,15 +142,6 @@ function testData(data,contentTypeId) {
 	}
 }
 </script>
-
-<style>
-
-h2, h3 {
-	font-family: 'Stylish', sans-serif
-}
-;
-
-</style>
 
 </head>
 
