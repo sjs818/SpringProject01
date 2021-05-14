@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.NoticeDAO;
-import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 
 @Service
