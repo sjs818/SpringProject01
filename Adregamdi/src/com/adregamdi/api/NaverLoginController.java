@@ -82,13 +82,16 @@ public class NaverLoginController {
 		System.out.println(apiResult);
 
 		
-		String user_phone = mobile.replace("-", "");		
+		String user_phone = mobile.replace("-", "");
 		Integer checkPhone = userDAO.checkPhone(user_phone);
+		
+		int idx = email.indexOf("@"); 
+		String userId = email.substring(0, idx);
 		System.out.println("번호확인 : " + checkPhone);
 		
 		if(checkPhone == null) {
 			joinUserDTO.setUser_email(email);
-			joinUserDTO.setUser_id(email);
+			joinUserDTO.setUser_id(userId);
 			joinUserDTO.setUser_pw("");
 			joinUserDTO.setUser_phone(user_phone);
 			joinUserDTO.setUser_name(name);
@@ -100,7 +103,7 @@ public class NaverLoginController {
 		
 		loginUserDTO.setUser_name(name);
 		loginUserDTO.setUser_email(email);
-		loginUserDTO.setUser_id(id);		
+		loginUserDTO.setUser_id(userId);		
 		loginUserDTO.setUser_phone(user_phone);
 		loginUserDTO.setUser_provider(2);
 		loginUserDTO.setUser_no(checkPhone);
