@@ -34,7 +34,7 @@ public class NoticeController {
 		List<NoticeDTO> contentList = noticeService.getNoticeList();
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
-		return "notice/list";
+		return "notice/list"; 
 	}
 
 
