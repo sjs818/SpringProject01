@@ -63,11 +63,12 @@
         		<li class="page-item"><a class="page-link" href="#">다음</a></li>
 			</ul>
 		</div>
-		  <div class="text-right">
-		    <c:if test="${loginUserDTO.userLogin == true}">
-      			<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
-      		</c:if>
-    	  </div>
-	 </div>
+
+			<div class="text-right">
+				<c:if test="${loginUserDTO.userLogin == true}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
+					<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
+				</c:if>
+			</div>
+	</div>
 </body>
 </html>
