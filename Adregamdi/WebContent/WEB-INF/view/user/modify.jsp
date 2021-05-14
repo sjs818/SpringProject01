@@ -35,11 +35,13 @@
 							<form:label path="user_id">아이디</form:label>
 							<form:input path="user_id" class='form-control' readonly="true"/>
 						</div>
-						<div class="form-group">
-							<form:label path="user_pw">비밀번호</form:label>
-							<form:password path="user_pw" class='form-control'/>
-							<form:errors path='user_pw' style='color:red'/>
-						</div>
+						<c:if test="${loginUserDTO.user_provider } != 2">
+							<div class="form-group">
+								<form:label path="user_pw">비밀번호</form:label>
+								<form:password path="user_pw" class='form-control'/>
+								<form:errors path='user_pw' style='color:red'/>
+							</div>
+						</c:if>
 						<div class="form-group">
 							<form:label path="user_email">이메일</form:label>
 							<form:input path="user_email" class='form-control'/>

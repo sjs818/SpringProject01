@@ -1,8 +1,10 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
 import java.util.HashMap;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.mybatis.spring.MyBatisSystemException;
@@ -33,6 +35,7 @@ public class UserController {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
 	
     @Autowired
     private KakaoService kakaoService;
@@ -96,8 +99,9 @@ public class UserController {
 	
 	
 	@GetMapping("/logout")
-	public String logout() {
+	public String logout(HttpSession session) throws IOException {
 		loginUserDTO.setUserLogin(false);
+		session.invalidate();
 		return "/user/logout";
 	}
 	
@@ -128,14 +132,19 @@ public class UserController {
 			return "user/join";
 		}
 		
-		String checking_name = userDAO.checkName(joinUserDTO.getUser_name());
+		String user_phone = joinUserDTO.getUser_phone().replace("-", "");		
+		Integer checkPhone = userDAO.checkPhone(user_phone);
+		System.out.println("번호확인 : " + checkPhone);
 		
-		if(checking_name == null) {
-			userService.addUserInfo(joinUserDTO);			
-			return "user/join_success";		
+		if(checkPhone == null) {
+		
+			userService.addUserInfo(joinUserDTO);	
+		
+			return "user/join_success";
 		}else {
 			return "user/join_fail";
 		}
+		
 	}
 	
 	

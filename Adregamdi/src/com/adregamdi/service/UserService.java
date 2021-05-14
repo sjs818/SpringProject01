@@ -39,10 +39,13 @@ public class UserService {
 			UserDTO fromDBUserDTO = userDAO.getLoginUserDTO(tmpLoginUserDTO);
 			
 			loginUserDTO.setUser_no(fromDBUserDTO.getUser_no());
+			loginUserDTO.setUser_id(fromDBUserDTO.getUser_id());
 			loginUserDTO.setUser_name(fromDBUserDTO.getUser_name());
 			loginUserDTO.setUser_email(fromDBUserDTO.getUser_email());
 			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
 			loginUserDTO.setUserLogin(true);
+			
+			System.out.println("고유번호 : " + loginUserDTO.getUser_no());
 			
 		}
 

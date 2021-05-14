@@ -17,17 +17,19 @@ public class UserDAO {
 		return checking_id;
 	}
 
-	public String checkName(String user_name) {
-		return userMapper.checkName(user_name);
+	
+	public Integer checkPhone(String user_phone) {
+		return userMapper.checkPhone(user_phone);
 	}
 	
 	public void addUserInfo(UserDTO joinUserDTO) {	
+		if(joinUserDTO.getUser_provider() != 2) {
+			joinUserDTO.setUser_provider(1);
+		}
 		userMapper.addUserInfo(joinUserDTO);
 	}
 	
-	public void addNaverInfo(UserDTO loginUserDTO) {
-		userMapper.addNaverInfo(loginUserDTO);
-	}
+
 	
 	public UserDTO getLoginUserDTO(UserDTO loginUserDTO) {
 		UserDTO formDBUserDTO = userMapper.getLoginUser(loginUserDTO);
