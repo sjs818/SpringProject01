@@ -20,14 +20,10 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap"	rel="stylesheet">
 
+<!-- x 아이콘 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<!-- Font Awesome icons (free version)-->
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
 
-
-
-
-<link href="${root }css/spot.css" rel="stylesheet">
 
 <script>
 $(function() {
@@ -163,12 +159,12 @@ ul {
 			<div class="text-center">
 				<h2 class="section-heading text-uppercase">제주 지역 탐방</h2>
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
-					수 있습니다. 각 지역의 Top5 유명지를 소개합니다.</h3>
+					수 있습니다. 각 지역의 Top3 유명지를 소개합니다.</h3>
 			</div>
 
 			<!-- Best 여행지  -->
 			<div class="row" style="margin-top: 50px">
-				<c:forEach var="order" begin="0" end="4" >
+				<c:forEach var="order" begin="0" end="2" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${order }">
@@ -190,8 +186,9 @@ ul {
 			</div>
 		</div>
 
-		<!-- 전체 여행지 보기 -->
-		<hr>
+		<hr style="width: 80%;">
+		
+		<!-- 전체 여행지 보기 -->		
 		<input type="hidden" id="pageMaker" value="${pageMaker }">
 		<input type="hidden" id="sigunguCode" value="${sigunguCode }">
 		<input type="hidden" id="contentTypeId" value="${contentTypeId }">
@@ -202,12 +199,10 @@ ul {
 					맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의
 					보석 같은 여행지가 여러분의 선택을 기다린다.</h3>
 			</div>
-			
 			<div class="row">
-				<c:forEach var="i" begin="0" end="0">
+				<c:forEach var="i" begin="0" end="5">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item" >
-							<%-- <a class="portfolio-link" data-toggle="modal" href="#portfolioModal${i}" > --%>
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
@@ -226,22 +221,27 @@ ul {
 					</div>
 				</c:forEach>				
 			</div>
+			<div class="page">
+				
+			</div>
 		</div>
 	</section>
-
-	<!-- 세부사항 --> 
 	
+	
+	
+
+	<!-- 1개 클릭 시 세부사항 --> 
 	<div class="portfolio-modal modal fade" id="portfolioModal"	tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="close-modal" data-dismiss="modal">
-					<img src="${root }bootstrap/assets/img/close-icon.svg" alt="Close modal" />
+					<img src="${root }images/spot/close-icon.svg" alt="Close modal" />
 				</div>
 				<div class="container">
 					<div class="row justify-content-center">
 						<div class="col-lg-8">
 							<div class="modal-body">
-								<h2 id="modalTitle" class="text-uppercase"></h2>
+								<h2 id="modalTitle"></h2>
 								<p id="modalAddr" class="item-intro text-muted"></p>
 								<img id="modalPhoto" class="img-fluid d-block mx-auto" src="" alt="..." />
 								<p id="modalOverview"></p>
@@ -257,13 +257,13 @@ ul {
 			</div>
 		</div>
 	</div>
-			
+	
+	
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
