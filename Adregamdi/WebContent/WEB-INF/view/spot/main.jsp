@@ -88,8 +88,7 @@ function testData(data,contentTypeId) {
 	$("#modalPhoto").attr("src",data[0]);
 	$("#modalTitle").text(data[1]);
 	$("#modalOverview").html(data[2]);
-	$(".datails").empty();
-	$(".details").append("<li id='addr'>주소 : "+data[3]+"</li><br>");
+	$(".details").empty().append("<li id='addr'>주소 : "+data[3]+"</li><br>");
 	switch(contentTypeId) {
 	case "12" :
 		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
