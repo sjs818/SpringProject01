@@ -23,11 +23,10 @@ public class PageDTO {
 	// 전체 게시글의 개수 - 추가 
 	private int total;
 	
-	// ?? - 추가
-	private boolean prev, next;
-	
 	// 현재 페이지 번호
 	private int currentPage;
+	
+	private boolean prev, next;
 	
 	// contentCnt : 전체 게시글의 개수
 	// contentPageCnt : 페이지당 게시글의 개수
@@ -64,7 +63,7 @@ public class PageDTO {
 		this.currentPage = Integer.parseInt(currentPage);
 		this.total = total;
 		
-		this.max = (int)(Math.ceil((this.currentPage*1.0)/pageCount))*pageCount;
+		this.max = (int)(Math.ceil((this.currentPage*1.0)/contentPageCnt))*contentPageCnt;
 		this.min = this.max - (contentPageCnt - 1);
 		
 		int realEnd = (int)(Math.ceil((total*1.0)/contentPageCnt));

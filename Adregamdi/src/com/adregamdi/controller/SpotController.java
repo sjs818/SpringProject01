@@ -33,14 +33,14 @@ public class SpotController {
 	private VisitKoreaAPI spot;
 
 	@GetMapping("/main")
-	public String spotMain(@RequestParam(value="pageNum", defaultValue="1")String pageNo,
-			@RequestParam(value="sigunguCode", defaultValue="")String sigunguCode, @RequestParam(value="contentTypeId", defaultValue="")String contentTypeId, Model model ) throws Exception {
+	public String spotMain(@RequestParam(value="currentPage", defaultValue="1")String currentPage,
+			@RequestParam(value="sigunguCode", defaultValue="")String sigunguCode, @RequestParam(value="contentTypeId", defaultValue="")String contentTypeId, 
+			 Model model ) throws Exception {
 		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
-		model.addAttribute("pageMaker", new PageDTO(pageNo, totalCount, 10));
+		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
 		model.addAttribute("sigunguCode", sigunguCode);
-		model.addAttribute("contentTypeId", contentTypeId);
-		
+		model.addAttribute("contentTypeId", contentTypeId);		
 		
 		return "spot/main";
 	}

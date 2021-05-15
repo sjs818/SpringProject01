@@ -24,13 +24,14 @@
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
 
+<link href="${root }css/spot.css" rel="stylesheet">
 
 <script>
 $(function() {
 
     var sigungu = $("#sigunguCode").val();
     var contentType = $("#contentTypeId").val();
-    var pNum = $('input[name=pageNum]').val()
+    var pNum = $('input[name=currentPage]').val();
 
     var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10 };
 
@@ -42,6 +43,7 @@ $(function() {
         data: allData,
         success: function(data) {
             
+        	
             // 반복함수
             $.each(data, function(key, val) {  
             	$("#contentId" + key).html(data[key].contentId);
@@ -54,6 +56,14 @@ $(function() {
         error: function(error) {
             alert('첫 페이지 에러');
         }
+    });
+    
+    var actionForm = $("#actionForm");
+
+    $(".paginate_button a").on("click", function(e) {
+        e.preventDefault();
+        actionForm.find("input[name='currentPage']").val($(this).attr("href"));
+        actionForm.submit();
     });
 });
 
@@ -143,6 +153,41 @@ function testData(data,contentTypeId) {
 ul {
 	list-style: none;
 };
+
+.pagination {
+  display: inline-block;
+}
+
+.pagination li {
+  color: black;
+  float: left;
+  padding: 6px 12px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+}
+
+.pagination a {
+  color: black;
+  font-size: 12px;
+}
+
+.pagination li.active {
+  background-color: #c8c8c8;
+  color: white;
+  border: 1px solid #c8c8c8;
+}
+
+.pagination li:hover:not(.active) {background-color: #ddd;}
+
+.pagination li:first-child {
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+}
+
+.pagination li:last-child {
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+}
 </style>
 </head>
 
@@ -220,8 +265,35 @@ ul {
 					</div>
 				</c:forEach>				
 			</div>
-			<div class="page">
-				
+			
+			<!-- 페이지 처리 -->
+			
+			<div class="row text-center" style="margin: 1rem auto; padding-right: 5%; padding-left: 5%">
+				<div class="col-sm-12">
+					<ul class="pagination" id="pagination-demo">
+						<c:if test="${pageMaker.prev }">
+							<li class="paginate_button previous">
+								<a href="${pageMaker.min -1 }">&laquo;</a>
+							</li>
+						</c:if>
+						<c:forEach var="num" begin="${pageMaker.min }" end="${pageMaker.max }">
+							<li class="paginate_button ${pageMaker.currentPage == num ? 'active':'' }">
+								<a href="${num }">${num} </a>
+							</li>
+						</c:forEach>
+						<c:if test="${pageMaker.next }">
+							<li class="paginate_button next">
+								<a href="${pageMaker.max +1 }">&raquo;</a>
+							</li>
+						</c:if>
+					</ul>
+				</div>
+
+				<form id='actionForm' action="/spot/main" method='get'>
+					<input type='hidden' name='currentPage' value='${pageMaker.currentPage }'>
+					<input type="hidden" name="sigunguCode" id="sigu" value="${sigunguCode }" /> 
+					<input type="hidden" name="contentTypeId" id="cont" value="${contentTypeId }" />
+				</form>
 			</div>
 		</div>
 	</section>
