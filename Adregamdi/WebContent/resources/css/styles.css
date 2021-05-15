@@ -474,7 +474,8 @@ mark,
 
 .img-fluid {
   max-width: 100%;
-  height: auto;
+  height: 300px;
+  object-fit: cover; 
 }
 
 .img-thumbnail {
@@ -10192,8 +10193,9 @@ header.masthead .masthead-heading {
 }
 #portfolio .portfolio-item {
   max-width: 25rem;
-  margin-left: auto;
+  margin-left: 10px;
   margin-right: auto;
+  box-shadow: 3px 3px 10px #807e7e;
 }
 #portfolio .portfolio-item .portfolio-link {
   position: relative;
