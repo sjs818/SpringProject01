@@ -55,12 +55,12 @@
 
 
 
-<div class="container" style="margin-top:100px">
+<div class="container" style="margin-top:140px">
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
 			<div class="card shadow">
-				<div class="card-body">
+				<div class="card-body" style="background-color: #F7F7F7;">
                     <form:form action="${root }user/join_proc" method="post" modelAttribute="joinUserDTO">
                     <form:hidden path="inputUserID" />
                     <div class="form-group" >
@@ -73,7 +73,7 @@
                       <div class="input-group">
                         <form:input path="user_id" class="form-control" onkeypress="resetinputUserID()"/>
                         <div class="input-group-append">
-                          <button type="button" class="btn btn-success" onClick="checkID();">중복확인</button>
+                          <button type="button" class="btn btn-secondary" onClick="checkID();">중복확인</button>
                         </div>
                       </div>
                       <form:errors path="user_id" style="color:red;" />
