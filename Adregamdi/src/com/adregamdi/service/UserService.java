@@ -45,7 +45,7 @@ public class UserService {
 			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
 			loginUserDTO.setUserLogin(true);
 			
-			System.out.println("고유번호 : " + loginUserDTO.getUser_no());
+			System.out.println("회원번호 : " + loginUserDTO.getUser_no());
 			
 		}
 

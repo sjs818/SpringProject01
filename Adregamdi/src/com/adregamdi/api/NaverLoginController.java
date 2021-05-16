@@ -87,7 +87,7 @@ public class NaverLoginController {
 		
 		int idx = email.indexOf("@"); 
 		String userId = email.substring(0, idx);
-		System.out.println("번호확인 : " + checkPhone);
+		System.out.println("회원여부 : " + checkPhone);
 		
 		if(checkPhone == null) {
 			joinUserDTO.setUser_email(email);
@@ -113,7 +113,7 @@ public class NaverLoginController {
 		 
 		
 		
-		System.out.println("고유번호 : " + loginUserDTO.getUser_no());
+		System.out.println("회원번호 : " + loginUserDTO.getUser_no());
 		loginUserDTO.setUserLogin(true);
 
 		
