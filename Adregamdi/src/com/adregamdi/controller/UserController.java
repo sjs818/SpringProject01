@@ -102,14 +102,12 @@ public class UserController {
 			return "user/delete";
 		}
 		
-		
 		userService.deleteUserInfo(deleteUserDTO);
-		
 		
 		boolean emptyID = userService.checkID(loginUserDTO.getUser_id());
 		
-		System.out.println(emptyID);
 		if(emptyID == true) {
+			loginUserDTO.setUserLogin(false);
 			return "user/delete_success";
 		}else {
 			return "user/delete_fail";

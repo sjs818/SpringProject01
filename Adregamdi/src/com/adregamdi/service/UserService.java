@@ -94,17 +94,15 @@ public class UserService {
 		
 		if(loginUserDTO.getUser_provider() == 1) {
 			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-			String dtoPw = userDAO.getPw(deleteUserDTO.getUser_id());
+			String dtoPw = userDAO.getPw(loginUserDTO.getUser_id());
 			boolean pwdMatch = encoder.matches(deleteUserDTO.getUser_pw(), dtoPw);
 			
 			if(dtoPw != null && pwdMatch == true) {
 				deleteUserDTO.setUser_pw(dtoPw);
 				userDAO.deleteUserInfo(deleteUserDTO);
-				loginUserDTO.setUserLogin(false);
 			}
 		}else if(loginUserDTO.getUser_provider() == 2) {
 			userDAO.deleteNaverInfo(deleteUserDTO);
-			loginUserDTO.setUserLogin(false);
 		}
 	}
 	
