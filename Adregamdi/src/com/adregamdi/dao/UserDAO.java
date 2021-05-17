@@ -51,4 +51,15 @@ public class UserDAO {
 	}
 	
 	
+	public void deleteUserInfo(UserDTO deleteUserDTO) {
+		userMapper.deleteUserInfo(deleteUserDTO);
+	}
+
+
+	public void deleteNaverInfo(UserDTO deleteUserDTO) {
+		userMapper.deleteNaverInfo(deleteUserDTO);
+	}
+	
+	
+	
 }

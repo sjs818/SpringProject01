@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 로그인</title>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -19,7 +21,7 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-<body class="text-center">
+<body>
 
 
 
@@ -37,17 +39,28 @@
 								<p>아이디 비밀번호를 확인해주세요.</p>
 							</div>
 						</c:if>
-						
-						<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
+						<div class="text-center">
+							<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
+						</div>
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
 							<div class="form-group">
-								<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
-								<form:errors path="user_id" style="color: red;" />
+								<div class="input-group">
+                        			<div class="input-group-prepend">
+                         				<span class="input-group-text"><i class="fas fa-user"></i></span>
+                        			</div>
+									<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
+                     			 </div>
+								<form:errors path="user_id" class="small" style="color: red;" />
 							</div>
 							<div class="form-group">
-								<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
-								<form:errors path="user_pw" style="color: red;" />
+								<div class="input-group">
+                        			<div class="input-group-prepend">
+                         				<span class="input-group-text"><i class="fas fa-key"></i></span>
+                        			</div>
+									<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
+                     			 </div>
+								<form:errors path="user_pw" class="small" style="color: red;" />
 							</div>
 							<div class="form-group text-center" style="padding-top: 20px">
 								<form:button class="btn btn-info btn-sm btn-block">로그인</form:button>
