@@ -10,6 +10,7 @@ public class VisitKoreaDTO {
 	private String contentId;
 	private String contentTypeId;
 	private String firstImage2;
+	private String firstImage;
 	private String mapX;
 	private String mapY;
 	private String sigunguCode;
