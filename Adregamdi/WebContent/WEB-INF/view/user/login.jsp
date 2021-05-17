@@ -38,8 +38,7 @@
 							</div>
 						</c:if>
 						
-						
-						<a href="${root}"><img class="card-img-top mb-4" src="${root }images/logo.png" height="75"></a>
+						<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
 							<div class="form-group">
