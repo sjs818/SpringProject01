@@ -35,6 +35,13 @@ $(function() {
 
     var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10 };
 
+    /* 검색에 필요한 변수 추가 */
+    var keyword_markers=[];
+    // var map = initTmap();
+    var keywordParam = { "pageNum" : 1, "numOfRow" : 5, "keyword" : ""};
+    var keyword_flag = false;
+    
+    
     // 무조건 화면에 띄워야함.
     $.ajax({
         url: "/spot/information",
@@ -146,6 +153,67 @@ function testData(data,contentTypeId) {
 		$(".details").append("<li>쉬는날 : "+data[9]+"</li><br>");
 		break;
 	}
+	
+	$("#btn-search").click(function(){
+		
+		keywordParam.pageNo = 1;
+		
+		if(keyword_markers!=false) keyword_markers=[];
+		
+		
+		$("#result").attr("dabled",true);
+		$("#recommend").attr("disabled",false);
+		$("#myplan").attr("disabled",false);
+		$("#ul-recommend").hide();
+		$("#ul-bookmark").hide();
+		$("#ul-myPlan").hide();
+		$("#ul-search").show();
+		var keyword = $("#search-field").val();
+		if(keyword == "") {
+			alert('키워드를 입력하세요');
+			$("#search-field").focus();
+			return false;
+		}
+		keywordParam.keyword = keyword;
+
+		$.ajax({	
+			url : "/spot/keyword",
+			type : "get",
+			dataType : "json",
+			data : keywordParam,
+			success :  function(data){
+				if(data.length == 0 ){
+					flag = 3;
+					$.ajax({	
+						url : "/plan/tmap/keyword",
+						type : "get",
+						dataType : "json",
+						data : keywordParam,
+						success :  function(data){
+							if(data.length == 0 ){
+								alert("실패");
+							} 
+							if(data.length != 0){
+								keyword_markers=TmapItems(data,keyword_markers,map,keywordParam.pageNo);
+								ex_markers = keyword_markers;
+							}
+						},
+						error : function(error) {
+							alert("실패");
+						}
+					});
+				} 
+				if(data.length != 0){
+					keyword_markers=keywordItems(data,keyword_markers,map,keywordParam.pageNo);  //테스트 데이터 리스트 입니다.
+					ex_markers = keyword_markers;
+				}
+			},
+			error : function(error) {
+				alert("실패");
+			}
+		});
+
+	});
 }
 </script>
 
@@ -203,8 +271,23 @@ function testData(data,contentTypeId) {
 					맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의
 					보석 같은 여행지가 여러분의 선택을 기다린다.</h3>
 			</div>
+			
+			
+			<!-- 검색 -->
+			<div class="input-group" style="background: #258fff;">
+				<input type="text" class="form-control search-menu" id="search-field" placeholder="검색..." style="background: #f9f9f9;">
+					<div class="input-group-append" id="btn-search">			<!-- 여기에요 여기!! -->
+						<span class="input-group-text" style="background: #e9e9e9;">
+							<i class="fa fa-search" aria-hidden="true"></i>
+						</span>
+					</div>
+			</div>
+			
+			<br><br>
+						
+						
 			<div class="row">
-				<c:forEach var="i" begin="0" end="5">
+				<c:forEach var="i" begin="0" end="8">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item" >
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
