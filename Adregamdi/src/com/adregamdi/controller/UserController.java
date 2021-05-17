@@ -88,9 +88,33 @@ public class UserController {
 	public String nullLogin() {
 		return "user/active_login";
 	}
+
+	
+	@GetMapping("/delete")
+	public String delete(@ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO ) {
+		return "user/delete";
+	}
 	
 	
-	
+	@PostMapping("/delete_proc")
+	public String deleteProc(@Valid @ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/delete";
+		}
+		
+		
+		userService.deleteUserInfo(deleteUserDTO);
+		
+		
+		boolean emptyID = userService.checkID(loginUserDTO.getUser_id());
+		
+		System.out.println(emptyID);
+		if(emptyID == true) {
+			return "user/delete_success";
+		}else {
+			return "user/delete_fail";
+		}
+	}
 	
 	
 	@GetMapping("/join")

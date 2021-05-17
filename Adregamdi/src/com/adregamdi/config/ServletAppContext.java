@@ -158,7 +158,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
-	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete");
 	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}

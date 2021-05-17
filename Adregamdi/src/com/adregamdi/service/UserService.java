@@ -43,6 +43,7 @@ public class UserService {
 			loginUserDTO.setUser_name(fromDBUserDTO.getUser_name());
 			loginUserDTO.setUser_email(fromDBUserDTO.getUser_email());
 			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
+			loginUserDTO.setUser_provider(fromDBUserDTO.getUser_provider());
 			loginUserDTO.setUserLogin(true);
 			
 			System.out.println("회원번호 : " + loginUserDTO.getUser_no());
@@ -86,6 +87,27 @@ public class UserService {
 		String securePw = encoder.encode(modifyUserDTO.getUser_pw());
 		modifyUserDTO.setUser_pw(securePw);
 		userDAO.modifyUserInfo(modifyUserDTO);
+	}
+	
+	
+	
+
+	public void deleteUserInfo(UserDTO deleteUserDTO) {	
+		
+		if(loginUserDTO.getUser_provider() == 1) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String dtoPw = userDAO.getPw(deleteUserDTO.getUser_id());
+			boolean pwdMatch = encoder.matches(deleteUserDTO.getUser_pw(), dtoPw);
+			
+			if(dtoPw != null && pwdMatch == true) {
+				deleteUserDTO.setUser_pw(dtoPw);
+				userDAO.deleteUserInfo(deleteUserDTO);
+				loginUserDTO.setUserLogin(false);
+			}
+		}else if(loginUserDTO.getUser_provider() == 2) {
+			userDAO.deleteNaverInfo(deleteUserDTO);
+			loginUserDTO.setUserLogin(false);
+		}
 	}
 	
 	
