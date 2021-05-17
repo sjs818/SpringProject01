@@ -5,17 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
-import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
@@ -70,4 +66,15 @@ public class SpotController {
 		
 		return spot.getEachInformation(visitKoreaDTO);
 	}	
+	
+	@ResponseBody
+	@GetMapping("/keyword")
+	public List<VisitKoreaDTO> getKeywordInfo(VisitKoreaDTO visitKoreaDTO, String keyword, Model model) throws Exception {
+		
+		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
+		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
+		List<VisitKoreaDTO> resultKeyword = spot.getKeywordInformation(visitKoreaDTO, keyword);
+		
+		return resultKeyword;
+	}
 }

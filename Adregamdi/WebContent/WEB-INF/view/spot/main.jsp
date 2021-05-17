@@ -12,17 +12,24 @@
 <title>지역별 관광지</title>
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet" 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap"	rel="stylesheet">
+<link
+	href="https://fonts.googleapis.com/css2?family=Stylish&display=swap"
+	rel="stylesheet">
 
 <!-- x 아이콘 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
+	crossorigin="anonymous"></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
 
@@ -38,7 +45,7 @@ $(function() {
     /* 검색에 필요한 변수 추가 */
     var keyword_markers=[];
     // var map = initTmap();
-    var keywordParam = { "pageNum" : 1, "numOfRow" : 5, "keyword" : ""};
+    var keywordParam = { "pageNo" : 1, "numOfRow" : 10, "keyword" : ""};
     var keyword_flag = false;
     
     
@@ -50,12 +57,17 @@ $(function() {
         data: allData,
         success: function(data) {
             
+        	$("#total_view").show();
+    		$("#search_view").hide();
+    		$("#total_page").show();
         	
             // 반복함수
             $.each(data, function(key, val) {  
+            	$("#cnt").data.length;
+            	
             	$("#contentId" + key).html(data[key].contentId);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
-				$("#photo" + key).attr("src", data[key].firstImage2);
+				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
                 $("#addr" + key).text(data[key].addr1);
             });
@@ -72,6 +84,62 @@ $(function() {
         actionForm.find("input[name='currentPage']").val($(this).attr("href"));
         actionForm.submit();
     });
+    
+	$("#btn-search").click(function(){
+		
+		keywordParam.pageNo = 1;
+				
+		$("#total_view").hide();
+		$("#search_view").show();
+		$("#total_page").hide();
+		
+		var keyword = $("#search-field").val();
+		
+		if(keyword == "") {
+			alert('키워드를 입력하세요');
+			$("#search-field").focus();
+			return false;
+		}
+		
+		keywordParam.keyword = keyword;
+		console.log("keyword : " + keyword);
+		
+		$.ajax({	
+			
+			url : "/spot/keyword",
+			type : "get",
+			dataType : "json",
+			data : keywordParam,
+			
+			success :  function(data){
+				
+				
+				$("#search_view").empty();
+				
+				$.each(data, function(key, val) {  
+					
+					var content = '<div class="col-lg-4 col-sm-6 mb-4">'
+								+'<div class="portfolio-item">'
+								+'<a class="portfolio-link" data-toggle="modal"href="#portfolioModal" onclick="detail('+key+');">'
+								+'<div class="portfolio-hover">'
+								+'<div class="portfolio-hover-content">'
+								+'<i class="fas fa-plus fa-3x"></i></div></div> '
+								+'<img class="img-fluid photo" id="searchPhoto" src="'+data[key].firstImage+'" alt="..."></a>'
+								+'<div class="portfolio-caption"><div id="searchTitle" class="portfolio-caption-heading">'+data[key].title+'</div>'
+								+'<div id="searchAddr" class="portfolio-caption-subheading text-muted">'+data[key].addr1+'</div>'
+								+'<span style="display: none" id="searchContentId">'+data[key].contentId+'</span> '
+								+'<span style="display: none" id="searchContentTypeId">'+data[key].contentTypeId+'</span></div></div></div>';
+								
+								
+	                $("#search_view").append(content);
+	            });
+	
+			},
+			error : function(error) {
+				alert("keyword 실패");
+			}
+		}); 
+	});
 });
 
 function detail(idx) {
@@ -153,68 +221,8 @@ function testData(data,contentTypeId) {
 		$(".details").append("<li>쉬는날 : "+data[9]+"</li><br>");
 		break;
 	}
-	
-	$("#btn-search").click(function(){
-		
-		keywordParam.pageNo = 1;
-		
-		if(keyword_markers!=false) keyword_markers=[];
-		
-		
-		$("#result").attr("dabled",true);
-		$("#recommend").attr("disabled",false);
-		$("#myplan").attr("disabled",false);
-		$("#ul-recommend").hide();
-		$("#ul-bookmark").hide();
-		$("#ul-myPlan").hide();
-		$("#ul-search").show();
-		var keyword = $("#search-field").val();
-		if(keyword == "") {
-			alert('키워드를 입력하세요');
-			$("#search-field").focus();
-			return false;
-		}
-		keywordParam.keyword = keyword;
-
-		$.ajax({	
-			url : "/spot/keyword",
-			type : "get",
-			dataType : "json",
-			data : keywordParam,
-			success :  function(data){
-				if(data.length == 0 ){
-					flag = 3;
-					$.ajax({	
-						url : "/plan/tmap/keyword",
-						type : "get",
-						dataType : "json",
-						data : keywordParam,
-						success :  function(data){
-							if(data.length == 0 ){
-								alert("실패");
-							} 
-							if(data.length != 0){
-								keyword_markers=TmapItems(data,keyword_markers,map,keywordParam.pageNo);
-								ex_markers = keyword_markers;
-							}
-						},
-						error : function(error) {
-							alert("실패");
-						}
-					});
-				} 
-				if(data.length != 0){
-					keyword_markers=keywordItems(data,keyword_markers,map,keywordParam.pageNo);  //테스트 데이터 리스트 입니다.
-					ex_markers = keyword_markers;
-				}
-			},
-			error : function(error) {
-				alert("실패");
-			}
-		});
-
-	});
 }
+
 </script>
 
 </head>
@@ -222,7 +230,6 @@ function testData(data,contentTypeId) {
 <body>
 	<!-- 상단 메뉴바  -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-
 
 	<!-- Top 5 출력 -->
 	<section class="page-section bg-light" id="portfolio">
@@ -236,33 +243,40 @@ function testData(data,contentTypeId) {
 
 			<!-- Best 여행지  -->
 			<div class="row" style="margin-top: 50px">
-				<c:forEach var="order" begin="0" end="2" >
+				<c:forEach var="order" begin="0" end="2">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
-							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal${order }">
+							<a class="portfolio-link" data-toggle="modal"
+								href="#portfolioModal${order }">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x" aria-hidden="true" focusable="false" data-prefix="fas"
-											data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-											<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
+											aria-hidden="true" focusable="false" data-prefix="fas"
+											data-icon="plus" role="img"
+											xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
+											data-fa-i2svg="">
+											<path fill="currentColor"
+												d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 									</div>
-								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg" alt="...">
+								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
+								alt="...">
 							</a>
 							<div class="portfolio-caption">
 								<div class="portfolio-caption-heading">Top ${order +1 }</div>
-								<div class="portfolio-caption-subheading text-muted">Graphic Design</div>
+								<div class="portfolio-caption-subheading text-muted">Graphic
+									Design</div>
 							</div>
 						</div>
 					</div>
-				</c:forEach>				
+				</c:forEach>
 			</div>
 		</div>
 
 		<hr style="width: 80%;">
-		
-		<!-- 전체 여행지 보기 -->		
-		<input type="hidden" id="pageMaker" value="${pageMaker }">
-		<input type="hidden" id="sigunguCode" value="${sigunguCode }">
+
+		<!-- 전체 여행지 보기 -->
+		<input type="hidden" id="pageMaker" value="${pageMaker }"> 
+		<input type="hidden" id="sigunguCode" value="${sigunguCode }"> 
 		<input type="hidden" id="contentTypeId" value="${contentTypeId }">
 		<div class="container" style="margin-top: 100px;">
 			<div class="text-center">
@@ -271,81 +285,94 @@ function testData(data,contentTypeId) {
 					맞게 선택해보자. 368개의 크고 작은 오름을 비롯하여 눈 돌리면 어디에서나 마주치는 한라산 그리고 푸른 바다…. 제주의
 					보석 같은 여행지가 여러분의 선택을 기다린다.</h3>
 			</div>
-			
-			
+
+
 			<!-- 검색 -->
 			<div class="input-group" style="background: #258fff;">
-				<input type="text" class="form-control search-menu" id="search-field" placeholder="검색..." style="background: #f9f9f9;">
-					<div class="input-group-append" id="btn-search">			<!-- 여기에요 여기!! -->
-						<span class="input-group-text" style="background: #e9e9e9;">
-							<i class="fa fa-search" aria-hidden="true"></i>
-						</span>
-					</div>
+				<input type="text" class="form-control search-menu"
+					id="search-field" placeholder="검색..." style="background: #f9f9f9;">
+				<div class="input-group-append" id="btn-search">
+					<!-- 여기에요 여기!! -->
+					<span class="input-group-text" style="background: #e9e9e9;">
+						<i class="fa fa-search" aria-hidden="true"></i>
+					</span>
+				</div>
 			</div>
-			
-			<br><br>
-						
-						
-			<div class="row">
+
+			<br> <br>
+
+
+			<!-- 전체 내용 출력 -->
+			<div id="total_view" class="row">
 				<c:forEach var="i" begin="0" end="8">
 					<div class="col-lg-4 col-sm-6 mb-4">
-						<div class="portfolio-item" >
-							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
+						<div class="portfolio-item">
+							<a class="portfolio-link" data-toggle="modal"
+								href="#portfolioModal" onclick="detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
 										<i class="fas fa-plus fa-3x"></i>
 									</div>
-								</div>
-								<img class="img-fluid photo" id="photo${i}" src="" alt="...">
+								</div> <img class="img-fluid photo" id="photo${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
 								<div id="title${i}" class="portfolio-caption-heading"></div>
-								<div id="addr${i}" 	class="portfolio-caption-subheading text-muted"></div>
-								<span style="display:none" id="contentId${i }" ></span>
-								<span style="display:none" id="contentTypeId${i }" ></span>
+								<div id="addr${i}"
+									class="portfolio-caption-subheading text-muted"></div>
+								<span style="display: none" id="contentId${i }"></span> <span
+									style="display: none" id="contentTypeId${i }"></span>
 							</div>
 						</div>
 					</div>
-				</c:forEach>				
+				</c:forEach>
 			</div>
-			
+
+			<!-- 검색어를 통한 결과값 출력 -->
+			<div id="search_view" class="row">			
+			</div>
+
 			<!-- 페이지 처리 -->
-			
-			<div class="row text-center" style="margin: 1rem auto; padding-right: 5%; padding-left: 5%">
+
+			<div id="total_page" class="row text-center"
+				style="margin: 1rem auto; padding-right: 5%; padding-left: 5%">
 				<div class="col-sm-12">
 					<ul class="pagination" id="pagination-demo">
 						<c:if test="${pageMaker.prev }">
-							<li class="paginate_button previous">
-								<a href="${pageMaker.min -1 }">&laquo;</a>
-							</li>
+							<li class="paginate_button previous"><a
+								href="${pageMaker.min -1 }">&laquo;</a></li>
 						</c:if>
-						<c:forEach var="num" begin="${pageMaker.min }" end="${pageMaker.max }">
-							<li class="paginate_button ${pageMaker.currentPage == num ? 'active':'' }">
+						<c:forEach var="num" begin="${pageMaker.min }"
+							end="${pageMaker.max }">
+							<li
+								class="paginate_button ${pageMaker.currentPage == num ? 'active':'' }">
 								<a href="${num }">${num} </a>
 							</li>
 						</c:forEach>
 						<c:if test="${pageMaker.next }">
-							<li class="paginate_button next">
-								<a href="${pageMaker.max +1 }">&raquo;</a>
-							</li>
+							<li class="paginate_button next"><a
+								href="${pageMaker.max +1 }">&raquo;</a></li>
 						</c:if>
 					</ul>
 				</div>
-
 				<form id='actionForm' action="/spot/main" method='get'>
-					<input type='hidden' name='currentPage' value='${pageMaker.currentPage }'>
-					<input type="hidden" name="sigunguCode" id="sigu" value="${sigunguCode }" /> 
-					<input type="hidden" name="contentTypeId" id="cont" value="${contentTypeId }" />
+					<input type='hidden' name='currentPage'
+						value='${pageMaker.currentPage }'> <input type="hidden"
+						name="sigunguCode" id="sigu" value="${sigunguCode }" /> <input
+						type="hidden" name="contentTypeId" id="cont"
+						value="${contentTypeId }" />
 				</form>
 			</div>
+			
+			
 		</div>
 	</section>
-	
-	
-	
 
-	<!-- 1개 클릭 시 세부사항 --> 
-	<div class="portfolio-modal modal fade" id="portfolioModal"	tabindex="-1" role="dialog" aria-hidden="true">
+
+
+
+	<!-- 1개 클릭 시 세부사항 -->
+	<div class="portfolio-modal modal fade" id="portfolioModal"
+		tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
 				<div class="close-modal" data-dismiss="modal">
@@ -357,11 +384,13 @@ function testData(data,contentTypeId) {
 							<div class="modal-body">
 								<h2 id="modalTitle"></h2>
 								<p id="modalAddr" class="item-intro text-muted"></p>
-								<img id="modalPhoto" class="img-fluid d-block mx-auto" src="" alt="..." />
+								<img id="modalPhoto" class="img-fluid d-block mx-auto" src=""
+									alt="..." />
 								<p id="modalOverview"></p>
 								<ul class="details">
 								</ul>
-								<button class="btn btn-primary" data-dismiss="modal" type="button">
+								<button class="btn btn-primary" data-dismiss="modal"
+									type="button">
 									<i class="fas fa-times mr-1"></i> Close Project
 								</button>
 							</div>
@@ -371,13 +400,14 @@ function testData(data,contentTypeId) {
 			</div>
 		</div>
 	</div>
-	
-	
+
+
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
