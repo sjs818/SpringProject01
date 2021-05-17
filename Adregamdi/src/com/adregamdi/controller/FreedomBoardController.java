@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.FreedomBoardDTO;
@@ -84,7 +85,7 @@ public class FreedomBoardController {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
-		return "freedom/read";
+		return "freedom/read_demo";
 	}
 	
 	@GetMapping("/write")
@@ -93,11 +94,13 @@ public class FreedomBoardController {
 		return "freedom/write_ckeditor_demo";
 	}
 	
-	@PostMapping("/writeProc")
+	@RequestMapping(value = "/writeProc", method=RequestMethod.POST)
 	public String BoardWrite_Proc
 	(@Valid @ModelAttribute("FreedomWriteDTO") FreedomBoardDTO freedomWriteDTO, BindingResult result) {
 		if(result.hasErrors())
-			return "freedom/write";
+			return "freedom/write_ckeditor_demo";
+		
+		System.out.println(freedomWriteDTO);
 		
 		freedomBoardService.InsertFreedomBoardContent(freedomWriteDTO);
 		
@@ -118,12 +121,16 @@ public class FreedomBoardController {
 		freedomModifyDTO.setContent_writer_id(freedomContentDTO.getContent_writer_id());
 		freedomModifyDTO.setContent_date(freedomContentDTO.getContent_date());
 		
-		return "freedom/modify";
+		model.addAttribute("freedomModifyDTO",freedomModifyDTO);
+		
+		return "freedom/modify_demo";
 	}
 	
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
 	(@Valid @ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO, BindingResult result) {
+		
+		System.out.println(freedomModifyDTO);
 		
 		freedomBoardService.ModifyFreedomBoardContent(freedomModifyDTO);
 		
