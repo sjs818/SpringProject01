@@ -316,6 +316,19 @@ function testData(data,contentTypeId) {
 								<span style="display: none" id="contentId${i }"></span> <span
 									style="display: none" id="contentTypeId${i }"></span>
 							</div>
+							<div class="icon_outside">
+		                        <div class="icon" style="margin-right: 60px;">
+		                             <a href="#" ><i class="far fa-thumbs-up" style="font-size:30px;"></i></a>
+		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
+		                             <span style="font-size: 10px;">좋아요</span>
+		                             <span style="font-size: 10px;">208</span>
+		                         </div>
+		                         <div class="icon">
+		                             <a href="#"><i class="far fa-file-alt" style="font-size:30px;"></i></a>
+		                             <span style="font-size: 10px;">리뷰쓰기</span>        
+		                             <span style="font-size: 10px;" >100</span>
+		                         </div>
+		                     </div>
 						</div>
 					</div>
 				</c:forEach>
