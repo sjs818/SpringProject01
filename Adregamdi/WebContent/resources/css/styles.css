@@ -10225,6 +10225,7 @@ header.masthead .masthead-heading {
   text-align: center;
   background-color: #fff;
 }
+
 #portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading {
   font-size: 1.5rem;
   font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
@@ -10236,6 +10237,19 @@ header.masthead .masthead-heading {
   font-family: "Roboto Slab", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 
+.icon_outside {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #fff;
+}
+.portfolio-item .icon{
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+  	background-color: #fff;
+}
 .portfolio-modal .modal-dialog {
   margin: 1rem;
   max-width: 100vw;

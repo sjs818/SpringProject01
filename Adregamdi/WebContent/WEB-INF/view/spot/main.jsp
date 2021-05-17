@@ -28,8 +28,7 @@
 
 <!-- x 아이콘 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
-<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"
-	crossorigin="anonymous"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
 
@@ -250,13 +249,9 @@ function testData(data,contentTypeId) {
 								href="#portfolioModal${order }">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x"
-											aria-hidden="true" focusable="false" data-prefix="fas"
-											data-icon="plus" role="img"
-											xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"
-											data-fa-i2svg="">
-											<path fill="currentColor"
-												d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x" aria-hidden="true" focusable="false" data-prefix="fas"
+											data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
+											<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
 									</div>
 								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
 								alt="...">
@@ -307,13 +302,13 @@ function testData(data,contentTypeId) {
 				<c:forEach var="i" begin="0" end="8">
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal" onclick="detail(${i});">
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
 										<i class="fas fa-plus fa-3x"></i>
 									</div>
-								</div> <img class="img-fluid photo" id="photo${i}" src="" alt="...">
+								</div> 
+								<img class="img-fluid photo" id="photo${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
 								<div id="title${i}" class="portfolio-caption-heading"></div>
@@ -321,6 +316,19 @@ function testData(data,contentTypeId) {
 									class="portfolio-caption-subheading text-muted"></div>
 								<span style="display: none" id="contentId${i }"></span> <span
 									style="display: none" id="contentTypeId${i }"></span>
+							</div>
+							<div class="icon_outside">
+								<div class="icon" style="margin-right: 60px;">
+							        <a href="#" ><i class="far fa-thumbs-up" style="font-size:30px;"></i></a>
+							        <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
+							        <span style="font-size: 10px;">좋아요</span>
+							        <span style="font-size: 10px;">208</span>
+							    </div>
+							    <div class="icon">
+							        <a href="#"><i class="far fa-file-alt" style="font-size:30px;"></i></a>
+							        <span style="font-size: 10px;">리뷰쓰기</span>        
+							        <span style="font-size: 10px;" >100</span>
+							    </div>
 							</div>
 						</div>
 					</div>
