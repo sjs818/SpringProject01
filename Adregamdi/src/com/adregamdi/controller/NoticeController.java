@@ -34,19 +34,17 @@ public class NoticeController {
 		List<NoticeDTO> contentList = noticeService.getNoticeList();
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
-		return "notice/list"; 
+		return "notice/list";
 	}
-
 
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
-		System.out.println(readContentDTO.getNotice_content()
-				);
+		System.out.println(readContentDTO.getNotice_content());
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "notice/read";
-		
+
 	}
 
 	@GetMapping("/write")
@@ -90,7 +88,7 @@ public class NoticeController {
 
 		return "notice/modify_success";
 	}
-	
+
 	@GetMapping("/delete")
 	public String NoticeDelete(@RequestParam("content_idx") int content_idx) {
 		noticeService.DeleteNoticeContent(content_idx);

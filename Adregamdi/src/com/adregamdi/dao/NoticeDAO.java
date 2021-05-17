@@ -39,7 +39,7 @@ public class NoticeDAO {
 	public void ModifyNoticeContent(NoticeDTO noticeModifyDTO) {
 		noticeMapper.modifyNoticeContent(noticeModifyDTO);
 	}
-	
+
 	public void DeleteNoticeContent(int content_idx) {
 		noticeMapper.deleteNoticeContent(content_idx);
 	}

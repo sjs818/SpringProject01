@@ -11,5 +11,5 @@ public class NoticeDTO {
 	private int notice_cnt;
 	private String notice_date;
 	private String notice_content;
-	
+
 }
