@@ -30,6 +30,7 @@ import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
+import com.adregamdi.mapper.NoticeMapper;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.SpotMapper;
 import com.adregamdi.mapper.TogetherMapper;
@@ -128,6 +129,15 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 
+	
+	@Bean
+	public MapperFactoryBean<NoticeMapper> getNoticeMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<NoticeMapper> factoryBean = new MapperFactoryBean<NoticeMapper>(NoticeMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 
@@ -144,12 +154,12 @@ public class ServletAppContext implements WebMvcConfigurer {
 	  	InterceptorRegistration not_loginReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
-	  	InterceptorRegistration null_loginReg
+	  	InterceptorRegistration active_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
 	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
-	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
+	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
 

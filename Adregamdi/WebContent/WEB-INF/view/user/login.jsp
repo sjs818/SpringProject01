@@ -10,49 +10,52 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 로그인</title>
 <!-- Bootstrap CDN -->
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-<body>
-
-
-	<!-- 상단 메뉴 부분 -->
-	<c:import url="/WEB-INF/view/include/header.jsp" />
+<body class="text-center">
 
 
 
 
-	<div class="container" style="margin-top: 100px">
+	<div class="container" style="margin-top: 140px;">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
-					<div class="card-body">
-					
-					<c:if test="${param.fail eq 'true'}">
-						<div class="alert alert-danger">
-							<h3>로그인 실패</h3>
-							<p>아이디 비밀번호를 확인해주세요</p>
-						</div>
-					</c:if>
+					<div class="card-body" style="background-color: #F7F7F7;" >
 
+						<c:if test="${param.fail eq 'true'}">
+							<div class="alert alert-danger">
+								<h4>로그인 실패!</h4>
+								<p>아이디 비밀번호를 확인해주세요.</p>
+							</div>
+						</c:if>
+						
+						<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
 							<div class="form-group">
-								<form:label path="user_id">아이디</form:label>
-								<form:input path="user_id" class="form-control" />
+								<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
 								<form:errors path="user_id" style="color: red;" />
 							</div>
 							<div class="form-group">
-								<form:label path="user_pw">비밀번호</form:label>
-								<form:password path="user_pw" class="form-control" />
+								<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
 								<form:errors path="user_pw" style="color: red;" />
 							</div>
-							<div class="form-group text-right">
-								<form:button class="btn btn-success ">로그인</form:button>
-								<a href="${root }user/join" class="btn btn-info">회원가입</a>
+							<div class="form-group text-center" style="padding-top: 20px">
+								<form:button class="btn btn-info btn-sm btn-block">로그인</form:button>
+								<a href="${root }user/join" class="btn btn-success btn-sm btn-block">회원가입</a>
+							</div>
+								<hr>
+							<div class="form-group text-right">	
+								<a href="${root}user/naver_login"><img width="120" height="40" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
 							</div>
 						</form:form>
 					</div>
@@ -61,12 +64,6 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-	
-	
-	
-	
-	<!-- 하단 정보 부분 -->
-	<c:import url="/WEB-INF/view/include/footer.jsp" />
 	
 	
 </body>

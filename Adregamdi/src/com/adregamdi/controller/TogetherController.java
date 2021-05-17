@@ -1,6 +1,8 @@
 package com.adregamdi.controller;
 
 import java.util.List;
+
+import javax.annotation.Resource;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.TogetherService;
 
 @Controller
@@ -22,34 +25,37 @@ public class TogetherController {
 	@Autowired
 	TogetherService togetherService;
 	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	@GetMapping("/list")
-	public String BoardList(Model model) {
+	public String TogetherList(Model model) {
 		List<TogetherDTO> contentList = togetherService.getTogetherList();
 		model.addAttribute("contentList", contentList);
 		return "together/list";
 	}
 	
 	@GetMapping("/delete")
-	public String BoardDelete() {
+	public String TogetherDelete() {
 		return "together/delete";
 	}
 	
 	@GetMapping("/read")
-	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
+	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) {
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "together/read";
 	}
 	
 	@GetMapping("/write")
-	public String BoardWrite
-	(@ModelAttribute("TogetherWriteDTO") TogetherDTO TogetherDTO) {
+	public String TogetherWrite
+	(@ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO) {
 		return "together/write";
 	}
 	
 	@PostMapping("/writeProc")
-	public String Together_Proc
-	(@Valid @ModelAttribute("TogetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
+	public String TogetherWrite_Proc
+	(@Valid @ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
 	
@@ -59,7 +65,7 @@ public class TogetherController {
 	}
 	
 	@GetMapping("/modify")
-	public String BoardModify
+	public String TogetherModify
 	(@ModelAttribute("TogetherDTO") TogetherDTO togetherModifyDTO, 
 	 @RequestParam("content_idx") int content_idx, Model model) {
 		
@@ -76,7 +82,7 @@ public class TogetherController {
 	}
 	
 	@PostMapping("/modifyProc")
-	public String BoardModify_Proc
+	public String TogetherModify_Proc
 	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
 		
 		togetherService.ModifyTogetherContent(togetherModifyDTO);

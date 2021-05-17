@@ -16,10 +16,20 @@ public class UserDAO {
 		String checking_id = userMapper.checkID(user_id);
 		return checking_id;
 	}
+
 	
-	public void addUserInfo(UserDTO joinUserDTO) {
+	public Integer checkPhone(String user_phone) {
+		return userMapper.checkPhone(user_phone);
+	}
+	
+	public void addUserInfo(UserDTO joinUserDTO) {	
+		if(joinUserDTO.getUser_provider() != 2) {
+			joinUserDTO.setUser_provider(1);
+		}
 		userMapper.addUserInfo(joinUserDTO);
 	}
+	
+
 	
 	public UserDTO getLoginUserDTO(UserDTO loginUserDTO) {
 		UserDTO formDBUserDTO = userMapper.getLoginUser(loginUserDTO);
@@ -30,4 +40,15 @@ public class UserDAO {
 	public String getPw(String user_id) {
 		return userMapper.getPw(user_id);
 	}
+	
+	
+	public UserDTO getModifyUserDTO(int user_no) {
+		return userMapper.getModifyUserDTO(user_no);
+	}
+	
+	public void modifyUserInfo(UserDTO modifyUserDTO) {
+		userMapper.modifyUserInfo(modifyUserDTO);
+	}
+	
+	
 }

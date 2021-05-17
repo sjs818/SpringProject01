@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>미니 프로젝트</title>
+<title>Adregamdi 정보수정</title>
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -20,7 +20,62 @@
 
 <c:import url="/WEB-INF/view/include/header.jsp"/>
 
-
+<div class="container" style="margin-top:100px">
+	<div class="row">
+		<div class="col-sm-3"></div>
+		<div class="col-sm-6">
+			<div class="card shadow">
+				<div class="card-body">
+					<form:form action='${root }user/modify_proc' method='post' modelAttribute="modifyUserDTO">
+						<div class="form-group">
+							<form:label path="user_name">이름</form:label>
+							<form:input path="user_name" class='form-control' readonly="true"/>
+						</div>
+						<div class="form-group">
+							<form:label path="user_id">아이디</form:label>
+							<form:input path="user_id" class='form-control' readonly="true"/>
+						</div>
+						<c:if test="${loginUserDTO.user_provider ne 2 }">
+							<div class="form-group">
+								<form:label path="user_pw">비밀번호</form:label>
+								<form:password path="user_pw" class='form-control'/>
+								<form:errors path='user_pw' style='color:red'/>
+							</div>
+						</c:if>
+						<div class="form-group">
+							<form:label path="user_email">이메일</form:label>
+							<form:input path="user_email" class='form-control'/>
+							<form:errors path='user_email' style='color:red'/>
+						</div>
+						<div class="form-group">
+							<form:label path="user_phone">연락처</form:label>
+							<form:input path="user_phone" class='form-control'/>
+							<form:errors path='user_phone' style='color:red'/>
+						</div>
+						
+						<c:choose>
+							<c:when test="${loginUserDTO.user_provider ne 2  }">
+								<div class="form-group">
+									<div class="text-right">
+										<form:button class='btn btn-info'>정보수정</form:button>
+									</div>
+								</div>
+							</c:when>
+							<c:when test="${loginUserDTO.user_provider eq 2  }">
+								<br>
+								<small id="pwHelp" class="form-text text-muted text-right">
+									* 네이버 회원은 고객센터를 통해 정보수정이 가능합니다.
+								</small>
+							</c:when>
+						</c:choose>
+						
+					</form:form>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-3"></div>
+	</div>
+</div>
 
 <c:import url="/WEB-INF/view/include/footer.jsp"/>
 
