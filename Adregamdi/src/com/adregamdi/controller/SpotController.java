@@ -34,6 +34,7 @@ public class SpotController {
 			 Model model ) throws Exception {
 		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
+		System.out.println("totalCount : "+totalCount);
 		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
 		model.addAttribute("sigunguCode", sigunguCode);
 		model.addAttribute("contentTypeId", contentTypeId);		
