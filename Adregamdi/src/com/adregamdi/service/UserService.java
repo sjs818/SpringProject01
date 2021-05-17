@@ -90,8 +90,6 @@ public class UserService {
 	}
 	
 	
-	
-
 	public void deleteUserInfo(UserDTO deleteUserDTO) {	
 		
 		if(loginUserDTO.getUser_provider() == 1) {
@@ -110,15 +108,5 @@ public class UserService {
 		}
 	}
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 }

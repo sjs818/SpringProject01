@@ -5,33 +5,38 @@ import lombok.Getter;
 @Getter
 public class PageDTO {
 	
-	// ÃÖ¼Ò ÆäÀÌÁö ¹øÈ£
+	// ìµœì†Œ í˜ì´ì§€ ë²ˆí˜¸
 	private int min;
 	
-	// ÃÖ´ë ÆäÀÌÁö ¹øÈ£
+	// ìµœëŒ€ í˜ì´ì§€ ë²ˆí˜¸
 	private int max;
 	
-	// ÀÌÀü ¹öÆ°À» ´©¸£¸é ÀÌµ¿ÇÏ´Â ÆäÀÌÁö ¹øÈ£
+	// ì´ì „ ë²„íŠ¼ ëˆ„ë¥´ë©´ ì´ë™í•˜ëŠ” í˜ì´ì§€ ë²ˆí˜¸
 	private int prevPage;
 	
-	// ´ÙÀ½ ¹öÆ°À» ´©¸£¸é ÀÌµ¿ÇÏ´Â ÆäÀÌÁö ¹øÈ£
+	// ë‹¤ìŒ ë²„íŠ¼ ëˆ„ë¥´ë©´ ì´ë™í•˜ëŠ” í˜ì´ì§€ ë²ˆí˜¸
 	private int nextPage;
 	
-	// ÀüÃ¼ ÆäÀÌÁö ¼ö
+	// ì „ì²´ í˜ì´ì§€ ê°œìˆ˜
 	private int pageCount;
 	
-	// ÇöÀç ÆäÀÌÁö ¹øÈ£
+	// ì „ì²´ ê²Œì‹œê¸€ì˜ ê°œìˆ˜ - ì¶”ê°€ 
+	private int total;
+	
+	// í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
 	private int currentPage;
 	
-	// contentCnt : ÀüÃ¼ °Ô½Ã±Û ¼ö
-	// contentPageCnt : ÆäÀÌÁö ´ç °Ô½Ã±Û ¼ö
-	// pagination : ÇÑ ¹ø¿¡ ³ªÅ¸³¾ ÆäÀÌÁö ¹øÈ£ ¼ö
+	private boolean prev, next;
+	
+	// contentCnt : ì „ì²´ ê²Œì‹œê¸€ì˜ ê°œìˆ˜
+	// contentPageCnt : í˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ì˜ ê°œìˆ˜
+	// pagination : í˜ì´ì§€ ë²„íŠ¼ì˜ ê°œìˆ˜
 	public  PageDTO(int contentCnt, int currentPage, int contentPageCnt, int pagination) {
 		
-		// ÇöÀç ÆäÀÌÁö ¹øÈ£
+		// í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸
 		this.currentPage = currentPage;
 		
-		// ÀüÃ¼ ÆäÀÌÁö ¼ö = ÀüÃ¼ °Ô½Ã±Û ¼ö / ÆäÀÌÁö ´ç °Ô½Ã±Û ¼ö
+		// ì „ì²´ í˜ì´ì§€ ë²ˆí˜¸
 		pageCount = contentCnt / contentPageCnt;
 	
 		if(contentCnt % contentPageCnt > 0) {
@@ -51,5 +56,23 @@ public class PageDTO {
 		if(nextPage > pageCount) {
 			nextPage = pageCount;
 		}
+	}
+	
+	//				í˜„ì¬ í˜ì´ì§€ ë²ˆí˜¸	ì „ì²´ ê°œìˆ˜		í˜ì´ì§€ë‹¹ ê²Œì‹œê¸€ ê°œìˆ˜
+	public PageDTO(String currentPage, int total, int contentPageCnt) {
+		this.currentPage = Integer.parseInt(currentPage);
+		this.total = total;
+		
+		this.max = (int)(Math.ceil((this.currentPage*1.0)/contentPageCnt))*contentPageCnt;
+		this.min = this.max - (contentPageCnt - 1);
+		
+		int realEnd = (int)(Math.ceil((total*1.0)/contentPageCnt));
+		
+		if(realEnd < this.max) {
+			this.max = realEnd;
+		}
+		
+		this.prev = this.min > 1;
+		this.next = this.max < realEnd;
 	}
 }
