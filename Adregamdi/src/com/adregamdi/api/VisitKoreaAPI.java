@@ -1,6 +1,7 @@
 package com.adregamdi.api;
 
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,8 +21,11 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
+	// 한국관광공사_국문 관광정보 서비스 ( 참고 : https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057787 )
 	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
+	
+	// T map API ( 참고 : http://tmapapi.sktelecom.com/index.html )
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 	
 	public static String getTagValue(String tag, Element element) {
@@ -359,5 +363,79 @@ public class VisitKoreaAPI {
 		information = getCommonInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
 		information = getIntroduceInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
 		return information;
+	}
+	
+	// VisitKorea 키워드조회
+	public List<VisitKoreaDTO> getKeywordInformation(VisitKoreaDTO visitKoreaDTO, String keyword) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
+		String encodeKeyword = URLEncoder.encode(keyword, "UTF-8");
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"
+							 + "serviceKey="+serviceKey
+							 + "&MobileApp=AppTest"
+							 + "&MobileOS=ETC"
+							 + "&pageNo=" + visitKoreaDTO.getPageNo()
+							 + "&numOfRows=" + visitKoreaDTO.getNumOfRow()
+							 + "&listYN=Y"
+							 + "&arrange=P"
+							 + "&contentTypeId="
+							 + "&areaCode=39"
+						   + "&sigunguCode="
+							 + "&cat1="
+							 + "&cat2="
+							 + "&cat3="
+							 + "&keyword=" + encodeKeyword;
+		
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+			
+		document.getDocumentElement().normalize();
+			
+		NodeList nodeList = document.getElementsByTagName("item");
+		ArrayList<String> contentIdList = new ArrayList<String>();
+		for(int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			if(node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				contentIdList.add(getTagValue("contentid", element));
+			}
+		}
+	  
+		String totalCount = "";
+		nodeList = document.getElementsByTagName("totalCount");
+		Node countNode = nodeList.item(0);
+		if(countNode.getNodeType() == Node.ELEMENT_NODE) {
+			Element element = (Element) countNode;
+			totalCount = getTagValue("totalCount", element);
+		}
+		
+		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
+		List<VisitKoreaDTO> result = new ArrayList<VisitKoreaDTO>();
+		for(int i = 0; i < spotInfo.size(); i++) {
+			VisitKoreaDTO spot = new VisitKoreaDTO();
+			for(int j = 0; j < spotInfo.get(i).getLength(); j++) {
+				Node infoNode = spotInfo.get(i).item(j);
+				if(infoNode.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) infoNode;
+					if(getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage2("/images/schedule/thumbnail.png");
+					}else {
+						spot.setFirstImage2(getTagValue("firstimage2", element));
+					}
+					spot.setTitle(getTagValue("title", element));
+					if(!visitKoreaDTO.getContentTypeId().equals("25")) {
+						spot.setAddr1(getTagValue("addr1", element));
+					}
+					spot.setOverview(getTagValue("overview", element));
+					spot.setContentId(getTagValue("contentid", element));
+					spot.setContentTypeId(getTagValue("contenttypeid", element));
+					spot.setMapX(getTagValue("mapx", element));
+					spot.setMapY(getTagValue("mapy", element));
+					spot.setTotalCount(totalCount);
+				}
+			}
+			result.add(spot);
+		}
+		return result;
 	}
 }

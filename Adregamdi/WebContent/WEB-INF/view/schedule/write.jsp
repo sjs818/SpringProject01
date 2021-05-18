@@ -17,8 +17,7 @@
 	<!-- FontAwesome -->
 	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 	<!-- T Map API -->
-	<script
-	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdc109d32e488487dbf0e29b9dfcf1a59"></script>
+	<script	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdc109d32e488487dbf0e29b9dfcf1a59"></script>
 	<!-- JavaScript -->
 	<%-- <script src="${root }js/schedule.js"></script> --%>
 	<script type="text/javascript">
@@ -26,11 +25,14 @@
 		$(function() {
 			
 			var param = {pageNo: 1, numOfRow: 5};
+			var keywordParam =  {pageNo : 1, numOfRow : 5, keyword : ""};
 			var main_markers = [];
-			var curr_markers = [];
+			var present_markers = [];
+			var keyword_markers = [];
 			var map = initTmap();
 			var category = 0;
-			
+			var plan_data=[];
+
 			// 사이드바
 			$("input:checkbox").on('click', function() {
 				if ( $(this).prop('checked') ) {
@@ -48,19 +50,136 @@
 			    data : param,
 			    success : function(data) {
 			      main_markers = setListItems(data, main_markers, map, param.pageNo);
-			      curr_markers = main_markers;
+			      present_markers = main_markers;
 			    }
 			});
 			
 			// 무한 스크롤
 			$('.sidebar-menu').scroll(function() {
-			  if(Math.ceil($('.sidebar-menu').scrollTop() + $('.sidebar-menu').innerHeight()) >= $('.sidebar-menu')[0].scrollHeight) {
+			  if(Math.ceil($('.sidebar-menu').scrollTop() + $('.sidebar-menu').innerHeight()) == $('.sidebar-menu')[0].scrollHeight) {
 		    	if(category == 0) {
 				  	param.pageNo++;
 		      	main_markers = callAjaxMain(param, main_markers, map);
-		      	curr_markers = main_markers;
+		      	present_markers = main_markers;
+		    	}
+		    	if(category == 2) {
+		    		keywordParam.pageNo++;
+		    		keyword_markers = callAjaxKeyword(keywordParam, keyword_markers);
+		    		present_markers = keyword_markers;
 		    	}
 			  }
+			});
+			
+			// 키워드 검색
+			$('#search').click(function() {
+				category = 2;
+				keywordParam.pageNo = 1;
+				
+				$('.keyword-ul').remove();
+				
+				if(keyword_markers != false) {
+					keyword_markers = [];
+				}
+				
+				if(present_markers != false) {
+					deleteMarkers(present_markers);
+				}
+				
+				$('#main').attr("disabled", false);
+				$("#result").attr("disabled",true);
+				$("#result").attr("disabled",false);
+				$("#ul-main").hide();
+				$("#ul-result").show();
+				
+				var keyword = $('#search-field').val();
+				
+				if(keyword == "") {
+					alert('검색어를 입력해주세요!');
+					$('#search-field').focus();
+					return false;
+				}
+				
+				keywordParam.keyword = keyword;
+				
+				$.ajax({
+					url : "/schedule/keyword",
+					type : "get",
+					dataType : "json",
+					data : keywordParam,
+					success : function(data) {
+						if(data.length == 0) {
+							alert("검색된 결과가 없습니다.");
+						} else {
+							keyword_markers = keywordItems(data, keyword_markers, map, keywordParam.pageNo);
+							present_markers = keyword_markers;
+						}
+					}
+				});
+			});
+			// 추천 관광지 탭 클릭
+			$('#main').click(function() {
+				category = 0;
+				$('#main').attr("disabled", true);
+				$("#result").attr("disabled",false);
+				$('#myPlan').attr("disabled", false);
+				if(present_markers != false) {
+					deleteMarkers(present_markers);
+				}
+				$("#ul-main").show();
+				$("#ul-result").hide();
+				$("#ul-myPlan").hide();
+				present_markers = main_markers;
+				for(var i = 0; i < main_markers.length; i++) {
+					main_markers[i].setMap(map);
+				}
+			});
+			// 검색 결과 탭 클릭
+			$('#result').click(function() {
+				category = 2;
+				$('#main').attr("disabled", false);
+				$("#result").attr("disabled",true);
+				$('#myPlan').attr("disabled", false);
+				if(present_markers != false) {
+					deleteMarkers(present_markers);
+				}
+				$("#ul-main").hide();
+				$("#ul-result").show();
+				$("#ul-myPlan").hide();
+				present_markers = keyword_markers;
+				for(var i=0; i < keyword_markers.length; i++) {
+					keyword_markers[i].setMap(map);
+				}
+			});
+			// 내 여행 탭 클릭
+			$('#myPlan').click(function() {
+				category = 3;
+				$('#main').attr("disabled", false);
+				$("#result").attr("disabled",false);
+				$('#myPlan').attr("disabled", true);
+				if(present_markers != false) {
+					deleteMarkers(present_markers);
+				}
+				$("#ul-main").hide();
+				$("#ul-result").hide();
+				$("#ul-myPlan").show();
+			});
+			// 저장 버튼
+			$('#save_btn').click(function() {
+				$('.position-data').each(function(){
+					plan_data.push(JSON.parse($(this).val()));
+				});
+				var frmData = {'data' : plan_data};
+				if(frmData.data != '') {
+					var planForm = document.getElementById("planForm");
+					var input = document.createElement('input');
+					input.setAttribute("type","hidden");
+					input.setAttribute("name","planData");
+					input.setAttribute("value",JSON.stringify(frmData));
+					planForm.appendChild(input);
+					planForm.submit();
+				} else {
+					alert("저장된 여행지가 없습니다.")
+				}
 			});
 		});
 		
@@ -209,14 +328,16 @@
 		                  "</div>";
 		    }
 		 		
-		    // Tmap API 'InfoWindow' Method (팝업 생성)  
-	      var infoWindow = new Tmapv2.InfoWindow({
+		    // Tmap API 'InfoWindow' Method (팝업 생성)
+	      infoWindow = new Tmapv2.InfoWindow({
 	        position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
 	        content : content,
 	        border : '0px solid #FF0000',
 	        type : 2,
-	        map : map
+	        map : map,
+	        visible : true
 	      });
+				
 	   		// 지도 위치 재설정
 	      map.setCenter(new Tmapv2.LatLng(lonlat.lng() - 0.11, lonlat.lat() - 0.055));	      
 	 			
@@ -230,21 +351,33 @@
 	      $("#addList").unbind("click").bind("click", function(){
 	    	  var diffrentTitle = true;
 	    	  
+	    	  $('.plan_title').each(function(i) {
+	    		  if($(this).text() == title) {
+	    		  	diffrentTitle = false;
+	    		  	if(confirm("이미 추가했습니다. \n삭제하시겠습니까?")) {
+	    		  		marker.setMap(null);
+	    		  		$('.day' + position.planDay + '-' + position.liIndex).remove();
+	      				position.liIndex = "false";
+	      				delete position['positionDate'];
+	    		  	}
+	    		  	return false;
+	    	  	}
+	    	  });
 	    	  if(diffrentTitle == true) {
 	    		  addModal(position, map, marker);
 	    	  }
-	      })
+	      });
 	  	});
 		}
 		
 		// function 04 : detailModal(contentId, contentTypeId)
 		function detailModal(contentId, contentTypeId) {
 			
-			if($("#modal-contentId").val() == null) {
+			if($(".contentId").val() == null) {
 				$("#modalForm").append("<input id='modal-contentId' class='contentId' type='hidden' name='contentId' value="+contentId+">");
 			}
 			
-			if($("#modal-contentTypeId").val() == null) {
+			if($(".contentTypeId").val() == null) {
 				$("#modalForm").append("<input id='modal-contentTypeId' class='contentTypeId' type='hidden' name='contentTypeId' value="+contentTypeId+">");
 			}
 			
@@ -255,8 +388,168 @@
 		
 		// function 05 : addModal(position, map, marker)
 		function addModal(position, map, marker) {
+			
 			$("#addModal").modal("show");
-		}
+			
+			$("#spot_title").val(position.title);
+					
+			$(".confirm").unbind("click").bind("click", function(){
+				
+				var dayNum = $("#day").val();
+				var liIndex = $('.sub-plan' + $('#day').val()).find('li').length + 1;
+				var content = $('<li class="list_add_content day' + dayNum + '-' + liIndex +'">' + 
+													'<hr>' + 
+													'<div class="row testRemove">' +
+														'<div class="col-lg-5" style="background-color : #f5f5f5">' + 
+															'<img class="img-responsive" class="plan_photo" style="cursor: pointer;" src="' + position.img + '" alt="" width="135" height="90">' + 
+														'</div>' + 
+														'<div class="col-lg-7" style="background-color : #f5f5f5">' + 
+															'<h5 class="plan_title">' + position.title + '</h5>' +
+															'<h6 class="plan_addr">'+ position.addr + '</h6>' + 
+															'<span style="float: right;"><i class="fas fa-1x fa-trash"></i></span>' + 
+														'</div>' + 
+													'</div>' + 
+												'</li>');
+				
+				content.appendTo($('#day' + $('#day').val() + ' .sub-plan' + $('#day').val()));
+				
+				$('.day' + dayNum + '-' + liIndex + ' span').click(function(){
+					marker.setMap(null);
+					$('.day' + position.planDay + '-' + position.liIndex).remove();
+					position.liIndex = "false";
+					delete position['positionData'];
+					alert("삭제했습니다.");
+				});
+				
+				$('#addModal').modal('hide');
+				var strArr = $('#plan_date').val();
+				var startDate = new Date(parseInt(strArr.substr(0, 4)), parseInt(strArr.substr(5, 2)) - 1, parseInt(strArr.substr(8, 2)));
+				startDate.setDate(startDate.getDate() + ($('#day').val() - 1));
+				var month = ((startDate.getMonth() + 1) < 10 ? '0' : '') + (startDate.getMonth() + 1);
+				var day = (startDate.getDate() < 10 ? '0' : '') + startDate.getDate();
+				var split_date = startDate.getFullYear() + "-" + month + "-" + day;
+				
+				position.planDate = split_date;
+				position.planDay = $('#day').val();
+				position.planTotalDate = $('#plan_term').val();
+				position.planno = $('#planNo').val();
+				position.liIndex = liIndex;
+				var marker = new Tmapv2.Marker({
+					position : new Tmapv2.LatLng(position.lonlat.lng(), position.lonlat.lat()),
+					icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_p.png",
+					map : map,
+					title : "[" + position.planDay + "일차]" + position.title
+				});
+				
+				markerClick(map, marker, position.lonlat, position.title, position);
+				
+				var position_data = JSON.stringify(position);
+				position.positionData = position_data;
+				
+				var input = $("<input type='hidden' class='position-data day" + dayNum + "-" + liIndex + "' value='" + position_data + "'>");
+				input.appendTo($("#day" + $("#day").val() + " .sub-plan" + $("#day").val()));
+				$("#addModal").modal("hide");
+			});
+		} // function 05 : addModal(position, map, marker)
+		
+		// function 06 : deleteMarkers(markers)
+		function deleteMarkers(markers) {
+			for(var i = 0; i < markers.length; i++) {
+				markers[i].setMap(null);
+			}
+		} // function 06 : deleteMarkers(markers)
+		 
+		// function 07 : onClose(popup)
+		function onClose(popup) {
+			if($(".contentId").val() != null) {
+				$(".contentId").remove();
+			}
+			
+			if($(".contentTypeId").val() != null) {
+				$(".contentTypeId").remove();
+			}
+			infoWindow.setVisible(false);
+		} // function 07 : onClose(popup)
+		
+		// function 08 : keywordItems(data, markers, map, pageNo)
+		function keywordItems(data, markers, map, pageNo) {
+			var positions = [];
+			$.each(data, function(i, result) {
+				var position = { 
+			    		  title : result.title,
+			          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
+			          addr : result.addr1,
+			          overview : result.overview,
+			          img : result.firstImage2,
+			          contentId : result.contentId,
+			          contentTypeId : result.contentTypeId
+			      };
+				
+				var content = '<li class="keyword-ul">' +
+					             	'<hr>' +
+					             	'<div class="row keyword_info' + pageNo + '">' +
+					               	'<div class="col-lg-5">' +
+					                 	'<img class="img-responsive" style="cursor: pointer;" src="' + result.firstImage2 + '"alt="" width="135" height="90">' +
+					                 '</div>' +
+					                 '<div class="col-lg-7">' +
+					                 	'<h6>' + result.title + '</h6>' +
+					                   '<p>' + result.addr1 + '</p>' +
+					                 '</div>' +
+					              	'</div>' +
+					           	'</li>';
+					      
+				positions.push(position);
+				$('#keywordForm').append(content);
+			});
+			
+			$('.keyword_info' + pageNo).each(function(i) {
+				var lonlat = positions[i].lonlat;
+				var title = positions[i].title;
+				if(positions[i].addr == null) {
+					positions[i].addr = "주소 없음";
+				}
+				// Tmap API 'Marker' Method (마커 생성)
+        var marker = new Tmapv2.Marker({
+          position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+          map : map,
+          title: title,
+          visible: false
+        });
+        
+        markerClick(map, marker, lonlat, title, positions[i]);
+        
+        $(this).click(function(){
+        	for(var i = 0; i < markers.length; i++) {
+        		markers[i].setVisible(false);
+        	}
+          marker.setVisible(true); 
+          // 지도 위치 재설정
+          map.setCenter(new Tmapv2.LatLng(lonlat.lng(), lonlat.lat() - 0.15));
+        });
+        
+        markers.push(marker);
+      });
+	    return markers;
+		} // function 08 : keywordItems(data, markers, map, pageNo)
+		
+		// function 09 : callAjaxKeyword(keywordParam,keyword_markers,map)
+		function callAjaxKeyword(keywordParam, keyword_markers, map) {
+			$.ajax({	
+				url : "/schedule/keyword",
+				type : "get",
+				dataType : "json",
+				data : keywordParam,
+				success : function(data) {
+					if(data.length == 0) {
+				          alert('더 이상 표시할 내용이 없습니다.');
+				        } 
+					if(data.length != 0) {
+						keyword_markers = keywordItems(data, keyword_markers, map, keywordParam.pageNo)
+					}
+				}
+			});
+			return keyword_markers;
+		} // function 09 : callAjaxKeyword(keywordParam,keyword_markers,map)
 	</script>
 		<style>
     .page-wrapper {
@@ -356,7 +649,7 @@
     }
 
     .sidebar-wrapper .sidebar-header {
-      padding: 15px 20px 0 20px;
+      padding: 9px 0 0 0;
       color: #f5f5f5;;
     }
     
@@ -408,6 +701,12 @@
 	<title>Document</title>
 </head>
 <body>
+	<!-- Model Value -->
+	<input type="hidden" id="plan_term"  value="${plan_term }">
+	<input type="hidden" id="plan_title" value="${plan_title}">
+	<input type="hidden" id="plan_date"  value="${plan_date }">
+	<input type="hidden" id="planNo"     value="${plan_no }">
+	
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
@@ -418,13 +717,15 @@
       <!-- SideBar -->
       <div class="sidebar-wrapper">
         <div class="sidebar-header">
-          <h5>title</h5>
+          <button type="button" id="main" class="btn btn-link" style="color: #f9f9f9; text-decoration: none;" onclick="">추천 여행지</button>
+					<button type="button" id="result" class="btn btn-link" style="color: #f9f9f9; text-decoration: none;" onclick="" disabled>검색 결과</button>
+					<button type="button" id="myPlan" class="btn btn-link" style="color: #f9f9f9; text-decoration: none;" onclick="">내 여행</button>
         </div>
         <div class="sidebar-search">
           <div class="input-group">
-            <input type="text" class="form-control search-menu" placeholder="">
-            <div class="input-group-append" id="search">
-              <span class="input-group-text">
+            <input type="text" id="search-field" class="form-control search-menu" placeholder="검색어를 입력하세요...">
+            <div class="input-group-append">
+              <span id="search" class="input-group-text">
                 <i class="fa fa-search"></i>
               </span>
             </div>
@@ -432,16 +733,16 @@
         </div>
         <div class="sidebar-menu">
           <!-- 기본 -->
-          <ul style="padding: 10px 20px;">
+          <ul id="ul-main" style="padding: 10px 20px;">
             <li class="header-menu">
-            	<span>관광지 리스트</span>
+            	<span>추천 여행지 리스트</span>
             </li>
 						<form action="" method="get" name="imgForm" id="imgForm">
 						
 						</form>
           </ul>
           <!-- 검색 -->
-          <ul style="display: none; padding: 10px 20px">
+          <ul id="ul-result" style="display: none; padding: 10px 20px">
             <li class="header-menu">
               <span>검색 결과</span>
             </li>
@@ -449,6 +750,26 @@
             
             </form>
           </ul>
+          <!-- 내 여행 -->
+         <ul id="ul-myPlan" data-role="listview" style="display: none; padding: 10px 20px">
+	          <li class="header-menu">
+	          	<span>내 여행</span>
+	          </li>
+						<form method="GET" name="myPlanForm" id="myPlanForm">
+						   <c:forEach var="i" begin="1" end="${plan_term }">
+						      <li class="sidebar-dropdown" id="day${i }">
+						            <a href="javascript:void(0)">
+						              <span>${i }일차</span>
+						            </a>
+						            <div class="sidebar-submenu" style="background: #f5f5f5;">
+						              <ul class="sub-plan${i }">
+						              
+						              </ul>
+						            </div>
+						       </li>
+						   </c:forEach>
+						</form>
+					</ul>
         </div>
       </div>
     </div>
@@ -462,11 +783,13 @@
     </div>
   </div>
   
+  <form id="planForm" name="planForm" action="/schedule/write_proc" method="POST"></form>
+  
   <!-- Modal -->
 	  <!-- Detail Modal -->
 	  <form id="modalForm" target="guide" method="get" action="${root }schedule/guide"></form>
 	  
-	  <div id="modal-Guide" style="height: 100%; display: none;" class="modal fade bs-example-modal-lg in" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
+	  <div id="modal-Guide" class="modal fade" style="display: none;"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="false">
 			<div class="modal-dialog modal-lg" style="height: 98%">
 				<div class="modal-content" style="height: 95%; border-radius: 0px;">
 					<div class="modal-header">
@@ -481,32 +804,35 @@
 		</div>
 		
 		<!-- AddList Modal -->
-		<div class="modal fade" tabindex="-1" role="dialog"	aria-labelledby="mySmallModalLabel" id="addModal" aria-hidden="true">
-		<div class="modal-dialog"
-			style="max-width: 100%; width: auto; display: table;">
+		<div id="addModal" class="modal fade" tabindex="-1" style="display: none;" role="dialog"	aria-labelledby="myModalLabel"  aria-hidden="false">
+		<div class="modal-dialog modal-md" style="width: ;">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="myModalLabel">${plan_title }</h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">×</span>
 					</button>
-
 				</div>
 				<div class="modal-body">
-					<input type="text" id=s_title name="spot_title" readonly><br> 
-					<select id="day" name="days" required autofocus>
-					    <option value="1" selected>1일차</option>
-					<c:forEach var="i" begin="2" end="${total_date }">
-					    <option value="${i }">${i }일차</option>
-					</c:forEach>
-					</select>
+					<div class="form-group">
+						<input type="text" id="spot_title" class="form-control" name="spot_title" readonly>
+					</div>
+					<div class="form-group">
+						<select id="day" class="form-control" name="days" required>
+							<option value="1" selected>1일차</option>
+							<c:forEach var="i" begin="2" end="${plan_term }">
+								<option value="${i }">${i }일차</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 				<div class="modal-footer">
-					<button class="btn btn-primary confirm" type="button" id="confirm">예</button>
-					<button class="btn btn-primary" type="button" data-dismiss="modal">아니요</button>
+					<button class="btn btn-primary confirm" type="button" id="confirm">추가</button>
+					<button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
 				</div>
 			</div>
 		</div>
 	</div>
+
 </body>
 </html>
