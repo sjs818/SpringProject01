@@ -31,6 +31,8 @@ public class UserDTO {
 	@Pattern(regexp = "[0-9]*")
 	private String 	user_phone;
 	
+	private int user_provider;
+	
 	
 	private boolean inputUserID;
 	private boolean userLogin;

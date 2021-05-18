@@ -1,6 +1,5 @@
 package com.adregamdi.controller;
 
-
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -29,10 +28,10 @@ public class FreedomBoardController {
 
 	@Autowired
 	FreedomBoardService freedomBoardService;
-	
-	@Resource(name="loginUserDTO")
+
+	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
-	
+
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
 		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList(page);
@@ -44,7 +43,7 @@ public class FreedomBoardController {
 		
 		return "freedom/list";
 	}
-	
+
 	@GetMapping("/delete")
 	public String BoardDelete
 	(@RequestParam("content_idx") int content_idx, 
@@ -54,6 +53,7 @@ public class FreedomBoardController {
 		
 		return "freedom/delete";
 	}
+
 	
 	@PostMapping("/deleteProc")
 	public String BoardDeleteProc
@@ -80,6 +80,7 @@ public class FreedomBoardController {
 		}
 	}
 	
+
 	@GetMapping("/read")
 	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
@@ -87,7 +88,7 @@ public class FreedomBoardController {
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "freedom/read_demo";
 	}
-	
+
 	@GetMapping("/write")
 	public String BoardWrite
 	(@ModelAttribute("freedomWriteDTO") FreedomBoardDTO freedomWriteDTO) {
@@ -103,29 +104,29 @@ public class FreedomBoardController {
 		System.out.println(freedomWriteDTO);
 		
 		freedomBoardService.InsertFreedomBoardContent(freedomWriteDTO);
-		
+
 		return "freedom/write_success";
 	}
-	
+
 	@GetMapping("/modify")
-	public String BoardModify
-	(@ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO, 
-	 @RequestParam("content_idx") int content_idx, Model model) {
-		
+	public String BoardModify(@ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO,
+			@RequestParam("content_idx") int content_idx, Model model) {
+
 		FreedomBoardDTO freedomContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
-		
+
 		freedomModifyDTO.setFree_no(freedomContentDTO.getFree_no());
 		freedomModifyDTO.setFree_title(freedomContentDTO.getFree_title());
 		freedomModifyDTO.setFree_content(freedomContentDTO.getFree_content());
 		freedomModifyDTO.setFree_cnt(freedomContentDTO.getFree_cnt());
 		freedomModifyDTO.setContent_writer_id(freedomContentDTO.getContent_writer_id());
 		freedomModifyDTO.setContent_date(freedomContentDTO.getContent_date());
-		
+
 		model.addAttribute("freedomModifyDTO",freedomModifyDTO);
 		
 		return "freedom/modify_demo";
+
 	}
-	
+
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
 	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {

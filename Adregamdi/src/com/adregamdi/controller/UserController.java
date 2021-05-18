@@ -1,6 +1,9 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
+
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.mybatis.spring.MyBatisSystemException;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
@@ -26,6 +30,9 @@ public class UserController {
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private UserDAO userDAO;
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
@@ -58,16 +65,17 @@ public class UserController {
 				return "user/login_fail";
 			}
 		} catch (MyBatisSystemException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return "user/login_fail";	
 	}
 	
 	
+	
 	@GetMapping("/logout")
-	public String logout() {
+	public String logout(HttpSession session) throws IOException {
 		loginUserDTO.setUserLogin(false);
+		session.invalidate();
 		return "/user/logout";
 	}
 	
@@ -76,13 +84,35 @@ public class UserController {
 	  return "user/not_login";
 	}
 	
-	@GetMapping("/null_login")
+	@GetMapping("/active_login")
 	public String nullLogin() {
-		return "user/null_login";
+		return "user/active_login";
+	}
+
+	
+	@GetMapping("/delete")
+	public String delete(@ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO ) {
+		return "user/delete";
 	}
 	
 	
-	
+	@PostMapping("/delete_proc")
+	public String deleteProc(@Valid @ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/delete";
+		}
+		
+		userService.deleteUserInfo(deleteUserDTO);
+		
+		boolean emptyID = userService.checkID(loginUserDTO.getUser_id());
+		
+		if(emptyID == true) {
+			loginUserDTO.setUserLogin(false);
+			return "user/delete_success";
+		}else {
+			return "user/delete_fail";
+		}
+	}
 	
 	
 	@GetMapping("/join")
@@ -94,16 +124,41 @@ public class UserController {
 	
 	@PostMapping("/join_proc")
 	public String joinProc(@Valid @ModelAttribute("joinUserDTO") UserDTO joinUserDTO, BindingResult result) {
-		if(result.hasErrors()) {
+		if(result.hasErrors()) {                         
 			return "user/join";
 		}
-		userService.addUserInfo(joinUserDTO);
 		
-		return "user/join_success";		
+		String user_phone = joinUserDTO.getUser_phone().replace("-", "");		
+		Integer checkPhone = userDAO.checkPhone(user_phone);
+		System.out.println("회원여부 : " + checkPhone);
+		
+		if(checkPhone == null) {
+		
+			userService.addUserInfo(joinUserDTO);	
+		
+			return "user/join_success";
+		}else {
+			return "user/join_fail";
+		}
+		
 	}
 	
 	
+	@GetMapping("/modify")
+	public String modify(@ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO) {
+		userService.getModifyUserDTO(modifyUserDTO);
+		return "user/modify";
+	}
 	
+	
+	@PostMapping("/modify_proc")
+	public String modifyProc(@Valid @ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/modify";
+		}
+		userService.modifyUserInfo(modifyUserDTO);
+		return "user/modify_success";
+	}
 	
 	
 	

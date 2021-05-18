@@ -1,5 +1,7 @@
 package com.adregamdi.config;
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.apache.commons.dbcp2.BasicDataSource;
@@ -11,6 +13,8 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.web.multipart.support.StandardServletMultipartResolver;
@@ -26,6 +30,7 @@ import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
+import com.adregamdi.mapper.NoticeMapper;
 import com.adregamdi.mapper.ScheduleMapper;
 import com.adregamdi.mapper.SpotMapper;
 import com.adregamdi.mapper.TogetherMapper;
@@ -33,7 +38,7 @@ import com.adregamdi.mapper.UserMapper;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = { "com.adregamdi.controller", "com.adregamdi.dao", "com.adregamdi.service" })
+@ComponentScan(basePackages = {"com.adregamdi.controller", "com.adregamdi.dto", "com.adregamdi.dao", "com.adregamdi.service", "com.adregamdi.api"})
 @PropertySource("/WEB-INF/properties/db.properties")
 public class ServletAppContext implements WebMvcConfigurer {
 
@@ -52,6 +57,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
 
+	@Override
+	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
+		converters.add(new MappingJackson2HttpMessageConverter());
+	}
+	
 	@Override
 	public void configureViewResolvers(ViewResolverRegistry registry) {
 		WebMvcConfigurer.super.configureViewResolvers(registry);
@@ -119,6 +129,15 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 
+	
+	@Bean
+	public MapperFactoryBean<NoticeMapper> getNoticeMapper(SqlSessionFactory factory) {
+		MapperFactoryBean<NoticeMapper> factoryBean = new MapperFactoryBean<NoticeMapper>(NoticeMapper.class);
+		factoryBean.setSqlSessionFactory(factory);
+		return factoryBean;
+	}
+	
+
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 
@@ -135,22 +154,22 @@ public class ServletAppContext implements WebMvcConfigurer {
 	  	InterceptorRegistration not_loginReg
 		  = registry.addInterceptor(loginInterceptor);
 	  	
-	  	InterceptorRegistration null_loginReg
+	  	InterceptorRegistration active_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
-	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout");
-	  	null_loginReg.addPathPatterns("/user/login", "/user/join");
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete");
+	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
 
-	// properties 폴더 안에 있는 properties파일들이 충돌되지 않도록 개별적으로 관리해주는 Bean
+	// properties 占쎈쨨占쎈쐭 占쎈툧占쎈퓠 占쎌뿳占쎈뮉 properties占쎈솁占쎌뵬占쎈굶占쎌뵠 �빊�뫖猷롳옙由븝쭪占� 占쎈륫占쎈즲嚥∽옙 揶쏆뮆�롳옙�읅占쎌몵嚥∽옙 �꽴占썹뵳�뗫퉸雅뚯눖�뮉 Bean
 	@Bean
 	public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
 		return new PropertySourcesPlaceholderConfigurer();
 	}
 
-	// 파일 처리
+	// 占쎈솁占쎌뵬 筌ｌ꼶�봺
 	@Bean
 	public StandardServletMultipartResolver multipartResolver() {
 		return new StandardServletMultipartResolver();
