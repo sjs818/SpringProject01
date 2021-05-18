@@ -11,4 +11,5 @@ public class FreedomBoardDTO {
 	private int free_cnt;
 	private String content_date;
 	private String free_content;
+	private String free_user_pw;
 }
