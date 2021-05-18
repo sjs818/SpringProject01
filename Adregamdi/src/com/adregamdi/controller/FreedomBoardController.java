@@ -6,7 +6,6 @@ import javax.annotation.Resource;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,44 +42,15 @@ public class FreedomBoardController {
 		
 		return "freedom/list";
 	}
-
-	@GetMapping("/delete")
-	public String BoardDelete
-	(@RequestParam("content_idx") int content_idx, 
-	 @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO, BindingResult result, Model model) {
-		FreedomBoardDTO freedomDeleteDTO = freedomBoardService.getFreedomBoardContent(content_idx);
-		model.addAttribute("freedomDeleteDTO", freedomDeleteDTO);
-		
-		return "freedom/delete";
-	}
-
 	
-	@PostMapping("/deleteProc")
+	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
-	(@RequestParam("content_idx") int content_idx, 
-	 @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO, BindingResult result, Model model) {
+	(@RequestParam("content_idx") int content_idx) {
+		freedomBoardService.FreedomBoardDeleteContent(content_idx);
 		
-		//데이터 베이스에서 불러오는 비밀번호
-		String user_pw = freedomBoardService.GetFreedomBoardPassword(content_idx);
-		
-		//입력받은 비밀번호
-		String input_pw = tmpfreedomDeleteDTO.getFree_user_pw();
-		
-		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-		
-		//인코더에 넣어줌(입력받은 비번, 암호와된 유저비번)
-		boolean pwMatchRes = encoder.matches(input_pw, user_pw);
-		
-		if(input_pw != null && pwMatchRes == true) {
-			freedomBoardService.FreedomBoardDeleteContent(content_idx);
-			return "freedom/delete_success";
-		} else {
-			model.addAttribute("content_idx", content_idx);
-			return "freedom/delete_fail";
-		}
+		return "freedom/delete_success";
 	}
 	
-
 	@GetMapping("/read")
 	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
@@ -100,8 +70,6 @@ public class FreedomBoardController {
 	(@Valid @ModelAttribute("FreedomWriteDTO") FreedomBoardDTO freedomWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "freedom/write_ckeditor_demo";
-		
-		System.out.println(freedomWriteDTO);
 		
 		freedomBoardService.InsertFreedomBoardContent(freedomWriteDTO);
 
@@ -137,3 +105,38 @@ public class FreedomBoardController {
 		return "freedom/modify_success";
 	}
 }
+
+// 안쓰는 코드지만 남겨둠
+/*
+ * @GetMapping("/delete") public String BoardDelete
+ * (@RequestParam("content_idx") int content_idx,
+ * 
+ * @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO,
+ * BindingResult result, Model model) { FreedomBoardDTO freedomDeleteDTO =
+ * freedomBoardService.getFreedomBoardContent(content_idx);
+ * model.addAttribute("freedomDeleteDTO", freedomDeleteDTO);
+ * 
+ * return "freedom/delete"; }
+ * 
+ * 
+ * @PostMapping("/deleteProc") public String BoardDeleteProc
+ * (@RequestParam("content_idx") int content_idx,
+ * 
+ * @ModelAttribute("tmpfreedomDeleteDTO") FreedomBoardDTO tmpfreedomDeleteDTO,
+ * BindingResult result, Model model) {
+ * 
+ * //데이터 베이스에서 불러오는 비밀번호 String user_pw =
+ * freedomBoardService.GetFreedomBoardPassword(content_idx);
+ * 
+ * //입력받은 비밀번호 String input_pw = tmpfreedomDeleteDTO.getFree_user_pw();
+ * 
+ * BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+ * 
+ * //인코더에 넣어줌(입력받은 비번, 암호와된 유저비번) boolean pwMatchRes = encoder.matches(input_pw,
+ * user_pw);
+ * 
+ * if(input_pw != null && pwMatchRes == true) {
+ * freedomBoardService.FreedomBoardDeleteContent(content_idx); return
+ * "freedom/delete_success"; } else { model.addAttribute("content_idx",
+ * content_idx); return "freedom/delete_fail"; } }
+ */

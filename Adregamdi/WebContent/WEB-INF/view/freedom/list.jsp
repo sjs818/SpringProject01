@@ -20,11 +20,11 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 자유 게시판 리스트 -->
-	<div class="container" style="padding-top: 80px">
+	<div class="container" style="padding-top: 120px">
 		<h3 class="BoardTitle">
 			<b>자유게시판</b>
 		</h3>
-		<hr>
+		<hr><br>
 		<table class="table table-hover">
 			<thead>
 				<tr>
