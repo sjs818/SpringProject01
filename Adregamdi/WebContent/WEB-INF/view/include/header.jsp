@@ -41,8 +41,18 @@ h2, h3, li, p {
 	    <ul class="navbar-nav ml-auto">
 	      <c:choose>
 	        <c:when test="${loginUserDTO.userLogin == true }">
-	          <li class="nav-item"><a href="${root }user/modify"
-	            class="nav-link">정보수정</a></li>
+	          <li class="nav-item">
+	          	<div class="dropdown mt-2">
+	          		<a href="#" class="dropdown-toggle" data-toggle="dropdown" style="text-decoration: none; color:black;">
+	          			마이페이지
+	          		</a>
+	          		<div class="dropdown-menu">
+					   <a class="dropdown-item" href="#">Action</a>
+					   <a class="dropdown-item" href="#">Another action</a>
+					   <a class="dropdown-item" href="#">Something else here</a>
+					</div>
+	          	</div>
+	          </li>
 	          <li class="nav-item"><a href="${root }user/logout"
 	            class="nav-link">로그아웃</a></li>
 	        </c:when>

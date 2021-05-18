@@ -161,6 +161,12 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/my_write")
+	public String myWrite() {
+		return "user/my_write";
+	}
+	
+	
 	
 	
 	@InitBinder
