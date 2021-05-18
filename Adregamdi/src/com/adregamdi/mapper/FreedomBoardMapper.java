@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 
@@ -16,7 +17,7 @@ public interface FreedomBoardMapper {
 			" FROM FREEDOMBOARD F, USER_INFO U " +
 			" WHERE F.FREE_WRITER = U.USER_NO " + 
 			" ORDER BY F.FREE_NO DESC ")
-	List<FreedomBoardDTO> getFreedomBoardList();
+	List<FreedomBoardDTO> getFreedomBoardList(RowBounds rowBounds);
 	
 	@Select("SELECT F.FREE_NO, U.USER_NO FREE_CONTENT_WRITER_IDX, U.USER_ID CONTENT_WRITER_ID, TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			"F.FREE_TITLE, F.FREE_CONTENT, F.FREE_CNT " + 
@@ -30,6 +31,10 @@ public interface FreedomBoardMapper {
 			"WHERE U.USER_NO = F.FREE_WRITER " + 
 			"AND F.FREE_NO = #{content_idx}")
 	String GetFreedomBoardPassword(int content_idx);
+	
+	@Select("SELECT COUNT(*)" + 
+			"FROM FREEDOMBOARD ")
+	int GetFreedomBoardContentCount();
 	
 	@Delete("DELETE FROM FREEDOMBOARD WHERE FREE_NO = #{content_idx}")
 	void FreedomBoardDeleteContent(int content_idx);
