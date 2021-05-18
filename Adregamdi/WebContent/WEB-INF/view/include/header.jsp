@@ -34,7 +34,7 @@ h2, h3, li, p {
 		<ul class="navbar-nav">
 			<li class="nav-item"><a class="nav-link" href="${root }spot/main">메뉴_1</a></li>
 			<li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">메뉴_02</a></li>
-			<li class="nav-item"><a class="nav-link" href="#">게시판 3</a></li>
+			<li><a class="nav-link" href="${root }together/list">같이가치</a></li>
 			<li><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
 		</ul>
 		

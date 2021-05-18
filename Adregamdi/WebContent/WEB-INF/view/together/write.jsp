@@ -42,7 +42,7 @@
                 <form:errors path="to_title" style="color:red;" />
               </div>
               <div class="form-group">
-                <form:label path="to_content">글 내용</form:label>
+                <form:label path="to_content">공고문</form:label>
                 <form:textarea path="to_content" class="form-control" rows="10" style="resize:none"/>
                 <form:errors path="to_content" style="color:red;" />
               </div>

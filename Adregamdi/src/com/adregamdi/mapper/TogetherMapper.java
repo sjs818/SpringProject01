@@ -2,6 +2,7 @@ package com.adregamdi.mapper;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
@@ -27,9 +28,13 @@ public interface TogetherMapper {
 				+ "AND T.TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
 	
+	@Delete("DELETE FROM TOGETHER WHERE TO_NO = #{content_idx}")
+	void DeleteTogetherContent(int content_idx);
+	
+	
 	@Update("UPDATE TOGETHER SET TO_TITLE=#{to_title}, "
 			  +"TO_CONTENT=#{to_content}, to_date=SYSDATE "
 			  +"WHERE TO_NO = #{to_no}")
-	void modifyTogetherContent(TogetherDTO togetherDTO);
+	void ModifyTogetherContent(TogetherDTO togetherModifyDTO);
 
 }

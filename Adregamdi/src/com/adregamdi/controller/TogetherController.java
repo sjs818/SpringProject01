@@ -31,12 +31,15 @@ public class TogetherController {
 	@GetMapping("/list")
 	public String TogetherList(Model model) {
 		List<TogetherDTO> contentList = togetherService.getTogetherList();
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		
 		return "together/list";
 	}
 	
 	@GetMapping("/delete")
-	public String TogetherDelete() {
+	public String TogetherDelete(@RequestParam("content_idx")int content_idx) {
+		togetherService.DeleteTogetherContent(content_idx);
 		return "together/delete";
 	}
 	
@@ -66,7 +69,7 @@ public class TogetherController {
 	
 	@GetMapping("/modify")
 	public String TogetherModify
-	(@ModelAttribute("TogetherDTO") TogetherDTO togetherModifyDTO, 
+	(@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
 	 @RequestParam("content_idx") int content_idx, Model model) {
 		
 		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
