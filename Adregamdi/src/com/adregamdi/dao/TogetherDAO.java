@@ -38,6 +38,9 @@ public class TogetherDAO {
 	}
 	
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
-		togetherMapper.modifyTogetherContent(togetherModifyDTO);
+		togetherMapper.ModifyTogetherContent(togetherModifyDTO);
+	}
+	public void DeleteTogetherContent(int content_idx) {
+		togetherMapper.DeleteTogetherContent(content_idx);
 	}
 }

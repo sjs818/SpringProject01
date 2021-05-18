@@ -28,4 +28,7 @@ public class TogetherService {
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
 		togetherDAO.ModifyTogetherContent(togetherModifyDTO);
 	}
+	public void DeleteTogetherContent(int content_idx) {
+		togetherDAO.DeleteTogetherContent(content_idx);
+	}
 }

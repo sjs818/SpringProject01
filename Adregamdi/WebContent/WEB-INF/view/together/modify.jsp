@@ -24,50 +24,48 @@
 	<c:import url="/WEB-INF/view/include/header.jsp"/>
 	
 	<!-- 메인 -->
-	<div class="container" style="margin-top:75px">
-	  <h3 class="inputSubject">
-	    <b>글 수정</b>
-	  </h3>
-	  <hr>  
-	  <div class="row">
-	    <div class="col-sm-3"></div>
-	    <div class="col_sm-6">
-	      <div class="card shadow">
-	        <div class="card-body">
-	          <form:form action="${root }together/modify_proc" method="post" modelAttribute="modifyTogetherDTO" enctype="multipart/form-data">
-	            <form:hidden path="to_no" />
-	            
-				  <div class="form-group">
-				    <form:label path="to_date">접선 날짜</form:label>
-					<form:input path="to_date" class="form-control" readonly="true" />
-				  </div>
-				  <div class="form-group">
-				    <form:label path="to_title">동행자 공고</form:label>
-					<form:input path="to_title" class="form-control" />
-                    <form:errors path="to_title" style="color:red;"/>
-				  </div>
-				  <div class="form-group">
-					<form:label path="to_content">내용</form:label>
-					<form:textarea path="to_content" class="form-control" rows="10" style="resize:none" />
-                    <form:errors path="to_content"  style="color:red;"/>
-				  </div>
-				  <div class="form-group">
-					<div class="text-right">
-					<form:button class="btn btn-success">수정완료</form:button>
-					<a href="${root }together/read" class="btn btn-info">취소</a>
-				  </div>
-				</div>
-			  </form:form>
-		    </div>			
-	      </div>
-		</div>
-		<div class="col-sm-3"></div>
-	  </div>	
-    </div>
+<c:import url="/WEB-INF/view/include/header.jsp" />
 
-  
-    <!-- 하단 정보 -->  
-    <c:import url="/WEB-INF/view/include/bottom_info.jsp" />
+  <div class="container" style="margin-top: 80px;">
+     <h3 class="InputSubject">
+      <b>글 수정</b>
+    </h3>
+    <hr>
+    <div class="row">
+      <div class="col-sm-2"></div>
+      <div class="col-sm-8">
+        <div class="panel">
+          <div class="panel-body">
+            <form:form action="${root}together/modifyProc" method="post" modelAttribute="togetherModifyDTO" class="form-horizontal">
+              <form:hidden path="to_no" />
+              <div class="form-group">
+                <form:label path="to_title">글 제목</form:label>
+                <form:input path="to_title" class="form-control" />
+                <form:errors path="to_title" style="color:red;" />
+              </div>
+              <div class="form-group">
+                <form:label path="to_content">글 내용</form:label>
+                <form:textarea path="to_content" class="form-control" rows="10" style="resize:none" />
+                <form:errors path="to_content" style="color:red;" />
+              </div>
+              <div class="form-group">
+                <label for="pw" class="control-label col-sm-2">첨부파일</label>
+                <div class="col-sm-8">
+                  <input type="password" id="pw" class="form-control">
+                </div>
+              </div>
+              <div class="form-group">
+                <div class="col-sm-10 text-right">
+                  <form:button class="btn btn-success">수정완료</form:button>
+                  <a href="${root}together/read" class="btn btn-danger">취소</a>
+                </div>
+              </div>
+            </form:form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 </body>
