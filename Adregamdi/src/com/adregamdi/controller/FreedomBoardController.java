@@ -128,11 +128,10 @@ public class FreedomBoardController {
 	
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
-	(@Valid @ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO, BindingResult result) {
+	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {
 		
-		System.out.println(freedomModifyDTO);
-		
-		freedomBoardService.ModifyFreedomBoardContent(freedomModifyDTO);
+		System.out.println(freedomModifyProcDTO);
+		freedomBoardService.ModifyFreedomBoardContent(freedomModifyProcDTO);
 		
 		return "freedom/modify_success";
 	}

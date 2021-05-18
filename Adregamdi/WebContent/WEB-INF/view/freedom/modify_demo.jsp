@@ -29,17 +29,18 @@
     <b>게시글 수정</b>
   </h3>
   <hr><br>
-   <form class="form-horizontal" name="freedomModifyDTO" id="freedomModifyDTO" action="${root}freedom/modifyProc" method="POST">
+   <form class="form-horizontal" name="freedomModifyProcDTO" id="freedomModifyProcDTO" action="${root}freedom/modifyProc" method="POST">
     <div class="form-group" style="margin-bottom: 30px;">
       <div class="mb-3">
-        <label for="label_title" style="font-size:1.1em; margin-left: 5px; padding-bottom: 5px;"><b>제 목</b></label>
+        <label for="free_title" style="font-size:1.1em; margin-left: 5px; padding-bottom: 5px;"><b>제 목</b></label>
         <input class="form-control" type="text" id="free_title" name="free_title" value="${freedomModifyDTO.free_title}">
+        <input class="form-control" type="text" id="free_no" name="free_no" value="${freedomModifyDTO.free_no }" style="display:none;">
       </div>
     </div>
     <div class="form-group" style="margin-bottom: 30px;">
       <div class="mb-3">
-        <label for="label_content" style="font-size:1.1em; margin-left: 5px; padding-bottom: 5px;"><b>내 용</b></label>
-        <textarea class="form-control" id="free_content" name="free_content">${freedomModifyDTO.free_content }</textarea>
+        <label for="free_content" style="font-size:1.1em; margin-left: 5px; padding-bottom: 5px;"><b>내 용</b></label>
+        <textarea class="form-control" id="free_content" name="free_content">${freedomModifyDTO.free_content}</textarea>
         <script>
         	CKEDITOR.replace('free_content',{
         		height: 400
