@@ -21,11 +21,11 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
-	// ÇÑ±¹°ü±¤°ø»ç_±¹¹® °ü±¤Á¤º¸ ¼­ºñ½º ( Âü°í : https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057787 )
+	// ï¿½Ñ±ï¿½ï¿½ï¿½ï¿½ï¿½_ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ( ï¿½ï¿½ï¿½ : https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057787 )
 	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	
-	// T map API ( Âü°í : http://tmapapi.sktelecom.com/index.html )
+	// T map API ( ï¿½ï¿½ï¿½ : http://tmapapi.sktelecom.com/index.html )
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 	
 	public static String getTagValue(String tag, Element element) {
@@ -41,22 +41,22 @@ public class VisitKoreaAPI {
 		}
 	}
 	
-	// VisitKorea Áö¿ª±â¹Ý °ü±¤Á¤º¸Á¶È¸
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public ArrayList<String> getContentIdList(String pageNo, String sigunguCode, String contentTypeId, String numOfRow) throws SAXException, IOException, ParserConfigurationException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
 							 + "&pageNo=" + pageNo
-							 + "&numOfRows=" + numOfRow 				 // numOfROW : ÇÑ ÆäÀÌÁö °á°ú ¼ö
+							 + "&numOfRows=" + numOfRow 				 // numOfROW : ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½
 							 + "&MobileOS=ETC"
 							 + "&MobileApp=AppTest"
-							 + "&arrange=P"            					 // arrange(Á¤·Ä±âÁØ) = P(Á¶È¸¼ø)
+							 + "&arrange=P"            					 // arrange(ï¿½ï¿½Ä±ï¿½ï¿½ï¿½) = P(ï¿½È¸ï¿½ï¿½)
 							 + "&cat1="
-							 + "&contentTypeId=" + contentTypeId // contentTypeId : °ü±¤Å¸ÀÔ(°ü±¤Áö, ¼÷¹Ú µî) ID
-							 + "&areaCode=39"          					 // areaCode(Áö¿ªÄÚµå) = 39(Á¦ÁÖµµ)
-							 + "&sigunguCode=" + sigunguCode     // sigunguCode : ½Ã±º±¸ÄÚµå
+							 + "&contentTypeId=" + contentTypeId // contentTypeId : ï¿½ï¿½Å¸ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½ ï¿½ï¿½) ID
+							 + "&areaCode=39"          					 // areaCode(ï¿½ï¿½ï¿½Úµï¿½) = 39(ï¿½ï¿½Öµï¿½)
+							 + "&sigunguCode=" + sigunguCode     // sigunguCode : ï¿½Ã±ï¿½ï¿½ï¿½ï¿½Úµï¿½
 							 + "&cat2="
 							 + "&cat3="
-							 + "&listYN=Y"                       // listYN : ¸ñ·Ï ±¸ºÐ (Y = ¸ñ·Ï, N = °³¼ö)
+							 + "&listYN=Y"                       // listYN : ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (Y = ï¿½ï¿½ï¿½, N = ï¿½ï¿½ï¿½ï¿½)
 							 + "&modifiedtime=";
 		
 		// XML Parsing
@@ -80,7 +80,7 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
-	// VisitKorea °øÅëÁ¤º¸Á¶È¸
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
 		for(int i = 0; i < contentIdList.size(); i++) {
@@ -113,7 +113,7 @@ public class VisitKoreaAPI {
 		return infoList;
 	}
 	
-	//VisitKorea Áö¿ª±â¹Ý °ü±¤Á¤º¸Á¶È¸ (TotalCount)
+	//VisitKorea ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ (TotalCount)
 	public int getTotalCount(String contentTypeId, String sigunguCode) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
@@ -145,7 +145,7 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 	
-	// VisitKorea °øÅëÁ¤º¸Á¶È¸ : getContentIdList() + getSpotInfo()
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸ : getContentIdList() + getSpotInfo()
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException, InterruptedException {
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
@@ -178,7 +178,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// VisitKorea °øÅëÁ¤º¸Á¶È¸
+	// VisitKorea ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public List<String> getCommonInfo(String contentId, String contentTypeId, List<String> information) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 							 + "serviceKey=" + serviceKey
@@ -223,7 +223,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// VisitKorea ¼Ò°³Á¤º¸Á¶È¸
+	// VisitKorea ï¿½Ò°ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public List<String> getIntroduceInfo(String contentId, String contentTypeId, List<String> information) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?"
 							 + "serviceKey="+serviceKey
@@ -245,7 +245,7 @@ public class VisitKoreaAPI {
 		
 		switch (contentTypeId) {
 			
-			// °ü±¤Áö(12) : ¹®ÀÇ ¹× ¾È³»(infocenter),  ½¬´Â³¯(restdate), ÀÌ¿ë½Ã°£(usetime)
+			// ï¿½ï¿½ï¿½ï¿½(12) : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocenter),  ï¿½ï¿½ï¿½Â³ï¿½(restdate), ï¿½Ì¿ï¿½Ã°ï¿½(usetime)
 			case "12":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -258,7 +258,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// ¹®È­½Ã¼³(14) : ¹®ÀÇ ¹× ¾È³»(infocenterculture), ÀÌ¿ë¿ä±Ý(usefee), ÀÌ¿ë½Ã°£(usetimeculture)
+			// ï¿½ï¿½È­ï¿½Ã¼ï¿½(14) : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocenterculture), ï¿½Ì¿ï¿½ï¿½ï¿½(usefee), ï¿½Ì¿ï¿½Ã°ï¿½(usetimeculture)
 			case "14":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -271,7 +271,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// ÃàÁ¦ / °ø¿¬ / Çà»ç(15) : Çà»ç È¨ÆäÀÌÁö(eventhompage), ÁÖÃÖÀÚ ¿¬¶ôÃ³(sponsor1tel), °ø¿¬½Ã°£(playtime), ÀÌ¿ë¿ä±Ý(usetimefestival)
+			// ï¿½ï¿½ï¿½ / ï¿½ï¿½ / ï¿½ï¿½ï¿½(15) : ï¿½ï¿½ï¿½ È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(eventhompage), ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ã³(sponsor1tel), ï¿½ï¿½Ã°ï¿½(playtime), ï¿½Ì¿ï¿½ï¿½ï¿½(usetimefestival)
 			case "15":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -285,7 +285,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// ¿©ÇàÄÚ½º(25) : ¹®ÀÇ ¹× ¾È³»(infocentertourcourse), ÄÚ½º ÃÑ ¼Ò¿ä½Ã°£(taketime), ÄÚ½º Å×¸¶(theme)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½Ú½ï¿½(25) : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocentertourcourse), ï¿½Ú½ï¿½ ï¿½ï¿½ ï¿½Ò¿ï¿½Ã°ï¿½(taketime), ï¿½Ú½ï¿½ ï¿½×¸ï¿½(theme)
 			case "25":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -298,7 +298,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// ·¹Æ÷Ã÷(28) : ¹®ÀÇ ¹× ¾È³»(infocenterleports), ÈÞ¹«ÀÏ(restdateleports), ÀÔÀå·á(usefeeleports), ÀÌ¿ë½Ã°£(usetimeleports)
+			// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(28) : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocenterleports), ï¿½Þ¹ï¿½ï¿½ï¿½(restdateleports), ï¿½ï¿½ï¿½ï¿½ï¿½(usefeeleports), ï¿½Ì¿ï¿½Ã°ï¿½(usetimeleports)
 			case "28":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -312,7 +312,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 				
-			// ¼÷¹Ú(32) : ÀÔ½Ç ½Ã°£(checkintime), Åð½Ç ½Ã°£(checkouttime), ¹®ÀÇ ¹× ¾È³»(infocenterlodging), ¿¹¾à¾È³» È¨ÆäÀÌÁö(reservationurl), ¿¹¾à¾È³»(reservationlodging)
+			// ï¿½ï¿½ï¿½(32) : ï¿½Ô½ï¿½ ï¿½Ã°ï¿½(checkintime), ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½(checkouttime), ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocenterlodging), ï¿½ï¿½ï¿½ï¿½È³ï¿½ È¨ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(reservationurl), ï¿½ï¿½ï¿½ï¿½È³ï¿½(reservationlodging)
 			case "32":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -327,7 +327,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// ¼îÇÎ(38) : ¹®ÀÇ ¹× ¾È³»(infocentershopping), ¿µ¾÷½Ã°£(opentime), ÈÞ¹«ÀÏ(restdateshopping)
+			// ï¿½ï¿½ï¿½ï¿½(38) : ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocentershopping), ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(opentime), ï¿½Þ¹ï¿½ï¿½ï¿½(restdateshopping)
 			case "38":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -340,7 +340,7 @@ public class VisitKoreaAPI {
 				}
 				break;
 			
-			// À½½Ä(39) : ´ëÇ¥ ¸Þ´º(firstmenu), ¹®ÀÇ ¹× ¾È³»(infocenterfood), ¿µ¾÷½Ã°£(opentimefood), ÈÞ¹«ÀÏ(restdatefood)
+			// ï¿½ï¿½ï¿½(39) : ï¿½ï¿½Ç¥ ï¿½Þ´ï¿½(firstmenu), ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½È³ï¿½(infocenterfood), ï¿½ï¿½ï¿½ï¿½Ã°ï¿½(opentimefood), ï¿½Þ¹ï¿½ï¿½ï¿½(restdatefood)
 			case "39":
 				for(int i = 0; i < nodeList.getLength(); i++) {
 					Node node = nodeList.item(i);
@@ -357,7 +357,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// »ó¼¼Á¤º¸Á¶È¸
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¸
 	public List<String> getEachInformation(VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
 		List<String> information = new ArrayList<String>();
 		information = getCommonInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
@@ -365,7 +365,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// VisitKorea Å°¿öµåÁ¶È¸
+	// VisitKorea Å°ï¿½ï¿½ï¿½ï¿½È¸
 	public List<VisitKoreaDTO> getKeywordInformation(VisitKoreaDTO visitKoreaDTO, String keyword) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		String encodeKeyword = URLEncoder.encode(keyword, "UTF-8");
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?"

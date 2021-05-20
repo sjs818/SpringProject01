@@ -2,9 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<c:set var="root" value="${pageContext.request.contextPath }/" /> 
+
+<!-- 절대 경로 설정 -->
+<c:set var="root" value="${pageContext.request.contextPath }/" />
+
 <!DOCTYPE html>
-<html lang="ko">
+<html>
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="Content-Type" content="text/html; charse=UTF-8">
@@ -14,7 +17,7 @@
 <body>
   <script>
     alert('동행자가 떠났습니다.');
-    location.href='$'{root }together;</script>
+    location.href='${root }together/list';</script>
   
 </body>
 </html>
