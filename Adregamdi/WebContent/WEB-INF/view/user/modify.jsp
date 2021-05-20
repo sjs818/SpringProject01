@@ -35,8 +35,8 @@
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<header class="card-header">
+						<a href="${root }user/my_page" class="float-right btn btn-success mt-2 ml-2 btn-sm">마이페이지</a>
 						<a href="${root }user/delete" class="float-right btn btn-outline-danger mt-2 btn-sm">회원탈퇴</a>
-						<a href="${root }user/my_write" class="float-right btn btn-outline-success mt-2 mr-2 btn-sm">내가쓴글</a>
 						<h4 class="card-title mt-2">정보수정</h4>
 					</header>
 					<div class="card-body" style="background-color: #F7F7F7;">

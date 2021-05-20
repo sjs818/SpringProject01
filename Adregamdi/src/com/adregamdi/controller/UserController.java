@@ -161,9 +161,14 @@ public class UserController {
 	}
 	
 	
-	@GetMapping("/my_write")
-	public String myWrite() {
-		return "user/my_write";
+	@GetMapping("/my_page")
+	public String myPage() {
+		return "user/my_page";
+	}
+
+	@GetMapping("/my_page_disable")
+	public String myPageDisable() {
+		return "user/my_page_disable";
 	}
 	
 	
