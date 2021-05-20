@@ -5,7 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.ibatis.session.RowBounds;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -20,7 +19,6 @@ import com.adregamdi.dao.ScheduleDAO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.PlanImgDTO;
-import com.adregamdi.dto.ScheduleDTO;
 import com.adregamdi.dto.UserPlanDTO;
 
 @Service
@@ -33,28 +31,10 @@ public class ScheduleService {
 	@Value("${path.plan_img}")
 	private String path_plan_img;
 	
-	public void writeSchedule(ScheduleDTO writeScheduleDTO) {
-		scheduleDAO.writeSchedule(writeScheduleDTO);
-	}
-	
-	public List<ScheduleDTO> getScheduleList(int page, int listCnt) {
-		int start = (page-1) * listCnt;
-		RowBounds rowBounds = new RowBounds(start, listCnt);
-		return scheduleDAO.getScheduleList(rowBounds);
-	}
-	
 	public PageDTO getContentCnt(int currentPage, int listCnt, int pagination) {
-		int contentCnt = scheduleDAO.getContentCnt();
+		int contentCnt = 10;
 		PageDTO pageDTO = new PageDTO(contentCnt, currentPage, listCnt, pagination);
 		return pageDTO;
-	}
-	
-	public ScheduleDTO getSchedule(int schedule_no) {
-		return scheduleDAO.getSchedule(schedule_no);
-	}
-	
-	public void deleteSchedule(int schedule_no) {
-		scheduleDAO.deleteSchedule(schedule_no);
 	}
 	
 	public boolean createPlan(PlanDTO planDTO) {

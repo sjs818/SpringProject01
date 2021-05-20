@@ -23,7 +23,6 @@ import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.PlanImgDTO;
-import com.adregamdi.dto.ScheduleDTO;
 import com.adregamdi.dto.UserPlanDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.ScheduleService;
@@ -160,39 +159,5 @@ public class ScheduleController {
 	public boolean uploadPlan(@ModelAttribute PlanDTO planDTO) {
 				
 		return scheduleService.updatePlan(planDTO);
-	}
-	
-	@GetMapping("/read")
-	public String read(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		
-		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
-		model.addAttribute("scheduleDTO", scheduleDTO);
-		model.addAttribute("page", page);
-		
-		return "schedule/read";
-	}
-	
-	@GetMapping("/modify")
-	public String modify(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		
-		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
-		model.addAttribute("scheduleDTO", scheduleDTO);
-		model.addAttribute("page", page);
-		
-		return "schedule/modify";
-	}
-	
-	@PostMapping("/modify_proc")
-	public String modify_proc(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		return "schedule/modify_success";
-	}
-	
-	@GetMapping("/delete")
-	public String delete(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		
-		scheduleService.deleteSchedule(schedule_no);
-		model.addAttribute("page", page);
-		
-		return "schedule/delete";
 	}
 }
