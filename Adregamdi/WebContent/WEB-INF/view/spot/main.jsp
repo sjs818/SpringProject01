@@ -62,7 +62,8 @@ $(function() {
             	
             	console.log("contentId : "+data[key].contentId);
             	$("#contentId" + key).html(data[key].contentId);
-            	$("#sendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
+            	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
+            	$("#likeSendContentId"+key).attr("href", "${root}spot/like?contentId="+data[key].contentId);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
@@ -362,7 +363,7 @@ body, h1, h2, h3, div {
 							</div>
 							<div class="icon_outside">
 		                        <div class="icon" style="margin-right: 60px;">
-		                             <a  href="" >
+		                             <a  id="likeSendContentId${i }" href="" >
 		                             	<i class="far fa-thumbs-up" style="font-size:30px;"></i>
 		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
@@ -370,7 +371,7 @@ body, h1, h2, h3, div {
 		                             <span style="font-size: 10px;">208</span>
 		                         </div>
 		                         <div class="icon">
-		                             <a id="sendContentId${i }" href="">
+		                             <a id="reviewSendContentId${i }" href="">
 		                             	<i class="far fa-file-alt" style="font-size:30px;"></i>
 		                             </a>
 		                             <span style="font-size: 10px;">리뷰</span>        
