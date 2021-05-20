@@ -42,8 +42,8 @@ h2, h3, li, p {
 	    <ul class="navbar-nav ml-auto">
 	      <c:choose>
 	        <c:when test="${loginUserDTO.userLogin == true }">
-	          <li class="nav-item"><a href="${root }user/modify"
-	            class="nav-link">정보수정</a></li>
+    	      <li class="nav-item"><a href="${root }user/my_page"
+	            class="nav-link">마이페이지</a></li>
 	          <li class="nav-item"><a href="${root }user/logout"
 	            class="nav-link">로그아웃</a></li>
 	        </c:when>
