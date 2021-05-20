@@ -155,6 +155,13 @@ public class ScheduleController {
 		return scheduleService.getPlan(planImgDTO.getPlan_no());
 	}
 	
+	@ResponseBody
+	@PostMapping("/update")
+	public boolean uploadPlan(@ModelAttribute PlanDTO planDTO) {
+				
+		return scheduleService.updatePlan(planDTO);
+	}
+	
 	@GetMapping("/read")
 	public String read(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
 		

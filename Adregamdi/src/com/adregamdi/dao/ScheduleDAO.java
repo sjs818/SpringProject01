@@ -65,4 +65,8 @@ public class ScheduleDAO {
 	public void updatePlanImg(PlanImgDTO planImgDTO) {
 		scheduleMapper.updatePlanImg(planImgDTO);
 	}
+	
+	public int updatePlan(PlanDTO planDTO) {
+		return scheduleMapper.updatePlan(planDTO);
+	}
 }

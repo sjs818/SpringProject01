@@ -50,4 +50,7 @@ public interface ScheduleMapper {
 	
 	@Update("UPDATE PLAN SET PLAN_IMG = #{plan_img } WHERE PLAN_NO = #{plan_no }")
 	void updatePlanImg(PlanImgDTO planImgDTO);
+	
+	@Update("UPDATE PLAN SET PLAN_TITLE = #{plan_title }, PLAN_INFO = #{plan_info } WHERE PLAN_NO = #{plan_no }")
+	int updatePlan(PlanDTO planDTO);
 }

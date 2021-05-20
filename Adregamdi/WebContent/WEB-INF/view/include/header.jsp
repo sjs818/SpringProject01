@@ -5,7 +5,7 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <nav class="navbar navbar-expand-md navbar-white fixed-top shadow-sm">
-	<a href="${root }" class="navbar-brand"><img src="${root }images/logo01.png" style="height: 60px"></a>
+	<a href="${root }" class="navbar-brand"><img src="${root }images/logo.png" style="height: 60px"></a>
 	<div id="navMenu" class="collapse navbar-collapse">
 		<ul class="navbar-nav main_menu">
 			<li class="nav-item dropdown">

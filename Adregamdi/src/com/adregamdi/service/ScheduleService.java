@@ -124,5 +124,8 @@ public class ScheduleService {
 	public void updatePlanImg(PlanImgDTO planImgDTO) {
 		scheduleDAO.updatePlanImg(planImgDTO);
 	}
-
+	
+	public boolean updatePlan(PlanDTO planDTO) {
+		return scheduleDAO.updatePlan(planDTO) > 0;
+	}
 }
