@@ -34,6 +34,13 @@
 body, h1, h2, h3, div {
 	font-family: 'Bazzi';
 }
+
+.plus {
+	padding: 20px;
+	border: 1px solid;
+	text-align : center;
+}
+
 </style>
 </head>
 <body>
@@ -56,7 +63,7 @@ body, h1, h2, h3, div {
 			<br>${information[2] }	<br>
 		</div>
 		<div>
-			<ul style="text-align : center;border:1px;">
+			<ul class="plus">
 				<c:choose>
 					<c:when test="${contentTypeId eq 12 }">
 						<li>문의 및 안내 : ${information[6] } </li><br>
