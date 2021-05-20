@@ -60,7 +60,7 @@
   <!-- Main -->
 		
 		<!-- Content -->
-		<div class="container" style="margin-top:200px"> 
+		<div class="container" style="margin-top:150px"> 
 			<div class="card shadow">
 			  
 			  <div class="card-header">
@@ -114,7 +114,7 @@
 	  				<div class="modal-body">
 	  					<input type="hidden" id="plan_term" name="plan_term">
 	  					<input type="hidden" name="plan_info" value="temporary">
-	  					<input type="hidden" name="plan_img" value="/images/thumbnail.png">
+	  					<input type="hidden" name="plan_img" value="/images/schedule/thumbnail.png">
 	  					<div class="form-group">
 	  						<label for="plan_title">일정 제목</label>
 	  						<input type="text" class="form-control" id="plan_title" name="plan_title" style="width:100%">
