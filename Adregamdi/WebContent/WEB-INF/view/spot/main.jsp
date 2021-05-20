@@ -55,6 +55,8 @@ $(function() {
         dataType: "json",
         data: allData,
         success: function(data) {
+        	
+        	console.log("contentTypeId : "+contentTypeId  );
             
         	$("#total_view").show();
     		$("#search_view").hide();
@@ -100,7 +102,6 @@ $(function() {
 		}
 		
 		keywordParam.keyword = keyword;
-		console.log("keyword : " + keyword);
 		
 		$.ajax({	
 			
@@ -118,17 +119,19 @@ $(function() {
 					
 					var content = '<div class="col-lg-4 col-sm-6 mb-4">'
 								+'<div class="portfolio-item">'
-								+'<a class="portfolio-link" data-toggle="modal"href="#portfolioModal" onclick="detail('+key+');">'
+								+'<a class="portfolio-link" data-toggle="modal"href="#portfolioModal" onclick="searchDetail('+key+');">'
 								+'<div class="portfolio-hover">'
 								+'<div class="portfolio-hover-content">'
 								+'<i class="fas fa-plus fa-3x"></i></div></div> '
 								+'<img class="img-fluid photo" id="searchPhoto" src="'+data[key].firstImage+'" alt="..."></a>'
 								+'<div class="portfolio-caption"><div id="searchTitle" class="portfolio-caption-heading">'+data[key].title+'</div>'
 								+'<div id="searchAddr" class="portfolio-caption-subheading text-muted">'+data[key].addr1+'</div>'
-								+'<span style="display: none" id="searchContentId">'+data[key].contentId+'</span> '
-								+'<span style="display: none" id="searchContentTypeId">'+data[key].contentTypeId+'</span></div></div></div>';
+								+'<span style="display: none" id="searchContentId'+key+'">'+data[key].contentId+'</span> '
+								+'<span style="display: none" id="searchContentTypeId'+key+'">'+data[key].contentTypeId+'</span>'
+								+'</div></div></div>';
 								
-								
+
+					
 	                $("#search_view").append(content);
 	            });
 	
@@ -162,7 +165,29 @@ function detail(idx) {
 	});
 }
 
-function testData(data,contentTypeId) {
+function searchDetail(idx) {
+	
+	var contentId = $("#searchContentId"+idx).html();
+	var contentTypeId = $("#searchContentTypeId"+idx).html();
+	var param = {"contentId" : contentId, "contentTypeId" : contentTypeId};
+	
+	$.ajax({
+		
+		url: "/spot/details",
+		type: "get",
+		dataType: "json",
+		data: param,
+		success:function(data) {
+			
+			testData(data,contentTypeId);
+		}, 
+		error: function(error) {
+			alert('searchDetail 에러');
+		}
+	});
+}
+
+function testData(data, contentTypeId) {
 	for(var i=0;i<data.length;i++){
 		if(data[i] == null){
 			data[i] = "";
@@ -313,8 +338,8 @@ function testData(data,contentTypeId) {
 								<div id="title${i}" class="portfolio-caption-heading"></div>
 								<div id="addr${i}"
 									class="portfolio-caption-subheading text-muted"></div>
-								<span style="display: none" id="contentId${i }"></span> <span
-									style="display: none" id="contentTypeId${i }"></span>
+								<span style="display:none" id="contentId${i }" ></span>
+								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
 							<div class="icon_outside">
 		                        <div class="icon" style="margin-right: 60px;">
@@ -407,7 +432,6 @@ function testData(data,contentTypeId) {
 			</div>
 		</div>
 	</div>
-
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
