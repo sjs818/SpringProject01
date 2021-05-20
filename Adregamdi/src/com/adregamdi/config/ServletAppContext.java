@@ -28,6 +28,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
+import com.adregamdi.interceptor.NoticeInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.NoticeMapper;
@@ -147,7 +148,6 @@ public class ServletAppContext implements WebMvcConfigurer {
 
 		LoginBlockInterceptor loginBlockInterceptor = new LoginBlockInterceptor(loginUserDTO);
 		
-		
 	  	InterceptorRegistration topReg
 	  	  = registry.addInterceptor(topMenuInterceptor);
 		
@@ -158,7 +158,8 @@ public class ServletAppContext implements WebMvcConfigurer {
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
 	  	topReg.addPathPatterns("/**");
-	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete");
+	  	
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete", "/notice/modify", "/notice/delete");
 	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
 	}
