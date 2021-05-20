@@ -21,16 +21,14 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Stylish&display=swap"
-	rel="stylesheet">
+
 
 <!-- x 아이콘 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
+<link rel="stylesheet" href="${root }css/styles.css">
 
 <script>
 $(function() {
@@ -55,21 +53,21 @@ $(function() {
         dataType: "json",
         data: allData,
         success: function(data) {
-        	
-        	console.log("contentTypeId : "+contentTypeId  );
             
         	$("#total_view").show();
     		$("#search_view").hide();
-    		$("#total_page").show();
         	
             // 반복함수
             $.each(data, function(key, val) {  
             	
+            	console.log("contentId : "+data[key].contentId);
             	$("#contentId" + key).html(data[key].contentId);
+            	$("#sendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
                 $("#addr" + key).text(data[key].addr1);
+                
             });
         },
         error: function(error) {
@@ -158,6 +156,7 @@ function detail(idx) {
 		success:function(data) {
 			
 			testData(data,contentTypeId);
+			$("contentId")
 		}, 
 		error: function(error) {
 			alert('detail 에러');
@@ -212,7 +211,7 @@ function testData(data, contentTypeId) {
 		$(".details").append("<li>행사 홈페이지 : "+data[6]+"</li><br>");
 		$(".details").append("<li>연락처 : "+data[7]+"</li><br>");
 		$(".details").append("<li>공연시간 : "+data[8]+"</li><br>");
-		$(".details").append("<li>이용요금 : "+data[9]+"</li><br>");//여기까지
+		$(".details").append("<li>이용요금 : "+data[9]+"</li><br>");
 		break;
 	case "25" :
 		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
@@ -248,6 +247,20 @@ function testData(data, contentTypeId) {
 
 </script>
 
+<style>
+@font-face {
+	font-family: 'Bazzi';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body, h1, h2, h3, div {
+	font-family: 'Bazzi';
+}
+</style>
 </head>
 
 <body>
@@ -343,14 +356,18 @@ function testData(data, contentTypeId) {
 							</div>
 							<div class="icon_outside">
 		                        <div class="icon" style="margin-right: 60px;">
-		                             <a href="#" ><i class="far fa-thumbs-up" style="font-size:30px;"></i></a>
+		                             <a  href="" >
+		                             	<i class="far fa-thumbs-up" style="font-size:30px;"></i>
+		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
 		                             <span style="font-size: 10px;">208</span>
 		                         </div>
 		                         <div class="icon">
-		                             <a href="#"><i class="far fa-file-alt" style="font-size:30px;"></i></a>
-		                             <span style="font-size: 10px;">리뷰쓰기</span>        
+		                             <a id="sendContentId${i }" href="">
+		                             	<i class="far fa-file-alt" style="font-size:30px;"></i>
+		                             </a>
+		                             <span style="font-size: 10px;">리뷰</span>        
 		                             <span style="font-size: 10px;" >100</span>
 		                         </div>
 		                     </div>
@@ -421,8 +438,10 @@ function testData(data, contentTypeId) {
 								<p id="modalOverview"></p>
 								<ul class="details">
 								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
+								<button class="btn btn-info" type="button" onClick="location.href='${root}spot/review?contentId=${contentId }'">
+									Input Review
+								</button>
+								<button class="btn btn-primary" data-dismiss="modal" type="button">
 									<i class="fas fa-times mr-1"></i> Close Project
 								</button>
 							</div>

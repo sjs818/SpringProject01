@@ -8,12 +8,22 @@
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
 
-<link rel="stylesheet" href="${root }css/styles.css">
+
 
 <style>
-h2, h3, li, p {
-	font-family: 'Stylish', sans-serif
-};
+
+@font-face {
+	font-family: 'Bazzi';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
+body {
+	font-family: 'Bazzi';
+}
 
 .nav-link {
   display: block;

@@ -25,6 +25,8 @@ public class SpotController {
 	@Autowired
 	SpotService spotService;
 	
+
+	
 	@Autowired
 	private VisitKoreaAPI spot;
 
@@ -78,4 +80,27 @@ public class SpotController {
 		
 		return resultKeyword;
 	}
+	
+	
+	@GetMapping("review") 
+	public String review(@RequestParam ("contentId")String contentId, @RequestParam("contentTypeId")String contentTypeId, Model model) throws Exception {
+		
+		model.addAttribute("contentId", contentId);
+		model.addAttribute("contentTypeId", contentTypeId);
+		
+		VisitKoreaDTO visitKoreaDTO = new VisitKoreaDTO();
+		
+		visitKoreaDTO.setContentId(contentId);
+		visitKoreaDTO.setContentTypeId(contentTypeId);
+		
+		List<String> information = spot.getEachInformation(visitKoreaDTO);
+		
+		model.addAttribute("information", information);
+		
+		//System.out.println(information.get(0));
+		
+		
+		return "spot/review";
+	}
+	 
 }
