@@ -41,7 +41,7 @@ body, h1, h2, h3, div {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="container" style="margin-top: 200px; margin-bottom: 100px; border:1px;">
+	<div class="container bg-light" style="margin-top: 200px; margin-bottom: 100px; border:1px;">
 		<div class="text-center">
 			<h1 class="section-heading" style="font-size : 50px;">${information[1] }</h1>
 			<h3 class="section-subheading text-muted">${information[3] }</h3>
@@ -56,7 +56,7 @@ body, h1, h2, h3, div {
 			<br>${information[2] }	<br>
 		</div>
 		<div>
-			<ul>
+			<ul style="text-align : center;border:1px;">
 				<c:choose>
 					<c:when test="${contentTypeId eq 12 }">
 						<li>문의 및 안내 : ${information[6] } </li><br>

@@ -438,7 +438,7 @@ body, h1, h2, h3, div {
 								<p id="modalOverview"></p>
 								<ul class="details">
 								</ul>
-								<button class="btn btn-info" type="button" onClick="location.href='${root}spot/review?contentId=${contentId }'">
+								<button class="btn btn-info" type="button" onClick="location.href='${root}spot/review?contentId=${contentId }&contentTypeId=${contentTypeId }'">
 									Input Review
 								</button>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
