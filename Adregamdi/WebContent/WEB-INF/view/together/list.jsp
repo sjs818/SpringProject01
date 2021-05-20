@@ -31,7 +31,7 @@
 			<thead>
 				<tr>
 					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 60%">글제목</th>
+					<th class="text-center" style="width : 60%">공고제목</th>
 					<th class="text-center" style="width : 10%">작성자</th>
 					<th class="text-center" style="width : 14%">작성날짜</th>
 					<th class="text-center" style="width : 8%">조회수</th>
