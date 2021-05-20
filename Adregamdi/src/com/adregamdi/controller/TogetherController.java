@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.TogetherService;
@@ -29,10 +30,13 @@ public class TogetherController {
 	private UserDTO loginUserDTO;
 	
 	@GetMapping("/list")
-	public String TogetherList(Model model) {
-		List<TogetherDTO> contentList = togetherService.getTogetherList();
+	public String TogetherList(@RequestParam(value="page", defaultValue="1")int page, Model model) {
+		List<TogetherDTO> contentList = togetherService.getTogetherList(page);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		
+		PageDTO pageDTO = togetherService.getContentCnt(page);
+		model.addAttribute("pageDTO", pageDTO);
 		
 		return "together/list";
 	}
