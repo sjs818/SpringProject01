@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.FreedomBoardMapper;
 
@@ -52,5 +53,11 @@ public class FreedomBoardDAO {
 	
 	public void FreedomBoardDeleteContent(int content_idx) {
 		freedomBoardMapper.FreedomBoardDeleteContent(content_idx);
+	}
+	
+	// 댓글 리스트 불러오기
+	public List<FreedomReplyDTO> getFreedomReplyList(int free_num) {
+		List<FreedomReplyDTO> replyList = freedomBoardMapper.getFreedomReplyList(free_num);
+		return replyList;
 	}
 }

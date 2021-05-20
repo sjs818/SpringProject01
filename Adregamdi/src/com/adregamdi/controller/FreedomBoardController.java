@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.FreedomBoardService;
@@ -52,7 +53,8 @@ public class FreedomBoardController {
 	}
 	
 	@GetMapping("/read")
-	public String BoardRead(@RequestParam("content_idx") int content_idx, Model model) {
+	public String BoardRead
+	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
@@ -99,7 +101,6 @@ public class FreedomBoardController {
 	public String BoardModify_Proc
 	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {
 		
-		System.out.println(freedomModifyProcDTO);
 		freedomBoardService.ModifyFreedomBoardContent(freedomModifyProcDTO);
 		
 		return "freedom/modify_success";

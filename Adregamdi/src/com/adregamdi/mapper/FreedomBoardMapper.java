@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 
 public interface FreedomBoardMapper {
 
@@ -46,4 +47,13 @@ public interface FreedomBoardMapper {
 	@Update("UPDATE FREEDOMBOARD SET FREE_TITLE=#{free_title}, FREE_CONTENT=#{free_content}, free_date=SYSDATE " + 
 			"WHERE FREE_NO = #{free_no}")
 	void modifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO);
+	
+	// ===============================================================================================================================
+	// 댓글 관련 Mapper
+	
+	@Select("SELECT REPLY_NUM, FREEDOM_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
+			"FROM FREEDOMREPLY " +
+			"WHERE FREEDOM_NUM = #{freedom_num}")
+	List<FreedomReplyDTO> getFreedomReplyList(int freedom_num);
+	
 }

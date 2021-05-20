@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.FreedomBoardDAO;
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.PageDTO;
 
 @Service
@@ -66,5 +67,11 @@ public class FreedomBoardService {
 		int contentCnt = freedomBoardDAO.GetFreedomBoardContentCount();
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
+	}
+	
+	// 댓글 리스트 불러오기
+	public List<FreedomReplyDTO> getFreedomReplyList(int free_num){
+		List<FreedomReplyDTO> replyList = freedomBoardDAO.getFreedomReplyList(free_num);
+		return replyList;
 	}
 }

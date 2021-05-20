@@ -15,6 +15,10 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script>
+  	$(function(){
+  		readReply();
+	});
+  
 	function delContent(){
 		const del_res = confirm("삭제하면 작성한 글은 복구할 수 없습니다 그래도 삭제 하시겠습니까?")
 		if(del_res == true){
@@ -23,6 +27,17 @@
 			return;
 		}
   	}
+	
+	function readReply(){
+		#.ajax({
+			url : "${root}/freedomReply/replyWriteProc",
+			type : "POST",
+			dataType : "json",
+			success : function(receive_data){
+				$("#replyList").append(receive_data);
+			}
+		});
+	}
   </script>
 </head>
 <body>
@@ -48,17 +63,54 @@
               <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx || loginUserDTO.user_provider == 0}" >
                 <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success"
       			style="padding : 4px; margin-right : 5px;">수정하기</a>
-                <button type="button" class="btn btn-danger" 
-                style="padding : 4px; margin-right : 5px;" onclick="delContent();">삭제하기</button>
+                <button type="button" class="btn btn-danger" style="padding : 4px; margin-right : 5px;" onclick="delContent();">삭제하기</button>
               </c:if>
             </c:if>
     	</div>
-    	<%-- <div class="text-right">
-		    <c:if test="${loginUserDTO.userLogin == true}">
-      			<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
-      		</c:if>
-    	  </div> --%>
-  </form>
-    </div>
+      <br>
+      <br>
+      <h6><b>댓글등록</b></h6>
+      <hr>
+      <form:form name="replyForm" id="replyForm" method="POST" modelAttribute="replyWriteDTO">
+      <div class="form-group row" style="padding-top : 20px;">
+      	<div class="col-sm-9" style="margin : 10px;">
+          <form:textarea path="reply_content" rows="4" cols="100" />
+        </div>
+        <form:button class="col-sm-2 btn btn-primary" id="btnReplySave" style="margin: 30px;">댓글등록</form:button>
+      </div>
+      </form:form> 
+	  	  <!-- Reply List {s}-->
+	 	  <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
+			 <h6 class="border-bottom pb-2 mb-0"><b>달린 댓글</b></h6>
+	 	  <div id="replyList"></div>
+	    </div> 
+  	  </form>
+   </div>
 </body>
 </html>
+<!-- /* const htmls="";
+				if(result.length < 1){
+					html.push("등록된 댓글이 없습니다.");
+				} else {
+					$(result).each(fuction(){
+						htmls += '<div class="media text-muted pt-3" id="reply_num' + this.reply_num: + '">';
+						htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="placeholder:32X32">';
+						htmls += '<title>Placeholder</title>';
+						htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+						htmls += '<text x="50%" fill="#007bff" dy=".3em">32X32</text>';
+						htmls += '</svg>';
+						htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+						htmls += '<span class="d-block">';
+						htmls += '<strong class="text-gray-dark">' + this.reply_writer + '</strong>'
+						htmls += '<span style="padding-left: 7px; font-size: 9pt">';
+	                    htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.reply_num + ', \'' + this.reply_writer + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
+	                    htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.reply_num + ')" >삭제</a>';
+	                    htmls += '</span>';
+	                    htmls += '</span>';
+	                    htmls += this.content;
+	                    htmls += '</p>';
+	                    htmls += '</div>';
+					  });
+					}
+				$("#replyList").html(htmls);
+				} */ -->
