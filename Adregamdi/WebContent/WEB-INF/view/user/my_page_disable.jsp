@@ -44,6 +44,11 @@
 	color: #ffaa42;
 }
 
+.content-box{
+	overflow: auto;
+	max-height: 636px;
+}
+
 </style>
 
 
@@ -70,12 +75,12 @@
 					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page_disable">숨김일정</a></li>
 				</ul>
 			</div>
-			<div class="row mx-3 my-3">
+			<div class="row mx-3 my-3 content-box">
 
 			
 				<div class="col-sm-3">
 					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt=""></a>
+						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
 						<div class="card-body">
 							<a href="#">
 								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
@@ -85,7 +90,55 @@
 						</div>
 					</div>
 				</div>
-				
+				<div class="col-sm-3">
+					<div class="card mb-3 card_hover">
+						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
+								<p class="card-text ellipsis">이곳은 나만의 제주여행 일정을 작성하였으나 수정사항이 있어서 숨겨둔 일정들 입니다.</p>
+							</a>
+							<span class="badge badge-secondary">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3 card_hover">
+						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
+								<p class="card-text ellipsis">이곳은 나만의 제주여행 일정을 작성하였으나 수정사항이 있어서 숨겨둔 일정들 입니다.</p>
+							</a>
+							<span class="badge badge-secondary">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3 card_hover">
+						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
+								<p class="card-text ellipsis">이곳은 나만의 제주여행 일정을 작성하였으나 수정사항이 있어서 숨겨둔 일정들 입니다.</p>
+							</a>
+							<span class="badge badge-secondary">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-3">
+					<div class="card mb-3 card_hover">
+						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
+						<div class="card-body">
+							<a href="#">
+								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
+								<p class="card-text ellipsis">이곳은 나만의 제주여행 일정을 작성하였으나 수정사항이 있어서 숨겨둔 일정들 입니다.</p>
+							</a>
+							<span class="badge badge-secondary">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+						</div>
+					</div>
+				</div>
+
 
 
 			</div>
