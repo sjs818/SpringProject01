@@ -155,8 +155,8 @@ function detail(idx) {
 		data: param,
 		success:function(data) {
 			
-			testData(data,contentTypeId);
-			$("contentId")
+			testData(data,contentTypeId, contentId);
+			
 		}, 
 		error: function(error) {
 			alert('detail 에러');
@@ -178,7 +178,9 @@ function searchDetail(idx) {
 		data: param,
 		success:function(data) {
 			
-			testData(data,contentTypeId);
+			
+			testData(data,contentTypeId, contentId);
+			
 		}, 
 		error: function(error) {
 			alert('searchDetail 에러');
@@ -186,12 +188,16 @@ function searchDetail(idx) {
 	});
 }
 
-function testData(data, contentTypeId) {
+function testData(data, contentTypeId, contentId) {
+	
+
 	for(var i=0;i<data.length;i++){
 		if(data[i] == null){
 			data[i] = "";
 		}
 	}		
+	
+	$("#detailBtn").attr("href", "${root}spot/review?contentId="+contentId+"&contentTypeId="+contentTypeId);
 	$("#modalPhoto").attr("src",data[0]);
 	$("#modalTitle").text(data[1]);
 	$("#modalOverview").html(data[2]);
@@ -438,9 +444,9 @@ body, h1, h2, h3, div {
 								<p id="modalOverview"></p>
 								<ul class="details">
 								</ul>
-								<button class="btn btn-info" type="button" onClick="location.href='${root}spot/review?contentId=${contentId }&contentTypeId=${contentTypeId }'">
-									Input Review
-								</button>
+								<a id="detailBtn" class="btn btn-info" type="button" href="">
+									<i class="far fa-file-alt"></i> Write Review
+								</a>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
 									<i class="fas fa-times mr-1"></i> Close Project
 								</button>

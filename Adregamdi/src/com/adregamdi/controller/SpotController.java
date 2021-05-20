@@ -65,8 +65,6 @@ public class SpotController {
 		visitKoreaDTO.setContentId(contentId);
 		visitKoreaDTO.setContentTypeId(contentTypeId);
 		
-		System.out.println(contentId);
-		
 		return spot.getEachInformation(visitKoreaDTO);
 	}	
 	
