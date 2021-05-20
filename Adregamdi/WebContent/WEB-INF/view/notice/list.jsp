@@ -20,7 +20,7 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 80px">
+	<div class="container" style="padding-top: 100px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>

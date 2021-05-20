@@ -15,45 +15,31 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
-
 <body>
-<!-- Header Import -->
-<c:import url="/WEB-INF/view/include/header.jsp" />
-
-  <div class="container" style="margin-top: 80px;">
-    <h3 class="InputSubject">
-      <b>${noticeDTO.notice_title}</b>
-    </h3>
-    <h5>${noticeDTO.content_notice_user_no}&nbsp;&nbsp;&nbsp;&nbsp;${noticeDTO.notice_date}</h5>
-    <hr>
-    <div class="row">
-      <div class="col-sm-3"></div>
-      <div class="col-sm-8">
-        <div class="panel">
-          <div class="panel-body">
-            <form class="form-horizontal">
-              <div class="form-group">
-                <label for="content" class="control-label col-sm-2">글 내 용</label>
-                <div class="col-sm-8">
-                  <textarea id="content" class="form-control" rows=6 style="resize:none;" disabled>${readContentDTO.notice_content}</textarea>
-                </div>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-6">
-                <a href="${root}notice/list" class="btn btn-info">목록보기</a>
-                 <c:if test="${loginUserDTO.isUserLogin() == true}">
-                   <c:if test="${ loginUserDTO.user_no == readContentDTO.notice_user_no }" >
-                    <a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success">수정하기</a>
-                    <a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" class="btn btn-danger">삭제하기</a>
-                   </c:if>
-                  </c:if>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
+	<!-- Header Import -->
+	<c:import url="/WEB-INF/view/include/header.jsp" />
+	
+	<div class="container" style="margin-top: 100px;">
+    	<h3 class="InputSubject">
+      	<b>${readContentDTO.notice_title}</b>
+    	</h3>
+    	<h6>${readContentDTO.content_notice_user_no}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.notice_date}</h6>
+    	<hr><br>
+    	<form class="form-horizontal" name="noticeDTO" id="noticeDTO" action="${root}notice/writeProc" method="POST">
+    	<div class="form-group" style="margin-bottom: 30px;">
+      		<div class="mb-3">
+        		${readContentDTO.notice_content}
+      		</div>
+    	</div>
+    	<hr><br>
+    	<div class="form-group float-right">
+    	    <a href="${root}notice/list" class="btn btn-info" style="padding : 4px; margin-right : 5px;">목록보기</a>
+    	    <c:if test="${loginUserDTO.isUserLogin() == true}">
+      			<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success"style="padding : 4px; margin-right : 5px;">수정하기</a>
+      			<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" class="btn btn-danger" style="padding : 4px; margin-right : 5px;">삭제하기</a>
+      		</c:if>
+    	</div>
+  </form>
     </div>
-  </div>
 </body>
 </html>

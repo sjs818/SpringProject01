@@ -19,7 +19,7 @@
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 	
-	<div class="container" style="margin-top: 80px;">
+	<div class="container" style="margin-top: 100px;">
     	<h3 class="InputSubject">
       	<b>${readContentDTO.free_title}</b>
     	</h3>
