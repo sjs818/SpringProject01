@@ -28,10 +28,29 @@
 		}
   	}
 	
+	function WriteReply(){
+		let replyContent = $("#reply_content").val();
+		let freedomNum = ${readContentDTO.free_no};
+		let reply_writer = "${readContentDTO.content_writer_id}";
+		
+		let params = {"freedom_num" : freedomNum, "reply_writer" : reply_writer, "reply_content" : replyContent};
+		
+		$.ajax({
+			type : "POST",
+			url : "${root}freedomReply/replyWriteProc",
+			dataType : 'JSON',
+			data : params,
+			succuess : function(result){
+				alert("댓글이 등록되었습니다.");
+				readReply();
+			}
+		});
+	}
+	
 	function readReply(){
 		$.ajax({
 			type:"GET",
-			url:"${root}freedomReply/replyWriteProc?freedom_num=${readContentDTO.free_no}",
+			url:"${root}freedomReply/replyGetList?freedom_num=${readContentDTO.free_no}",
 			success:function(result){
 				let listReply = "";
 				$.each(result, function(){
@@ -54,7 +73,6 @@
 					listReply += '</div>';
 				});
 				$("#replyList").html(listReply);
-				console.log(result);
 			}
 		});
 	}
@@ -87,50 +105,24 @@
               </c:if>
             </c:if>
     	</div>
+    	</form>
       <br>
       <br>
       <h6><b>댓글등록</b></h6>
       <hr>
-      <form:form name="replyForm" id="replyForm" method="POST" modelAttribute="replyWriteDTO">
+      <form name="replyWriteDTO" id="replyWriteDTO" method="POST">
       <div class="form-group row" style="padding-top : 20px;">
       	<div class="col-sm-9" style="margin : 10px;">
-          <form:textarea path="reply_content" rows="4" cols="100" />
+          <textarea name="reply_content" id="reply_content" rows="4" cols="100"></textarea>
         </div>
-        <form:button class="col-sm-2 btn btn-primary" id="btnReplySave" style="margin: 30px;">댓글등록</form:button>
+        <button type="button" class="col-sm-2 btn btn-primary" id="btnReplySave" style="margin: 30px;" onclick="WriteReply();">댓글등록</button>
       </div>
-      </form:form> 
+      </form> 
 	  	  <!-- Reply List {s}-->
 	 	  <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
 			 <h6 class="border-bottom pb-2 mb-0"><b>달린 댓글</b></h6>
 	 	  <div id="replyList"></div>
 	    </div> 
-  	  </form>
    </div>
 </body>
 </html>
-<!-- /* const htmls="";
-				if(result.length < 1){
-					html.push("등록된 댓글이 없습니다.");
-				} else {
-					$(result).each(fuction(){
-						htmls += '<div class="media text-muted pt-3" id="reply_num' + this.reply_num: + '">';
-						htmls += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="placeholder:32X32">';
-						htmls += '<title>Placeholder</title>';
-						htmls += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-						htmls += '<text x="50%" fill="#007bff" dy=".3em">32X32</text>';
-						htmls += '</svg>';
-						htmls += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
-						htmls += '<span class="d-block">';
-						htmls += '<strong class="text-gray-dark">' + this.reply_writer + '</strong>'
-						htmls += '<span style="padding-left: 7px; font-size: 9pt">';
-	                    htmls += '<a href="javascript:void(0)" onclick="fn_editReply(' + this.reply_num + ', \'' + this.reply_writer + '\', \'' + this.reply_content + '\' )" style="padding-right:5px">수정</a>';
-	                    htmls += '<a href="javascript:void(0)" onclick="fn_deleteReply(' + this.reply_num + ')" >삭제</a>';
-	                    htmls += '</span>';
-	                    htmls += '</span>';
-	                    htmls += this.content;
-	                    htmls += '</p>';
-	                    htmls += '</div>';
-					  });
-					}
-				$("#replyList").html(htmls);
-				} */ -->

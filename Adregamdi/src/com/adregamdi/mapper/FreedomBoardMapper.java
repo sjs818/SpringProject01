@@ -53,7 +53,12 @@ public interface FreedomBoardMapper {
 	
 	@Select("SELECT REPLY_NUM, FREEDOM_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
 			"FROM FREEDOMREPLY " +
-			"WHERE FREEDOM_NUM = #{freedom_num}")
+			"WHERE FREEDOM_NUM = #{freedom_num}" +
+			"ORDER BY FREEDOM_NUM DESC")
 	List<FreedomReplyDTO> getFreedomReplyList(int freedom_num);
+	
+	@Insert("INSERT INTO FREEDOMREPLY(reply_num, freedom_num, reply_writer, reply_content, reply_date) " +
+			"VALUES (freedom_reply_SEQ.nextval, #{freedom_num}, #{reply_writer}, #{reply_content}, sysdate) ")
+	void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
 	
 }

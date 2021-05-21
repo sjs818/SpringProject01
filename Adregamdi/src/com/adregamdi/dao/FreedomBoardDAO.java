@@ -55,9 +55,15 @@ public class FreedomBoardDAO {
 		freedomBoardMapper.FreedomBoardDeleteContent(content_idx);
 	}
 	
+	// ============================================ 댓글 관련 컨트롤러 ==========================
 	// 댓글 리스트 불러오기
 	public List<FreedomReplyDTO> getFreedomReplyList(int free_num) {
 		List<FreedomReplyDTO> replyList = freedomBoardMapper.getFreedomReplyList(free_num);
 		return replyList;
+	}
+	
+	//댓글 입력
+	public void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.InsertFreedomBoardReply(replyWriteDTO);
 	}
 }
