@@ -59,7 +59,9 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		return spot.getInformation(visitKoreaDTO, totalCount);
+		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
+		
+		return spot.getInformationPlusLike(visitKoreaDTO, likeDTO, totalCount);
 	}
 	
 	@ResponseBody
@@ -109,7 +111,7 @@ public class SpotController {
 	
 	@ResponseBody
 	@GetMapping("/likeProc")
-	public void likeProc(@RequestParam("contentId")String contentId, Model model) throws SAXException, IOException, ParserConfigurationException {
+	public ArrayList<SpotLikeDTO> likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
 		
 		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
 		/*
@@ -126,8 +128,10 @@ public class SpotController {
 		*/
 		
 		spotService.plusLikeCnt(contentId);
-		model.addAttribute("likeDTO", likeDTO);		
+				
 		System.out.println(likeDTO.get(0));
+		
+		return likeDTO;
 	}
 	 
 }

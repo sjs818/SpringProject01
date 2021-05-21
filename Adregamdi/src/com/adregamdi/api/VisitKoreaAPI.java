@@ -16,6 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import com.adregamdi.dto.SpotLikeDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 
 
@@ -123,6 +124,7 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 
+	// contentId를 일괄적으로 저장하기 위해 사용한 매서드
 	public ArrayList<String> lgetContentId() throws SAXException, IOException, ParserConfigurationException {
 		
 		ArrayList<String> contentIdList = getContentIdList("1", "", "", "1095");
@@ -159,13 +161,52 @@ public class VisitKoreaAPI {
 					spot.setMapX(getTagValue("mapx", element));
 					spot.setMapY(getTagValue("mapy", element));
 					spot.setTotalCount(Integer.toString(totalCount));
-
+					
 				}
 			}
 			// System.out.println(spot.getFirstImage2());
 			information.add(spot);
 		}
 
+		return information;
+	}
+	
+	// 개략적인 정보?
+	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotLikeDTO> likeDTO, int totalCount)
+			throws SAXException, IOException, ParserConfigurationException {
+		// id만 저장
+		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(),
+				visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
+		// 공통 정보 조회
+		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
+		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
+		for (int i = 0; i < spotInfo.size(); i++) {
+			VisitKoreaDTO spot = new VisitKoreaDTO();
+			spot.setLike_cnt(likeDTO.get(i).getLike_cnt());
+			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
+				Node node = spotInfo.get(i).item(j);
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage("/images/schedule/thumbnail.png");
+					} else {
+						spot.setFirstImage(getTagValue("firstimage", element));
+					}
+					spot.setTitle(getTagValue("title", element));
+					if (!visitKoreaDTO.getContentTypeId().equals("25")) {
+						spot.setAddr1(getTagValue("addr1", element));
+					}
+					spot.setOverview(getTagValue("overview", element));
+					spot.setContentId(getTagValue("contentid", element));
+					spot.setContentTypeId(getTagValue("contenttypeid", element));
+					spot.setMapX(getTagValue("mapx", element));
+					spot.setMapY(getTagValue("mapy", element));
+					spot.setTotalCount(Integer.toString(totalCount));
+				}
+			}
+			System.out.println(spot.toString());
+			information.add(spot);
+		}
 		return information;
 	}
 

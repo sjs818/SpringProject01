@@ -18,4 +18,9 @@ public class VisitKoreaDTO {
 	private String overview;
 	private String totalCount;
 	private String numOfRow;
+	private int like_cnt;
+	
+	public VisitKoreaDTO() {
+		like_cnt = 0;
+	}
 }

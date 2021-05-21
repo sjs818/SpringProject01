@@ -60,10 +60,10 @@ $(function() {
             // 반복함수
             $.each(data, function(key, val) {  
             	
-            	console.log("contentId : "+data[key].contentId);
+            	console.log("key : "+ key);
             	$("#contentId" + key).html(data[key].contentId);
             	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
-            	
+            	$("#likeCnt"+key).html(data[key].like_cnt);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
@@ -270,7 +270,7 @@ function likeProc(idx) {
 			
 		}, 
 		error: function(error) {
-			//alert('likeProc 에러');
+			alert('likeProc 에러');
 		}
 	});
 	
@@ -401,7 +401,7 @@ body, h1, h2, h3, div {
 		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
-		                             <span style="font-size: 10px;">${likeDTO.like_cnt }</span>
+		                             <span id="likeCnt${i }" style="font-size: 10px;"></span>
 		                         </div>
 		                         <div class="icon">
 		                             <a id="reviewSendContentId${i }" href="">
