@@ -44,12 +44,13 @@ body, h1, h2, h3, div {
 .left {
 	width: 50%;
 	height: 200px;
-	padding: 10px;
+	padding: 20px;
 	align: center;
 }
 .right {
 	width: 50%;
-	padding: 10px;
+	padding: 20px;
+	border-left: 1px dashed #cfcbc0;
 }
 
 </style>
@@ -73,7 +74,7 @@ body, h1, h2, h3, div {
 				<td class ="left text-center">
 					<img class="img-fluid photo" src="${information[0] }" alt="img"/>
 				</td>
-				<td class="right" rowspan="3">
+				<td class="right" rowspan="2">
 					${information[2] }
 				</td>
 			</tr>
@@ -131,8 +132,9 @@ body, h1, h2, h3, div {
 				</td>
 			</tr>
 			<tr>
-				<td>
-					<h1>리뷰쓸건데....</h1>
+				<td colspan="2">
+					<br><br>
+					<h1 style="text-align:center;">리뷰쓸건데....</h1>
 				</td>
 			</tr>
 		</table>		

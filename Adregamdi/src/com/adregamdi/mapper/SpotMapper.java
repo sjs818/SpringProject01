@@ -11,14 +11,14 @@ import com.adregamdi.dto.SpotLikeDTO;
 
 public interface SpotMapper {
 	
-	@SelectKey(statement="select spot_like_seq.nextval from dual", keyProperty="like_idx", before=true, resultType=int.class)
+	@SelectKey(statement="select spot_seq.nextval from dual", keyProperty="like_idx", before=true, resultType=int.class)
 	
-	@Insert("INSERT INTO SPOT_LIKE_INFO VALUES ( #{like_idx}, #{content_id}, #{like_cnt}, #{review_cnt})")
+	@Insert("INSERT INTO SPOT_INFO VALUES ( #{like_idx}, #{content_id}, #{like_cnt}, #{review_cnt})")
 	void inputContentId(SpotLikeDTO likeDTO);
 	
-	@Update("UPDATE SPOT_LIKE_INFO SET LIKE_CNT = LIKE_CNT + 1 WHERE CONTENT_ID= #{content_id}")
+	@Update("UPDATE SPOT_INFO SET LIKE_CNT = LIKE_CNT + 1 WHERE CONTENT_ID= #{content_id}")
 	void plusLikeCnt(String content_id);
 	
-	@Select("SELECT * FROM SPOT_LIKE_INFO")
+	@Select("SELECT * FROM SPOT_INFO")
 	ArrayList<SpotLikeDTO> getLikeInfo();
 }

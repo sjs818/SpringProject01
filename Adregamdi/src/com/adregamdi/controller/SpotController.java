@@ -61,6 +61,7 @@ public class SpotController {
 		
 		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
 		
+		//return spot.getInformation(visitKoreaDTO, totalCount);
 		return spot.getInformationPlusLike(visitKoreaDTO, likeDTO, totalCount);
 	}
 	
@@ -127,8 +128,8 @@ public class SpotController {
 			likeDTO.setReview_cnt(0);
 			
 			spotService.inputContentId(likeDTO);
-		}
-		*/
+		}*/
+		
 		
 		spotService.plusLikeCnt(contentId);
 				
