@@ -64,6 +64,7 @@ $(function() {
             	$("#contentId" + key).html(data[key].contentId);
             	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
             	$("#likeCnt"+key).html(data[key].like_cnt);
+            	$("#reviewCnt"+key).html(data[key].review_cnt);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
@@ -264,7 +265,7 @@ function likeProc(idx) {
 		dataType: "json",
 		data: param,
 		success:function(data) {
-			
+					
 			
 			
 			
@@ -394,7 +395,7 @@ body, h1, h2, h3, div {
 								<span style="display:none" id="contentId${i }" ></span>
 								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
-							<div class="icon_outside">
+							<div class="icon_outside" >
 		                        <div class="icon" style="margin-right: 60px;">
 		                             <a  id="likeSendContentId${i }" onClick="likeProc(${i })" >
 		                             	<i class="far fa-thumbs-up aTagSet" style="font-size:30px;"></i>
@@ -408,7 +409,7 @@ body, h1, h2, h3, div {
 		                             	<i class="far fa-file-alt" style="font-size:30px;"></i>
 		                             </a>
 		                             <span style="font-size: 10px;">리뷰</span>        
-		                             <span style="font-size: 10px;" >100</span>
+		                             <span id="reviewCnt${i }" style="font-size: 10px;" ></span>
 		                         </div>
 		                     </div>
 						</div>

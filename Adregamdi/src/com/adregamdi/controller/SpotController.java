@@ -118,10 +118,13 @@ public class SpotController {
 		// SpotLikeDTO에 초기 데이터 값 넣기
 		ArrayList<String> contentIdList = spot.lgetContentId();
 		
+		SpotLikeDTO likeDTO = new SpotLikeDTO();
+		
 		for(int i=0; i<contentIdList.size(); i++) {
 			
 			likeDTO.setContent_id(contentIdList.get(i));
 			likeDTO.setLike_cnt(0);
+			likeDTO.setReview_cnt(0);
 			
 			spotService.inputContentId(likeDTO);
 		}
@@ -129,7 +132,7 @@ public class SpotController {
 		
 		spotService.plusLikeCnt(contentId);
 				
-		System.out.println(likeDTO.get(0));
+		//System.out.println(likeDTO.get(0));
 		
 		return likeDTO;
 	}

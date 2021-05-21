@@ -13,7 +13,7 @@ public interface SpotMapper {
 	
 	@SelectKey(statement="select spot_like_seq.nextval from dual", keyProperty="like_idx", before=true, resultType=int.class)
 	
-	@Insert("INSERT INTO SPOT_LIKE_INFO VALUES ( #{like_idx}, #{content_id}, #{like_cnt})")
+	@Insert("INSERT INTO SPOT_LIKE_INFO VALUES ( #{like_idx}, #{content_id}, #{like_cnt}, #{review_cnt})")
 	void inputContentId(SpotLikeDTO likeDTO);
 	
 	@Update("UPDATE SPOT_LIKE_INFO SET LIKE_CNT = LIKE_CNT + 1 WHERE CONTENT_ID= #{content_id}")

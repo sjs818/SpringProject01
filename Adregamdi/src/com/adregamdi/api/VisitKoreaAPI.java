@@ -171,7 +171,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// 개략적인 정보?
+	// like 추가
 	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotLikeDTO> likeDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
 		// id만 저장
@@ -183,6 +183,7 @@ public class VisitKoreaAPI {
 		for (int i = 0; i < spotInfo.size(); i++) {
 			VisitKoreaDTO spot = new VisitKoreaDTO();
 			spot.setLike_cnt(likeDTO.get(i).getLike_cnt());
+			spot.setReview_cnt(likeDTO.get(i).getReview_cnt());
 			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
 				Node node = spotInfo.get(i).item(j);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
@@ -204,7 +205,6 @@ public class VisitKoreaAPI {
 					spot.setTotalCount(Integer.toString(totalCount));
 				}
 			}
-			System.out.println(spot.toString());
 			information.add(spot);
 		}
 		return information;

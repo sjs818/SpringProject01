@@ -6817,6 +6817,7 @@ header.masthead .masthead-heading {
 	justify-content: center;
 	align-items: center;
 	background-color: #fff;
+  	margin-bottom: 15px;
 }
 .portfolio-item .icon{
 	display: flex;
