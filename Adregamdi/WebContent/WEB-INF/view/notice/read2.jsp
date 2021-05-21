@@ -18,7 +18,6 @@
 <body>
 <!-- Header Import -->
 <c:import url="/WEB-INF/view/include/header.jsp" />
-
   <div class="container" style="margin-top: 80px;">
     <h3 class="InputSubject">
       <b>${noticeDTO.notice_title}</b>
@@ -57,7 +56,3 @@
   </div>
 </body>
 </html>
-
-<!-- 
-
- -->  

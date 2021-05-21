@@ -34,7 +34,7 @@
     	<hr><br>
     	<div class="form-group float-right">
     	    <a href="${root}notice/list" class="btn btn-info" style="padding : 4px; margin-right : 5px;">목록보기</a>
-    	    <c:if test="${loginUserDTO.isUserLogin() == true}">
+    	    <c:if test="${loginUserDTO.user_provider == 0}">
       			<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success"style="padding : 4px; margin-right : 5px;">수정하기</a>
       			<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" class="btn btn-danger" style="padding : 4px; margin-right : 5px;">삭제하기</a>
       		</c:if>
