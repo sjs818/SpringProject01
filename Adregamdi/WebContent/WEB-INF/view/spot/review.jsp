@@ -41,6 +41,17 @@ body, h1, h2, h3, div {
 	text-align : center;
 }
 
+.left {
+	width: 50%;
+	height: 200px;
+	padding: 10px;
+	align: center;
+}
+.right {
+	width: 50%;
+	padding: 10px;
+}
+
 </style>
 </head>
 <body>
@@ -48,71 +59,83 @@ body, h1, h2, h3, div {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="container bg-light" style="margin-top: 200px; margin-bottom: 100px; border:1px;">
-		<div class="text-center">
-			<h1 class="section-heading" style="font-size : 50px;">${information[1] }</h1>
-			<h3 class="section-subheading text-muted">${information[3] }</h3>
-		</div>
-		<div style="text-align: center;">
-			<br>
-			<img class="img-fluid photo" src="${information[0] }" alt="img"/>
-			<br>
-		</div>
-		<br><br>
-		<div>
-			<br>${information[2] }	<br>
-		</div>
-		<div>
-			<ul class="plus">
-				<c:choose>
-					<c:when test="${contentTypeId eq 12 }">
-						<li>문의 및 안내 : ${information[6] } </li><br>
-						<li>쉬는 날 : ${information[7] }</li><br>
-						<li>이용시간 : ${information[8] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 14 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>쉬는 날 : ${information[7] }</li><br>
-						<li>이용시간 : ${information[8] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 15 }">
-						<li>행사 홈페이지 : ${information[6] }</li><br>
-						<li>연락처 : ${information[7] }</li><br>
-						<li>공연시간 : ${information[8] }</li><br>
-						<li>이용 요금 : ${information[9] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 25 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>코스 예상 소요시간 : ${information[7] }</li><br>
-						<li>코스 테마 : ${information[8] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 28 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>쉬는 날 : ${information[7] }</li><br>
-						<li>이용 요금 : ${information[8] }</li><br>
-						<li>이용 시간 : ${information[9] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 32 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>체크인 :  ${information[7] }</li><br>
-						<li>체크아웃 : ${information[8] }</li><br>
-						<li>홈페이지 : ${information[9] }</li><br>
-						<li>예약안내 : ${information[10] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 38 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>영업 시간 : ${information[7] }</li><br>
-						<li>쉬는 날 : ${information[8] }</li><br>
-					</c:when>
-					<c:when test="${contentTypeId eq 39 }">
-						<li>문의 및 안내 : ${information[6] }</li><br>
-						<li>대표 메뉴 : ${information[7] }</li><br>
-						<li>영업 시간 : ${information[8] }</li><br>
-						<li>쉬는 날 : ${information[9] }</li><br>
-					</c:when>
-				</c:choose>
-			</ul>
-		</div>		
+	<div class="container bg-light" style="margin-top: 200px; margin-bottom: 100px;">		
+		<table>
+			<tr>
+				<th colspan="2">
+					<div class="text-center">
+						<h1 class="section-heading" style="font-size : 50px;">${information[1] }</h1>
+						<h3 class="section-subheading text-muted">${information[3] } </h3><br><br>
+					</div>
+				</th>
+			</tr>
+			<tr>
+				<td class ="left text-center">
+					<img class="img-fluid photo" src="${information[0] }" alt="img"/>
+				</td>
+				<td class="right" rowspan="3">
+					${information[2] }
+				</td>
+			</tr>
+			<tr>
+				<td class ="left text-center">
+					<ul class="plus">
+						<c:choose>
+							<c:when test="${contentTypeId eq 12 }">
+								<li>문의 및 안내 : ${information[6] } </li><br>
+								<li>쉬는 날 : ${information[7] }</li><br>
+								<li>이용시간 : ${information[8] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 14 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>쉬는 날 : ${information[7] }</li><br>
+								<li>이용시간 : ${information[8] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 15 }">
+								<li>행사 홈페이지 : ${information[6] }</li><br>
+								<li>연락처 : ${information[7] }</li><br>
+								<li>공연시간 : ${information[8] }</li><br>
+								<li>이용 요금 : ${information[9] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 25 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>코스 예상 소요시간 : ${information[7] }</li><br>
+								<li>코스 테마 : ${information[8] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 28 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>쉬는 날 : ${information[7] }</li><br>
+								<li>이용 요금 : ${information[8] }</li><br>
+								<li>이용 시간 : ${information[9] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 32 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>체크인 :  ${information[7] }</li><br>
+								<li>체크아웃 : ${information[8] }</li><br>
+								<li>홈페이지 : ${information[9] }</li><br>
+								<li>예약안내 : ${information[10] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 38 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>영업 시간 : ${information[7] }</li><br>
+								<li>쉬는 날 : ${information[8] }</li><br>
+							</c:when>
+							<c:when test="${contentTypeId eq 39 }">
+								<li>문의 및 안내 : ${information[6] }</li><br>
+								<li>대표 메뉴 : ${information[7] }</li><br>
+								<li>영업 시간 : ${information[8] }</li><br>
+								<li>쉬는 날 : ${information[9] }</li><br>
+							</c:when>
+						</c:choose>
+					</ul>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<h1>리뷰쓸건데....</h1>
+				</td>
+			</tr>
+		</table>		
 	</div>
 
 	<!-- 하단 -->
