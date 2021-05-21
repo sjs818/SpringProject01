@@ -65,7 +65,7 @@
 		</div>
 
 			<div class="text-right">
-				<c:if test="${loginUserDTO.user_provider == 0}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
+				<c:if test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
 					<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
 				</c:if>
 			</div>
