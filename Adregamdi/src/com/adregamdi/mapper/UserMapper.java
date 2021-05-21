@@ -1,10 +1,13 @@
 package com.adregamdi.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 
 public interface UserMapper {
@@ -37,5 +40,10 @@ public interface UserMapper {
 
 	@Delete("DELETE FROM USER_INFO WHERE user_no in(SELECT user_no FROM user_info WHERE user_email=#{user_email} AND user_phone=#{user_phone})")
 	void deleteNaverInfo(UserDTO deleteUserDTO);
+	
+	
+	
+	@Select("SELECT * FROM PLAN WHERE USER_NO = #{USER_NO}")
+	List<PlanDTO> getMyPlan(int user_no);
 	
 }

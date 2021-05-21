@@ -32,8 +32,7 @@
 
 .card_hover a{
 	color:black;
-	text-decoration:none;
-	
+	text-decoration:none;	
 }
 
 .card_hover:hover {
@@ -72,68 +71,22 @@
 				</ul>
 			</div>
 			<div class="row mx-3 my-3 content-box">
-
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 공개적인 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 공개적인 여행일정으로써 내가 만든 일정을 사람들과 공유하고 의견을 주고받으므로써 제주여행을 조금 더 윤택하게 하기위해 만든 게시판 입니다.</p>
-							</a>
+				
+				<c:forEach var="planDTO" items="${myPlan }" >
+					<div class="col-sm-3">
+						<div class="card mb-3 card_hover">
+							<c:if test="${planDTO.plan_img ne null }">
+								<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+							</c:if>
+							<div class="card-body">
+								<a href="#">
+									<h5 class="card-title">${planDTO.plan_title }</h5>
+									<p class="card-text ellipsis">${planDTO.plan_info }</p>
+								</a>
+							</div>
 						</div>
 					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 공개적인 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 공개적인 여행일정으로써 내가 만든 일정을 사람들과 공유하고 의견을 주고받으므로써 제주여행을 조금 더 윤택하게 하기위해 만든 게시판 입니다.</p>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 공개적인 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 공개적인 여행일정으로써 내가 만든 일정을 사람들과 공유하고 의견을 주고받으므로써 제주여행을 조금 더 윤택하게 하기위해 만든 게시판 입니다.</p>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 공개적인 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 공개적인 여행일정으로써 내가 만든 일정을 사람들과 공유하고 의견을 주고받으므로써 제주여행을 조금 더 윤택하게 하기위해 만든 게시판 입니다.</p>
-							</a>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 공개적인 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 공개적인 여행일정으로써 내가 만든 일정을 사람들과 공유하고 의견을 주고받으므로써 제주여행을 조금 더 윤택하게 하기위해 만든 게시판 입니다.</p>
-							</a>
-						</div>
-					</div>
-				</div>
-
-
+				</c:forEach>
 
 
 
