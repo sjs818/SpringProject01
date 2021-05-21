@@ -69,6 +69,8 @@ public class VisitKoreaAPI {
 		}
 		return contentIdList;
 	}
+	
+	
 
 	// 공통 정보 조회
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList)
@@ -121,6 +123,12 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 
+	public ArrayList<String> lgetContentId() throws SAXException, IOException, ParserConfigurationException {
+		
+		ArrayList<String> contentIdList = getContentIdList("1", "", "", "1095");
+		
+		return contentIdList;
+	}
 	// 개략적인 정보?
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {

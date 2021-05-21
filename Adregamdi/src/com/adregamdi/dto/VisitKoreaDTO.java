@@ -18,13 +18,4 @@ public class VisitKoreaDTO {
 	private String overview;
 	private String totalCount;
 	private String numOfRow;
-	private int like_cnt;
-	private boolean like_check;
-	private int review_cnt;
-	
-	public VisitKoreaDTO() {
-		like_cnt = 0;
-		review_cnt = 0;
-		like_check = false;
-	}
 }

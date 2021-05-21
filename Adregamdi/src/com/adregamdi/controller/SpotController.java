@@ -1,6 +1,9 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
 import java.util.List;
+
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
@@ -80,7 +84,7 @@ public class SpotController {
 	}
 	
 	
-	@GetMapping("review") 
+	@GetMapping("/review") 
 	public String review(@RequestParam ("contentId")String contentId, @RequestParam("contentTypeId")String contentTypeId, Model model) throws Exception {
 		
 		model.addAttribute("contentId", contentId);
@@ -99,6 +103,27 @@ public class SpotController {
 		
 		
 		return "spot/review";
+	}
+	
+	@ResponseBody
+	@GetMapping("/likeProc")
+	public void likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
+		
+		/*
+		// SpotLikeDTO에 초기 데이터 값 넣기
+		ArrayList<String> contentIdList = spot.lgetContentId();
+		SpotLikeDTO likeDTO = new SpotLikeDTO();
+		
+		for(int i=0; i<contentIdList.size(); i++) {
+			
+			likeDTO.setContent_id(contentIdList.get(i));
+			likeDTO.setLike_cnt(0);
+			
+			spotService.inputContentId(likeDTO);
+		}
+		*/
+		
+		System.out.println("likeProc - contentId : "+contentId);
 	}
 	 
 }

@@ -63,7 +63,7 @@ $(function() {
             	console.log("contentId : "+data[key].contentId);
             	$("#contentId" + key).html(data[key].contentId);
             	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
-            	$("#likeSendContentId"+key).attr("href", "${root}spot/like?contentId="+data[key].contentId);
+            	
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
 				$("#title" + key).text(data[key].title);
@@ -252,6 +252,30 @@ function testData(data, contentTypeId, contentId) {
 	}
 }
 
+function likeProc(idx) {
+	
+	var contentId = $("#contentId"+idx).html();
+	var param = {"contentId" : contentId};
+	
+	$.ajax({
+		
+		url: "/spot/likeProc",
+		type: "get",
+		dataType: "json",
+		data: param,
+		success:function(data) {
+			
+			alert('성공');
+			
+			
+		}, 
+		error: function(error) {
+			//alert('likeProc 에러');
+		}
+	});
+	
+}
+
 </script>
 
 <style>
@@ -266,6 +290,15 @@ function testData(data, contentTypeId, contentId) {
 
 body, h1, h2, h3, div {
 	font-family: 'Bazzi';
+}
+
+.aTagSet {
+	color: #007bff;
+}
+
+.aTagSet:hover {
+	color : #e6b301;
+	cursor: Pointer;
 }
 </style>
 </head>
@@ -363,8 +396,8 @@ body, h1, h2, h3, div {
 							</div>
 							<div class="icon_outside">
 		                        <div class="icon" style="margin-right: 60px;">
-		                             <a  id="likeSendContentId${i }" href="" >
-		                             	<i class="far fa-thumbs-up" style="font-size:30px;"></i>
+		                             <a  id="likeSendContentId${i }" onClick="likeProc(${i })" >
+		                             	<i class="far fa-thumbs-up aTagSet" style="font-size:30px;"></i>
 		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
