@@ -1,5 +1,7 @@
 package com.adregamdi.dao;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -14,5 +16,13 @@ public class SpotDAO {
 	
 	public void inputContentId(SpotLikeDTO likeDTO) {
 		spotMapper.inputContentId(likeDTO);
+	}
+	
+	public void plusLikeCnt(String content_id) {
+		spotMapper.plusLikeCnt(content_id);
+	}
+	
+	public ArrayList<SpotLikeDTO> getLikeInfo() {
+		return spotMapper.getLikeInfo();
 	}
 }

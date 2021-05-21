@@ -265,7 +265,7 @@ function likeProc(idx) {
 		data: param,
 		success:function(data) {
 			
-			alert('성공');
+			
 			
 			
 		}, 
@@ -376,7 +376,7 @@ body, h1, h2, h3, div {
 
 			<!-- 전체 내용 출력 -->
 			<div id="total_view" class="row">
-				<c:forEach var="i" begin="0" end="8">
+				<c:forEach var="i" begin="0" end="8" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
@@ -401,7 +401,7 @@ body, h1, h2, h3, div {
 		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
-		                             <span style="font-size: 10px;">208</span>
+		                             <span style="font-size: 10px;">${likeDTO.like_cnt }</span>
 		                         </div>
 		                         <div class="icon">
 		                             <a id="reviewSendContentId${i }" href="">

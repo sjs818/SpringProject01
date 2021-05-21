@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -16,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.SpotLikeDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
@@ -107,12 +109,12 @@ public class SpotController {
 	
 	@ResponseBody
 	@GetMapping("/likeProc")
-	public void likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
+	public void likeProc(@RequestParam("contentId")String contentId, Model model) throws SAXException, IOException, ParserConfigurationException {
 		
+		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
 		/*
 		// SpotLikeDTO에 초기 데이터 값 넣기
 		ArrayList<String> contentIdList = spot.lgetContentId();
-		SpotLikeDTO likeDTO = new SpotLikeDTO();
 		
 		for(int i=0; i<contentIdList.size(); i++) {
 			
@@ -123,7 +125,9 @@ public class SpotController {
 		}
 		*/
 		
-		System.out.println("likeProc - contentId : "+contentId);
+		spotService.plusLikeCnt(contentId);
+		model.addAttribute("likeDTO", likeDTO);		
+		System.out.println(likeDTO.get(0));
 	}
 	 
 }

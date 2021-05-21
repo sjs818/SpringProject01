@@ -1,5 +1,7 @@
 package com.adregamdi.service;
 
+import java.util.ArrayList;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
@@ -16,5 +18,13 @@ public class SpotService {
 	
 	public void inputContentId(SpotLikeDTO likeDTO) {
 		spotDAO.inputContentId(likeDTO);
+	}
+	
+	public void plusLikeCnt(String content_id) {
+		spotDAO.plusLikeCnt(content_id);
+	}
+	
+	public ArrayList<SpotLikeDTO> getLikeInfo() {
+		return spotDAO.getLikeInfo();
 	}
 }
