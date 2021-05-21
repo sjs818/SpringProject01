@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
@@ -162,7 +164,12 @@ public class UserController {
 	
 	
 	@GetMapping("/my_page")
-	public String myPage() {
+	public String myPage(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
 		return "user/my_page";
 	}
 

@@ -1,6 +1,8 @@
 package com.adregamdi.service;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 
 @Service
@@ -104,6 +107,10 @@ public class UserService {
 		}else if(loginUserDTO.getUser_provider() == 2) {
 			userDAO.deleteNaverInfo(deleteUserDTO);
 		}
+	}
+
+	public List<PlanDTO> getMyPlan(int user_no) {
+		return userDAO.getMyPlan(user_no);
 	}
 	
 
