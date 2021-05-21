@@ -29,12 +29,32 @@
   	}
 	
 	function readReply(){
-		#.ajax({
-			url : "${root}/freedomReply/replyWriteProc",
-			type : "POST",
-			dataType : "json",
-			success : function(receive_data){
-				$("#replyList").append(receive_data);
+		$.ajax({
+			type:"GET",
+			url:"${root}freedomReply/replyWriteProc?freedom_num=${readContentDTO.free_no}",
+			success:function(result){
+				let listReply = "";
+				$.each(result, function(){
+					listReply += '<div class="media text-muted pt-3">';
+					listReply += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32X32">';
+					listReply += '<title>Placeholder</title>';
+					listReply += '<rect width="100%" height="100%" fill="#007bff"></rect>';
+					listReply += '<text x="50%" fill="#007bff" dy=".3em">32X32</text>';
+					listReply += '</svg>';
+					listReply += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+					listReply += '<span class="d-block">';
+					listReply += '<strong class="text-gray-dark">'+ this.reply_writer + '</strong>';
+					listReply += '<span style="padding-left:7px; font-size:9pt">';
+					listReply += '<a href="javascript:void(0)" onclick="fn_editReply()" style="padding-right:5px">수정</a>';
+					listReply += '<a href="javascript:void(0)" onclick="fn_deleteReply()">삭제</a>';
+					listReply += '</span>';
+					listReply += '</span>';
+					listReply += this.reply_content;
+					listReply += '</p>';
+					listReply += '</div>';
+				});
+				$("#replyList").html(listReply);
+				console.log(result);
 			}
 		});
 	}

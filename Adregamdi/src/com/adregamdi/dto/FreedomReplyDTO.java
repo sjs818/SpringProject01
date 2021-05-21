@@ -6,7 +6,7 @@ import lombok.Data;
 public class FreedomReplyDTO {
 	private int reply_num;
 	private int freedom_num;
-	private int reply_writer;
+	private String reply_writer;
 	private String reply_content;
 	private String reply_date;
 }
