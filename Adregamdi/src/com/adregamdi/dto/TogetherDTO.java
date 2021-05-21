@@ -19,4 +19,6 @@ public class TogetherDTO {
 	private String to_date;
 	// 글 내용
 	private String to_content;
+	// 유저 비밀번호
+	private String to_user_pw;
 }

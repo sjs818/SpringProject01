@@ -34,11 +34,19 @@ public class TogetherService {
 		TogetherDTO content = togetherDAO.getTogetherContent(content_idx);
 		return content;
 	}
+	public int GetTogetherContentCount() {
+		int contentCount = togetherDAO.GetTogetherContentCount();
+		return contentCount;
+	}
 	public void InsertTogetherContent(TogetherDTO togetherDTO) {
 		togetherDAO.InsertTogetherContent(togetherDTO);
 	}	
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
 		togetherDAO.ModifyTogetherContent(togetherModifyDTO);
+	}
+	public String GetTogetherPassword(int content_idx) {
+		String password = togetherDAO.GetTogetherPassword(content_idx);
+		return password;
 	}
 	public void DeleteTogetherContent(int content_idx) {
 		togetherDAO.DeleteTogetherContent(content_idx);

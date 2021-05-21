@@ -47,6 +47,12 @@ public class TogetherDAO {
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
 		togetherMapper.ModifyTogetherContent(togetherModifyDTO);
 	}
+	
+	public String GetTogetherPassword(int content_idx) {
+		String password = togetherMapper.GetTogetherPassword(content_idx);
+		return password;
+	}
+
 	public void DeleteTogetherContent(int content_idx) {
 		togetherMapper.DeleteTogetherContent(content_idx);
 	}

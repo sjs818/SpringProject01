@@ -30,6 +30,12 @@ public interface TogetherMapper {
 				+ "AND T.TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
 	
+	@Select("SELECT U.USER_PW " 
+			  + "FROM TOGETHER T, USER_INFO U "
+			  + "WHERE U.USER_NO = T.TO_WRITER "
+			  + "AND T.TO_NO = #{content_idx}")
+	String GetTogetherPassword(int content_idx);
+	
 	@Select("SELECT COUNT(*)" + 
 			"FROM TOGETHER ")
 	int GetTogetherContentCount();
