@@ -16,7 +16,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import com.adregamdi.dto.SpotLikeDTO;
+import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 
 
@@ -127,10 +127,11 @@ public class VisitKoreaAPI {
 	// contentId를 일괄적으로 저장하기 위해 사용한 매서드
 	public ArrayList<String> lgetContentId() throws SAXException, IOException, ParserConfigurationException {
 		
-		ArrayList<String> contentIdList = getContentIdList("1", "", "", "1095");
+		ArrayList<String> contentIdList = getContentIdList("1", "", "", String.valueOf(getTotalCount("","")));
 		
 		return contentIdList;
 	}
+	
 	// 개략적인 정보?
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
@@ -164,7 +165,7 @@ public class VisitKoreaAPI {
 					
 				}
 			}
-			// System.out.println(spot.getFirstImage2());
+			
 			information.add(spot);
 		}
 
@@ -172,7 +173,7 @@ public class VisitKoreaAPI {
 	}
 	
 	// like 추가
-	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotLikeDTO> likeDTO, int totalCount)
+	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotDTO> spotDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
 		// id만 저장
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(),
@@ -182,8 +183,8 @@ public class VisitKoreaAPI {
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
 		for (int i = 0; i < spotInfo.size(); i++) {
 			VisitKoreaDTO spot = new VisitKoreaDTO();
-			spot.setLike_cnt(likeDTO.get(i).getLike_cnt());
-			spot.setReview_cnt(likeDTO.get(i).getReview_cnt());
+			spot.setLike_cnt(spotDTO.get(i).getLike_cnt());
+			spot.setReview_cnt(spotDTO.get(i).getReview_cnt());
 			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
 				Node node = spotInfo.get(i).item(j);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {

@@ -17,7 +17,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
-import com.adregamdi.dto.SpotLikeDTO;
+import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
@@ -59,10 +59,14 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
+		/*
+		// spotDTO에 초기값 넣을 때 화면
+		return spot.getInformation(visitKoreaDTO, totalCount);
+		*/
 		
-		//return spot.getInformation(visitKoreaDTO, totalCount);
-		return spot.getInformationPlusLike(visitKoreaDTO, likeDTO, totalCount);
+		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
+		
+		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);
 	}
 	
 	@ResponseBody
@@ -112,30 +116,31 @@ public class SpotController {
 	
 	@ResponseBody
 	@GetMapping("/likeProc")
-	public ArrayList<SpotLikeDTO> likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
+	public ArrayList<SpotDTO> likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
 		
-		ArrayList<SpotLikeDTO> likeDTO = spotService.getLikeInfo();
 		/*
 		// SpotLikeDTO에 초기 데이터 값 넣기
 		ArrayList<String> contentIdList = spot.lgetContentId();
 		
-		SpotLikeDTO likeDTO = new SpotLikeDTO();
+		SpotDTO spotDTO = new SpotDTO();
 		
 		for(int i=0; i<contentIdList.size(); i++) {
 			
-			likeDTO.setContent_id(contentIdList.get(i));
-			likeDTO.setLike_cnt(0);
-			likeDTO.setReview_cnt(0);
+			spotDTO.setContent_id(contentIdList.get(i));
+			spotDTO.setLike_cnt(0);
+			spotDTO.setReview_cnt(0);
 			
-			spotService.inputContentId(likeDTO);
-		}*/
+			spotService.inputContentId(spotDTO);
+		}
+		*/
 		
+		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
 		spotService.plusLikeCnt(contentId);
 				
-		//System.out.println(likeDTO.get(0));
+		System.out.println(spotDTO.get(0));
 		
-		return likeDTO;
+		return spotDTO;
 	}
 	 
 }

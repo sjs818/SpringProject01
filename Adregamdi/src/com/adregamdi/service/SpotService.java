@@ -7,7 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.SpotDAO;
-import com.adregamdi.dto.SpotLikeDTO;
+import com.adregamdi.dto.SpotDTO;
 
 @Service
 @PropertySource("/WEB-INF/properties/options.properties")
@@ -16,15 +16,15 @@ public class SpotService {
 	@Autowired
 	SpotDAO spotDAO;
 	
-	public void inputContentId(SpotLikeDTO likeDTO) {
-		spotDAO.inputContentId(likeDTO);
+	public void inputContentId(SpotDTO spotDTO) {
+		spotDAO.inputContentId(spotDTO);
 	}
 	
 	public void plusLikeCnt(String content_id) {
 		spotDAO.plusLikeCnt(content_id);
 	}
 	
-	public ArrayList<SpotLikeDTO> getLikeInfo() {
-		return spotDAO.getLikeInfo();
+	public ArrayList<SpotDTO> getSpotInfo() {
+		return spotDAO.getSpotInfo();
 	}
 }

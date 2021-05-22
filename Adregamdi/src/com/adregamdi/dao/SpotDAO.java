@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.adregamdi.dto.SpotLikeDTO;
+import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.mapper.SpotMapper;
 
 @Repository
@@ -14,7 +14,7 @@ public class SpotDAO {
 	@Autowired
 	SpotMapper spotMapper;
 	
-	public void inputContentId(SpotLikeDTO likeDTO) {
+	public void inputContentId(SpotDTO likeDTO) {
 		spotMapper.inputContentId(likeDTO);
 	}
 	
@@ -22,7 +22,7 @@ public class SpotDAO {
 		spotMapper.plusLikeCnt(content_id);
 	}
 	
-	public ArrayList<SpotLikeDTO> getLikeInfo() {
-		return spotMapper.getLikeInfo();
+	public ArrayList<SpotDTO> getSpotInfo() {
+		return spotMapper.getSpotInfo();
 	}
 }
