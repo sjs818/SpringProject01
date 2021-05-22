@@ -1,10 +1,12 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 
+import org.json.simple.parser.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,14 +16,18 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.PlanDTO;
-import com.adregamdi.dto.ScheduleDTO;
+import com.adregamdi.dto.PlanImgDTO;
+import com.adregamdi.dto.UserPlanDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.ScheduleService;
+
+import net.sf.json.JSONArray;
 
 @Controller
 @RequestMapping("/schedule")
@@ -50,16 +56,45 @@ public class ScheduleController {
 		model.addAttribute("plan_title", planDTO.getPlan_title());
 		model.addAttribute("plan_date",  plan_date);
 		model.addAttribute("plan_term", plan_term);
-		model.addAttribute("planNo", scheduleService.getPlanNo());
+		model.addAttribute("plan_no", scheduleService.getPlanNo());
 		
 		return "schedule/write";
 	}
 	
+	@PostMapping("/write_proc")
+	public String write_proc(@RequestParam("planData") String data, RedirectAttributes redirectAttributes) throws ParseException {
+		List<UserPlanDTO> list = scheduleService.convertUserPlan(data);
+		for(int i = 0; i < list.size(); i++) {
+			scheduleService.insertUserPlan(list.get(i));
+		}
+		redirectAttributes.addAttribute("plan_no", list.get(0).getPlan_no());
+		redirectAttributes.addAttribute("purpose", "write");
+		return "redirect:/schedule/writeDetail";
+	}
+	
+	@GetMapping("/writeDetail")
+	public String writeDetail(@RequestParam("plan_no") int plan_no, @RequestParam("purpose") String purpose, Model model) {
+		PlanDTO planDTO = new PlanDTO();
+		String isModify = "N";
+		
+		planDTO = scheduleService.getPlan(plan_no);
+		List<UserPlanDTO> plan = new ArrayList<UserPlanDTO>();
+		if(purpose.equals("write")) {
+			plan = scheduleService.getUserPlanCreate(plan_no);
+			
+		}
+		
+		model.addAttribute("isModify", isModify);
+		model.addAttribute("planDTO", planDTO);
+		model.addAttribute("plan_no", plan_no);
+		model.addAttribute("planTotalDate", plan.get(0).getPlanTotalDate());
+		model.addAttribute("planList", JSONArray.fromObject(plan));
+		return "schedule/writeDetail";
+	}
+	
 	@ResponseBody
 	@GetMapping("/information")
-	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException {
-		
-		
+	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		
 		if(visitKoreaDTO.getPageNo() == null) {
 			visitKoreaDTO.setPageNo("1");
@@ -78,48 +113,51 @@ public class ScheduleController {
 		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	
-	@PostMapping("/write_proc")
-	public String write_proc(@ModelAttribute("writeScheduleDTO") ScheduleDTO writeScheduleDTO) {
-		
-		System.out.println(writeScheduleDTO.getSchedule_start());
-		System.out.println(writeScheduleDTO.getSchedule_end());
-		
-		scheduleService.writeSchedule(writeScheduleDTO);
-		
-		return "schedule/write_success";
+	@ResponseBody
+	@GetMapping("/detail")
+	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
+		return visitKoreaAPI.getEachInformation(visitKoreaDTO);
 	}
 	
-	@GetMapping("/read")
-	public String read(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		
-		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
-		model.addAttribute("scheduleDTO", scheduleDTO);
-		model.addAttribute("page", page);
-		
-		return "schedule/read";
+	@GetMapping("/guide")
+	public String guide(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) {
+		model.addAttribute("contentId", visitKoreaDTO.getContentId());
+		model.addAttribute("contentTypeId", visitKoreaDTO.getContentTypeId());
+		return "schedule/detail";
 	}
 	
-	@GetMapping("/modify")
-	public String modify(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
+	@ResponseBody
+	@GetMapping("/keyword")
+	public List<VisitKoreaDTO> keyword(@ModelAttribute VisitKoreaDTO visitKoreaDTO, String keyword) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		
-		ScheduleDTO scheduleDTO = scheduleService.getSchedule(schedule_no);
-		model.addAttribute("scheduleDTO", scheduleDTO);
-		model.addAttribute("page", page);
+		if(visitKoreaDTO.getPageNo()==null) {
+			visitKoreaDTO.setPageNo("1");
+		}
 		
-		return "schedule/modify";
+		if(visitKoreaDTO.getSigunguCode() == null) {
+			visitKoreaDTO.setSigunguCode("");
+		}
+		
+		if(visitKoreaDTO.getContentTypeId() == null) {
+			visitKoreaDTO.setContentTypeId("");
+		}
+		return visitKoreaAPI.getKeywordInformation(visitKoreaDTO, keyword);
 	}
 	
-	@PostMapping("/modify_proc")
-	public String modify_proc(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		return "schedule/modify_success";
+	@ResponseBody
+	@PostMapping("/upload")
+	public PlanDTO uploadPlanImg(@ModelAttribute PlanImgDTO planImgDTO) throws IllegalStateException, IOException {
+		
+		scheduleService.uploadPlanImg(planImgDTO);
+		scheduleService.updatePlanImg(planImgDTO);
+		
+		return scheduleService.getPlan(planImgDTO.getPlan_no());
 	}
 	
-	@GetMapping("/delete")
-	public String delete(@RequestParam("schedule_no") int schedule_no, @RequestParam("page") int page, Model model) {
-		
-		scheduleService.deleteSchedule(schedule_no);
-		model.addAttribute("page", page);
-		
-		return "schedule/delete";
+	@ResponseBody
+	@PostMapping("/update")
+	public boolean uploadPlan(@ModelAttribute PlanDTO planDTO) {
+				
+		return scheduleService.updatePlan(planDTO);
 	}
 }

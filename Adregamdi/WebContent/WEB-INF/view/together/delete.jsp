@@ -17,7 +17,7 @@
 <body>
   <script>
     alert('동행자가 떠났습니다.');
-    location.href='$'{root }together;</script>
+    location.href='${root }together/list';</script>
   
 </body>
 </html>

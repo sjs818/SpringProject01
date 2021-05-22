@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>같이가치</title>
+  <title>어드레감디 - 같이가치</title>
   <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -31,7 +31,7 @@
 			<thead>
 				<tr>
 					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 60%">글제목</th>
+					<th class="text-center" style="width : 60%">공고제목</th>
 					<th class="text-center" style="width : 10%">작성자</th>
 					<th class="text-center" style="width : 14%">작성날짜</th>
 					<th class="text-center" style="width : 8%">조회수</th>
@@ -66,7 +66,9 @@
 			</ul>
 		</div>
 		  <div class="text-right">
-      		<a href="${root}together/write" class="btn btn-info">동행자 구인공고</a>
+		    <c:if test="${loginUserDTO.userLogin == true}">
+      		  <a href="${root}together/write" class="btn btn-info">동행자 구인공고</a>
+      		</c:if>  
     	  </div>
 	 </div>
 </body>
