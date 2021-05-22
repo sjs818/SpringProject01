@@ -22,7 +22,15 @@
 
 <style type="text/css">
 
-.ellipsis {
+.ellipsis-title{
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.ellipsis-info {
 	white-space: normal;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
@@ -63,29 +71,39 @@
 
 		<div class="card">
 			<div class="card-header">
-				<a href="${root }user/modify" class="float-right btn btn-success btn-sm">정보수정</a>
+				<a href="${root }user/modify" class="float-right btn btn-success btn-sm">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
-					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page">공유일정</a>
-					</li>
-					<li class="nav-item"><a class="nav-link" href="${root }user/my_page_disable">숨김일정</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page">공유일정&nbsp
+						<span class="badge badge-success badge-secondary"> ${myPublicCount }</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link" href="${root }user/my_page_disable">숨긴일정&nbsp 
+						<span class="badge badge-secondary"> ${myPrivatCount }</span>
+					</a></li>
 				</ul>
 			</div>
 			<div class="row mx-3 my-3 content-box">
 				
 				<c:forEach var="planDTO" items="${myPlan }" >
-					<div class="col-sm-3">
-						<div class="card mb-3 card_hover">
-							<c:if test="${planDTO.plan_img ne null }">
-								<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
-							</c:if>
-							<div class="card-body">
-								<a href="#">
-									<h5 class="card-title">${planDTO.plan_title }</h5>
-									<p class="card-text ellipsis">${planDTO.plan_info }</p>
-								</a>
+					<c:if test="${planDTO.plan_private eq '1' }">
+						<div class="col-sm-3">
+							<div class="card mb-3 card_hover">
+								<c:choose>
+									<c:when test="${planDTO.plan_img ne null }">
+										<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+									</c:when>
+									<c:when test="${planDTO.plan_img eq null }">
+										<a href="#"><img src="https://via.placeholder.com/200x150.png?text=empty image" class="card-img-top" height="120" alt="일정보기"></a>
+									</c:when>
+								</c:choose>
+								<div class="card-body">
+									<a href="#">
+										<h6 class="card-title ellipsis-title">${planDTO.plan_title }</h6>
+										<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
+									</a>
+								</div>
 							</div>
 						</div>
-					</div>
+					</c:if>
 				</c:forEach>
 
 

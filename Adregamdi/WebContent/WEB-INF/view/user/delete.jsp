@@ -35,7 +35,7 @@
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<header class="card-header">
-						<a href="${root }" class="float-right btn btn-outline-primary btn-sm mt-2">메인으로</a>
+						<a href="${root }user/modify" class="float-right btn btn-outline-success btn-sm mt-2">이전으로</a>
 						<h4 class="card-title mt-2" style='color:red'>회원탈퇴</h4>
 					</header>
 					<div class="card-body" style="background-color: #F7F7F7;">
