@@ -112,6 +112,14 @@ public class UserService {
 	public List<PlanDTO> getMyPlan(int user_no) {
 		return userDAO.getMyPlan(user_no);
 	}
+
+	public String getPublicCount(int user_no) {
+		return userDAO.getPublicCount(user_no);
+	}
+
+	public String getPrivatCount(int user_no) {
+		return userDAO.getPrivatCount(user_no);
+	}
 	
 
 }

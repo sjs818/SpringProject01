@@ -62,7 +62,7 @@ public class UserController {
 			userService.getLoginUserDTO(tmpLoginUserDTO);
 			
 			if(loginUserDTO.isUserLogin() == true) {
-				return "user/login_success";
+				return "main";
 			}else {
 				return "user/login_fail";
 			}
@@ -170,11 +170,26 @@ public class UserController {
 		= userService.getMyPlan(loginUserDTO.getUser_no());
 		model.addAttribute("myPlan", myPlan);
 		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivatCount(loginUserDTO.getUser_no());	
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+		
 		return "user/my_page";
 	}
 
 	@GetMapping("/my_page_disable")
-	public String myPageDisable() {
+	public String myPageDisable(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivatCount(loginUserDTO.getUser_no());
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+		
 		return "user/my_page_disable";
 	}
 	

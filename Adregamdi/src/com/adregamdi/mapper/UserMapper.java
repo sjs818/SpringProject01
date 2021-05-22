@@ -16,7 +16,6 @@ public interface UserMapper {
 	@Select("SELECT USER_NAME FROM USER_INFO WHERE USER_ID = #{user_id}")
 	String checkID(String user_id);
 	
-
 	@Select("SELECT USER_NO FROM USER_INFO WHERE USER_PHONE = #{user_phone}")
 	Integer checkPhone(String user_phone);
 	
@@ -45,5 +44,11 @@ public interface UserMapper {
 	
 	@Select("SELECT * FROM PLAN WHERE USER_NO = #{USER_NO}")
 	List<PlanDTO> getMyPlan(int user_no);
+	
+	@Select("SELECT COUNT(*) FROM PLAN WHERE USER_NO=#{USER_NO} AND PLAN_PRIVATE='1'")
+	String getPublicPlanCount(int user_no);
+	
+	@Select("SELECT COUNT(*) FROM PLAN WHERE USER_NO=#{USER_NO} AND PLAN_PRIVATE='0'")
+	String getPrivatPlanCount(int user_no);
 	
 }

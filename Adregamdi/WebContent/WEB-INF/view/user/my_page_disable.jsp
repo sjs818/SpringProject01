@@ -26,7 +26,16 @@
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <style type="text/css">
-.ellipsis {
+
+.ellipsis-title{
+	white-space: normal;
+	display: -webkit-box;
+	-webkit-line-clamp: 1;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+}
+
+.ellipsis-info {
 	white-space: normal;
 	display: -webkit-box;
 	-webkit-line-clamp: 2;
@@ -46,7 +55,7 @@
 
 .content-box{
 	overflow: auto;
-	max-height: 636px;
+	max-height: 629px;
 }
 
 </style>
@@ -68,30 +77,42 @@
 
 		<div class="card">
 			<div class="card-header">
-				<a href="${root }user/modify" class="float-right btn btn-success btn-sm">정보수정</a>
+				<a href="${root }user/modify" class="float-right btn btn-success btn-sm">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
-					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정</a>
-					</li>
-					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page_disable">숨김일정</a></li>
+					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp
+						<span class="badge badge-secondary"> ${myPublicCount }</span>
+					</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page_disable">숨긴일정&nbsp
+						<span class="badge badge-success badge-secondary"> ${myPrivatCount }</span>
+					</a></li>
 				</ul>
 			</div>
 			<div class="row mx-3 my-3 content-box">
 
-			
-				<div class="col-sm-3">
-					<div class="card mb-3 card_hover">
-						<a href="#"><img src="${root }images/logo_icon.png" class="card-img-top" height="120" alt="일정보기"></a>
-						<div class="card-body">
-							<a href="#">
-								<h5 class="card-title">나만의 숨겨진 제주 여행일정</h5>
-								<p class="card-text ellipsis">이곳은 나만의 제주여행 일정을 작성하였으나 수정사항이 있어서 숨겨둔 일정들 입니다.</p>
-							</a>
-							<span class="badge badge-secondary float-right">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+				<c:forEach var="planDTO" items="${myPlan }" >
+					<c:if test="${planDTO.plan_private eq '0' }">
+						<div class="col-sm-3">
+							<div class="card mb-3 card_hover">
+								<c:choose>
+									<c:when test="${planDTO.plan_img ne null }">
+										<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+									</c:when>
+									<c:when test="${planDTO.plan_img eq null }">
+										<a href="#"><img src="https://via.placeholder.com/200x150.png?text=empty image" class="card-img-top" height="120" alt="일정보기"></a>
+									</c:when>
+								</c:choose>
+								<div class="card-body">
+									<a href="#">
+										<h6 class="card-title ellipsis-title">${planDTO.plan_title }</h6>
+										<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
+									</a>
+									<span class="badge badge-secondary float-right">&nbsp<i class="fas fa-lock"></i>&nbsp</span>
+								</div>
+							</div>
 						</div>
-					</div>
-				</div>
+					</c:if>
+				</c:forEach>
 			
-
 
 			</div>
 		</div>
