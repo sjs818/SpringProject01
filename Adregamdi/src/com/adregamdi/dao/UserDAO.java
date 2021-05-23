@@ -1,8 +1,11 @@
 package com.adregamdi.dao;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.UserMapper;
 
@@ -58,6 +61,21 @@ public class UserDAO {
 
 	public void deleteNaverInfo(UserDTO deleteUserDTO) {
 		userMapper.deleteNaverInfo(deleteUserDTO);
+	}
+
+
+	public List<PlanDTO> getMyPlan(int user_no) {
+		return userMapper.getMyPlan(user_no);
+	}
+
+
+	public String getPublicCount(int user_no) {
+		return userMapper.getPublicPlanCount(user_no);
+	}
+
+
+	public String getPrivatCount(int user_no) {
+		return userMapper.getPrivatPlanCount(user_no);
 	}
 	
 	
