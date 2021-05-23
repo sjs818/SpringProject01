@@ -183,8 +183,10 @@ public class VisitKoreaAPI {
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
 		for (int i = 0; i < spotInfo.size(); i++) {
 			VisitKoreaDTO spot = new VisitKoreaDTO();
-			spot.setLike_cnt(spotDTO.get(i).getLike_cnt());
-			spot.setReview_cnt(spotDTO.get(i).getReview_cnt());
+			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 9 + i;
+			
+			spot.setLike_cnt(spotDTO.get(searchIdx).getLike_cnt());
+			spot.setReview_cnt(spotDTO.get(searchIdx).getReview_cnt());
 			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
 				Node node = spotInfo.get(i).item(j);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {

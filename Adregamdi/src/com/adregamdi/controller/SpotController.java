@@ -64,6 +64,8 @@ public class SpotController {
 		return spot.getInformation(visitKoreaDTO, totalCount);
 		*/
 		
+		System.out.println("pageNo : "+visitKoreaDTO.getPageNo());
+		
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
 		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);

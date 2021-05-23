@@ -36,8 +36,11 @@ $(function() {
     var sigungu = $("#sigunguCode").val();
     var contentType = $("#contentTypeId").val();
     var pNum = $('input[name=currentPage]').val();
+    var currentPage = $("#currentPage").val();
+    
+    console.log("currentPage : " +currentPage);
 
-    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10 };
+    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10};
 
     /* 검색에 필요한 변수 추가 */
     var keyword_markers=[];
@@ -63,7 +66,7 @@ $(function() {
             	console.log("key : "+ key);
             	$("#contentId" + key).html(data[key].contentId);
             	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
-            	$("#likeCnt"+key).html(data[key].like_cnt);
+            	$("#likeCnt" +key).html(data[key].like_cnt);
             	$("#reviewCnt"+key).html(data[key].review_cnt);
             	$("#contentTypeId" + key).html(data[key].contentTypeId);
 				$("#photo" + key).attr("src", data[key].firstImage);
@@ -103,15 +106,13 @@ $(function() {
 		
 		keywordParam.keyword = keyword;
 		
-		$.ajax({	
-			
+		$.ajax({				
 			url : "/spot/keyword",
 			type : "get",
 			dataType : "json",
 			data : keywordParam,
 			
-			success :  function(data){
-				
+			success :  function(data){				
 				
 				$("#search_view").empty();
 				
@@ -129,18 +130,17 @@ $(function() {
 								+'<span style="display: none" id="searchContentId'+key+'">'+data[key].contentId+'</span> '
 								+'<span style="display: none" id="searchContentTypeId'+key+'">'+data[key].contentTypeId+'</span>'
 								+'</div></div></div>';
-								
-
 					
 	                $("#search_view").append(content);
-	            });
-	
+	            });	
 			},
 			error : function(error) {
 				alert("keyword 실패");
 			}
 		}); 
 	});
+	
+
 });
 
 function detail(idx) {
@@ -148,6 +148,8 @@ function detail(idx) {
 	var contentId = $("#contentId"+idx).html();
 	var contentTypeId = $("#contentTypeId"+idx).html();
 	var param = {"contentId" : contentId, "contentTypeId" : contentTypeId};
+	
+	console.log("idx : " + idx);
 	
 	$.ajax({
 		
@@ -351,6 +353,7 @@ body, h1, h2, h3, div {
 		<input type="hidden" id="pageMaker" value="${pageMaker }"> 
 		<input type="hidden" id="sigunguCode" value="${sigunguCode }"> 
 		<input type="hidden" id="contentTypeId" value="${contentTypeId }">
+		<input type="hidden" id="currentPage" value="${pageMaker.currentPage }">
 		<div class="container" style="margin-top: 100px;">
 			<div class="text-center">
 				<h2 class="section-heading text-uppercase">제주 모든 여행지를 한눈에...</h2>
@@ -396,20 +399,20 @@ body, h1, h2, h3, div {
 								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
 							<div class="icon_outside" >
-		                        <div class="icon" style="margin-right: 60px;">
+		                        <div id="like-btn" class="icon" style="margin-right: 60px;">
 		                             <a  id="likeSendContentId${i }" onClick="likeProc(${i })" >
 		                             	<i class="far fa-thumbs-up aTagSet" style="font-size:30px;"></i>
 		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
-		                             <span id="likeCnt${i }" style="font-size: 10px;"></span>
+		                             <span id="likeCnt${ i }" style="font-size: 10px;"></span><br>
 		                         </div>
 		                         <div class="icon">
 		                             <a id="reviewSendContentId${i }" href="">
 		                             	<i class="far fa-file-alt" style="font-size:30px;"></i>
 		                             </a>
 		                             <span style="font-size: 10px;">리뷰</span>        
-		                             <span id="reviewCnt${i }" style="font-size: 10px;" ></span>
+		                             <span id="reviewCnt${i }" style="font-size: 10px;" ></span><br>
 		                         </div>
 		                     </div>
 						</div>
