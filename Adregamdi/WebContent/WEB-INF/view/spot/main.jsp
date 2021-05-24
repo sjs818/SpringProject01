@@ -268,7 +268,7 @@ function likeProc(idx) {
 		data: param,
 		success:function(data) {
 					
-			
+			console.log("like_btn : " + contentId) ;
 			
 			
 		}, 
@@ -380,7 +380,7 @@ body, h1, h2, h3, div {
 
 			<!-- 전체 내용 출력 -->
 			<div id="total_view" class="row">
-				<c:forEach var="i" begin="0" end="8" >
+				<c:forEach var="i" begin="0" end="9" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">

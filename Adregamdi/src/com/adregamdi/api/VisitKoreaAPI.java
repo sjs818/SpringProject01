@@ -176,16 +176,18 @@ public class VisitKoreaAPI {
 	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotDTO> spotDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
 		// id만 저장
-		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(),
-				visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
+		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		// 공통 정보 조회
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
+		
 		for (int i = 0; i < spotInfo.size(); i++) {
+			System.out.println("spotInfo.size : " +spotInfo.size());
 			VisitKoreaDTO spot = new VisitKoreaDTO();
-			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 9 + i;
+			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 10 + i;
 			
 			spot.setLike_cnt(spotDTO.get(searchIdx).getLike_cnt());
+			System.out.println("visitKoreaDTO-contentId : " + spotDTO.get(searchIdx).getContent_id());
 			spot.setReview_cnt(spotDTO.get(searchIdx).getReview_cnt());
 			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
 				Node node = spotInfo.get(i).item(j);
