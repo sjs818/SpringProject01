@@ -10,6 +10,11 @@
 
 <style>
      
+   .navbar{
+   	box-shadow: 0 2px 10px rgba(135,135,135,0.15);
+   	border-bottom:1px solid #eee;
+   } 
+    
   .navbar a {
      font-size: 25px;
      color:black;
@@ -26,7 +31,7 @@
 
 </style>
 
-      <nav class="navbar navbar-expand-md navbar-white fixed-top shadow sm" style="padding: 10px 30px;">
+      <nav class="navbar navbar-expand-md navbar-white fixed-top sm" style="padding: 10px 30px;">
          <a href="${root }" class="navbar-brand pr-5"><img src="${root }images/logo.png" style="height: 60px"></a>
          <div id="navMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav">

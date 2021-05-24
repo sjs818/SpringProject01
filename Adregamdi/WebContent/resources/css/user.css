@@ -1,20 +1,16 @@
 @charset "UTF-8";
 
-.user-top{
-	margin-top:140px;
+.user-header{
+    background-color:rgba(255,220,163,0.3);
 }
 
-.login-top {
-	margin-top: 180px;
-}
 
-.join-top {
-	margin-top: 30px;
-}
-
-.back-color {
-	background-color: #F7F7F7;
-}
+ .back-color {
+	background-color: rgba(255,255,255,0.7);
+	border-radius: 12px;
+ 	box-shadow: 2px 2px 4px rgba(0,0,0,0.3); 
+ 	backdrop-filter: blur(1px);
+ }
 
 .warning-color {
 	color: red;
@@ -22,8 +18,7 @@
 
 @font-face {
 	font-family: 'Bazzi';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
+	src:url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
 		format('woff');
 	font-weight: normal;
 	font-style: normal;
@@ -76,6 +71,11 @@ a{
 .my-top{
 	margin-top: 120px; 
 	margin-bottom: 50px;
+}
+
+.my-card-header{
+	 padding-bottom:9px; 
+	 background-color:rgba(255,220,163,0.3);
 }
 
 .ellipsis-title{

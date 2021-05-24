@@ -27,17 +27,14 @@
 
 
 </head>
-<body class="login-body">
+<body>
 
-
-
-
-	<div class="container login-top">
-		<div class="row">
+<div class="login-body">
+	<div class="container h-100 d-flex align-items-center">
+		<div class="row w-100">
 			<div class="col-sm-6">
-				<div class="card shadow">
-					<div class="card-body back-color">
-
+				<div class="card back-color">
+					<div class="card-body">
 						<c:if test="${param.fail eq 'true'}">
 							<div class="alert alert-danger">
 								<h4>로그인 실패!</h4>
@@ -79,10 +76,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-3"></div>
+			<div class="col-sm-6"></div>
 		</div>
 	</div>
-	
+</div>
 	
 </body>
 </html>
