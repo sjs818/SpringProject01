@@ -81,6 +81,7 @@ public class SpotController {
 		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*10) + 1 ;
 		int range_max = range_min + 9;
 		System.out.println("min : "+range_min + " max : "+range_max);
+		
 		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
 		
 		System.out.println("bestContentId : "+bestContentId.toString());

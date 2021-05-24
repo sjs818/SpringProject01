@@ -27,8 +27,9 @@ public class VisitKoreaAPI {
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
-	final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
-
+	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
+	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
+	
 	public static String getTagValue(String tag, Element element) {
 		try {
 			NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
@@ -137,51 +138,47 @@ public class VisitKoreaAPI {
 	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO, int totalCount, ArrayList<String> bestContentIdList)
 			throws SAXException, IOException, ParserConfigurationException {
 		
-		
 		// id만 저장
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
-		System.out.println("contentIdList.size : "+contentIdList.size());
+		
 		// 공통 정보 조회
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> bestInformation = new ArrayList<VisitKoreaDTO>();
-		for (int i = 0; i < spotInfo.size(); i++) {
-			VisitKoreaDTO spot = new VisitKoreaDTO();
-			
-			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
-				Node node = spotInfo.get(i).item(j);
+		
+		for(int c = 0; c < bestContentIdList.size(); c++) {
+			for (int i = 0; i < spotInfo.size(); i++) {
+				VisitKoreaDTO spot = new VisitKoreaDTO();
 				
-				if (node.getNodeType() == Node.ELEMENT_NODE) {
-					Element element = (Element) node;
+				for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
+					Node node = spotInfo.get(i).item(j);
 					
-					
-					if (getTagValue("firstimage2", element) == null) {
-						spot.setFirstImage("/images/schedule/thumbnail.png");
-					} else {
-						spot.setFirstImage(getTagValue("firstimage", element));
+					if (node.getNodeType() == Node.ELEMENT_NODE) {
+						Element element = (Element) node;
+						
+						
+						if (getTagValue("firstimage2", element) == null) {
+							spot.setFirstImage("/images/schedule/thumbnail.png");
+						} else {
+							spot.setFirstImage(getTagValue("firstimage", element));
+						}
+						spot.setTitle(getTagValue("title", element));
+						if (!visitKoreaDTO.getContentTypeId().equals("25")) {
+							spot.setAddr1(getTagValue("addr1", element));
+						}
+						spot.setOverview(getTagValue("overview", element));
+						spot.setContentId(getTagValue("contentid", element));
+						spot.setContentTypeId(getTagValue("contenttypeid", element));
 					}
-					spot.setTitle(getTagValue("title", element));
-					if (!visitKoreaDTO.getContentTypeId().equals("25")) {
-						spot.setAddr1(getTagValue("addr1", element));
-					}
-					spot.setOverview(getTagValue("overview", element));
-					spot.setContentId(getTagValue("contentid", element));
-					spot.setContentTypeId(getTagValue("contenttypeid", element));
-					spot.setMapX(getTagValue("mapx", element));
-					spot.setMapY(getTagValue("mapy", element));
-					spot.setTotalCount(Integer.toString(totalCount));
-					
 				}
-			}
-			
-			for(int c=0; c<bestContentIdList.size(); c++) {
+				
 				String spotContentId = spot.getContentId();
 				String bestContentId = bestContentIdList.get(c);
-				
+					
 				if(spotContentId.equals(bestContentId)) {
 					bestInformation.add(spot); 
+					System.out.println("spot : " + spotContentId + " best : " + bestContentId);
 				}
 			}
-			
 		}
 		return bestInformation;
 	}
