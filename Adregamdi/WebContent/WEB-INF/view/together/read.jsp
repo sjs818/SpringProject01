@@ -26,7 +26,7 @@
     <h3 class="InputSubject">
       <b>같이가치</b>
     </h3>
-    <h6>${readContentDTO.to_writer}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
+    <h6>&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
     <hr>
     <div class="row">
       <div class="col-sm-2"></div>

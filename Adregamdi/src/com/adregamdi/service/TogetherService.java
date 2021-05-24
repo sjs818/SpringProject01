@@ -55,5 +55,8 @@ public class TogetherService {
 		int contentCnt = togetherDAO.GetTogetherContentCount();
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
-	}		
+	}
+	public void viewCount(int content_idx ) {
+		togetherDAO.viewCount(content_idx);
+	} 
 }

@@ -70,6 +70,7 @@ public class TogetherController {
 	}
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) {
+		togetherService.viewCount(content_idx);
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
@@ -87,9 +88,8 @@ public class TogetherController {
 	(@Valid @ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
-	
-		togetherService.InsertTogetherContent(togetherWriteDTO);
-		
+			togetherService.InsertTogetherContent(togetherWriteDTO);
+			
 		return "together/write_success";
 	}
 	
@@ -106,6 +106,7 @@ public class TogetherController {
 		togetherModifyDTO.setTo_cnt(TogetherDTO.getTo_cnt());
 		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
 		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
+		togetherModifyDTO.setTo_id(TogetherDTO.getTo_id());
 		
 		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
 		

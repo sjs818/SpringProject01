@@ -15,7 +15,7 @@ public interface TogetherMapper {
 	@Insert("INSERT INTO TOGETHER VALUES(TOGETHER_SEQ.nextval, #{to_writer}, #{to_title}, 0, SYSDATE, #{to_content})")
 	void InsertTogetherContent(TogetherDTO togetherDTO);
 	
-	@Select(" SELECT T.TO_NO, U.USER_NO TO_WRITER, T.TO_TITLE, T.TO_CNT, "
+	@Select(" SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, T.TO_TITLE, T.TO_CNT, "
 				+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE " 
 			  + "FROM TOGETHER T, USER_INFO U " 
 				+ "WHERE T.TO_WRITER =  U.USER_NO "
@@ -48,5 +48,8 @@ public interface TogetherMapper {
 			  +"TO_CONTENT=#{to_content}, to_date=SYSDATE "
 			  +"WHERE TO_NO = #{to_no}")
 	void ModifyTogetherContent(TogetherDTO togetherModifyDTO);
-
+	
+	@Update("UPDATE TOGETHER SET TO_CNT=to_cnt+1 "
+			  + "WHERE TO_NO = #{to_no}")
+  void viewCount(int content_idx);
 }

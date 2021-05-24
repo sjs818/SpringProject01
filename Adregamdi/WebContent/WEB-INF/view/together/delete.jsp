@@ -19,7 +19,7 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 <body>
-<!-- Header Import -->
+<!-- 절대 경로 설정 -->
 <c:import url="/WEB-INF/view/include/header.jsp" />
   <div class="container" style="margin-top: 100px;">
     <h3 class="InputSubject">

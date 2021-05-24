@@ -42,7 +42,7 @@
 					<tr>
 						<td class="text-center">${TogetherDTO.to_no }</td>
 						<td class="text-center"><a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a></td>
-						<td class="text-center">${TogetherDTO.to_writer }</td>
+						<td class="text-center">${TogetherDTO.to_id }</td>
 						<td class="text-center">${TogetherDTO.to_cnt }</td>
 						<td class="text-center">${TogetherDTO.to_date }</td>
 					</tr>
@@ -53,9 +53,7 @@
 		  <ul class="pagination justify-content-center">
 				<c:choose>
 					<c:when test="${pageDTO.prevPage <= 0 }">
-						<li class="page-item disabled">
-							<a href="#" class="page-link">이전</a>
-						</li>
+						
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
@@ -80,9 +78,7 @@
 				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
 				<c:choose>
 					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
-						<li class="page-item disabled">
-							<a href="#" class="page-link">다음</a>
-						</li>
+						
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
