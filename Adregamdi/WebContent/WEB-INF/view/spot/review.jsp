@@ -18,6 +18,39 @@
 
 <link href="${root }css/spot.css" rel="stylesheet">
 <link rel="stylesheet" href="${root }css/styles.css">
+<!-- 
+<script>
+$(function() {
+    
+	$("#review_btn").click(function(){
+		
+		var contentId = $("#review_contentId").val();
+		var content = $("#review_content").val();
+		var inputData = {"contentId" : contentId, "content" : content};
+		
+		
+		$.ajax({				
+			url : "/spot/write_proc",
+			type : "get",
+			dataType : "json",
+			data : inputData,
+			
+			success :  function(data){				
+				console.log("contentId : "+contentId);
+				console.log("content : "+content);
+	            
+			},
+			error : function(error) {
+				alert("review - insert 실패");
+			}
+		}); 
+	});
+	
+
+});
+
+</script>
+ -->
 <style>
 @font-face {
 	font-family: 'Bazzi';
@@ -140,22 +173,21 @@ body, h1, h2, h3, div {
 		</table>				
 	</div>
 	
-	<div class="container" style="margin-top:20px">
-		
+	
+	<!-- 
+	<div class="container" style="margin-top:20px">		
 		<div class="input-group" >
-			<input type="text" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
-			<div class="input-group-append" id="btn-search">
-				<!-- 여기에요 여기!! -->
+			<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
+			<input type="hidden" id="review_contentId" value="${contentId }"/>
+			<div class="input-group-append" id="review_btn">
 				<span class="input-group-text" style="background: #e9e9e9;">
 					<i class="fas fa-pen"></i>
 				</span>
 			</div>
-		</div>
-			
+		</div>			
 		<div>
 			<div class="card-body">
-				<h4 class="card-title">${board_info_name }</h4>
-				<table class="table table-hover" id='board_list'>
+				<table class="table table-hover" id='review_list'>
 					<thead>
 						<tr>
 							<th class="text-center d-none d-md-table-cell">글번호</th>
@@ -165,12 +197,12 @@ body, h1, h2, h3, div {
 						</tr>
 					</thead>
 					<tbody>
-						<c:forEach var="contentDTO" items="${contentList }">
+						<c:forEach var="reviewDTO" items="${reviewList }">
 							<tr>
-								<td class="text-center d-none d-md-table-cell">${contentDTO.content_idx }</td>			
-								<td><a href='${root }board/read?board_info_idx=${board_info_idx}&content_idx=${contentDTO.content_idx}&page=${page}'>${contentDTO.content_subject }</a></td>
-								<td class="text-center d-none d-md-table-cell">${contentDTO.content_writer_name }</td>
-								<td class="text-center d-none d-md-table-cell">${contentDTO.content_date }</td>
+								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
+								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
+								<td class="text-center d-none d-md-table-cell">${reviewDTO.user_no }</td>
+								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
 							</tr>	
 						</c:forEach>
 					</tbody>
@@ -178,7 +210,7 @@ body, h1, h2, h3, div {
 			</div>
 		</div>
 	</div>
-	
+	 -->
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />

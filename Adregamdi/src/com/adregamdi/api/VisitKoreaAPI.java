@@ -59,7 +59,6 @@ public class VisitKoreaAPI {
 		document.getDocumentElement().normalize();
 
 		NodeList nodeList = document.getElementsByTagName("item");
-		System.out.println("nodeList.size : "+nodeList.getLength());
 
 		ArrayList<String> contentIdList = new ArrayList<String>();
 
@@ -176,7 +175,6 @@ public class VisitKoreaAPI {
 					
 				if(spotContentId.equals(bestContentId)) {
 					bestInformation.add(spot); 
-					System.out.println("spot : " + spotContentId + " best : " + bestContentId);
 				}
 			}
 		}

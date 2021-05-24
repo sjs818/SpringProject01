@@ -29,4 +29,15 @@ public class SpotDAO {
 	public ArrayList<String> getBestSpotInfo(int range_min, int range_max) {
 		return spotMapper.getBestSpotInfo(range_min, range_max);
 	}
+	
+	
+	/*
+	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
+		System.out.println("result : " + spotMapper.getReviewInfo(content_id).size());
+		return spotMapper.getReviewInfo(content_id);
+	}
+	
+	public void inputReview(ReviewDTO reviewDTO) {
+		spotMapper.inputReview(reviewDTO);
+	}*/
 }

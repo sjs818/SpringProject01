@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
@@ -81,7 +82,6 @@ public class SpotController {
 		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*10) + 1 ;
 		int range_max = range_min + 9;
 		System.out.println("min : "+range_min + " max : "+range_max);
-		
 		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
 		
 		System.out.println("bestContentId : "+bestContentId.toString());
@@ -115,6 +115,7 @@ public class SpotController {
 	@GetMapping("/review") 
 	public String review(@RequestParam ("contentId")String contentId, @RequestParam("contentTypeId")String contentTypeId, Model model) throws Exception {
 		
+		// 관광지 정보 출력
 		model.addAttribute("contentId", contentId);
 		model.addAttribute("contentTypeId", contentTypeId);
 		
@@ -127,11 +128,26 @@ public class SpotController {
 		
 		model.addAttribute("information", information);
 		
-		//System.out.println(information.get(0));
 		
-		
+		// 리뷰 내용 출력
+		/*
+		System.out.println("contentId : "+contentId);
+		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
+	
+		model.addAttribute("reviewList", reviewList);
+		*/
 		return "spot/review";
 	}
+	/*
+	@ResponseBody
+	@GetMapping("/write_proc")
+	public void writeProc(@RequestParam("contentId")String contentId, @RequestParam("content")String content) {
+		
+		ReviewDTO writeReviewDTO = new ReviewDTO();
+		
+		spotService.inputReview(writeReviewDTO);
+	}
+	*/
 	
 	@ResponseBody
 	@GetMapping("/likeProc")
