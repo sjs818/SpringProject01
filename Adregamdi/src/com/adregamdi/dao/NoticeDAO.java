@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -20,15 +21,19 @@ public class NoticeDAO {
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
 
-	public List<NoticeDTO> getNoticeList() {
-		List<NoticeDTO> contentList = noticeMapper.getNoticeList();
-		System.out.println(contentList);
+	public List<NoticeDTO> getNoticeList(RowBounds rowBounds) {
+		List<NoticeDTO> contentList = noticeMapper.getNoticeList(rowBounds);
 		return contentList;
 	}
 
 	public NoticeDTO getNoticeContent(int content_idx) {
 		NoticeDTO content = noticeMapper.getNoticeContent(content_idx);
 		return content;
+	}
+	
+	public int GetNoticeContentCount() {
+		int contentCount = noticeMapper.GetNoticeContentCount();
+		return contentCount;
 	}
 
 	public void InsertNoticeContent(NoticeDTO noticeDTO) {
@@ -42,6 +47,10 @@ public class NoticeDAO {
 
 	public void DeleteNoticeContent(int content_idx) {
 		noticeMapper.deleteNoticeContent(content_idx);
+	}
+	
+	public void viewCount(int content_idx) {
+		noticeMapper.viewCount(content_idx);
 	}
 
 }

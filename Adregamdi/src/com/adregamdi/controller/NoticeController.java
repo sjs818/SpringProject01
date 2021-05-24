@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.NoticeDTO;
+import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.NoticeService;
 
@@ -30,19 +31,33 @@ public class NoticeController {
 	private UserDTO loginUserDTO;
 
 	@GetMapping("/list")
-	public String noticeGetList(Model model) {
-		List<NoticeDTO> contentList = noticeService.getNoticeList();
+	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		
+		PageDTO pageDTO = noticeService.getContentCnt(page);
+		model.addAttribute("pageDTO", pageDTO);
+		
 		return "notice/list";
 	}
 
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
+		noticeService.viewCount(content_idx);
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
+		if(content_idx != 1) {
+			NoticeDTO prevContentDTO = noticeService.getNoticeContent(content_idx - 1);
+			model.addAttribute("prevContentDTO", prevContentDTO);
+		}
+		
+		NoticeDTO nextContentDTO = noticeService.getNoticeContent(content_idx + 1);
+		
 		System.out.println(readContentDTO.getNotice_content());
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
+		model.addAttribute("nextContentDTO", nextContentDTO);
+		
 		return "notice/read";
 
 	}

@@ -40,6 +40,35 @@
       		</c:if>
     	</div>
   </form>
-    </div>
+		<table class="table table-hover">
+					<c:choose>
+					<c:when test="${readContentDTO.notice_no == 1 }">
+					<tr>
+						<td class="text-center">이전글</td>
+						<td class="text-center"><a
+							href="${root}notice/read?content_idx=${prevContentDTO.notice_no}">${prevContentDTO.notice_title }</a></td>
+						<td class="text-center">${prevContentDTO.content_notice_user_no }</td>
+						<td class="text-center">${prevContentDTO.notice_cnt }</td>
+						<td class="text-center">${prevContentDTO.notice_date }</td>
+					</tr>
+					</c:when>
+					<c:otherwise>
+					<tr>
+						<td class="text-center">이전글</td>
+						<td class="text-center">마지막 글입니다.</td>
+					</tr>
+					</c:otherwise>
+					</c:choose>
+					<tr>
+						<td class="text-center">다음글</td>
+						<td class="text-center"><a
+							href="${root}notice/read?content_idx=${nextContentDTO.notice_no}">${nextContentDTO.notice_title }</a></td>
+						<td class="text-center">${nextContentDTO.content_notice_user_no }</td>
+						<td class="text-center">${nextContentDTO.notice_cnt }</td>
+						<td class="text-center">${nextContentDTO.notice_date }</td>
+					</tr>
+				
+		</table>
+	</div>
 </body>
 </html>
