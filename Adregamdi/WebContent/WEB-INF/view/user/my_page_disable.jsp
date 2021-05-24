@@ -25,41 +25,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<style type="text/css">
-
-.ellipsis-title{
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.ellipsis-info {
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.card_hover a{
-	color:black;
-	text-decoration:none;
-	
-}
-
-.card_hover:hover {
-	color: #ffaa42;
-}
-
-.content-box{
-	overflow: auto;
-	max-height: 629px;
-}
-
-</style>
-
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -76,8 +43,8 @@
 		</h3>
 
 		<div class="card">
-			<div class="card-header">
-				<a href="${root }user/modify" class="float-right btn btn-success btn-sm">회원정보</a>
+			<div class="card-header" style="padding-bottom:9px;">
+				<a href="${root }user/modify" class="float-right btn btn-success" style="padding: 3px 10px;">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp
 						<span class="badge badge-secondary"> ${myPublicCount }</span>
@@ -87,7 +54,7 @@
 					</a></li>
 				</ul>
 			</div>
-			<div class="row mx-3 my-3 content-box">
+			<div class="row mx-3 my-3 .content-box_disable">
 
 				<c:forEach var="planDTO" items="${myPlan }" >
 					<c:if test="${planDTO.plan_private eq '0' }">
@@ -98,7 +65,7 @@
 										<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
 									</c:when>
 									<c:when test="${planDTO.plan_img eq null }">
-										<a href="#"><img src="https://via.placeholder.com/200x150.png?text=empty image" class="card-img-top" height="120" alt="일정으로"></a>
+										<a href="#"><img src="${root }images/schedule/thumbnail.jpg" class="card-img-top" height="120" alt="일정으로"></a>
 									</c:when>
 								</c:choose>
 								<div class="card-body">
