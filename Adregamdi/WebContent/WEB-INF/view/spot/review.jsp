@@ -53,6 +53,12 @@ body, h1, h2, h3, div {
 	border-left: 1px dashed #cfcbc0;
 }
 
+.overview {
+	overflow: scroll;
+	height: 700px;
+	width: 100%;
+}
+
 </style>
 </head>
 <body>
@@ -63,20 +69,23 @@ body, h1, h2, h3, div {
 	<div class="container bg-light" style="margin-top: 200px; margin-bottom: 100px;">		
 		<table>
 			<tr>
-				<th colspan="2">
+				<td>
 					<div class="text-center">
 						<h1 class="section-heading" style="font-size : 50px;">${information[1] }</h1>
 						<h3 class="section-subheading text-muted">${information[3] } </h3><br><br>
 					</div>
-				</th>
+				</td>
+				<td class="right" rowspan="3">
+					<div class="overview">
+						${information[2] }
+					</div>
+				</td>
 			</tr>
 			<tr>
 				<td class ="left text-center">
 					<img class="img-fluid photo" src="${information[0] }" alt="img"/>
 				</td>
-				<td class="right" rowspan="2">
-					${information[2] }
-				</td>
+				
 			</tr>
 			<tr>
 				<td class ="left text-center">
