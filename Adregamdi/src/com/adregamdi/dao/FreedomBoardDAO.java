@@ -66,4 +66,10 @@ public class FreedomBoardDAO {
 	public void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardMapper.InsertFreedomBoardReply(replyWriteDTO);
 	}
+	
+	public boolean ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.ModifyFreedomBoardReply(replyWriteDTO);
+		
+		return true;
+	}
 }

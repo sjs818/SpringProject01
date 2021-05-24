@@ -1,6 +1,8 @@
 package com.adregamdi.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,17 +22,26 @@ public class FreedomBoardReplyController {
 	@Autowired
 	FreedomBoardService freedomBoardService; 
 	
-	@GetMapping("/replyGetList")
+	@PostMapping("/replyGetList")
 	public List<FreedomReplyDTO> BoardReplyGetList(@RequestParam("freedom_num")int freedom_num){
 		List<FreedomReplyDTO> replyList = freedomBoardService.getFreedomReplyList(freedom_num);
 		return replyList;
 	}
 	
 	@PostMapping("/replyWriteProc")
-	public void BoardReplyWriteProc
+	public Map<String, Object> BoardReplyWriteProc
 	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO) {
+		System.out.println(replyWriteDTO);
+		Map<String, Object> result = new HashMap<>();
+		try {
+			freedomBoardService.InsertFreedomBoardReply(replyWriteDTO);
+			result.put("status", "OK");
+		} catch(Exception e) {
+			e.printStackTrace();
+			result.put("status", "False");
+		}
 		
-		freedomBoardService.InsertFreedomBoardReply(replyWriteDTO);
+		return result;
 	}
 	
 	@GetMapping("/replyDeleteProc")
@@ -38,8 +49,12 @@ public class FreedomBoardReplyController {
 		return "";
 	}
 	
-	@GetMapping("/replyModifyProc")
-	public String BoardReplyModifyProc() {
-		return "";
+	@PostMapping("/replyModifyProc")
+	public boolean BoardReplyModifyProc
+	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO) {
+		
+		freedomBoardService.ModifyFreedomBoardReply(replyWriteDTO);
+		System.out.println(replyWriteDTO);
+		return true;
 	}
 }

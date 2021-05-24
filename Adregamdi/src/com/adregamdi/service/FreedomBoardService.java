@@ -80,4 +80,9 @@ public class FreedomBoardService {
 	public void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardDAO.InsertFreedomBoardReply(replyWriteDTO);
 	}
+	
+	public boolean ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardDAO.ModifyFreedomBoardReply(replyWriteDTO);
+		return true;
+	}
 }
