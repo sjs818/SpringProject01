@@ -21,7 +21,7 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 </head>
-<body>
+<body class="join-body">
 
 
 <script type="text/javascript">
@@ -57,13 +57,13 @@
 
 
 
-<div class="container container-top">
+<div class="container join-top">
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
 			<div class="card shadow">
 				<header class="card-header">
-					<a href="${root }user/login" class="float-right btn btn-outline-info btn-sm mt-2">로그인</a>
+					<a href="${root }user/login" class="float-right btn btn-outline-info mt-2" style="padding: 3px 11px;">로그인</a>
 					<h4 class="card-title mt-2">회원가입</h4>
 				</header>
 				<div class="card-body back-color">

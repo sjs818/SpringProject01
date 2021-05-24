@@ -62,7 +62,7 @@ public class UserController {
 			userService.getLoginUserDTO(tmpLoginUserDTO);
 			
 			if(loginUserDTO.isUserLogin() == true) {
-				return "main";
+				return "user/login_success";
 			}else {
 				return "user/login_fail";
 			}

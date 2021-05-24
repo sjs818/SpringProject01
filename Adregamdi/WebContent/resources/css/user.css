@@ -1,7 +1,15 @@
 @charset "UTF-8";
 
-.container-top {
-	margin-top: 140px;
+.user-top{
+	margin-top:140px;
+}
+
+.login-top {
+	margin-top: 180px;
+}
+
+.join-top {
+	margin-top: 30px;
 }
 
 .back-color {
@@ -24,6 +32,40 @@
 body{
 	font-family:'Bazzi';
 }
+
+.login-body{
+	height: 100vh;
+	background-image:url('/images/user/login_bg.jpg');
+	background-size:cover;
+	background-repeat: no-repeat;
+	background-position: center;
+	overflow:hidden;
+}
+
+.join-body{
+	height: 100vh;
+	background-image:url('/images/user/join_bg.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow:hidden;
+}
+
+.modify-body{
+	height: 100vh;
+	background-image:url('/images/user/modify_bg.jpg');
+	background-repeat: no-repeat;
+	background-position: center;
+	background-size: cover;
+	overflow:hidden;
+}
+
+a{
+	color:black;
+}
+
+
+
 
 
 
@@ -71,3 +113,18 @@ body{
 	overflow: auto;
 	max-height: 629px;
 }
+
+::-webkit-scrollbar {
+      width: 5px;
+      height: 7px;
+    }
+
+    ::-webkit-scrollbar-button {
+      width: 0px;
+      height: 0px;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #525965;
+      border: none;
+    }

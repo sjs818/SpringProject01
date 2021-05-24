@@ -28,11 +28,11 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 </head>
-<body>
+<body class="modify-body">
 
 
 
-	<div class="container container-top">
+	<div class="container user-top">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">

@@ -25,15 +25,15 @@
 <!-- CSS import -->
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
+
 </head>
-<body>
+<body class="login-body">
 
 
 
 
-	<div class="container container-top">
+	<div class="container login-top">
 		<div class="row">
-			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<div class="card-body back-color">
