@@ -16,6 +16,10 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 
@@ -53,7 +57,7 @@
 
 
 
-<div class="container" style="margin-top:140px">
+<div class="container container-top">
 	<div class="row">
 		<div class="col-sm-3"></div>
 		<div class="col-sm-6">
@@ -62,7 +66,7 @@
 					<a href="${root }user/login" class="float-right btn btn-outline-info btn-sm mt-2">로그인</a>
 					<h4 class="card-title mt-2">회원가입</h4>
 				</header>
-				<div class="card-body" style="background-color: #F7F7F7;">
+				<div class="card-body back-color">
 					<div class="text-center">
 						<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
 					</div>
@@ -76,7 +80,7 @@
 	                      <form:input path="user_name" class="form-control" placeholder="이름"/>
 						</div>
                       <small id="pwHelp" class="form-text text-muted">&nbsp* 이름은 다른 유저에게 노출되지 않습니다.</small>
-                      <form:errors path="user_name" class="small" style="color:red;" />
+                      <form:errors path="user_name" class="small warning-color" />
                     </div>    
                     <div class="form-group" >
                       <div class="input-group">
@@ -85,7 +89,7 @@
                           <button type="button" class="btn btn-secondary" onClick="checkID();">&nbsp<i class="fas fa-user-check"></i>&nbsp</button>
                         </div>
                       </div>
-                      <form:errors path="user_id" class="small" style="color:red;" />
+                      <form:errors path="user_id" class="small warning-color" />
                     </div>                
                     <div class="form-group">
                     	<div class="input-group">
@@ -95,7 +99,7 @@
 	                      <form:password path="user_pw" class="form-control" placeholder="비밀번호" />
 						</div>
                       <small id="pwHelp" class="form-text text-muted">&nbsp* 숫자, 영문자 조합하여 최소 8자리</small>
-                      <form:errors path="user_pw" class="small" style="color:red;" />
+                      <form:errors path="user_pw" class="small warning-color" />
                     </div>                   
                     <div class="form-group">
                       <div class="input-group">
@@ -104,7 +108,7 @@
                        	</div>
 	                    <form:input path="user_email" type="email" class="form-control" placeholder="useremail@email.com" />
                       </div>
-                      <form:errors path="user_email" class="small" style="color:red;" />
+                      <form:errors path="user_email" class="small warning-color" />
                     </div>                   
                     <div class="form-group">
                       <div class="input-group">
@@ -113,7 +117,7 @@
                        	</div>
 	                    <form:input path="user_phone" class="form-control" placeholder="'-' 을 제외한 11자리 연락처" />
                       </div>
-                      <form:errors path="user_phone" class="small" style="color:red;" />
+                      <form:errors path="user_phone" class="small warning-color" />
                     </div>   
                     <hr>               
                     <div class="form-group text-right">

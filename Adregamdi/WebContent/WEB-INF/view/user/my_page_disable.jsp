@@ -25,41 +25,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
-<style type="text/css">
-
-.ellipsis-title{
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.ellipsis-info {
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.card_hover a{
-	color:black;
-	text-decoration:none;
-	
-}
-
-.card_hover:hover {
-	color: #ffaa42;
-}
-
-.content-box{
-	overflow: auto;
-	max-height: 629px;
-}
-
-</style>
-
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 </head>
 <body>
@@ -87,7 +54,7 @@
 					</a></li>
 				</ul>
 			</div>
-			<div class="row mx-3 my-3 content-box">
+			<div class="row mx-3 my-3 .content-box_disable">
 
 				<c:forEach var="planDTO" items="${myPlan }" >
 					<c:if test="${planDTO.plan_private eq '0' }">
