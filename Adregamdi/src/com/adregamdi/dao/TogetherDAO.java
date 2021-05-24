@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -21,9 +22,9 @@ public class TogetherDAO {
 	private UserDTO loginUserDTO;
 
 	
-	public List<TogetherDTO> getTogetherList() {
+	public List<TogetherDTO> getTogetherList(RowBounds rowBounds) {
 		List<TogetherDTO> contentList
-		  = togetherMapper.getTogetherList();
+		  = togetherMapper.getTogetherList(rowBounds);
 		return contentList;
 	}
 	
@@ -32,6 +33,12 @@ public class TogetherDAO {
 		  = togetherMapper.getTogetherContent(content_idx);
 		return content;
 	}
+	
+	public int GetTogetherContentCount() {
+		int contentCount = togetherMapper.GetTogetherContentCount();
+		return contentCount;
+	}
+	
 	public void InsertTogetherContent(TogetherDTO togetherDTO) {
 		togetherDTO.setTo_writer(loginUserDTO.getUser_no());
 		togetherMapper.InsertTogetherContent(togetherDTO);

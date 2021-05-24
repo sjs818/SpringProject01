@@ -8,7 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Adregamdi 정보수정</title>
+<title>Adregamdi 회원정보수정</title>
 <!-- Font Awesome CDN -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -24,21 +24,25 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
 </head>
-<body>
+<body class="modify-body">
 
 
 
-	<div class="container" style="margin-top: 140px">
+	<div class="container user-top">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<header class="card-header">
+						<a href="${root }user/my_page" class="float-right btn btn-success mt-2 ml-2 btn-sm">마이페이지</a>
 						<a href="${root }user/delete" class="float-right btn btn-outline-danger mt-2 btn-sm">회원탈퇴</a>
-						<h4 class="card-title mt-2">정보수정</h4>
+						<h4 class="card-title mt-2">회원정보수정</h4>
 					</header>
-					<div class="card-body" style="background-color: #F7F7F7;">
+					<div class="card-body back-color">
 						<div class="text-center">
 							<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
 						</div>
@@ -68,7 +72,7 @@
 										</div>
 										<form:password path="user_pw" class='form-control' />
 									</div>
-									<form:errors path='user_pw' style='color:red' />
+									<form:errors path='user_pw' class="small warning-color" />
 								</div>
 							</c:if>
 
@@ -79,7 +83,7 @@
 									</div>
 									<form:input path="user_email" class='form-control' />
 								</div>
-								<form:errors path='user_email' style='color:red' />
+								<form:errors path='user_email' class="small warning-color" />
 							</div>
 
 							<div class="form-group">
@@ -90,7 +94,7 @@
 									</div>
 									<form:input path="user_phone" class='form-control' />
 								</div>
-								<form:errors path='user_phone' style='color:red' />
+								<form:errors path='user_phone' class="small warning-color" />
 							</div>
 
 							<c:choose>

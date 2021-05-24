@@ -20,18 +20,23 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	
+	
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
+
 </head>
-<body>
+<body class="login-body">
 
 
 
 
-	<div class="container" style="margin-top: 140px;">
+	<div class="container login-top">
 		<div class="row">
-			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
-					<div class="card-body" style="background-color: #F7F7F7;" >
+					<div class="card-body back-color">
 
 						<c:if test="${param.fail eq 'true'}">
 							<div class="alert alert-danger">
@@ -51,7 +56,7 @@
                         			</div>
 									<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
                      			 </div>
-								<form:errors path="user_id" class="small" style="color: red;" />
+								<form:errors path="user_id" class="small warning-color" />
 							</div>
 							<div class="form-group">
 								<div class="input-group">
@@ -60,7 +65,7 @@
                         			</div>
 									<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
                      			 </div>
-								<form:errors path="user_pw" class="small" style="color: red;" />
+								<form:errors path="user_pw" class="small warning-color" />
 							</div>
 							<div class="form-group text-center" style="padding-top: 20px">
 								<form:button class="btn btn-info btn-sm btn-block">로그인</form:button>

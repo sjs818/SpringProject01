@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
+import org.apache.ibatis.session.RowBounds;
+
 import com.adregamdi.dto.TogetherDTO;
 
 public interface TogetherMapper {
@@ -18,7 +20,7 @@ public interface TogetherMapper {
 			  + "FROM TOGETHER T, USER_INFO U " 
 				+ "WHERE T.TO_WRITER =  U.USER_NO "
 			  + "ORDER BY T.TO_NO DESC")
-	List<TogetherDTO> getTogetherList();
+	List<TogetherDTO> getTogetherList(RowBounds rowBounds);
 	
 	@Select("SELECT T.TO_NO, U.USER_NO TO_WRITER, "
 				+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, "
@@ -27,6 +29,10 @@ public interface TogetherMapper {
 			  + "WHERE U.USER_NO = T.TO_WRITER "
 				+ "AND T.TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
+	
+	@Select("SELECT COUNT(*)" + 
+			"FROM TOGETHER ")
+	int GetTogetherContentCount();
 	
 	@Delete("DELETE FROM TOGETHER WHERE TO_NO = #{content_idx}")
 	void DeleteTogetherContent(int content_idx);
