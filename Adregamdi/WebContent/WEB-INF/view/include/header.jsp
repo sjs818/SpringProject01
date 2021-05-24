@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
-<!-- 글꼴 -->
+<%-- <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
 
@@ -23,7 +23,6 @@
   .wrapper {
      position: relative;
   }
-
 </style>
 
       <nav class="navbar navbar-expand-md navbar-white fixed-top shadow sm" style="padding: 10px 30px;">
