@@ -48,6 +48,29 @@ $(function() {
     var keywordParam = { "pageNo" : 1, "numOfRow" : 10, "keyword" : ""};
     var keyword_flag = false;
     
+    $.ajax({
+        url: "/spot/best",
+        type: "get",
+        dataType: "json",
+        data: allData,
+        success: function(data) {
+
+        	
+            // 반복함수
+            $.each(data, function(key, val) {  
+            	
+            	$("#bestContentId" + key).html(data[key].contentId);
+            	$("#bestContentTypeId" + key).html(data[key].contentTypeId);
+				$("#bestPhoto" + key).attr("src", data[key].firstImage);
+				$("#bestTitle" + key).text(data[key].title);
+                $("#bestAddr" + key).text(data[key].addr1);
+                
+            });
+        },
+        error: function(error) {
+            alert('best 페이지 에러');
+        }
+    });
     
     // 무조건 화면에 띄워야함.
     $.ajax({
@@ -63,7 +86,6 @@ $(function() {
             // 반복함수
             $.each(data, function(key, val) {  
             	
-            	console.log("key : "+ key);
             	$("#contentId" + key).html(data[key].contentId);
             	$("#reviewSendContentId"+key).attr("href", "${root}spot/review?contentId="+data[key].contentId+"&contentTypeId="+data[key].contentTypeId);
             	$("#likeCnt" +key).html(data[key].like_cnt);
@@ -164,6 +186,31 @@ function detail(idx) {
 		}, 
 		error: function(error) {
 			alert('detail 에러');
+		}
+	});
+}
+
+function best_detail(idx) {
+	
+	var contentId = $("#bestContentId"+idx).html();
+	var contentTypeId = $("#bestContentTypeId"+idx).html();
+	var param = {"contentId" : contentId, "contentTypeId" : contentTypeId};
+	
+	console.log("idx : " + idx);
+	
+	$.ajax({
+		
+		url: "/spot/details",
+		type: "get",
+		dataType: "json",
+		data: param,
+		success:function(data) {
+			
+			testData(data,contentTypeId, contentId);
+			
+		}, 
+		error: function(error) {
+			alert('bestDetail 에러');
 		}
 	});
 }
@@ -311,35 +358,36 @@ body, h1, h2, h3, div {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- Top 5 출력 -->
-	<section class="page-section bg-light" id="portfolio">
+	<section class="page-section bg-light" id="portfolio">		
 		<div class="container"
 			style="margin-top: 100px; margin-bottom: 100px;">
 			<div class="text-center">
-				<h2 class="section-heading text-uppercase">제주 지역 탐방</h2>
+				<h2 class="section-heading text-uppercase">제주 지역 탐방 - BEST 3</h2>
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
 					수 있습니다. 각 지역의 Top3 유명지를 소개합니다.</h3>
 			</div>
-
-			<!-- Best 여행지  -->
-			<div class="row" style="margin-top: 50px">
-				<c:forEach var="order" begin="0" end="2">
+			<div id="total_view" class="row">
+				<c:forEach var="i" begin="0" end="2" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal${order }">
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="best_detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x" aria-hidden="true" focusable="false" data-prefix="fas"
-											data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-											<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+										<i class="fas fa-plus fa-3x"></i>
 									</div>
-								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-								alt="...">
+								</div> 
+								<img class="img-fluid photo" id="bestPhoto${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
-								<div class="portfolio-caption-heading">Top ${order +1 }</div>
-								<div class="portfolio-caption-subheading text-muted">Graphic
-									Design</div>
+								<div style="font-color:blue;">
+									<i class="far fa-hand-point-right" style="color: blue;"></i>
+										 Top ${i+1 }
+								</div>
+								<div id="bestTitle${i}" class="portfolio-caption-heading"></div>
+								<div id="bestAddr${i}"
+									class="portfolio-caption-subheading text-muted"></div>
+								<span style="display:none" id="bestContentId${i }" ></span>
+								<span style="display:none" id="bestContentTypeId${i }" ></span>
 							</div>
 						</div>
 					</div>

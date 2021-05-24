@@ -26,8 +26,8 @@ public class VisitKoreaAPI {
 	// "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
-	final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
-	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
+	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
+	final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
 
 	public static String getTagValue(String tag, Element element) {
 		try {
@@ -58,6 +58,7 @@ public class VisitKoreaAPI {
 		document.getDocumentElement().normalize();
 
 		NodeList nodeList = document.getElementsByTagName("item");
+		System.out.println("nodeList.size : "+nodeList.getLength());
 
 		ArrayList<String> contentIdList = new ArrayList<String>();
 
@@ -132,12 +133,64 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
+	// BestTop 정보 저장
+	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO, int totalCount, ArrayList<String> bestContentIdList)
+			throws SAXException, IOException, ParserConfigurationException {
+		
+		
+		// id만 저장
+		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
+		System.out.println("contentIdList.size : "+contentIdList.size());
+		// 공통 정보 조회
+		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
+		List<VisitKoreaDTO> bestInformation = new ArrayList<VisitKoreaDTO>();
+		for (int i = 0; i < spotInfo.size(); i++) {
+			VisitKoreaDTO spot = new VisitKoreaDTO();
+			
+			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
+				Node node = spotInfo.get(i).item(j);
+				
+				if (node.getNodeType() == Node.ELEMENT_NODE) {
+					Element element = (Element) node;
+					
+					
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage("/images/schedule/thumbnail.png");
+					} else {
+						spot.setFirstImage(getTagValue("firstimage", element));
+					}
+					spot.setTitle(getTagValue("title", element));
+					if (!visitKoreaDTO.getContentTypeId().equals("25")) {
+						spot.setAddr1(getTagValue("addr1", element));
+					}
+					spot.setOverview(getTagValue("overview", element));
+					spot.setContentId(getTagValue("contentid", element));
+					spot.setContentTypeId(getTagValue("contenttypeid", element));
+					spot.setMapX(getTagValue("mapx", element));
+					spot.setMapY(getTagValue("mapy", element));
+					spot.setTotalCount(Integer.toString(totalCount));
+					
+				}
+			}
+			
+			for(int c=0; c<bestContentIdList.size(); c++) {
+				String spotContentId = spot.getContentId();
+				String bestContentId = bestContentIdList.get(c);
+				
+				if(spotContentId.equals(bestContentId)) {
+					bestInformation.add(spot); 
+				}
+			}
+			
+		}
+		return bestInformation;
+	}
+	
 	// 개략적인 정보?
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
 		// id만 저장
-		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(),
-				visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
+		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		// 공통 정보 조회
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
@@ -182,12 +235,10 @@ public class VisitKoreaAPI {
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
 		
 		for (int i = 0; i < spotInfo.size(); i++) {
-			System.out.println("spotInfo.size : " +spotInfo.size());
 			VisitKoreaDTO spot = new VisitKoreaDTO();
 			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 10 + i;
 			
 			spot.setLike_cnt(spotDTO.get(searchIdx).getLike_cnt());
-			System.out.println("visitKoreaDTO-contentId : " + spotDTO.get(searchIdx).getContent_id());
 			spot.setReview_cnt(spotDTO.get(searchIdx).getReview_cnt());
 			for (int j = 0; j < spotInfo.get(i).getLength(); j++) {
 				Node node = spotInfo.get(i).item(j);
@@ -214,7 +265,7 @@ public class VisitKoreaAPI {
 		}
 		return information;
 	}
-
+	
 	// 세부사항 가져오기
 	public List<String> getEachInformation(VisitKoreaDTO visitKoreaDTO) throws Exception {
 		List<String> information = new ArrayList<String>();
@@ -238,7 +289,7 @@ public class VisitKoreaAPI {
 
 		// root tag
 		doc.getDocumentElement().normalize();
-		System.out.println("���� element :" + doc.getDocumentElement().getNodeName());
+		//System.out.println("���� element :" + doc.getDocumentElement().getNodeName());
 		// �Ľ��� tag
 		NodeList nList = doc.getElementsByTagName("item");
 		for (int i = 0; i < nList.getLength(); i++) {
@@ -271,7 +322,7 @@ public class VisitKoreaAPI {
 		Document doc = dBuilder.parse(url);
 		// root tag
 		doc.getDocumentElement().normalize();
-		System.out.println("�� element :" + doc.getDocumentElement().getNodeName());
+		//System.out.println("�� element :" + doc.getDocumentElement().getNodeName());
 
 		// �Ľ��� tag
 		NodeList nList = doc.getElementsByTagName("item");

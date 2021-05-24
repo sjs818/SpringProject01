@@ -64,11 +64,27 @@ public class SpotController {
 		return spot.getInformation(visitKoreaDTO, totalCount);
 		*/
 		
-		System.out.println("pageNo : "+visitKoreaDTO.getPageNo());
-		
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
 		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);
+	}
+	
+	@ResponseBody
+	@GetMapping("/best")
+	public List<VisitKoreaDTO> getBestSpotInfo(VisitKoreaDTO visitKoreaDTO) throws SAXException, IOException, ParserConfigurationException {
+		
+		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
+		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
+		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
+		
+		// 현재 페이지에서 Best 3
+		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*10) + 1 ;
+		int range_max = range_min + 9;
+		System.out.println("min : "+range_min + " max : "+range_max);
+		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
+		
+		System.out.println("bestContentId : "+bestContentId.toString());
+		return spot.getBestInformation(visitKoreaDTO, totalCount, bestContentId);
 	}
 	
 	@ResponseBody

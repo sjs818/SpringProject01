@@ -25,4 +25,8 @@ public class SpotDAO {
 	public ArrayList<SpotDTO> getSpotInfo() {
 		return spotMapper.getSpotInfo();
 	}
+	
+	public ArrayList<String> getBestSpotInfo(int range_min, int range_max) {
+		return spotMapper.getBestSpotInfo(range_min, range_max);
+	}
 }
