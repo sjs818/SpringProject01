@@ -10,15 +10,12 @@
 <meta charset="UTF-8">
 <title>리뷰 페이지</title>
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	
+<link rel="stylesheet" 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
+
 <link href="${root }css/spot.css" rel="stylesheet">
 <link rel="stylesheet" href="${root }css/styles.css">
 <style>
@@ -66,7 +63,7 @@ body, h1, h2, h3, div {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="container bg-light" style="margin-top: 200px; margin-bottom: 100px;">		
+	<div class="container bg-light" style="margin-top: 100px; margin-bottom: 100px;">		
 		<table>
 			<tr>
 				<td>
@@ -140,14 +137,48 @@ body, h1, h2, h3, div {
 					</ul>
 				</td>
 			</tr>
-			<tr>
-				<td colspan="2">
-					<br><br>
-					<h1 style="text-align:center;">리뷰쓸건데....</h1>
-				</td>
-			</tr>
-		</table>		
+		</table>				
 	</div>
+	
+	<div class="container" style="margin-top:20px">
+		
+		<div class="input-group" >
+			<input type="text" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
+			<div class="input-group-append" id="btn-search">
+				<!-- 여기에요 여기!! -->
+				<span class="input-group-text" style="background: #e9e9e9;">
+					<i class="fas fa-pen"></i>
+				</span>
+			</div>
+		</div>
+			
+		<div>
+			<div class="card-body">
+				<h4 class="card-title">${board_info_name }</h4>
+				<table class="table table-hover" id='board_list'>
+					<thead>
+						<tr>
+							<th class="text-center d-none d-md-table-cell">글번호</th>
+							<th class="w-50">내용</th>
+							<th class="text-center d-none d-md-table-cell">작성자</th>
+							<th class="text-center d-none d-md-table-cell">작성날짜</th>
+						</tr>
+					</thead>
+					<tbody>
+						<c:forEach var="contentDTO" items="${contentList }">
+							<tr>
+								<td class="text-center d-none d-md-table-cell">${contentDTO.content_idx }</td>			
+								<td><a href='${root }board/read?board_info_idx=${board_info_idx}&content_idx=${contentDTO.content_idx}&page=${page}'>${contentDTO.content_subject }</a></td>
+								<td class="text-center d-none d-md-table-cell">${contentDTO.content_writer_name }</td>
+								<td class="text-center d-none d-md-table-cell">${contentDTO.content_date }</td>
+							</tr>	
+						</c:forEach>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />

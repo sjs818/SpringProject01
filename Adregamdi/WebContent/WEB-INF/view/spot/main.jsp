@@ -150,7 +150,7 @@ $(function() {
 								+'<div class="portfolio-caption"><div id="searchTitle" class="portfolio-caption-heading">'+data[key].title+'</div>'
 								+'<div id="searchAddr" class="portfolio-caption-subheading text-muted">'+data[key].addr1+'</div>'
 								+'<span style="display: none" id="searchContentId'+key+'">'+data[key].contentId+'</span> '
-								+'<span style="display: none" id="searchContentTypeId'+key+'">'+data[key].contentTypeId+'</span>'
+								+'<span style="display: none" id="searcㅋhContentTypeId'+key+'">'+data[key].contentTypeId+'</span>'
 								+'</div></div></div>';
 					
 	                $("#search_view").append(content);
