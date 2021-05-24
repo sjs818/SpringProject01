@@ -366,7 +366,7 @@ body, h1, h2, h3, div {
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
 					수 있습니다. 각 지역의 Top3 유명지를 소개합니다.</h3>
 			</div>
-			<div id="total_view" class="row">
+			<div id="best_view" class="row">
 				<c:forEach var="i" begin="0" end="2" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
