@@ -39,7 +39,7 @@
 		</h3>
 
 		<div class="card">
-			<div class="card-header" style="padding-bottom:9px;">
+			<div class="card-header my-card-header">
 				<a href="${root }user/modify" class="float-right btn btn-success" style="padding: 3px 10px;">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page">공유일정&nbsp
