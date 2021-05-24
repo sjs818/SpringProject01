@@ -39,7 +39,7 @@
 						<h4 class="card-title mt-2" style='color:red'>회원탈퇴</h4>
 					</header>
 					<div class="card-body" style="background-color: #F7F7F7;">
-						<p class="small text-center pb-2"># 회원탈퇴 후 모든 정보는 복구가 어렵습니다.</p>
+						<p class="text-danger small text-center pb-2"># 회원탈퇴 후 모든 정보는 복구가 어렵습니다.</p>
 						
 						<form:form action='${root }user/delete_proc' method='post' modelAttribute="deleteUserDTO">
 							
