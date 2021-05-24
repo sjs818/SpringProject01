@@ -92,7 +92,7 @@
 										<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
 									</c:when>
 									<c:when test="${planDTO.plan_img eq null }">
-										<a href="#"><img src="https://via.placeholder.com/200x150.png?text=empty image" class="card-img-top" height="120" alt="일정으로"></a>
+										<a href="#"><img src="${root }images/schedule/thumbnail.png" class="card-img-top" height="120" alt="일정으로"></a>
 									</c:when>
 								</c:choose>
 								<div class="card-body">
