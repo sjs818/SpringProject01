@@ -157,7 +157,7 @@
 		    $(this).siblings('ul').sortable().find('input[name=planData]').each(function(){
 		    	jsonData.push(JSON.parse($(this).val()));
 		    });
-		    
+
 		    if(jsonData.length > 2) {
 		    	present_markers.push(addMarker(map, "start", jsonData[0]));
 	        for(var i = 1; i < jsonData.length - 1; i++) {
@@ -358,7 +358,8 @@
 			var realTime = getRealTime();
 			var viaPoints = [];
 			let today = new Date();
-			
+			console.log(startInfo.mapX);
+			console.log(endInfo.mapX);
 			for(var i = 0; i < viaInfo.length; i++) {
 				
 				var viaPoint = {};
@@ -367,7 +368,6 @@
 			  viaPoint.viaPointName = viaInfo[i].title;
 			  viaPoint.viaX = viaInfo[i].mapY;
 			  viaPoint.viaY = viaInfo[i].mapX;
-			  
 			  viaPoints.push(viaPoint);
 			  
 			}
@@ -375,12 +375,12 @@
 			headers["appKey"] = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 			
 			$.ajax({
-		    type:"POST",
+		    type : "POST",
 		    headers : headers,
-		    url:"https://apis.openapi.sk.com/tmap/routes/routeOptimization10?version=1&format=json",//
-		    async:false,
-		    contentType: "application/json",
-		    data: JSON.stringify({
+		    url : "https://apis.openapi.sk.com/tmap/routes/routeOptimization10?version=1&format=json",
+		    async : false,
+		    contentType : "application/json",
+		    data : JSON.stringify({
 		    	"startName": startInfo.title,
 		      "startX": startInfo.mapY,
 		      "startY": startInfo.mapX,
@@ -397,9 +397,9 @@
 		      var tDistance = "총 거리 : " + (resultData.totalDistance/1000).toFixed(1) + "km,  ";
 		      var tTime = "총 시간 : " + Math.round((resultData.totalTime/60)) + "분  <br />";
 		      var routeName = "최적 경로 : " + (resultFeatures[0].properties.viaPointName).substring(4, ((resultFeatures[0].properties.viaPointName).length)) + " -> ";
-		      
-		      resultFeatures.forEach(function(i) {
-		    	  
+		      console.log(response.features);
+		      for(var i = 0; i < resultFeatures.length; i++) {
+		    	  console.log(resultFeatures[i]);
 		    	  var geometry = resultFeatures[i].geometry;
 		        var properties = resultFeatures[i].properties;
 		        var polyline;
@@ -408,13 +408,12 @@
 		        
 		        if(geometry.type == 'LineString') {
 		        	
-		        	geometry.coordinates.forEach(function(j) {
-		       
+		        	for(var j = 0; j < geometry.coordinates.length; j++) {
+								
 		        		var point = new Tmapv2.LatLng(geometry.coordinates[j][1], geometry.coordinates[j][0]);
 		        		
 		        		drawInfoArr.push(point);
-		        		
-		        	});
+		        	}
 		        
 			        polyline = new Tmapv2.Polyline({
 			        	path : drawInfoArr,
@@ -427,7 +426,7 @@
 		        
 		       	 	routeName += (properties.viaPointName).substring(4, ((properties.viaPointName).length)) + " -> ";
 						}
-	    		});
+		      }
 		      routeName = routeName.substring(0, (routeName.length - 4));
 		      $('#result').html(tDistance + tTime + routeName);
 		    }
@@ -511,6 +510,9 @@
   		position: relative;
   	}
   	
+  	.container .result {
+  		margin: 0;
+  	}
   	.container .tab {
 			position: absolute;
 			top: 0px;
@@ -621,8 +623,6 @@
     			<span class="first">세부 일정</span>
     			<span class="second">일정 정보</span>
     		</label>
-				<!-- <button type="button" id="btn-plan" style="border: 0; outline: 0;">정보</button>
-				<button type="button" id="btn-planner" style="border: 0; outline: 0;">플래너</button> -->
 			</div>
 		</div>
 		<div class="row">
@@ -683,9 +683,9 @@
 					<button id="modify-planner" class="btn btn-primary" type="button" style="padding: 2px 7px; margin-left: 270px;">일정 수정</button>
 				</div>
 			</div>
-			<div>
-				<p id = "result"></p>
-			</div>
+		</div>
+		<div>
+			<p id="result" class="result"></p>
 		</div>
 	</div>
 	<div class="container bottom-calendar jumbotron">
@@ -703,7 +703,7 @@
 			</div>
 		</c:if>
 	</div>
-	<form action="/plan/save/schedule" method="post" id="scheduleForm">
+	<form action="/schedule/writeDetail_proc" method="post" id="scheduleForm">
 		<input type="hidden" id="schedule-plan" name="schedule" value="">
 	</form>
 	<form action="/plan/modify" method="get" id="ModifyForm">

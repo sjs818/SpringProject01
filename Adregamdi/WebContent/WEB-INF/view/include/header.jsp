@@ -4,7 +4,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
-<!-- 글꼴 -->
+<%-- <!-- 글꼴 -->
 <link rel="preconnect" href="https://fonts.gstatic.com">
 <link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
 
@@ -27,7 +27,7 @@ h2, h3, li, p {
   color: #fed136;
 }
 
-</style>
+</style> --%>
 <nav class="navbar navbar-expand-md navbar-white fixed-top shadow-sm">
 	<a href="${root }" class="navbar-brand"><img src="${root }images/logo.png" style="height: 60px"></a>
 	<div id="navMenu" class="collapse navbar-collapse" style="margin-left:25%;">

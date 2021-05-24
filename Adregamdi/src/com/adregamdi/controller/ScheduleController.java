@@ -92,6 +92,20 @@ public class ScheduleController {
 		return "schedule/writeDetail";
 	}
 	
+	@PostMapping("/writeDetail_proc")
+	public String writeDetail_proc(@RequestParam("schedule") String data) throws ParseException {
+		
+		List<UserPlanDTO> schedule = scheduleService.convertSchedule(data);
+		
+		scheduleService.deleteSchedule(schedule.get(0));
+		
+		for(int i = 0; i < schedule.size(); i++) {
+			scheduleService.updateSchedule(schedule.get(i));
+		}
+		
+		return "schedule/write_success";
+	}
+	
 	@ResponseBody
 	@GetMapping("/information")
 	public List<VisitKoreaDTO> information(@ModelAttribute VisitKoreaDTO visitKoreaDTO, Model model) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
