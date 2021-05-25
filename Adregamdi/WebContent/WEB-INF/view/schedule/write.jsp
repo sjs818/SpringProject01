@@ -729,6 +729,7 @@
 	<input type="hidden" id="plan_title" value="${plan_title}">
 	<input type="hidden" id="plan_date"  value="${plan_date }">
 	<input type="hidden" id="planNo"     value="${plan_no }">
+	<input type="hidden" id="user_no"    value="${loginUserDTO.user_no }" >
 	
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>

@@ -6,24 +6,24 @@
 
 <style>
 .footer {
-	background: #595959;
-	color: white;
-	width: 100%;
-	padding: 20px;
-}
-
-h5 {
-	float: right;
-	margin: 0;
-}
-
-h4 {
-	float: left;
-	margin: 0;
-}
+     background: #595959;
+     color: white;
+     width: 100%;
+     padding: 20px;
+  }
+ 
+ .footer .title {
+ 	float: left;
+ 	margin: 0;
+ }
+ 
+ .footer .content {
+ 	float: right;
+ 	margin: 0;
+ }
 </style>
 
-<div class="footer fixed-bottom">
-	<h4>어드레감디?</h4>
-	<h5>Copyright ⓒ 2021 ADREGAMDI. All rights reserved.</h5>
-</div>
+      <div class="footer fixed-bottom">
+         <h4 class="title">어드레감디?</h4>
+         <h5 class="content">Copyright ⓒ 2021 ADREGAMDI. All rights reserved.</h5>
+      </div>

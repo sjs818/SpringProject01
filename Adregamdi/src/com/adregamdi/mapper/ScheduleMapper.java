@@ -23,7 +23,7 @@ public interface ScheduleMapper {
 	@Select("SELECT A.PLAN_NO, A.USER_NO, A.PLAN_TITLE, A.PLAN_INFO, A.PLAN_IMG, B.PLANTOTALDATE PLAN_TERM FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'N' ORDER BY PLAN_NO DESC")
 	List<PlanDTO> getPlanList(RowBounds rowbounds);
 	
-	@Insert("INSERT INTO USER_PLAN (PLAN_NO, USER_NO, TITLE, CONTENTID, CONTENTTYPEID, ADDR, IMG_SRC, MAPX, MAPY, PLANDATE, PLANDAY, PLANTOTALDATE) VALUES (#{plan_no}, 1, #{title}, #{contentId}, #{contentTypeId}, #{addr}, #{img_src}, #{mapX}, #{mapY}, #{planDate}, #{planDay}, #{planTotalDate})")
+	@Insert("INSERT INTO USER_PLAN (PLAN_NO, USER_NO, TITLE, CONTENTID, CONTENTTYPEID, ADDR, IMG_SRC, MAPX, MAPY, PLANDATE, PLANDAY, PLANTOTALDATE) VALUES (#{plan_no}, #{user_no }, #{title}, #{contentId}, #{contentTypeId}, #{addr}, #{img_src}, #{mapX}, #{mapY}, #{planDate}, #{planDay}, #{planTotalDate})")
 	int insertUserPlan(UserPlanDTO userPlanDTO);
 	
 	@Select("SELECT * FROM PLAN WHERE PLAN_NO = #{plan_no }")
