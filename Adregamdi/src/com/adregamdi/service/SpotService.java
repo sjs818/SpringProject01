@@ -1,7 +1,7 @@
 package com.adregamdi.service;
 
-import java.util.ArrayList;
 
+import java.util.ArrayList;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;

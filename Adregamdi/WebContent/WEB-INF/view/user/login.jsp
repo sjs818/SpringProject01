@@ -9,6 +9,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 로그인</title>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <!-- Bootstrap CDN -->
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -18,36 +20,49 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	
+	
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
+
 </head>
-<body class="text-center">
+<body>
 
-
-
-
-	<div class="container" style="margin-top: 140px;">
-		<div class="row">
-			<div class="col-sm-3"></div>
+<div class="login-body">
+	<div class="container h-100 d-flex align-items-center">
+		<div class="row w-100">
 			<div class="col-sm-6">
-				<div class="card shadow">
-					<div class="card-body" style="background-color: #F7F7F7;" >
-
+				<div class="card back-color">
+					<div class="card-body">
 						<c:if test="${param.fail eq 'true'}">
 							<div class="alert alert-danger">
 								<h4>로그인 실패!</h4>
 								<p>아이디 비밀번호를 확인해주세요.</p>
 							</div>
 						</c:if>
-						
-						<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
+						<div class="text-center">
+							<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
+						</div>
 						<form:form action="${root }user/login_proc" method="post"
 							modelAttribute="tmpLoginUserDTO">
 							<div class="form-group">
-								<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
-								<form:errors path="user_id" style="color: red;" />
+								<div class="input-group">
+                        			<div class="input-group-prepend">
+                         				<span class="input-group-text"><i class="fas fa-user"></i></span>
+                        			</div>
+									<form:input path="user_id" class="form-control" placeholder="ID" name="user_id"/>
+                     			 </div>
+								<form:errors path="user_id" class="small warning-color" />
 							</div>
 							<div class="form-group">
-								<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
-								<form:errors path="user_pw" style="color: red;" />
+								<div class="input-group">
+                        			<div class="input-group-prepend">
+                         				<span class="input-group-text"><i class="fas fa-key"></i></span>
+                        			</div>
+									<form:password path="user_pw" class="form-control" placeholder="비밀번호" />
+                     			 </div>
+								<form:errors path="user_pw" class="small warning-color" />
 							</div>
 							<div class="form-group text-center" style="padding-top: 20px">
 								<form:button class="btn btn-info btn-sm btn-block">로그인</form:button>
@@ -61,10 +76,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-sm-3"></div>
+			<div class="col-sm-6"></div>
 		</div>
 	</div>
-	
+</div>
 	
 </body>
 </html>

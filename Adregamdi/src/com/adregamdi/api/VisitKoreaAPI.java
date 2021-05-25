@@ -30,6 +30,9 @@ public class VisitKoreaAPI {
 	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
 	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	
+  // T map API ( ��� : http://tmapapi.sktelecom.com/index.html )
+	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
+	
 	public static String getTagValue(String tag, Element element) {
 		try {
 			NodeList nodeList = element.getElementsByTagName(tag).item(0).getChildNodes();
@@ -491,5 +494,5 @@ public class VisitKoreaAPI {
 			result.add(spot);
 		}
 		return result;
-	}
+  } 
 }

@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
@@ -88,9 +90,31 @@ public class UserController {
 	public String nullLogin() {
 		return "user/active_login";
 	}
+
+	
+	@GetMapping("/delete")
+	public String delete(@ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO ) {
+		return "user/delete";
+	}
 	
 	
-	
+	@PostMapping("/delete_proc")
+	public String deleteProc(@Valid @ModelAttribute("deleteUserDTO") UserDTO deleteUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/delete";
+		}
+		
+		userService.deleteUserInfo(deleteUserDTO);
+		
+		boolean emptyID = userService.checkID(loginUserDTO.getUser_id());
+		
+		if(emptyID == true) {
+			loginUserDTO.setUserLogin(false);
+			return "user/delete_success";
+		}else {
+			return "user/delete_fail";
+		}
+	}
 	
 	
 	@GetMapping("/join")
@@ -136,6 +160,37 @@ public class UserController {
 		}
 		userService.modifyUserInfo(modifyUserDTO);
 		return "user/modify_success";
+	}
+	
+	
+	@GetMapping("/my_page")
+	public String myPage(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivatCount(loginUserDTO.getUser_no());	
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+		
+		return "user/my_page";
+	}
+
+	@GetMapping("/my_page_disable")
+	public String myPageDisable(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivatCount(loginUserDTO.getUser_no());
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+		
+		return "user/my_page_disable";
 	}
 	
 	

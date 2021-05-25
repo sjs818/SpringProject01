@@ -1,6 +1,8 @@
 package com.adregamdi.service;
 
 
+import java.util.List;
+
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 
 @Service
@@ -43,6 +46,7 @@ public class UserService {
 			loginUserDTO.setUser_name(fromDBUserDTO.getUser_name());
 			loginUserDTO.setUser_email(fromDBUserDTO.getUser_email());
 			loginUserDTO.setUser_phone(fromDBUserDTO.getUser_phone());
+			loginUserDTO.setUser_provider(fromDBUserDTO.getUser_provider());
 			loginUserDTO.setUserLogin(true);
 			
 			System.out.println("회원번호 : " + loginUserDTO.getUser_no());
@@ -88,6 +92,34 @@ public class UserService {
 		userDAO.modifyUserInfo(modifyUserDTO);
 	}
 	
+	
+	public void deleteUserInfo(UserDTO deleteUserDTO) {	
+		
+		if(loginUserDTO.getUser_provider() == 1) {
+			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+			String dtoPw = userDAO.getPw(loginUserDTO.getUser_id());
+			boolean pwdMatch = encoder.matches(deleteUserDTO.getUser_pw(), dtoPw);
+			
+			if(dtoPw != null && pwdMatch == true) {
+				deleteUserDTO.setUser_pw(dtoPw);
+				userDAO.deleteUserInfo(deleteUserDTO);
+			}
+		}else if(loginUserDTO.getUser_provider() == 2) {
+			userDAO.deleteNaverInfo(deleteUserDTO);
+		}
+	}
+
+	public List<PlanDTO> getMyPlan(int user_no) {
+		return userDAO.getMyPlan(user_no);
+	}
+
+	public String getPublicCount(int user_no) {
+		return userDAO.getPublicCount(user_no);
+	}
+
+	public String getPrivatCount(int user_no) {
+		return userDAO.getPrivatCount(user_no);
+	}
 	
 
 }

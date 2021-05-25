@@ -30,6 +30,14 @@
 			  static : true
 			});
 			
+			$("input:checkbox").on('click', function() {
+				if ( $(this).prop('checked') ) {
+					$('#plan_private').val('Y');
+				} else {
+					$('#plan_private').val('N');
+				}
+			});
+			
 			$("#submit").click(function(){
 				if($("#plan_title").val() == '' || $("#plan_date").val() == '') {
 			  	alert("내용을 입력해주세요!");
@@ -50,6 +58,78 @@
 			});
 		});
 	</script>
+	<style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+	
+		.modal-footer {
+			position: relative;
+		}
+		.modal-footer input {
+    	display: none;
+    }
+  	
+  	.modal-footer label {
+    	display: inline-block;
+    	width: 98px;
+    	height: 38px;
+    	padding: 0;
+    	margin: 0;
+    	text-align: center;
+    	cursor: pointer;
+    	position: absolute;
+    	top: 16px;
+    	left: 12px;
+    	border-radius: 38px;
+    	background: #3cf065;
+    }
+    
+    .modal-footer label::before {
+    	content: '';
+    	font-size: 16px;
+    	display: block;
+    	width: 45px;
+    	height: 30px;
+    	position: absolute;
+    	top: 4px;
+    	left: 4px;
+    	background: #ffffff;
+    	line-height: 32px;
+    	border-radius: 32px;
+    	transition: 0.3s;
+    	z-index: 999;
+    }
+   	
+    .modal-footer input:checked + label:before {
+    	transform: translateX(45px);
+    }
+    
+    .modal-footer input:checked + label {
+    	background: #dc3545;
+    }
+  	
+  	.modal-footer .first {
+  		position: absolute;
+  		top: 7px;
+  		left: 10px;
+  		color: #ffffff;
+  	}
+  	
+  	.modal-footer .second {
+  		position: absolute;
+  		top: 7px;
+  		left: 58px;
+  		color: #ffffff;
+  	}
+	</style>
 	<title>Document</title>
 </head>
 <body>
@@ -60,7 +140,7 @@
   <!-- Main -->
 		
 		<!-- Content -->
-		<div class="container" style="margin-top:200px"> 
+		<div class="container" style="margin-top:150px"> 
 			<div class="card shadow">
 			  
 			  <div class="card-header">
@@ -70,7 +150,27 @@
 			 	
 			 	<div class="card-body">
 				  <div class="row">
-					  
+					  <c:forEach var="dto" items="${scheduleList }">
+						  <div class="card col-3">
+					  		<h4><a href="${root }schedule/read">${dto.schedule_title }</a></h4>
+					  		<table>
+						  		<tr>
+						  			<th colspan="2">작성자</th>
+						  			<td colspan="2">${dto.schedule_writer }</td>
+						  		<tr>
+						  		<tr>
+						  			<th colspan="2">작성일</th>
+						  			<td colspan="2">${dto.schedule_date }</td>
+						  		</tr>
+						  		<tr>
+						  			<th>조회수</th>
+						  			<td>0</td>
+						  			<th>추천수</th>
+						  			<td>0</td>
+						  		</tr>
+					  		</table>
+						  </div>
+					  </c:forEach>
 				  </div>
 				  
 					<div class="d-none d-md-block" style="margin-top:20px;">
@@ -113,8 +213,9 @@
 	  			<form id="writeNewPlan" action="${root }schedule/write" method="post">
 	  				<div class="modal-body">
 	  					<input type="hidden" id="plan_term" name="plan_term">
-	  					<input type="hidden" name="plan_info" value="temporary">
-	  					<input type="hidden" name="plan_img" value="/images/thumbnail.png">
+	  					<input type="hidden" name="plan_info" value="내용을 입력해주세요.">
+	  					<input type="hidden" id="plan_private" name="plan_private" value="N">
+	  					<input type="hidden" name="plan_img" value="/images/schedule/thumbnail.png">
 	  					<div class="form-group">
 	  						<label for="plan_title">일정 제목</label>
 	  						<input type="text" class="form-control" id="plan_title" name="plan_title" style="width:100%">
@@ -126,8 +227,14 @@
 	  				</div>
 	  			</form>
 	  			<div class="modal-footer">
-	  				 <button class="btn btn-primary" type="button" id="submit">만들기</button>
-	           <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+	  				<input type="checkbox" id="switch">
+	  				
+		    		<label for="switch">
+		    			<span class="first">비공개</span>
+		    			<span class="second">공개</span>
+		    		</label>
+	  				<button class="btn btn-primary" type="button" id="submit">만들기</button>
+	          <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
 	  			</div>
 	  		</div>
 	  	</div>

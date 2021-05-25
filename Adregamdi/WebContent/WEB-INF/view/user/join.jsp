@@ -9,11 +9,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 회원가입</title>
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 
@@ -50,67 +56,83 @@
 
 
 
-  <!-- 상단 메뉴 부분 -->
-<c:import url="/WEB-INF/view/include/header.jsp" />
-
-
-
-<div class="container" style="margin-top:140px">
-	<div class="row">
-		<div class="col-sm-3"></div>
-		<div class="col-sm-6">
-			<div class="card shadow">
-				<div class="card-body" style="background-color: #F7F7F7;">
-                    <form:form action="${root }user/join_proc" method="post" modelAttribute="joinUserDTO">
-                    <form:hidden path="inputUserID" />
-                    <div class="form-group" >
-                      <form:label path="user_name">이름</form:label>
-                      <form:input path="user_name" class="form-control" placeholder="한글 이름"/>
-                      <form:errors path="user_name" style="color:red;" />
-                    </div>    
-                    <div class="form-group" >
-                      <form:label path="user_id">아이디</form:label>
-                      <div class="input-group">
-                        <form:input path="user_id" class="form-control" onkeypress="resetinputUserID()"/>
-                        <div class="input-group-append">
-                          <button type="button" class="btn btn-secondary" onClick="checkID();">중복확인</button>
-                        </div>
-                      </div>
-                      <form:errors path="user_id" style="color:red;" />
-                    </div>                
-                    <div class="form-group">
-                      <form:label path="user_pw">비밀번호</form:label>
-                      <form:password path="user_pw" class="form-control" />
-                      <small id="pwHelp" class="form-text text-muted">* 숫자, 영문자 조합하여 최소 8자리</small>
-                      <form:errors path="user_pw" style="color:red;" />
-                    </div>                   
-                    <div class="form-group">
-                      <form:label path="user_email">이메일</form:label>
-                      <form:input path="user_email" type="email" class="form-control" placeholder="email@email.com" />
-                      <form:errors path="user_email" style="color:red;" />
-                    </div>                   
-                    <div class="form-group">
-                      <form:label path="user_phone">연락처</form:label>
-                      <form:input path="user_phone" class="form-control" placeholder="'-' 을 제외한 11자리" />
-                      <form:errors path="user_phone" style="color:red;" />
-                    </div>                  
-                    <div class="form-group">
-                      <div class="text-right">
-                        <form:button class="btn btn-success">회원가입</form:button>
-                      </div> 
-                    </div>                  
-                    </form:form>
+<div class="join-body">
+	<div class="container h-100 d-flex align-items-center">
+		<div class="row w-100">
+			<div class="col-sm-3"></div>
+			<div class="col-sm-6">
+				<div class="card back-color">
+					<header class="card-header">
+						<a href="${root }user/login" class="float-right btn btn-outline-info mt-2" style="padding: 3px 11px;">로그인</a>
+						<h4 class="card-title mt-2">회원가입</h4>
+					</header>
+					<div class="card-body">
+						<div class="text-center">
+							<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
+						</div>
+	                    <form:form action="${root }user/join_proc" method="post" modelAttribute="joinUserDTO">
+	                    <form:hidden path="inputUserID" />
+	                    <div class="form-group" >
+	                    	<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-id-card"></i></span>
+								</div>
+		                      <form:input path="user_name" class="form-control" placeholder="이름"/>
+							</div>
+	                      <small id="pwHelp" class="form-text text-muted">&nbsp* 이름은 다른 유저에게 노출되지 않습니다.</small>
+	                      <form:errors path="user_name" class="small warning-color" />
+	                    </div>    
+	                    <div class="form-group" >
+	                      <div class="input-group">
+	                        <form:input path="user_id" class="form-control" placeholder="ID" onkeypress="resetinputUserID()"/>
+	                        <div class="input-group-append">
+	                          <button type="button" class="btn btn-secondary" onClick="checkID();">&nbsp<i class="fas fa-user-check"></i>&nbsp</button>
+	                        </div>
+	                      </div>
+	                      <form:errors path="user_id" class="small warning-color" />
+	                    </div>                
+	                    <div class="form-group">
+	                    	<div class="input-group">
+								<div class="input-group-prepend">
+									<span class="input-group-text"><i class="fas fa-key"></i></span>
+								</div>
+		                      <form:password path="user_pw" class="form-control" placeholder="비밀번호" />
+							</div>
+	                      <small id="pwHelp" class="form-text text-muted">&nbsp* 숫자, 영문자 조합하여 최소 8자리</small>
+	                      <form:errors path="user_pw" class="small warning-color" />
+	                    </div>                   
+	                    <div class="form-group">
+	                      <div class="input-group">
+	                       	<div class="input-group-prepend">
+	                          	<span class="input-group-text"><i class="fas fa-at"></i></span>
+	                       	</div>
+		                    <form:input path="user_email" type="email" class="form-control" placeholder="useremail@email.com" />
+	                      </div>
+	                      <form:errors path="user_email" class="small warning-color" />
+	                    </div>                   
+	                    <div class="form-group">
+	                      <div class="input-group">
+	                       	<div class="input-group-prepend">
+	                          	<span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+	                       	</div>
+		                    <form:input path="user_phone" class="form-control" placeholder="'-' 을 제외한 11자리 연락처" />
+	                      </div>
+	                      <form:errors path="user_phone" class="small warning-color" />
+	                    </div>   
+	                    <hr>               
+	                    <div class="form-group text-right">
+	                        <form:button class="btn btn-success col-sm-3"><i class="fas fa-check"></i></form:button>
+	                    </div>                  
+	                    </form:form>
+					</div>
 				</div>
 			</div>
+			<div class="col-sm-3"></div>
 		</div>
-		<div class="col-sm-3"></div>
 	</div>
 </div>
 
 
-
-<!-- 하단 정보 -->  
-<c:import url="/WEB-INF/view/include/footer.jsp" />
 
 
 
