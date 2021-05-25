@@ -23,11 +23,11 @@
          <a href="${root }" class="navbar-brand pr-5"><img src="${root }images/logo.png" style="height: 60px"></a>
          <div id="navMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav">
-               <li class="nav-item"><a class="nav-link" href="${root }spot/main">여행지</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }together/list">같이가치</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }spot/main">여행지</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }together/list">같이가치</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
             </ul>
           <ul class="navbar-nav ml-auto">
             <c:choose>

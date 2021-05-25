@@ -166,39 +166,30 @@ public class UserController {
 	@GetMapping("/my_page")
 	public String myPage(Model model) {
 		
-		try {
-			List<PlanDTO> myPlan
-			= userService.getMyPlan(loginUserDTO.getUser_no());
-			model.addAttribute("myPlan", myPlan);
-			
-			String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
-			String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());	
-			model.addAttribute("myPublicCount", myPublicCount);
-			model.addAttribute("myPrivatCount", myPrivatCount);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
 		
+		String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());	
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+	
 		return "user/my_page";
 	}
 
 	@GetMapping("/my_page_disable")
 	public String myPageDisable(Model model) {
 		
-		try {
-			List<PlanDTO> myPlan
-			= userService.getMyPlan(loginUserDTO.getUser_no());
-			model.addAttribute("myPlan", myPlan);
-			
-			String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
-			String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());
-			model.addAttribute("myPublicCount", myPublicCount);
-			model.addAttribute("myPrivatCount", myPrivatCount);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+
 		
 		return "user/my_page_disable";
 	}
