@@ -20,11 +20,12 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 100px">
+	<div class="container" style="padding-top: 150px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>
 		<hr>
+		<br>
 		<table class="table table-hover">
 			<thead>
 				<tr>

@@ -37,4 +37,18 @@ SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='notice_SEQ';
 -- notice 테이블 시퀀스(notice_SEQ) 'NEXTVAL' 값 조회
 SELECT notice_SEQ.NEXTVAL FROM DUAL;
 -------------------------------------------------------------------------------------------------------------------------------
+
+-- 이전글, 다음글 쿼리문
+SELECT N.*
+FROM (
+    SELECT
+        notice_no,
+        LEAD(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS NEXT_NO,
+        LEAD(NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS NEXT_TITLE,
+        LAG(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS PRE_NO,
+        LAG(NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS PRE_TITLE
+    FROM NOTICE
+) N
+WHERE N.notice_no = 1;
+-------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------
