@@ -31,7 +31,7 @@
 
 </style>
 
-      <nav class="navbar navbar-expand-md navbar-white fixed-top sm" style="padding: 10px 30px;">
+      <nav class="navbar navbar-expand-md navbar-white fixed-top sm bg-white" style="padding: 10px 30px;">
          <a href="${root }" class="navbar-brand pr-5"><img src="${root }images/logo.png" style="height: 60px"></a>
          <div id="navMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav">

@@ -93,6 +93,19 @@ a{
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
+.card_hover {
+   position: relative;
+}
+      
+.card_hover span{
+   position: absolute;
+   top: 0;
+   left: 0;
+   background: rgba(0, 0, 0, 0.5);
+   color: white;
+   padding: 3px 6px;
+   border-radius: 3px;
+}
 
 .card_hover a{
 	color:black;

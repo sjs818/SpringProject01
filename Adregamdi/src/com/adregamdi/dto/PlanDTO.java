@@ -11,4 +11,5 @@ public class PlanDTO {
 	private String plan_info;
 	private String plan_img;
 	private String plan_private;
+	private String plan_term;
 }

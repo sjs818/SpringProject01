@@ -56,6 +56,7 @@
 					<c:if test="${planDTO.plan_private eq '1' }">
 						<div class="col-sm-3">
 							<div class="card mb-3 card_hover">
+								<span>${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
 								<c:choose>
 									<c:when test="${planDTO.plan_img ne null }">
 										<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
