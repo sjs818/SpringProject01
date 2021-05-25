@@ -28,21 +28,21 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 </head>
-<body class="modify-body">
+<body>
 
 
-
-	<div class="container user-top">
-		<div class="row">
+<div class="modify-body">
+	<div class="container h-100 d-flex align-items-center">
+		<div class="row w-100">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
-				<div class="card shadow">
+				<div class="card back-color">
 					<header class="card-header">
 						<a href="${root }user/my_page" class="float-right btn btn-success mt-2 ml-2 btn-sm">마이페이지</a>
 						<a href="${root }user/delete" class="float-right btn btn-outline-danger mt-2 btn-sm">회원탈퇴</a>
 						<h4 class="card-title mt-2">회원정보수정</h4>
 					</header>
-					<div class="card-body back-color">
+					<div class="card-body">
 						<div class="text-center">
 							<a href="${root}"><img class="mb-4" src="${root }images/logo.png" height="75"></a>
 						</div>
@@ -119,7 +119,7 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
-
+</div>
 
 </body>
 </html>

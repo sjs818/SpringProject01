@@ -2,7 +2,6 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>  
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-
 <!-- 절대 경로 설정 -->
 <c:set var="root" value="${pageContext.request.contextPath }/" />
   
@@ -27,19 +26,28 @@
     <h3 class="InputSubject">
       <b>같이가치</b>
     </h3>
+    <h6>&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
     <hr>
     <div class="row">
       <div class="col-sm-2"></div>
       <div class="col-sm-8">
-        <div class="card shadow">
-          <div class="card-body">
-              <div class="form-group">
+        <div class="panel">
+          <div class="panel-body">
+              <div class="form-group" >
                 <label for="to_title">제목</label>
-                <input type="text" id="to_title" class="form-control" value="${readContentDTO.to_title }" disabled="disabled"/>
+                <div class="card">
+                 <div class="card-body" style="padding-top : 10px; padding-bottom : 10px;">
+    				${readContentDTO.to_title }	
+                 </div>
+              </div>
               </div>  
 			  <div class="form-group">
                  <label for="to_content">공고문</label>
-                 <textarea id="to_content" name="to_content" class="form-control" rows="10" style="resize:none" disabled="disabled">${readContentDTO.to_content}</textarea>
+                 <div class="card" >
+                 <div class="card-body overflow-auto " style="max-height :300px">
+    				${readContentDTO.to_content }	
+                  </div>
+                </div>
               </div>
               <div class="form-group">
                 <div class="col-sm-15 text-right">

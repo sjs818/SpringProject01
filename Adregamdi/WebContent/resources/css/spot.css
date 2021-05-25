@@ -3,12 +3,33 @@
 	box-sizing: border-box;
 }
 
+@font-face {
+	font-family: 'Bazzi';
+	src:
+		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
+		format('woff');
+	font-weight: normal;
+	font-style: normal;
+}
+
 body {
 	background: #f1f1f1;
 	margin: 2rem;
 }
-/* $color_grey: #e2e2e2;
- */
+
+body, h1, h2, h3, div {
+	font-family: 'Bazzi';
+}
+
+.aTagSet {
+	color: #007bff;
+}
+
+.aTagSet:hover {
+	color : #e6b301;
+	cursor: Pointer;
+}
+
 .blog-card {
 	display: flex;
 	flex-direction: column;
@@ -281,4 +302,28 @@ ul {
 .pagination li:last-child {
   border-top-right-radius: 5px;
   border-bottom-right-radius: 5px;
+}
+
+.plus {
+	padding: 20px;
+	border: 1px solid;
+	text-align : center;
+}
+
+.left {
+	width: 50%;
+	height: 200px;
+	padding: 20px;
+	align: center;
+}
+.right {
+	width: 50%;
+	padding: 20px;
+	border-left: 1px dashed #cfcbc0;
+}
+
+.overview {
+	overflow: scroll;
+	height: 700px;
+	width: 100%;
 }
