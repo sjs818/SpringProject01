@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
@@ -19,6 +19,7 @@ import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
@@ -31,6 +32,8 @@ public class SpotController {
 	@Autowired
 	SpotService spotService;
 	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
 
 	
 	@Autowired
@@ -126,7 +129,6 @@ public class SpotController {
 		
 		model.addAttribute("information", information);
 		
-		
 		// 리뷰 내용 출력
 		
 		System.out.println("contentId : "+contentId);
@@ -136,8 +138,15 @@ public class SpotController {
 		model.addAttribute("reviewList", reviewList);
 		model.addAttribute("reviewSize", reviewSize);
 		
+		int loginCheck = loginUserDTO.getUser_no();
+		if(loginCheck == 0)
+			model.addAttribute("loginCheck", loginCheck);
+		else
+			model.addAttribute("loginUserDTO", loginUserDTO);
+		
 		return "spot/review";
 	}
+	
 	/*
 	@ResponseBody
 	@GetMapping("/write_proc")

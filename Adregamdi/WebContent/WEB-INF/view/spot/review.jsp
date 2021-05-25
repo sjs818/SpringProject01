@@ -164,15 +164,17 @@ $(function() {
 	
 	
 	<div class="container" style="margin-top:20px; margin-bottom: 100px;">		
-		<div class="input-group" >
-			<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
-			<input type="hidden" id="review_contentId" value="${contentId }"/>
-			<div class="input-group-append" id="review_btn">
-				<span class="input-group-text" style="background: #e9e9e9;">
-					<i class="fas fa-pen"></i>
-				</span>
-			</div>
-		</div>			
+		<c:if test="${loginCheck != 0}">
+			<div class="input-group" >
+				<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
+				<input type="hidden" id="review_contentId" value="${contentId }"/>
+				<div class="input-group-append" id="review_btn">
+					<span class="input-group-text" style="background: #e9e9e9;">
+						<i class="fas fa-pen"></i>
+					</span>
+				</div>
+			</div>			
+		</c:if>
 		<div>
 			<c:if test="${reviewSize != 0 }" >
 				<div class="card-body">
