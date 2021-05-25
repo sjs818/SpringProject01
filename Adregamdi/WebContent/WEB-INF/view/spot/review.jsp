@@ -52,18 +52,6 @@ $(function() {
 </script>
  -->
 <style>
-@font-face {
-	font-family: 'Bazzi';
-	src:
-		url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff')
-		format('woff');
-	font-weight: normal;
-	font-style: normal;
-}
-
-body, h1, h2, h3, div {
-	font-family: 'Bazzi';
-}
 
 .plus {
 	padding: 20px;

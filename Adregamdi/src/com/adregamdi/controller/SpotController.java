@@ -17,14 +17,12 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
-import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
 
 @Controller
-@RequestMapping("/spot")
 public class SpotController {
 	
 	private static int totalCount;
@@ -37,13 +35,13 @@ public class SpotController {
 	@Autowired
 	private VisitKoreaAPI spot;
 
-	@GetMapping("/main")
+	@GetMapping("/spot/main")
 	public String spotMain(@RequestParam(value="currentPage", defaultValue="1")String currentPage,
 			@RequestParam(value="sigunguCode", defaultValue="")String sigunguCode, @RequestParam(value="contentTypeId", defaultValue="")String contentTypeId, 
 			 Model model ) throws Exception {
 		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
-		System.out.println("totalCount : "+totalCount);
+		// System.out.println("totalCount : "+totalCount);
 		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
 		model.addAttribute("sigunguCode", sigunguCode);
 		model.addAttribute("contentTypeId", contentTypeId);		
@@ -52,7 +50,7 @@ public class SpotController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/information")
+	@GetMapping("/spot/information")
 	public List<VisitKoreaDTO> getSpotInfo2(VisitKoreaDTO visitKoreaDTO, Model model) throws Exception {
 		
 		
@@ -71,7 +69,7 @@ public class SpotController {
 	}
 	
 	@ResponseBody
-	@GetMapping("/best")
+	@GetMapping("/spot/best")
 	public List<VisitKoreaDTO> getBestSpotInfo(VisitKoreaDTO visitKoreaDTO) throws SAXException, IOException, ParserConfigurationException {
 		
 		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
@@ -81,15 +79,14 @@ public class SpotController {
 		// 현재 페이지에서 Best 3
 		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*10) + 1 ;
 		int range_max = range_min + 9;
-		System.out.println("min : "+range_min + " max : "+range_max);
-		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
 		
-		System.out.println("bestContentId : "+bestContentId.toString());
+		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
+				
 		return spot.getBestInformation(visitKoreaDTO, totalCount, bestContentId);
 	}
 	
 	@ResponseBody
-	@GetMapping("/details")
+	@GetMapping("/spot/details")
 	public List<String> getDetailsInfo(String contentId, String contentTypeId) throws Exception {
 		
 		VisitKoreaDTO visitKoreaDTO = new VisitKoreaDTO();
@@ -101,7 +98,7 @@ public class SpotController {
 	}	
 	
 	@ResponseBody
-	@GetMapping("/keyword")
+	@GetMapping("/spot/keyword")
 	public List<VisitKoreaDTO> getKeywordInfo(VisitKoreaDTO visitKoreaDTO, String keyword, Model model) throws Exception {
 		
 		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
@@ -112,7 +109,7 @@ public class SpotController {
 	}
 	
 	
-	@GetMapping("/review") 
+	@GetMapping("/spot/review") 
 	public String review(@RequestParam ("contentId")String contentId, @RequestParam("contentTypeId")String contentTypeId, Model model) throws Exception {
 		
 		// 관광지 정보 출력
@@ -150,7 +147,7 @@ public class SpotController {
 	*/
 	
 	@ResponseBody
-	@GetMapping("/likeProc")
+	@GetMapping("/spot/likeProc")
 	public ArrayList<SpotDTO> likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
 		
 		/*
@@ -173,7 +170,7 @@ public class SpotController {
 		
 		spotService.plusLikeCnt(contentId);
 				
-		System.out.println(spotDTO.get(0));
+		//System.out.println(spotDTO.get(0));
 		
 		return spotDTO;
 	}
