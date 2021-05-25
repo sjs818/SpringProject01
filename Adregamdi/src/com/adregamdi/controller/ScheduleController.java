@@ -129,7 +129,7 @@ public class ScheduleController {
 	
 	@ResponseBody
 	@GetMapping("/detail")
-	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
+	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws Exception {
 		return visitKoreaAPI.getEachInformation(visitKoreaDTO);
 	}
 	

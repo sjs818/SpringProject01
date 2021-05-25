@@ -215,7 +215,7 @@ function testData(data, contentTypeId, contentId) {
 		}
 	}		
 	
-	$("#detailBtn").attr("href", "${root}spot/review?contentId="+contentId+"&contentTypeId="+contentTypeId);
+	$("#detailBtn").attr("href", "review?contentId="+contentId+"&contentTypeId="+contentTypeId);
 	$("#modalPhoto").attr("src",data[0]);
 	$("#modalTitle").text(data[1]);
 	$("#modalOverview").html(data[2]);
