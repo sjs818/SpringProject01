@@ -47,12 +47,12 @@
 				<a href="${root }user/modify" class="float-right btn btn-success" style="padding: 3px 10px;">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp
-						<c:if test="${myPublicCount ne '0' }">
+						<c:if test="${myPublicCount != '0' }">
 							<span class="badge badge-secondary"> ${myPublicCount }</span>
 						</c:if>
 					</a></li>
 					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page_disable">숨긴일정&nbsp
-						<c:if test="${myPrivateCount ne '0' }">
+						<c:if test="${myPrivatCount != '0' }">
 							<span class="badge badge-success"> ${myPrivatCount }</span>
 						</c:if>
 					</a></li>
@@ -61,11 +61,11 @@
 			<div class="row mx-3 my-3 .content-box_disable">
 				<c:choose>	
 				
-					<c:when test="${myPrivateCount eq '0' }">
+					<c:when test="${myPrivatCount eq '0' }">
 						<div class="col-sm-12 text-center">
 						<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
 						  <div class="container">
-						    <h1 class="display-5">나의 일정이 비어있습니다...<i class="far fa-sad-tear"></i></h1>
+						    <h1 class="display-5">나의 숨긴일정이 비어있습니다...<i class="far fa-sad-tear"></i></h1>
 						    <p class="lead">아래 버튼을 눌러 나만의 특별한 제주도 여행을 스케줄링하고 다른 사람들과 공유하세요!</p>
 						  </div>
 						</div>
