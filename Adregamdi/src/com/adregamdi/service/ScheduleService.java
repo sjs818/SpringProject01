@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,9 +33,21 @@ public class ScheduleService {
 	private String path_plan_img;
 	
 	public PageDTO getContentCnt(int currentPage, int listCnt, int pagination) {
-		int contentCnt = 10;
+		
+		int contentCnt = scheduleDAO.getContentCnt();
+		
 		PageDTO pageDTO = new PageDTO(contentCnt, currentPage, listCnt, pagination);
+		
 		return pageDTO;
+	}
+	
+	public List<PlanDTO> getPlanList(int page, int listCnt) {
+		
+		int start = (page - 1) * listCnt;
+		
+		RowBounds rowbounds = new RowBounds(start, listCnt);
+		
+		return scheduleDAO.getPlanList(rowbounds);
 	}
 	
 	public boolean createPlan(PlanDTO planDTO) {

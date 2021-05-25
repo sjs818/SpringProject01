@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.simple.parser.ParseException;
@@ -23,6 +24,7 @@ import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.PlanImgDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.UserPlanDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.ScheduleService;
@@ -39,18 +41,25 @@ public class ScheduleController {
 	@Autowired
 	private VisitKoreaAPI visitKoreaAPI;
 	
+	@Resource(name = "loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	@GetMapping("/list")
 	public String list(@RequestParam("page") int page, Model model) {
 		
-		PageDTO pageDTO = scheduleService.getContentCnt(page, 4, 10);
+		List<PlanDTO> planList = scheduleService.getPlanList(page, 8);
+		PageDTO pageDTO = scheduleService.getContentCnt(page, 8, 10);
+		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("planList", planList);
 		
 		return "schedule/list";
 	}
 	
 	@PostMapping("/write")
 	public String write(@ModelAttribute PlanDTO planDTO, @RequestParam String plan_date, @RequestParam String plan_term, Model model) {
-		
+
 		scheduleService.createPlan(planDTO);
 		
 		model.addAttribute("plan_title", planDTO.getPlan_title());
