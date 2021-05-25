@@ -197,10 +197,15 @@ public class VisitKoreaAPI {
 				Node node = spotInfo.get(i).item(j);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element element = (Element) node;
-					if (getTagValue("firstimage2", element) == null) {
-						spot.setFirstImage("/images/schedule/thumbnail.png");
+					if (getTagValue("firstimage", element) == null) {
+						spot.setFirstImage("/images/schedule/thumbnail.jpg");
 					} else {
 						spot.setFirstImage(getTagValue("firstimage", element));
+					}
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+					} else {
+						spot.setFirstImage2(getTagValue("firstimage2", element));
 					}
 					spot.setTitle(getTagValue("title", element));
 					if (!visitKoreaDTO.getContentTypeId().equals("25")) {

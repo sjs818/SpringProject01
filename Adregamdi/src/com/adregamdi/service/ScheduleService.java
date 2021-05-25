@@ -67,6 +67,7 @@ public class ScheduleService {
 			UserPlanDTO plan = new UserPlanDTO();
 			JSONObject obj = (JSONObject) arr.get(i);
 			plan.setPlan_no(Integer.parseInt(obj.get("planNo").toString()));
+			plan.setUser_no(Integer.parseInt(obj.get("user_no").toString()));
 			plan.setTitle(obj.get("title").toString());
 			plan.setPlanDate(obj.get("planDate").toString());
 			plan.setPlanDay(obj.get("planDay").toString());
@@ -84,7 +85,7 @@ public class ScheduleService {
 		return schedule;
 	}
 	
-	public List<UserPlanDTO> convertUserPlan(String data) throws ParseException {
+	public List<UserPlanDTO> convertUserPlan(String data, int user_no) throws ParseException {
 		List<UserPlanDTO> list = new ArrayList<UserPlanDTO>();
 		JSONParser parser = new JSONParser();
 		JSONObject object = (JSONObject) parser.parse(data);
@@ -93,6 +94,7 @@ public class ScheduleService {
 			UserPlanDTO plan = new UserPlanDTO();
 			JSONObject obj = (JSONObject) arr.get(i);
 			plan.setPlan_no(Integer.parseInt((String)obj.get("planno")));
+			plan.setUser_no(user_no);
 			plan.setTitle((String)obj.get("title"));
 			plan.setContentId((String)obj.get("contentId"));
 			plan.setContentTypeId((String)obj.get("contentTypeId"));
