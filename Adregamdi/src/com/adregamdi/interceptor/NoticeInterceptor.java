@@ -1,5 +1,5 @@
 package com.adregamdi.interceptor;
 
-public class NoticeInterceptor {
-
+public class NoticeInterceptor{
+	
 }
