@@ -3,26 +3,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
-
-<!-- 글꼴 -->
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css2?family=Stylish&display=swap" rel="stylesheet">
-
 <style>
-     
-   .navbar{
-   	box-shadow: 0 2px 10px rgba(135,135,135,0.15);
-   	border-bottom:1px solid #eee;
-   } 
-    
   .navbar a {
      font-size: 25px;
      color:black;
   }
   
   a:hover{
-       text-decoration: none;
-       color:orange;
+  	text-decoration: none;
+    color:orange;
   }
   
   .wrapper {
@@ -30,15 +19,15 @@
   }
 </style>
 
-      <nav class="navbar navbar-expand-md navbar-white fixed-top sm" style="padding: 10px 30px;">
+      <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white shadow sm" style="padding: 8px 30px;">
          <a href="${root }" class="navbar-brand pr-5"><img src="${root }images/logo.png" style="height: 60px"></a>
          <div id="navMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav">
-               <li class="nav-item"><a class="nav-link" href="${root }spot/main">여행지</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }together/list">같이가치</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }spot/main">여행지</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }together/list">같이가치</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
             </ul>
           <ul class="navbar-nav ml-auto">
             <c:choose>

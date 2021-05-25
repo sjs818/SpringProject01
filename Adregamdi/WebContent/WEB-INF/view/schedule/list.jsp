@@ -20,6 +20,10 @@
 	<script>
 		$(function() {
 			$('#newPlan').click(function(){
+				if($('#user_no').val() == 0) {
+					alert('로그인을 하셔야 글쓰기가 가능합니다.');
+					location.href = '${root }user/login'
+				}
 				$('#newPlanModal').modal("show");
 			});
 			
@@ -69,7 +73,29 @@
   	body {
       font-family: 'Bazzi';
     }
-	
+		
+		.card-header {
+			padding : 20px;
+		}
+		
+		.card-header p{
+			margin : 0;
+		}
+		
+		.card_hover {
+			position: relative;
+		}
+		
+		.card_hover span{
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.5);
+			color: white;
+			padding: 3px 6px;
+			border-radius: 3px;
+		}
+		
 		.modal-footer {
 			position: relative;
 		}
@@ -133,45 +159,43 @@
 	<title>Document</title>
 </head>
 <body>
-
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
   <!-- Main -->
 		
 		<!-- Content -->
-		<div class="container" style="margin-top:150px"> 
+		<div class="container" style="margin-top:150px; margin-bottom:150px"> 
 			<div class="card shadow">
 			  
 			  <div class="card-header">
-			  	<h1>title</h1>
-			  	<p>explanation</p>
+			  	<h3>여행 일정 공유</h3>
+			  	<p>나만의 여행 일정을 만들고 공유해보세요!</p>
 			  </div>
 			 	
 			 	<div class="card-body">
-				  <div class="row">
-					  <c:forEach var="dto" items="${scheduleList }">
-						  <div class="card col-3">
-					  		<h4><a href="${root }schedule/read">${dto.schedule_title }</a></h4>
-					  		<table>
-						  		<tr>
-						  			<th colspan="2">작성자</th>
-						  			<td colspan="2">${dto.schedule_writer }</td>
-						  		<tr>
-						  		<tr>
-						  			<th colspan="2">작성일</th>
-						  			<td colspan="2">${dto.schedule_date }</td>
-						  		</tr>
-						  		<tr>
-						  			<th>조회수</th>
-						  			<td>0</td>
-						  			<th>추천수</th>
-						  			<td>0</td>
-						  		</tr>
-					  		</table>
-						  </div>
-					  </c:forEach>
-				  </div>
+				  <div class="row mx-3 my-3 content-box" style=" margin-bottom: 50px;">
+						<c:forEach var="planDTO" items="${planList }" >
+								<div class="col-sm-3">
+									<div class="card mb-3 card_hover">
+										<span>${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
+										<c:choose>
+											<c:when test="${planDTO.plan_img ne null }">
+												<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+											</c:when>
+											<c:when test="${planDTO.plan_img eq null }">
+												<a href="#"><img src="${root }images/schedule/thumbnail.jpg" class="card-img-top" height="120" alt="일정으로"></a>
+											</c:when>
+										</c:choose>
+										<div class="card-body" style="padding: 10px;">
+											<p class="card-title lead ellipsis-title">${planDTO.plan_title }</p>
+											<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
+											<a href="#" class="btn btn-primary" style="float: right; padding: 3px 6px;">자세히 보기</a>
+										</div>
+									</div>
+								</div>
+						</c:forEach>
+					</div> 
 				  
 					<div class="d-none d-md-block" style="margin-top:20px;">
 				 		<ul class="pagination justify-content-center">
@@ -212,10 +236,11 @@
 	  			</div>
 	  			<form id="writeNewPlan" action="${root }schedule/write" method="post">
 	  				<div class="modal-body">
+	  					<input type="hidden" id="user_no" name="user_no" value="${loginUserDTO.user_no }" >
 	  					<input type="hidden" id="plan_term" name="plan_term">
 	  					<input type="hidden" name="plan_info" value="내용을 입력해주세요.">
 	  					<input type="hidden" id="plan_private" name="plan_private" value="N">
-	  					<input type="hidden" name="plan_img" value="/images/schedule/thumbnail.png">
+	  					<input type="hidden" name="plan_img" value="/images/schedule/thumbnail.jpg">
 	  					<div class="form-group">
 	  						<label for="plan_title">일정 제목</label>
 	  						<input type="text" class="form-control" id="plan_title" name="plan_title" style="width:100%">

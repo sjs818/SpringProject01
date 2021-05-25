@@ -22,8 +22,7 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
-	// final String serviceKey =
-	// "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
+	final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
@@ -198,10 +197,15 @@ public class VisitKoreaAPI {
 				Node node = spotInfo.get(i).item(j);
 				if (node.getNodeType() == Node.ELEMENT_NODE) {
 					Element element = (Element) node;
-					if (getTagValue("firstimage2", element) == null) {
-						spot.setFirstImage("/images/schedule/thumbnail.png");
+					if (getTagValue("firstimage", element) == null) {
+						spot.setFirstImage("/images/schedule/thumbnail.jpg");
 					} else {
 						spot.setFirstImage(getTagValue("firstimage", element));
+					}
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+					} else {
+						spot.setFirstImage2(getTagValue("firstimage2", element));
 					}
 					spot.setTitle(getTagValue("title", element));
 					if (!visitKoreaDTO.getContentTypeId().equals("25")) {
@@ -494,5 +498,6 @@ public class VisitKoreaAPI {
 			result.add(spot);
 		}
 		return result;
-  } 
+	}
 }
+	
