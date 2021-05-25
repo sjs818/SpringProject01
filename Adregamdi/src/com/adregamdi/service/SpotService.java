@@ -41,18 +41,21 @@ public class SpotService {
 	
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
+		
+		System.out.println("review Service : contentId : "+content_id);
+		
 		return spotDAO.getReviewInfo(content_id);
 	}
-	/*
-	public void inputReview(ReviewDTO reviewDTO) {
+	
+	public void inputReview(ReviewDTO writeReviewDTO) {
 		
-		reviewDTO.setUser_no(loginUserDTO.getUser_no());
-		reviewDTO.setUser_name(loginUserDTO.getUser_name());
+		writeReviewDTO.setUser_no(loginUserDTO.getUser_no());
+		writeReviewDTO.setUser_name(loginUserDTO.getUser_name());
 		
-		System.out.println("user_no : "+loginUserDTO.getUser_no());
-		System.out.println("user_name : "+loginUserDTO.getUser_name());
-		
-		
-		spotDAO.inputReview(reviewDTO);
-	}*/
+		spotDAO.inputReview(writeReviewDTO);
+	}
+	
+	public void plusReviewCnt(String content_id) {
+		spotDAO.plusReviewCnt(content_id);
+	}
 }

@@ -129,9 +129,8 @@ public class SpotController {
 		
 		model.addAttribute("information", information);
 		
-		// 리뷰 내용 출력
 		
-		System.out.println("contentId : "+contentId);
+		// 리뷰 내용 출력
 		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
 		int reviewSize = reviewList.size();
 		
@@ -139,24 +138,25 @@ public class SpotController {
 		model.addAttribute("reviewSize", reviewSize);
 		
 		int loginCheck = loginUserDTO.getUser_no();
-		if(loginCheck == 0)
-			model.addAttribute("loginCheck", loginCheck);
-		else
-			model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("loginCheck", loginCheck);
 		
 		return "spot/review";
 	}
 	
-	/*
+	
 	@ResponseBody
-	@GetMapping("/write_proc")
+	@GetMapping("/spot/write_proc")
 	public void writeProc(@RequestParam("contentId")String contentId, @RequestParam("content")String content) {
 		
 		ReviewDTO writeReviewDTO = new ReviewDTO();
 		
+		writeReviewDTO.setContent_id(contentId);
+		writeReviewDTO.setReview_content(content);
+		
 		spotService.inputReview(writeReviewDTO);
+		spotService.plusReviewCnt(contentId);		
 	}
-	*/
+	
 	
 	@ResponseBody
 	@GetMapping("/spot/likeProc")

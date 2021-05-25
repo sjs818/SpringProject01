@@ -32,13 +32,19 @@ public class SpotDAO {
 	}
 	
 	
-	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
-		System.out.println("result : " + spotMapper.getReviewInfo(content_id).size());
-		return spotMapper.getReviewInfo(content_id);
+		ArrayList<ReviewDTO> reviewDTO = spotMapper.getReviewInfo(content_id);
+		
+		System.out.println(reviewDTO.toString());
+		
+		return reviewDTO;
 	}
-	/*
+	
 	public void inputReview(ReviewDTO reviewDTO) {
 		spotMapper.inputReview(reviewDTO);
-	}*/
+	}
+	
+	public void plusReviewCnt(String content_id) {
+		spotMapper.plusReviewCnt(content_id);
+	}
 }
