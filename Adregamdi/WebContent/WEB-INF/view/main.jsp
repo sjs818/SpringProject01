@@ -56,6 +56,10 @@
      padding: 30px;
   }
   
+  .footer h3, .footer h5{
+  	color:#d3d3d3;
+  }
+  
   .wrapper .overview {
      position:absolute;
      top: 30%;
@@ -65,7 +69,6 @@
   
   .wrapper .overview .button {
      display: block;
-     max-width: 180px;
      height: 50px;
      font-size: 20px;
      border: 3px solid white;
@@ -83,11 +86,11 @@
          <a href="${root }" class="navbar-brand pr-5"><img src="${root }images/logo_2.png" style="height: 60px"></a>
          <div id="navMenu" class="collapse navbar-collapse">
             <ul class="navbar-nav">
-               <li class="nav-item"><a class="nav-link" href="${root }spot/main">여행지</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }together/list">같이가치</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
-               <li class="nav-item"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }spot/main">여행지</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }schedule/list?page=1">여행일정</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }together/list">같이가치</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }freedom/list">자유게시판</a></li>
+               <li class="nav-item mr-3"><a class="nav-link" href="${root }notice/list">공지사항</a></li>
             </ul>
           <ul class="navbar-nav ml-auto">
             <c:choose>
@@ -111,8 +114,10 @@
          <h1>어드레감디는...</h1>
          <h2>"어디로 가느냐?"라는 뜻의 제주도 방언으로,<br> 제주도 여행에 대한 정보를 공유하는 커뮤니티입니다.</h2>
          <br>
-         <a href="${root }schedule/list?page=1"><div class="button float-right">&nbsp&nbsp&nbsp<i class="fas fa-suitcase-rolling"></i>&nbsp나만의 일정 만들기&nbsp&nbsp&nbsp</div></a>
-         <a href="${root }spot/main"><div class="button float-right">&nbsp&nbsp&nbsp<i class="fas fa-plane"></i>&nbsp여행지 둘러보기&nbsp&nbsp&nbsp</div></a>
+         <a href="${root }schedule/list?page=1"><div class="button float-right" style="width:190px;">
+         	<i class="fas fa-suitcase-rolling"></i>&nbsp나만의 일정 만들기</div></a>
+         <a href="${root }spot/main"><div class="button float-right" style="width:180px;">
+         	<i class="fas fa-plane"></i>&nbsp여행지 둘러보기</div></a>
       </div>
       <div class="footer">
          <h3>어드레감디?</h3>

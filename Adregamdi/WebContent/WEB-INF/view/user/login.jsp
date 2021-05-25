@@ -29,7 +29,7 @@
 </head>
 <body>
 
-<div class="login-body">
+<div class="login-img">
 	<div class="container h-100 d-flex align-items-center">
 		<div class="row w-100">
 			<div class="col-sm-6">

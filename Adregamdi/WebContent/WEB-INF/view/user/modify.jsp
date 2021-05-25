@@ -31,7 +31,7 @@
 <body>
 
 
-<div class="modify-body">
+<div class="modify-img">
 	<div class="container h-100 d-flex align-items-center">
 		<div class="row w-100">
 			<div class="col-sm-3"></div>
