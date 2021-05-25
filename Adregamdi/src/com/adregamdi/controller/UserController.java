@@ -170,8 +170,8 @@ public class UserController {
 		= userService.getMyPlan(loginUserDTO.getUser_no());
 		model.addAttribute("myPlan", myPlan);
 		
-		String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
-		String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());	
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());	
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
 	
@@ -185,8 +185,8 @@ public class UserController {
 		= userService.getMyPlan(loginUserDTO.getUser_no());
 		model.addAttribute("myPlan", myPlan);
 		
-		String myPublicCount = userService.getPlanCount(loginUserDTO.getUser_no());
-		String myPrivatCount = userService.getPlanCount(loginUserDTO.getUser_no());
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
 

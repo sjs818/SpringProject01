@@ -114,8 +114,12 @@ public class UserService {
 	}
 
 
-	public String getPlanCount(int user_no) {
-		return userDAO.getPlanCount(user_no);
+	public String getPrivateCount(int user_no) {
+		return userDAO.getPrivateCount(user_no);
+	}
+	
+	public String getPublicCount(int user_no) {
+		return userDAO.getPublicCount(user_no);
 	}
 	
 

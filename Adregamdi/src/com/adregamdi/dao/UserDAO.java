@@ -69,8 +69,12 @@ public class UserDAO {
 	}
 
 
-	public String getPlanCount(int user_no) {
-		return userMapper.getPlanCount(user_no);
+	public String getPrivateCount(int user_no) {
+		return userMapper.getPrivateCount(user_no);
+	}
+
+	public String getPublicCount(int user_no) {
+		return userMapper.getPublicCount(user_no);
 	}
 
 	
