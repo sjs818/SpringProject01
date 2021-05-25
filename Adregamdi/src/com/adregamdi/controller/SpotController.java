@@ -17,6 +17,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
@@ -127,12 +128,14 @@ public class SpotController {
 		
 		
 		// 리뷰 내용 출력
-		/*
+		
 		System.out.println("contentId : "+contentId);
 		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
-	
+		int reviewSize = reviewList.size();
+		
 		model.addAttribute("reviewList", reviewList);
-		*/
+		model.addAttribute("reviewSize", reviewSize);
+		
 		return "spot/review";
 	}
 	/*

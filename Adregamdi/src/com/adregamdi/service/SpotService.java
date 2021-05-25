@@ -9,6 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.SpotDAO;
+import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.dto.UserDTO;
 
@@ -38,11 +39,11 @@ public class SpotService {
 		return spotDAO.getBestSpotInfo(range_min, range_max);
 	}
 	
-	/*
+	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		return spotDAO.getReviewInfo(content_id);
 	}
-	
+	/*
 	public void inputReview(ReviewDTO reviewDTO) {
 		
 		reviewDTO.setUser_no(loginUserDTO.getUser_no());

@@ -162,8 +162,8 @@ $(function() {
 	</div>
 	
 	
-	<!-- 
-	<div class="container" style="margin-top:20px">		
+	
+	<div class="container" style="margin-top:20px; margin-bottom: 100px;">		
 		<div class="input-group" >
 			<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
 			<input type="hidden" id="review_contentId" value="${contentId }"/>
@@ -174,34 +174,36 @@ $(function() {
 			</div>
 		</div>			
 		<div>
-			<div class="card-body">
-				<table class="table table-hover" id='review_list'>
-					<thead>
-						<tr>
-							<th class="text-center d-none d-md-table-cell">글번호</th>
-							<th class="w-50">내용</th>
-							<th class="text-center d-none d-md-table-cell">작성자</th>
-							<th class="text-center d-none d-md-table-cell">작성날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="reviewDTO" items="${reviewList }">
+			<c:if test="${reviewSize != 0 }" >
+				<div class="card-body">
+					<table class="table table-hover" id='review_list'>
+						<thead>
 							<tr>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.user_no }</td>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
-							</tr>	
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+								<th class="text-center d-none d-md-table-cell">글번호</th>
+								<th class="w-50">내용</th>
+								<th class="text-center d-none d-md-table-cell">작성자</th>
+								<th class="text-center d-none d-md-table-cell">작성날짜</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="reviewDTO" items="${reviewList }">
+								<tr>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_no }</td>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
+								</tr>	
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
 		</div>
 	</div>
-	 -->
+	 
 
 	<!-- 하단 -->
-	<c:import url="/WEB-INF/view/include/footer.jsp" />
+	<%-- <c:import url="/WEB-INF/view/include/footer.jsp" /> --%>
 	
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

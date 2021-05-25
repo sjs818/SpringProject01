@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.ReviewDTO;
+import com.adregamdi.dto.SpotDTO;
 import com.adregamdi.mapper.SpotMapper;
 
 @Repository
@@ -30,12 +32,12 @@ public class SpotDAO {
 	}
 	
 	
-	/*
+	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		System.out.println("result : " + spotMapper.getReviewInfo(content_id).size());
 		return spotMapper.getReviewInfo(content_id);
 	}
-	
+	/*
 	public void inputReview(ReviewDTO reviewDTO) {
 		spotMapper.inputReview(reviewDTO);
 	}*/
