@@ -81,8 +81,8 @@ public class FreedomBoardService {
 		freedomBoardDAO.InsertFreedomBoardReply(replyWriteDTO);
 	}
 	
-	public boolean ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+	//댓글 수정
+	public void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardDAO.ModifyFreedomBoardReply(replyWriteDTO);
-		return true;
 	}
 }

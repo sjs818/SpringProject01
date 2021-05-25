@@ -1,13 +1,13 @@
 package com.adregamdi.controller;
 
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,14 +29,13 @@ public class FreedomBoardReplyController {
 	}
 	
 	@PostMapping("/replyWriteProc")
-	public Map<String, Object> BoardReplyWriteProc
-	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO) {
-		System.out.println(replyWriteDTO);
-		Map<String, Object> result = new HashMap<>();
+	public Map<String,Object> BoardReplyWriteProc(@RequestBody FreedomReplyDTO replyWriteDTO) {
+		Map<String,Object> result = new HashMap<>();
+		
 		try {
 			freedomBoardService.InsertFreedomBoardReply(replyWriteDTO);
-			result.put("status", "OK");
-		} catch(Exception e) {
+			result.put("status", "True");
+		}catch(Exception e) {
 			e.printStackTrace();
 			result.put("status", "False");
 		}
@@ -44,17 +43,17 @@ public class FreedomBoardReplyController {
 		return result;
 	}
 	
-	@GetMapping("/replyDeleteProc")
-	public String BoardReplyDeleteProc() {
-		return "";
-	}
-	
 	@PostMapping("/replyModifyProc")
-	public boolean BoardReplyModifyProc
-	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO) {
+	public Map<String,Object> BoardReplyModifyProc(@RequestBody FreedomReplyDTO replyWriteDTO) {
+		Map<String, Object> result = new HashMap<>();
+		try {
+			freedomBoardService.ModifyFreedomBoardReply(replyWriteDTO);
+			result.put("status", "True");
+		}catch(Exception e){
+			e.printStackTrace();
+			result.put("status", "False");
+		}
 		
-		freedomBoardService.ModifyFreedomBoardReply(replyWriteDTO);
-		System.out.println(replyWriteDTO);
-		return true;
+		return result;
 	}
 }

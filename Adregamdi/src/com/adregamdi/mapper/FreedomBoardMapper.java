@@ -62,5 +62,5 @@ public interface FreedomBoardMapper {
 	void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
 	
 	@Update("UPDATE FREEDOMREPLY SET reply_content = #{reply_content}, reply_date = SYSDATE WHERE freedom_num = #{freedom_num} and reply_num = #{reply_num}")
-	boolean ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
+	void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
 }

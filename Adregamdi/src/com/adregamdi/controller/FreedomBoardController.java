@@ -54,7 +54,7 @@ public class FreedomBoardController {
 	
 	@GetMapping("/read")
 	public String BoardRead
-	(@ModelAttribute("replyWriteDTO") FreedomReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
+	(@ModelAttribute ("replyWriteDTO") FreedomReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
