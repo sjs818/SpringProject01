@@ -35,8 +35,6 @@ public class SpotDAO {
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		ArrayList<ReviewDTO> reviewDTO = spotMapper.getReviewInfo(content_id);
 		
-		System.out.println(reviewDTO.toString());
-		
 		return reviewDTO;
 	}
 	
@@ -46,5 +44,13 @@ public class SpotDAO {
 	
 	public void plusReviewCnt(String content_id) {
 		spotMapper.plusReviewCnt(content_id);
+	}
+	
+	public void deleteReview(int review_idx) {
+		spotMapper.deleteReview(review_idx);
+	}
+	
+	public void minusReviewCnt(String content_id) {
+		spotMapper.minusReviewCnt(content_id);
 	}
 }

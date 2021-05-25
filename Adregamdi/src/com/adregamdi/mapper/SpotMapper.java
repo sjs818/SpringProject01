@@ -2,6 +2,7 @@ package com.adregamdi.mapper;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -39,5 +40,11 @@ public interface SpotMapper {
 	
 	@Update("UPDATE SPOT_INFO SET REVIEW_CNT = REVIEW_CNT + 1 WHERE CONTENT_ID= #{content_id}")
 	void plusReviewCnt(String content_id);
+	
+	@Delete("DELETE FROM REVIEW_INFO WHERE REVIEW_IDX = #{review_idx}")
+	void deleteReview(@Param("review_idx")int review_idx);
+	
+	@Update("UPDATE SPOT_INFO SET REVIEW_CNT = REVIEW_CNT - 1 WHERE CONTENT_ID= #{content_id}")
+	void minusReviewCnt(String content_id);
 	
 }

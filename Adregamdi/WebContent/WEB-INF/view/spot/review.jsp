@@ -18,63 +18,8 @@
 
 <link href="${root }css/spot.css" rel="stylesheet">
 <link rel="stylesheet" href="${root }css/styles.css">
+<script type="text/javascript" src="${root }js/review.js" ></script>
 
-<script>
-
-function writeReview() {
-	
-	var contentId = $("#contentId").val();
-	var content = $("#review_content").val();
-	var param = {"contentId" : contentId, "content" : content};
-	
-	console.log("contentId : " + contentId);
-	
-	$.ajax({
-		
-		url: "/spot/write_proc",
-		type: "get",
-		dataType: "json",
-		data: param,
-		success:function(data) {
-			
-			$("#review_content").empty();
-			
-		}, 
-		error: function(error) {
-			alert('write 에러');
-		}
-	});
-}
-
-</script>
-
-<style>
-
-.plus {
-	padding: 20px;
-	border: 1px solid;
-	text-align : center;
-}
-
-.left {
-	width: 50%;
-	height: 200px;
-	padding: 20px;
-	align: center;
-}
-.right {
-	width: 50%;
-	padding: 20px;
-	border-left: 1px dashed #cfcbc0;
-}
-
-.overview {
-	overflow: scroll;
-	height: 700px;
-	width: 100%;
-}
-
-</style>
 </head>
 <body>
 	<!-- 상단 헤더 -->
@@ -181,16 +126,23 @@ function writeReview() {
 								<th class="text-center d-none d-md-table-cell">글번호</th>
 								<th class="text-center d-none d-md-table-cell">내용</th>
 								<th class="text-center d-none d-md-table-cell">작성자</th>
-								<th class="text-center d-none d-md-table-cell">작성날짜</th>	
+								<th class="text-center d-none d-md-table-cell">작성날짜</th>
+								<th></th>	
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="reviewDTO" items="${reviewList }">
+								<input type="hidden" id="hcontentId" value="${reviewDTO.content_id }"/>
 								<tr>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_name }</td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
+									<c:if test="${loginCheck eq reviewDTO.user_no }" >
+										<td>
+											<div style="float:left;" onClick="deleteReview(${reviewDTO.review_idx})"> <i class="far fa-trash-alt"></i></div>
+										</td>
+									</c:if>
 								</tr>	
 							</c:forEach>
 						</tbody>

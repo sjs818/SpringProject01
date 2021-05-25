@@ -157,6 +157,15 @@ public class SpotController {
 		spotService.plusReviewCnt(contentId);		
 	}
 	
+	@ResponseBody
+	@GetMapping("/spot/delete_proc")
+	public void deleteProc(@RequestParam("review_idx")String review_idx, @RequestParam("contentId")String contentId) {
+		
+		int reviewIdx = Integer.parseInt(review_idx);
+		
+		spotService.deleteReview(reviewIdx);
+		spotService.minusReviewCnt(contentId);
+	}
 	
 	@ResponseBody
 	@GetMapping("/spot/likeProc")

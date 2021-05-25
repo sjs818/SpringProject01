@@ -42,8 +42,6 @@ public class SpotService {
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		
-		System.out.println("review Service : contentId : "+content_id);
-		
 		return spotDAO.getReviewInfo(content_id);
 	}
 	
@@ -57,5 +55,13 @@ public class SpotService {
 	
 	public void plusReviewCnt(String content_id) {
 		spotDAO.plusReviewCnt(content_id);
+	}
+	
+	public void deleteReview(int review_idx) {
+		spotDAO.deleteReview(review_idx);
+	}
+	
+	public void minusReviewCnt(String content_id) {
+		spotDAO.minusReviewCnt(content_id);
 	}
 }
