@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -32,9 +33,21 @@ public class ScheduleService {
 	private String path_plan_img;
 	
 	public PageDTO getContentCnt(int currentPage, int listCnt, int pagination) {
-		int contentCnt = 10;
+		
+		int contentCnt = scheduleDAO.getContentCnt();
+		
 		PageDTO pageDTO = new PageDTO(contentCnt, currentPage, listCnt, pagination);
+		
 		return pageDTO;
+	}
+	
+	public List<PlanDTO> getPlanList(int page, int listCnt) {
+		
+		int start = (page - 1) * listCnt;
+		
+		RowBounds rowbounds = new RowBounds(start, listCnt);
+		
+		return scheduleDAO.getPlanList(rowbounds);
 	}
 	
 	public boolean createPlan(PlanDTO planDTO) {
@@ -45,7 +58,34 @@ public class ScheduleService {
 		return scheduleDAO.getPlanNo();
 	}
 	
-	public List<UserPlanDTO> convertUserPlan(String data) throws ParseException {
+	public List<UserPlanDTO> convertSchedule(String data) throws ParseException {
+		List<UserPlanDTO> schedule = new ArrayList<UserPlanDTO>();
+		JSONParser parser = new JSONParser();
+		JSONObject object = (JSONObject) parser.parse(data);
+		JSONArray arr = (JSONArray) object.get("data");
+		for(int i = 0; i < arr.size(); i++) {
+			UserPlanDTO plan = new UserPlanDTO();
+			JSONObject obj = (JSONObject) arr.get(i);
+			plan.setPlan_no(Integer.parseInt(obj.get("planNo").toString()));
+			plan.setUser_no(Integer.parseInt(obj.get("user_no").toString()));
+			plan.setTitle(obj.get("title").toString());
+			plan.setPlanDate(obj.get("planDate").toString());
+			plan.setPlanDay(obj.get("planDay").toString());
+			plan.setPlanTotalDate(obj.get("planTotalDate").toString());
+			if(obj.get("descript") != null) {
+        plan.setDescript(obj.get("descript").toString());
+			} else {
+				plan.setDescript("");
+			}
+			plan.setStartDate(obj.get("startDate").toString());
+			plan.setEndDate(obj.get("endDate").toString());
+			plan.setIs_insertAfter(obj.get("is_insertAfter").toString());
+			schedule.add(plan);
+		}
+		return schedule;
+	}
+	
+	public List<UserPlanDTO> convertUserPlan(String data, int user_no) throws ParseException {
 		List<UserPlanDTO> list = new ArrayList<UserPlanDTO>();
 		JSONParser parser = new JSONParser();
 		JSONObject object = (JSONObject) parser.parse(data);
@@ -54,14 +94,15 @@ public class ScheduleService {
 			UserPlanDTO plan = new UserPlanDTO();
 			JSONObject obj = (JSONObject) arr.get(i);
 			plan.setPlan_no(Integer.parseInt((String)obj.get("planno")));
+			plan.setUser_no(user_no);
 			plan.setTitle((String)obj.get("title"));
 			plan.setContentId((String)obj.get("contentId"));
 			plan.setContentTypeId((String)obj.get("contentTypeId"));
 			plan.setAddr((String)obj.get("addr"));
 			plan.setImg_src((String)obj.get("img"));
 			JSONObject lonlat = (JSONObject) obj.get("lonlat");
-			plan.setMapX(lonlat.get("_lat").toString());
-			plan.setMapY(lonlat.get("_lng").toString());
+			plan.setMapX(lonlat.get("_lng").toString());
+			plan.setMapY(lonlat.get("_lat").toString());
 			plan.setPlanDate((String)obj.get("planDate"));
 			plan.setPlanDay((String)obj.get("planDay"));
 			plan.setPlanTotalDate((String)obj.get("planTotalDate"));
@@ -107,5 +148,13 @@ public class ScheduleService {
 	
 	public boolean updatePlan(PlanDTO planDTO) {
 		return scheduleDAO.updatePlan(planDTO) > 0;
+	}
+	
+	public boolean deleteSchedule(UserPlanDTO userPlanDTO) {
+		return scheduleDAO.deleteSchedule(userPlanDTO) > 0;
+	}
+	
+	public boolean updateSchedule(UserPlanDTO userPlanDTO) {
+		return scheduleDAO.updateSchedule(userPlanDTO) > 0;
 	}
 }

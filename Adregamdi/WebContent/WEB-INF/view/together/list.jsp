@@ -27,14 +27,14 @@
 			<b>같이가치</b>
 		</h3>
 		<hr>
-		<table class="table table-bordered">
+		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 60%">글제목</th>
+					<th class="text-center" style="width : 50%">공고제목</th>
 					<th class="text-center" style="width : 10%">작성자</th>
-					<th class="text-center" style="width : 14%">작성날짜</th>
 					<th class="text-center" style="width : 8%">조회수</th>
+					<th class="text-center" style="width : 20%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -42,27 +42,50 @@
 					<tr>
 						<td class="text-center">${TogetherDTO.to_no }</td>
 						<td class="text-center"><a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a></td>
-						<td class="text-center">${TogetherDTO.to_writer }</td>
-						<td class="text-center">${TogetherDTO.to_date }</td>
+						<td class="text-center">${TogetherDTO.to_id }</td>
 						<td class="text-center">${TogetherDTO.to_cnt }</td>
+						<td class="text-center">${TogetherDTO.to_date }</td>
 					</tr>
 				</c:forEach>
 			</tbody>
 		</table>
 		<div class="pageNevigation">
-			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-        		<li class="page-item active"><a class="page-link" href="#">1</a></li>
-       			<li class="page-item"><a class="page-link" href="#">2</a></li>
-        		<li class="page-item"><a class="page-link" href="#">3 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">4 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">5 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">6 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">7 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">8 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">9 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">10 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">다음</a></li>
+		  <ul class="pagination justify-content-center">
+				<c:choose>
+					<c:when test="${pageDTO.prevPage <= 0 }">
+						
+					</c:when>
+					<c:otherwise>
+						<li class="page-item">
+							<a href="${root}together/list?page=${pageDTO.prevPage}" class="page-link">이전</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
+					<c:choose>
+						<c:when test="${idx == pageDTO.currentPage}">
+						<li class="page-item active">
+							<a href="${root }together/list?page=${idx}" class="page-link">${idx}</a>
+						</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item">
+								<a href="${root }together/list?page=${idx}" class="page-link">${idx}</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
+				<c:choose>
+					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
+						
+					</c:when>
+					<c:otherwise>
+						<li class="page-item">
+							<a href="${root}together/list?page=${pageDTO.nextPage}" class="page-link">다음</a>
+						</li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
 		  <div class="text-right">

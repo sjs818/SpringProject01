@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.json.simple.parser.ParseException;
@@ -23,6 +24,7 @@ import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.PlanImgDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.UserPlanDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.ScheduleService;
@@ -39,20 +41,28 @@ public class ScheduleController {
 	@Autowired
 	private VisitKoreaAPI visitKoreaAPI;
 	
+	@Resource(name = "loginUserDTO")
+	private UserDTO loginUserDTO;
+	
 	@GetMapping("/list")
 	public String list(@RequestParam("page") int page, Model model) {
 		
-		PageDTO pageDTO = scheduleService.getContentCnt(page, 4, 10);
+		List<PlanDTO> planList = scheduleService.getPlanList(page, 8);
+		PageDTO pageDTO = scheduleService.getContentCnt(page, 8, 10);
+		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("planList", planList);
 		
 		return "schedule/list";
 	}
 	
 	@PostMapping("/write")
 	public String write(@ModelAttribute PlanDTO planDTO, @RequestParam String plan_date, @RequestParam String plan_term, Model model) {
-		
+
 		scheduleService.createPlan(planDTO);
 		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("plan_title", planDTO.getPlan_title());
 		model.addAttribute("plan_date",  plan_date);
 		model.addAttribute("plan_term", plan_term);
@@ -63,7 +73,7 @@ public class ScheduleController {
 	
 	@PostMapping("/write_proc")
 	public String write_proc(@RequestParam("planData") String data, RedirectAttributes redirectAttributes) throws ParseException {
-		List<UserPlanDTO> list = scheduleService.convertUserPlan(data);
+		List<UserPlanDTO> list = scheduleService.convertUserPlan(data, loginUserDTO.getUser_no());
 		for(int i = 0; i < list.size(); i++) {
 			scheduleService.insertUserPlan(list.get(i));
 		}
@@ -84,12 +94,27 @@ public class ScheduleController {
 			
 		}
 		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("isModify", isModify);
 		model.addAttribute("planDTO", planDTO);
 		model.addAttribute("plan_no", plan_no);
 		model.addAttribute("planTotalDate", plan.get(0).getPlanTotalDate());
 		model.addAttribute("planList", JSONArray.fromObject(plan));
 		return "schedule/writeDetail";
+	}
+	
+	@PostMapping("/writeDetail_proc")
+	public String writeDetail_proc(@RequestParam("schedule") String data) throws ParseException {
+		
+		List<UserPlanDTO> schedule = scheduleService.convertSchedule(data);
+		
+		scheduleService.deleteSchedule(schedule.get(0));
+		
+		for(int i = 0; i < schedule.size(); i++) {
+			scheduleService.updateSchedule(schedule.get(i));
+		}
+		
+		return "schedule/write_success";
 	}
 	
 	@ResponseBody
@@ -115,7 +140,7 @@ public class ScheduleController {
 	
 	@ResponseBody
 	@GetMapping("/detail")
-	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws ParserConfigurationException, SAXException, IOException {
+	public List<String> detail(@ModelAttribute VisitKoreaDTO visitKoreaDTO) throws Exception {
 		return visitKoreaAPI.getEachInformation(visitKoreaDTO);
 	}
 	

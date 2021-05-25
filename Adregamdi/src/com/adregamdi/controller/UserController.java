@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
@@ -162,12 +164,33 @@ public class UserController {
 	
 	
 	@GetMapping("/my_page")
-	public String myPage() {
+	public String myPage(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());	
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+	
 		return "user/my_page";
 	}
 
 	@GetMapping("/my_page_disable")
-	public String myPageDisable() {
+	public String myPageDisable(Model model) {
+		
+		List<PlanDTO> myPlan
+		= userService.getMyPlan(loginUserDTO.getUser_no());
+		model.addAttribute("myPlan", myPlan);
+		
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+
+		
 		return "user/my_page_disable";
 	}
 	

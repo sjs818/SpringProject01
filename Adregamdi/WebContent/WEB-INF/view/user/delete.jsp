@@ -24,22 +24,26 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+<!-- CSS import -->
+<link href="${root }css/user.css" rel="stylesheet" type="text/css">
+
+
 </head>
 <body>
 
 
 
-<div class="container" style="margin-top: 140px">
+<div class="container container-top">
 		<div class="row">
 			<div class="col-sm-3"></div>
 			<div class="col-sm-6">
 				<div class="card shadow">
 					<header class="card-header">
-						<a href="${root }" class="float-right btn btn-outline-primary btn-sm mt-2">메인으로</a>
-						<h4 class="card-title mt-2" style='color:red'>회원탈퇴</h4>
+						<a href="${root }user/modify" class="float-right btn btn-outline-success btn-sm mt-2">이전으로</a>
+						<h4 class="card-title mt-2 warning-color">회원탈퇴</h4>
 					</header>
-					<div class="card-body" style="background-color: #F7F7F7;">
-						<p class="small text-center pb-2"># 회원탈퇴 후 모든 정보는 복구가 어렵습니다.</p>
+					<div class="card-body back-color">
+						<p class="text-danger text-center pb-2"># 회원탈퇴 후 모든 정보는 복구가 어렵습니다.</p>
 						
 						<form:form action='${root }user/delete_proc' method='post' modelAttribute="deleteUserDTO">
 							
@@ -59,7 +63,7 @@
 										</div>
 										<form:password path="user_pw" class='form-control' placeholder="비밀번호" />
 									</div>
-									<form:errors path='user_pw' style='color:red' />
+									<form:errors path='user_pw' class="small warning-color" />
 								</div>
 							</c:if>
 							
@@ -79,7 +83,7 @@
 										</div>
 										<form:input path="user_phone" class='form-control' placeholder="연락처" />
 									</div>
-									<form:errors path='user_phone' style='color:red' />
+									<form:errors path='user_phone' class="small warning-color" />
 								</div>
 							</c:if>
 							
@@ -97,6 +101,7 @@
 			<div class="col-sm-3"></div>
 		</div>
 	</div>
+
 
 
 
