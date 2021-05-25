@@ -22,6 +22,10 @@
 	<%-- <script src="${root }js/schedule.js"></script> --%>
 	<script type="text/javascript">
 		
+		var infoWindow;
+		var infoWindows = [];
+		var count = 0;
+	
 		$(function() {
 			
 			var param = {pageNo: 1, numOfRow: 5};
@@ -190,7 +194,6 @@
 	    
 			$.each(data, function(i, result) {
 	      var overview = result.overview.replace(/'/g, "");
-	      
 	      var position = { 
 	    		  title : result.title,
 	          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
@@ -200,7 +203,6 @@
 	          contentId : result.contentId,
 	          contentTypeId : result.contentTypeId
 	      };
-	      
 	      var content = '<li class="reco-ul">' +
 	                    	'<hr>' +
 	                    	'<div class="row spot_info' + pageNo + '">' +
@@ -236,7 +238,11 @@
           visible: false
         });
         
-        markerClick(map, marker, lonlat, title, positions[i]);
+        positions[i].no = count;
+        infoWindows.push(infoWindow);
+        console.log(infoWindows);
+        
+        markerClick(map, marker, lonlat, title, positions[i], positions[i].no);
         
         $(this).click(function(){
         	for(var i = 0; i < markers.length; i++) {
@@ -248,6 +254,7 @@
         });
         
         markers.push(marker);
+        count++
       });
 	    return markers;
   	} // function 01 : setListItems(data, markers, map, pageNo)
@@ -285,7 +292,7 @@
 		} // function 03 : callAjaxMain(param, main_markers, map)
 		
 		// function 04 : markerClick(map, marker, lonlat, title, position)
-		function markerClick(map, marker, lonlat, title, position) {
+		function markerClick(map, marker, lonlat, title, position, no) {
 	    
 			if(position.overview == null) {
 	      position.overview = "";
@@ -308,47 +315,51 @@
 									    		"</ul>"+
 									    		"<ul class='btn-group' style='display: table; padding: 10px 0; width: 100%; border-radius: 3px; height: 30px; border: 1px solid #EFEFEF; margin: 10px 0 0 0; text-align: center;'>"+
 								      			"<li style='display: table-cell; vertical-align: middle; width: 50%; height: 100%; border-right: 1px solid #EFEFEF;'>" +
-								      				"<a href='javascript:void(0)' id='detail' style='text-decoration: none;'><i class='fas fa-1x fa-info-circle'></i> 자세히 보기</a>" + 
+								      				"<a href='javascript:void(0)' id='detail" + no + "' style='text-decoration: none;'><i class='fas fa-1x fa-info-circle'></i> 자세히 보기</a>" + 
 								      			"</li>" +
 								      			"<li style='display: table-cell; vertical-align: middle; width: 50%; height: 100%; border-right: 1px solid #EFEFEF;'>";
 		    if($.isNumeric(position.liIndex)){
-		       content = content + "<a href='javascript:void(0)' id='addList' style='text-decoration: none;'><i class='fas fa-1x fa-trash'></i> 삭제하기</a>" +
+		       content = content + "<a href='javascript:void(0)' id='addList" + no + "' style='text-decoration: none;'><i class='fas fa-1x fa-trash'></i> 삭제하기</a>" +
 		                        "</li>" +
 		                      "</ul>" +
 		                    "</div>" +
-		                    "<a href='javascript:void(0)' onclick='onClose()' class='btn-close' style='position: absolute; top: 10px; right: 10px; display: block; width: 15px; height: 15px;'><i class='fas fa-times' style='color:white;'></i></a>" +
+		                    "<a href='javascript:void(0)' onclick='onClose(" + no + ")' class='btn-close' style='position: absolute; top: 10px; right: 10px; display: block; width: 15px; height: 15px;'><i class='fas fa-times' style='color:white;'></i></a>" +
 		                  "</div>";
 		       
 		    } else {
-		       content = content + "<a href='javascript:void(0)' id='addList' style='text-decoration: none;'><i class='fas fa-1x fa-plus-circle'></i> 추가하기</a>" +
+		       content = content + "<a href='javascript:void(0)' id='addList" + no + "' style='text-decoration: none;'><i class='fas fa-1x fa-plus-circle'></i> 추가하기</a>" +
 		                        "</li>" +
 		                      "</ul>" +
 		                    "</div>" +
-		                    "<a href='javascript:void(0)' onclick='onClose()' class='btn-close' style='position: absolute; top: 10px; right: 10px; display: block; width: 15px; height: 15px;'><i class='fas fa-times' style='color:white;'></i></a>" +
+		                    "<a href='javascript:void(0)' onclick='onClose(" + no + ")' class='btn-close' style='position: absolute; top: 10px; right: 10px; display: block; width: 15px; height: 15px;'><i class='fas fa-times' style='color:white;'></i></a>" +
 		                  "</div>";
 		    }
-		 		
-		    // Tmap API 'InfoWindow' Method (팝업 생성)
-	      infoWindow = new Tmapv2.InfoWindow({
-	        position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
-	        content : content,
-	        border : '0px solid #FF0000',
-	        type : 2,
-	        map : map,
-	        visible : true
-	      });
+		   	console.log(infoWindows[no]);
+		    if(infoWindows[no] == null) {
+			    // Tmap API 'InfoWindow' Method (팝업 생성)
+		      infoWindows[no] = new Tmapv2.InfoWindow({
+		        position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+		        content : content,
+		        border : '0px solid #FF0000',
+		        type : 2,
+		        map : map,
+		        visible : true
+		      });
+		    } else {
+		    	infoWindows[no].setVisible(true);
+		    }
 				
 	   		// 지도 위치 재설정
 	      map.setCenter(new Tmapv2.LatLng(lonlat.lng() - 0.11, lonlat.lat() - 0.055));	      
 	 			
 	      if(position.contentId != null) {
-					$("#detail").click(function() {
+					$("#detail" + no).click(function() {
 						detailModal(position.contentId, position.contentTypeId);
 						$("#title-Guide").html(title);
 					});
 				}
 	      
-	      $("#addList").unbind("click").bind("click", function(){
+	      $("#addList" + no).unbind("click").bind("click", function() {
 	    	  var diffrentTitle = true;
 	    	  
 	    	  $('.plan_title').each(function(i) {
@@ -366,6 +377,7 @@
 	    	  if(diffrentTitle == true) {
 	    		  addModal(position, map, marker);
 	    	  }
+	    	  infoWindows[no].setVisible(false);
 	      });
 	  	});
 		}
@@ -460,7 +472,7 @@
 		} // function 06 : deleteMarkers(markers)
 		 
 		// function 07 : onClose(popup)
-		function onClose(popup) {
+		function onClose(no) {
 			if($(".contentId").val() != null) {
 				$(".contentId").remove();
 			}
@@ -468,7 +480,7 @@
 			if($(".contentTypeId").val() != null) {
 				$(".contentTypeId").remove();
 			}
-			infoWindow.setVisible(false);
+			infoWindows[no].setVisible(false);
 		} // function 07 : onClose(popup)
 		
 		// function 08 : keywordItems(data, markers, map, pageNo)
@@ -552,6 +564,17 @@
 		} // function 09 : callAjaxKeyword(keywordParam,keyword_markers,map)
 	</script>
 		<style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+    
     .page-wrapper {
       height: 100vh;
     }

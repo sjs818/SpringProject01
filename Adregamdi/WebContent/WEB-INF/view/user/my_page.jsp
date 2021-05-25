@@ -29,7 +29,7 @@
 
 
 	<!-- 상단 -->
-	<c:import url="/WEB-INF/view/include/header.jsp" />
+	<c:import url="/WEB-INF/view/include/header.jsp"/>
 
 
 

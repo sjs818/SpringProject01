@@ -28,7 +28,6 @@
   .wrapper {
      position: relative;
   }
-
 </style>
 
       <nav class="navbar navbar-expand-md navbar-white fixed-top sm bg-white" style="padding: 10px 30px;">
