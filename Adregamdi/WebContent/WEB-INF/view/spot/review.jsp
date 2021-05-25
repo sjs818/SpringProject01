@@ -18,66 +18,8 @@
 
 <link href="${root }css/spot.css" rel="stylesheet">
 <link rel="stylesheet" href="${root }css/styles.css">
-<!-- 
-<script>
-$(function() {
-    
-	$("#review_btn").click(function(){
-		
-		var contentId = $("#review_contentId").val();
-		var content = $("#review_content").val();
-		var inputData = {"contentId" : contentId, "content" : content};
-		
-		
-		$.ajax({				
-			url : "/spot/write_proc",
-			type : "get",
-			dataType : "json",
-			data : inputData,
-			
-			success :  function(data){				
-				console.log("contentId : "+contentId);
-				console.log("content : "+content);
-	            
-			},
-			error : function(error) {
-				alert("review - insert 실패");
-			}
-		}); 
-	});
-	
+<script type="text/javascript" src="${root }js/review.js" ></script>
 
-});
-
-</script>
- -->
-<style>
-
-.plus {
-	padding: 20px;
-	border: 1px solid;
-	text-align : center;
-}
-
-.left {
-	width: 50%;
-	height: 200px;
-	padding: 20px;
-	align: center;
-}
-.right {
-	width: 50%;
-	padding: 20px;
-	border-left: 1px dashed #cfcbc0;
-}
-
-.overview {
-	overflow: scroll;
-	height: 700px;
-	width: 100%;
-}
-
-</style>
 </head>
 <body>
 	<!-- 상단 헤더 -->
@@ -162,46 +104,57 @@ $(function() {
 	</div>
 	
 	
-	<!-- 
-	<div class="container" style="margin-top:20px">		
-		<div class="input-group" >
-			<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
-			<input type="hidden" id="review_contentId" value="${contentId }"/>
-			<div class="input-group-append" id="review_btn">
-				<span class="input-group-text" style="background: #e9e9e9;">
-					<i class="fas fa-pen"></i>
-				</span>
-			</div>
-		</div>			
+	
+	<div class="container" style="margin-top:20px; margin-bottom: 100px;">		
+		<c:if test="${loginCheck != 0}">
+			<div class="input-group" >
+				<input type="text" id="review_content" class="form-control search-menu" placeholder="리뷰 작성" style="background: #f9f9f9;">
+				<input type="hidden" id="contentId" value="${contentId }"/>
+				<div class="input-group-append" onClick="writeReview()">
+					<span class="input-group-text" style="background: #e9e9e9;">
+						<i class="fas fa-pen"></i>
+					</span>
+				</div>
+			</div>			
+		</c:if>
 		<div>
-			<div class="card-body">
-				<table class="table table-hover" id='review_list'>
-					<thead>
-						<tr>
-							<th class="text-center d-none d-md-table-cell">글번호</th>
-							<th class="w-50">내용</th>
-							<th class="text-center d-none d-md-table-cell">작성자</th>
-							<th class="text-center d-none d-md-table-cell">작성날짜</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach var="reviewDTO" items="${reviewList }">
+			<c:if test="${reviewSize != 0 }" >
+				<div class="card-body">
+					<table class="table table-hover" id='review_list'>
+						<thead>
 							<tr>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.user_no }</td>
-								<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
-							</tr>	
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
+								<th class="text-center d-none d-md-table-cell">글번호</th>
+								<th class="text-center d-none d-md-table-cell">내용</th>
+								<th class="text-center d-none d-md-table-cell">작성자</th>
+								<th class="text-center d-none d-md-table-cell">작성날짜</th>
+								<th></th>	
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="reviewDTO" items="${reviewList }">
+								<input type="hidden" id="hcontentId" value="${reviewDTO.content_id }"/>
+								<tr>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_name }</td>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
+									<c:if test="${loginCheck eq reviewDTO.user_no }" >
+										<td>
+											<div style="float:left;" onClick="deleteReview(${reviewDTO.review_idx})"> <i class="far fa-trash-alt"></i></div>
+										</td>
+									</c:if>
+								</tr>	
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
 		</div>
 	</div>
-	 -->
+	 
 
 	<!-- 하단 -->
-	<c:import url="/WEB-INF/view/include/footer.jsp" />
+	<%-- <c:import url="/WEB-INF/view/include/footer.jsp" /> --%>
 	
 	<!-- Bootstrap core JS-->
 	<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>

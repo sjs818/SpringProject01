@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.annotation.Resource;
 import javax.xml.parsers.ParserConfigurationException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,9 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.ReviewDTO;
 import com.adregamdi.dto.SpotDTO;
+import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.SpotService;
 
@@ -29,6 +32,8 @@ public class SpotController {
 	@Autowired
 	SpotService spotService;
 	
+	@Resource(name="loginUserDTO")
+	private UserDTO loginUserDTO;
 
 	
 	@Autowired
@@ -126,24 +131,41 @@ public class SpotController {
 		
 		
 		// 리뷰 내용 출력
-		/*
-		System.out.println("contentId : "+contentId);
 		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
-	
+		int reviewSize = reviewList.size();
+		
 		model.addAttribute("reviewList", reviewList);
-		*/
+		model.addAttribute("reviewSize", reviewSize);
+		
+		int loginCheck = loginUserDTO.getUser_no();
+		model.addAttribute("loginCheck", loginCheck);
+		
 		return "spot/review";
 	}
-	/*
+	
+	
 	@ResponseBody
-	@GetMapping("/write_proc")
+	@GetMapping("/spot/write_proc")
 	public void writeProc(@RequestParam("contentId")String contentId, @RequestParam("content")String content) {
 		
 		ReviewDTO writeReviewDTO = new ReviewDTO();
 		
+		writeReviewDTO.setContent_id(contentId);
+		writeReviewDTO.setReview_content(content);
+		
 		spotService.inputReview(writeReviewDTO);
+		spotService.plusReviewCnt(contentId);		
 	}
-	*/
+	
+	@ResponseBody
+	@GetMapping("/spot/delete_proc")
+	public void deleteProc(@RequestParam("review_idx")String review_idx, @RequestParam("contentId")String contentId) {
+		
+		int reviewIdx = Integer.parseInt(review_idx);
+		
+		spotService.deleteReview(reviewIdx);
+		spotService.minusReviewCnt(contentId);
+	}
 	
 	@ResponseBody
 	@GetMapping("/spot/likeProc")
