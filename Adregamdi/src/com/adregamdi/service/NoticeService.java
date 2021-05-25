@@ -33,6 +33,11 @@ public class NoticeService {
 		List<NoticeDTO> contentList = noticeDAO.getNoticeList(rowBounds);
 		return contentList;
 	}
+	
+	public NoticeDTO getNextPrev(int content_idx) {
+		NoticeDTO getNextPrev = noticeDAO.getNextPrev(content_idx);
+		return getNextPrev;
+	}
 
 	public NoticeDTO getNoticeContent(int content_idx) {
 		NoticeDTO content = noticeDAO.getNoticeContent(content_idx);

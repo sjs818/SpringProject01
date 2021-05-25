@@ -20,55 +20,68 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 	
 	<div class="container" style="margin-top: 100px;">
-    	<h3 class="InputSubject">
-      	<b>${readContentDTO.notice_title}</b>
-    	</h3>
-    	<h6>${readContentDTO.content_notice_user_no}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.notice_date}</h6>
-    	<hr><br>
-    	<form class="form-horizontal" name="noticeDTO" id="noticeDTO" action="${root}notice/writeProc" method="POST">
-    	<div class="form-group" style="margin-bottom: 30px;">
-      		<div class="mb-3">
-        		${readContentDTO.notice_content}
-      		</div>
-    	</div>
-    	<hr><br>
-    	<div class="form-group float-right">
-    	    <a href="${root}notice/list" class="btn btn-info" style="padding : 4px; margin-right : 5px;">목록보기</a>
-    	    <c:if test="${loginUserDTO.user_provider == 0}">
-      			<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success"style="padding : 4px; margin-right : 5px;">수정하기</a>
-      			<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" class="btn btn-danger" style="padding : 4px; margin-right : 5px;">삭제하기</a>
-      		</c:if>
-    	</div>
-  </form>
-		<table class="table table-hover">
-					<c:choose>
-					<c:when test="${readContentDTO.notice_no == 1 }">
+		<div class="card shadow">
+			<div class="card-header">
+				<h3 class="InputSubject">
+					<b>${readContentDTO.notice_title}</b>
+				</h3>
+			<h6>${readContentDTO.content_notice_user_no}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.notice_date}</h6>
+			</div>
+			<div class="card-body">
+			<form class="form-horizontal" name="noticeDTO" id="noticeDTO"
+				action="${root}notice/writeProc" method="POST">
+				<div class="form-group" style="margin-bottom: 30px;">
+					<div class="mb-3">${readContentDTO.notice_content}</div>
+				</div>
+				<hr>
+				<div class="form-group float-right">
+					<a href="${root}notice/list" class="btn btn-info"
+						style="padding: 4px; margin-right: 5px;">목록보기</a>
+					<c:if
+						test="${loginUserDTO.user_no == readContentDTO.notice_user_no && loginUserDTO.user_provider == 0}">
+						<a
+							href="${root}notice/modify?content_idx=${readContentDTO.notice_no}"
+							class="btn btn-success" style="padding: 4px; margin-right: 5px;">수정하기</a>
+						<a
+							href="${root}notice/delete?content_idx=${readContentDTO.notice_no}"
+							class="btn btn-danger" style="padding: 4px; margin-right: 5px;">삭제하기</a>
+					</c:if>
+				</div>
+			</form>
+			</div>
+			</div>
+				<table class="table table-hover">
 					<tr>
-						<td class="text-center">이전글</td>
-						<td class="text-center"><a
-							href="${root}notice/read?content_idx=${prevContentDTO.notice_no}">${prevContentDTO.notice_title }</a></td>
-						<td class="text-center">${prevContentDTO.content_notice_user_no }</td>
-						<td class="text-center">${prevContentDTO.notice_cnt }</td>
-						<td class="text-center">${prevContentDTO.notice_date }</td>
+						<c:choose>
+							<c:when test="${nextPrev.pre_no == 0}">
+								<td class="text-center">이전글</td>
+								<td class="text-center" colspan="3">${nextPrev. pre_title}</td>
+							</c:when>
+							<c:otherwise>
+								<td class="text-center">이전글</td>
+								<td class="text-center"><a
+									href="${root}notice/read?content_idx=${nextPrev. pre_no}">${nextPrev. pre_title}</a></td>
+								<td class="text-center">${preContentDTO.notice_cnt}</td>
+								<td class="text-center">${preContentDTO.notice_date}</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
-					</c:when>
-					<c:otherwise>
 					<tr>
-						<td class="text-center">이전글</td>
-						<td class="text-center">마지막 글입니다.</td>
+						<c:choose>
+							<c:when test="${nextPrev. next_no == 0}">
+								<td class="text-center">이전글</td>
+								<td class="text-center" colspan="3">${nextPrev. next_title}</td>
+							</c:when>
+							<c:otherwise>
+								<td class="text-center">다음글</td>
+								<td class="text-center"><a
+									href="${root}notice/read?content_idx=${nextPrev. next_no}">${nextPrev. next_title}</a></td>
+								<td class="text-center">${nextContentDTO.notice_cnt}</td>
+								<td class="text-center">${nextContentDTO.notice_date}</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
-					</c:otherwise>
-					</c:choose>
-					<tr>
-						<td class="text-center">다음글</td>
-						<td class="text-center"><a
-							href="${root}notice/read?content_idx=${nextContentDTO.notice_no}">${nextContentDTO.notice_title }</a></td>
-						<td class="text-center">${nextContentDTO.content_notice_user_no }</td>
-						<td class="text-center">${nextContentDTO.notice_cnt }</td>
-						<td class="text-center">${nextContentDTO.notice_date }</td>
-					</tr>
-				
-		</table>
-	</div>
+				</table>
+				</div>		
 </body>
 </html>

@@ -25,6 +25,12 @@ public class NoticeDAO {
 		List<NoticeDTO> contentList = noticeMapper.getNoticeList(rowBounds);
 		return contentList;
 	}
+	
+	public NoticeDTO getNextPrev(int content_idx) {
+		NoticeDTO getNextPrev = noticeMapper.getNextPrev(content_idx);
+		return getNextPrev;
+	}
+	
 
 	public NoticeDTO getNoticeContent(int content_idx) {
 		NoticeDTO content = noticeMapper.getNoticeContent(content_idx);

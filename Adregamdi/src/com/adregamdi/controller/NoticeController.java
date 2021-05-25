@@ -46,17 +46,15 @@ public class NoticeController {
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
 		noticeService.viewCount(content_idx);
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
-		if(content_idx != 1) {
-			NoticeDTO prevContentDTO = noticeService.getNoticeContent(content_idx - 1);
-			model.addAttribute("prevContentDTO", prevContentDTO);
-		}
+		NoticeDTO nextPrev = noticeService.getNextPrev(content_idx);
+		NoticeDTO nextContentDTO = noticeService.getNoticeContent(nextPrev.getNext_no());
+		NoticeDTO preContentDTO = noticeService.getNoticeContent(nextPrev.getPre_no());
 		
-		NoticeDTO nextContentDTO = noticeService.getNoticeContent(content_idx + 1);
-		
-		System.out.println(readContentDTO.getNotice_content());
 		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("nextPrev", nextPrev);
 		model.addAttribute("readContentDTO", readContentDTO);
 		model.addAttribute("nextContentDTO", nextContentDTO);
+		model.addAttribute("preContentDTO", preContentDTO);
 		
 		return "notice/read";
 

@@ -12,11 +12,29 @@ import com.adregamdi.dto.NoticeDTO;
 
 public interface NoticeMapper {
 	
-	@Select("SELECT ROWNUM NOTICE_ROWNUM, N.NOTICE_NO, N.NOTICE_TITLE, N.NOTICE_CNT, TO_CHAR(N.NOTICE_DATE, 'YYYY-MM-DD HH24:MI:SS') NOTICE_DATE, U.USER_ID CONTENT_NOTICE_USER_NO " +
-			"FROM (SELECT * FROM NOTICE ORDER BY NOTICE_NO ASC) N, USER_INFO U " + 
-			"WHERE N.NOTICE_USER_NO = U.USER_NO " + 
-			"ORDER BY ROWNUM DESC ")
-	List<NoticeDTO> getNoticeList(RowBounds rowBounds);
+	
+	
+	  @Select("SELECT ROWNUM NOTICE_ROWNUM, N.NOTICE_NO, N.NOTICE_TITLE, N.NOTICE_CNT, TO_CHAR(N.NOTICE_DATE, 'YYYY-MM-DD HH24:MI:SS') NOTICE_DATE, "
+	  + "U.USER_ID CONTENT_NOTICE_USER_NO " +
+	  "FROM (SELECT * FROM NOTICE ORDER BY NOTICE_NO ASC) N, USER_INFO U " +
+	  "WHERE N.NOTICE_USER_NO = U.USER_NO " + "ORDER BY ROWNUM DESC ")
+	  List<NoticeDTO> getNoticeList(RowBounds rowBounds);
+	 
+	  
+	  @Select("SELECT N.* " + 
+	  		"FROM (" + 
+	  		"    SELECT " + 
+	  		"        NOTICE_NO, " + 
+	  		"        TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD HH24:MI:SS') NOTICE_DATE, " + 
+	  		"        LEAD(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS NEXT_NO, " + 
+	  		"        LEAD(NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS NEXT_TITLE, " + 
+	  		"        LAG(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS PRE_NO, " + 
+	  		"        LAG(NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS PRE_TITLE " + 
+	  		"    FROM NOTICE " + 
+	  		") N " + 
+	  		"WHERE N.NOTICE_NO = #{content_idx}")
+	  NoticeDTO getNextPrev(int content_idx);
+	 
 
 	/*
 	 * @Select("SELECT N.NOTICE_NO, U.USER_ID CONTENT_NOTICE_USER_NO, N.NOTICE_TITLE, N.NOTICE_CNT, "

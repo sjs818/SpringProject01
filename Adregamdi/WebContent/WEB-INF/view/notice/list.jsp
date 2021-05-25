@@ -52,8 +52,6 @@
 				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
 				<c:choose>
 					<c:when test="${pageDTO.prevPage <= 0 }">
-						<li class="page-item disabled"><a href="#" class="page-link">이전</a>
-						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a
@@ -78,8 +76,6 @@
 				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
 				<c:choose>
 					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
-						<li class="page-item disabled"><a href="#" class="page-link">다음</a>
-						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item"><a
