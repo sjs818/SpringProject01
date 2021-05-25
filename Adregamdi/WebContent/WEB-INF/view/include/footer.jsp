@@ -5,15 +5,17 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <style>
 .footer {
-     background: rgba(000, 000, 000, 0.5);
+     background: #595959;
      color: white;
      width: 100%;
      padding:20px;
   }
+ 
  h5 {
  	float: right;
  	margin: 0;
  }
+ 
  h4 {
  	float: left;
  	margin: 0;

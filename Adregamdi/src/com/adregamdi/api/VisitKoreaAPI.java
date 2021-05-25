@@ -21,9 +21,8 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
-	// �ѱ�����_���� ����� ���� ( ��� : https://www.data.go.kr/tcs/dss/selectApiDataDetailView.do?publicDataPk=15057787 )
-	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
-	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
+	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
+	final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	
 	// T map API ( ��� : http://tmapapi.sktelecom.com/index.html )
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
@@ -41,7 +40,6 @@ public class VisitKoreaAPI {
 		}
 	}
 	
-	// VisitKorea ���� ������ȸ
 	public ArrayList<String> getContentIdList(String pageNo, String sigunguCode, String contentTypeId, String numOfRow) throws SAXException, IOException, ParserConfigurationException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
@@ -80,7 +78,6 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
-	// VisitKorea ��������ȸ
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
 		for(int i = 0; i < contentIdList.size(); i++) {
@@ -113,7 +110,6 @@ public class VisitKoreaAPI {
 		return infoList;
 	}
 	
-	//VisitKorea ���� ������ȸ (TotalCount)
 	public int getTotalCount(String contentTypeId, String sigunguCode) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?"
 							 + "serviceKey=" + serviceKey
@@ -145,7 +141,6 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 	
-	// VisitKorea ��������ȸ : getContentIdList() + getSpotInfo()
 	public List<VisitKoreaDTO> getInformation(VisitKoreaDTO visitKoreaDTO, int totalCount) throws SAXException, IOException, ParserConfigurationException, InterruptedException {
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
@@ -178,7 +173,6 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// VisitKorea ��������ȸ
 	public List<String> getCommonInfo(String contentId, String contentTypeId, List<String> information) throws ParserConfigurationException, SAXException, IOException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?"
 							 + "serviceKey=" + serviceKey

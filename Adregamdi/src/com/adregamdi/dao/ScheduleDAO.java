@@ -2,6 +2,7 @@ package com.adregamdi.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -54,5 +55,13 @@ public class ScheduleDAO {
 	
 	public int updateSchedule(UserPlanDTO userPlanDTO) {
 		return scheduleMapper.updateSchedule(userPlanDTO);
+	}
+	
+	public List<PlanDTO> getPlanList(RowBounds rowbounds) {
+		return scheduleMapper.getPlanList(rowbounds);
+	}
+	
+	public int getContentCnt() {
+		return scheduleMapper.getContentCnt();
 	}
 }
