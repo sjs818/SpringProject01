@@ -32,11 +32,14 @@
 			var allInfo = [];
 			var planTitle = $('#plan-title').text();
 			var planNo = $('#planNo').val();
+			var user_no = $('#user_no').val();
 			var start = 9;
 			var end = 10;
 			var schedule = [];
 			var present_markers = [];
 			var present_polylines = [];
+			
+			console.log(user_no);
 			
 			$('#plan-info').find('ul').find('input').each(function(){
 				allInfo.push(JSON.parse($(this).val()));
@@ -261,6 +264,7 @@
 					for(var j = 0; j < allInfo.length; j++) {
 						if(allInfo[j].title == instances[i].text) {
 							buffer.planNo = planNo;
+							buffer.user_no = user_no;
 							buffer.title = allInfo[j].title;
 							var date = instances[i].startDate;
 							buffer.startDate = date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '') + date.getDate() + "-" + (date.getHours() < 10 ? '0' : '') + date.getHours() + "-" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
@@ -282,6 +286,7 @@
 					}
 					if(!flag) {
 						buffer.planNo = planNo;
+						buffer.user_no = user_no;
 				    buffer.title = instances[i].text;
 				    var date = instances[i].startDate;
 				    buffer.startDate = date.getFullYear() + "-" + ((date.getMonth() + 1) < 10 ? '0' : '') + (date.getMonth() + 1) + "-" + (date.getDate() < 10 ? '0' : '') + date.getDate() + "-" + (date.getHours() < 10 ? '0' : '') + date.getHours() + "-" + (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
@@ -614,6 +619,7 @@
   
   <!-- Main -->
 	<input type="hidden" id="planNo" value="${plan_no }">
+	<input type="hidden" id="user_no" value="${loginUserDTO.user_no }">
 	<div class="container jumbotron" style="margin-top: 120px; padding: 24px 32px 32px;">
 		<div class="header">
 			<h4 id="plan-title">${planDTO.plan_title }</h4>
@@ -674,7 +680,7 @@
 					</form>
 					<div class="form-group">
 						<label for="plan_info">일정 제목</label>
-						<input type="text" id="plan_title" class="form-control" name="plan_title" placeholder="${planDTO.plan_title }" style="width: 100%; max-height: 70px;">
+						<input type="text" id="plan_title" class="form-control" name="plan_title" value="${planDTO.plan_title }" style="width: 100%; max-height: 70px;">
 					</div>
 					<div class="form-group">
 						<label for="plan_info">일정 소개</label>
@@ -688,7 +694,7 @@
 			<p id="result" class="result"></p>
 		</div>
 	</div>
-	<div class="container bottom-calendar jumbotron">
+	<div class="container bottom-calendar jumbotron" style="margin-bottom: 100px;">
 		<div id="scheduler">
 		
 		</div>

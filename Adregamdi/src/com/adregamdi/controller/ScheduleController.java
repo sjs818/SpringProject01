@@ -62,6 +62,7 @@ public class ScheduleController {
 
 		scheduleService.createPlan(planDTO);
 		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("plan_title", planDTO.getPlan_title());
 		model.addAttribute("plan_date",  plan_date);
 		model.addAttribute("plan_term", plan_term);
@@ -72,7 +73,7 @@ public class ScheduleController {
 	
 	@PostMapping("/write_proc")
 	public String write_proc(@RequestParam("planData") String data, RedirectAttributes redirectAttributes) throws ParseException {
-		List<UserPlanDTO> list = scheduleService.convertUserPlan(data);
+		List<UserPlanDTO> list = scheduleService.convertUserPlan(data, loginUserDTO.getUser_no());
 		for(int i = 0; i < list.size(); i++) {
 			scheduleService.insertUserPlan(list.get(i));
 		}
@@ -93,6 +94,7 @@ public class ScheduleController {
 			
 		}
 		
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("isModify", isModify);
 		model.addAttribute("planDTO", planDTO);
 		model.addAttribute("plan_no", plan_no);
