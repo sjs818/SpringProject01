@@ -493,3 +493,6 @@ public class VisitKoreaAPI {
 			result.add(spot);
 		}
 		return result;
+	}
+}
+	

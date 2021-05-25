@@ -174,7 +174,7 @@
 			  </div>
 			 	
 			 	<div class="card-body">
-				  <div class="row mx-3 my-3 content-box">
+				  <div class="row mx-3 my-3 content-box" style=" margin-bottom: 50px;">
 						<c:forEach var="planDTO" items="${planList }" >
 								<div class="col-sm-3">
 									<div class="card mb-3 card_hover">
@@ -197,7 +197,7 @@
 						</c:forEach>
 					</div> 
 				  
-					<div class="d-none d-md-block" style="margin-top:20px; margin-bottom: 50px;">
+					<div class="d-none d-md-block" style="margin-top:20px;">
 				 		<ul class="pagination justify-content-center">
 				  		<c:if test="${pageDTO.prevPage!=0 }">
 				  			<li class="page-item"><a class="page-link" href="${root }schedule/list?page=${pageDTO.prevPage}">이전</a></li>
