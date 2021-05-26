@@ -436,11 +436,14 @@
 		
 		</div>
 		<div class="text-right" style="color: white;">	
-				<a href="${root }schedule/list?page=${page }" class="btn btn-primary" style="margin-top: 15px;">목록으로</a>
-			<c:if test="${loginUserDTO.user_no == planDTO.user_no }">
-				<a class="btn btn-success" style="margin-top: 15px;">수정하기</a>
-				<a class="btn btn-danger" style="margin-top: 15px;">삭제하기</a>
-			</c:if>
+			<c:choose>
+				<c:when test="${page == 0 }">
+					<a href="${root }user/my_page" class="btn btn-primary" style="margin-top: 15px;">목록으로</a>
+				</c:when>
+				<c:otherwise>
+					<a href="${root }schedule/list?page=${page }" class="btn btn-primary" style="margin-top: 15px;">목록으로</a>
+				</c:otherwise>
+			</c:choose>
 		</div>
 	</div>
   

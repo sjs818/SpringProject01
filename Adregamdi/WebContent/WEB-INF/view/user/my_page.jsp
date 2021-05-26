@@ -28,7 +28,26 @@
 <!-- CSS import -->
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
-
+<script>
+	$(function() {
+		var plan_no = $('#plan_no').val();
+		
+		$('#delete' + plan_no).click(function() {
+			if(confirm("일정을 삭제하시겠습니까?")) {
+				$.ajax({
+					url : "/schedule/delete",
+					type : "POST",
+					dataType : "text",
+					data : {"plan_no" : plan_no},
+					success : function(data) {
+						alert('일정이 삭제되었습니다!');
+						location.href="/user/my_page"
+					}
+				});
+			}
+		});
+	});
+</script>
 </head>
 <body>
 
@@ -77,26 +96,25 @@
 					<c:otherwise>
 						<c:forEach var="planDTO" items="${myPlan }" >
 							<c:if test="${planDTO.plan_private eq 'N' }">
+								<input type="hidden" id="plan_no" value="${planDTO.plan_no }">
 								<div class="col-sm-3">
 									<div class="card mb-3 card_hover">
 										<span class="term">${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
 											<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
-										<div class="card-body">
-											<a href="#">
-												<p class="card-title lead ellipsis-title">${planDTO.plan_title }</p>
-												<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
+										<div class="card-body" style="padding: 15px;">
+											<a href="${root }schedule/read?page=0&plan_no=${planDTO.plan_no }">
+												<span class="card-title lead ellipsis-title">${planDTO.plan_title }</span>
+												<span class="card-text ellipsis-info" style="margin-bottom: 12px;">${planDTO.plan_info }</span>
 											</a>
+											 <ul class="btn-group" style="display: table; margin: 0; padding: 10px 0; width: 100%; border-radius: 5px; border: 1px solid #EFEFEF;  text-align: center; list-style: none;">
+												<li style="display: table-cell; border-right: 1px solid #EFEFEF;">
+													<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;"><i class="far fa-edit"></i> 수정하기</a>
+												</li>
+												<li style="display: table-cell;">
+													<a href="#" id="delete${planDTO.plan_no }" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a>
+												</li>
+											</ul>
 										</div>
-									    <div class="card-footer text-center">
-									    	<ul class="btn-group" style="display: table; margin: 0; padding:0; width: 100%; text-align: center; list-style: none;">
-			                                    <li style="display: table-cell;">
-			                                       <a href="#" class=" btn btn-sm btn-info btn-block text-white mr-1">수정하기</a>
-			                                    </li>
-			                                    <li style="display: table-cell;">
-			                                       <a href="#" class=" btn btn-sm btn-danger btn-block text-white">삭제하기</a>
-			                                    </li>
-			                               </ul>
-									    </div>
 									</div>
 								</div>
 							</c:if>
