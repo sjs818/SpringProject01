@@ -9,6 +9,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Adregamdi 마이페이지</title>
+
 <!-- Font Awesome CDN -->
 <link rel="stylesheet"
 	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
@@ -16,14 +17,10 @@
 	crossorigin="anonymous">
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <!-- CSS import -->
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
@@ -48,16 +45,18 @@
 		});
 	});
 </script>
+
+
 </head>
 <body>
 
 
-	<!-- 상단 -->
-	<c:import url="/WEB-INF/view/include/header.jsp"/>
+<!-- 상단 -->
+<c:import url="/WEB-INF/view/include/header.jsp"/>
 
 
 
-	<div class="container my-top" style="margin-bottom: 100px;">
+	<div class="container my-top">
 		<h3 class="BoardTitle mb-4">
 			<b>마이페이지</b>
 		</h3>
@@ -100,20 +99,22 @@
 								<div class="col-sm-3">
 									<div class="card mb-3 card_hover">
 										<span class="term">${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
-											<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+											<a href="${root }schedule/read?page=0&plan_no=${planDTO.plan_no }">
+												<img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기">
+											</a>
 										<div class="card-body" style="padding: 15px;">
 											<a href="${root }schedule/read?page=0&plan_no=${planDTO.plan_no }">
 												<span class="card-title lead ellipsis">${planDTO.plan_title }</span>
 												<span class="card-text ellipsis" style="margin-bottom: 12px;">${planDTO.plan_info }</span>
 											</a>
-												<ul class="btn-group" style="display: table; margin: 0; padding: 10px 0; width: 100%; border-radius: 5px; border: 1px solid #EFEFEF;  text-align: center; list-style: none;">
-													<li style="display: table-cell; border-right: 1px solid #EFEFEF;">
-														<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;"><i class="far fa-edit"></i> 수정하기</a>
-													</li>
-													<li style="display: table-cell;">
-														<a href="#" id="delete${planDTO.plan_no }" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a>
-													</li>
-												</ul>
+											<ul class="btn-group my-btn-group">
+												<li style="display: table-cell; border-right: 1px solid #EFEFEF;">
+													<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;"><i class="far fa-edit"></i> 수정하기</a>
+												</li>
+												<li style="display: table-cell;">
+													<a href="#" id="delete${planDTO.plan_no }" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>
@@ -128,10 +129,9 @@
 
   
 
+<!-- 하단 -->
+<c:import url="/WEB-INF/view/include/footer.jsp" />
 
 
-
-			<!-- 하단 -->
-			<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>
