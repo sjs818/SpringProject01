@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.NoticeDTO;
+import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.NoticeService;
 
@@ -30,23 +31,33 @@ public class NoticeController {
 	private UserDTO loginUserDTO;
 
 	@GetMapping("/list")
-	public String noticeGetList(Model model) {
-		List<NoticeDTO> contentList = noticeService.getNoticeList();
+	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		
+		PageDTO pageDTO = noticeService.getContentCnt(page);
+		model.addAttribute("pageDTO", pageDTO);
+		
 		return "notice/list";
 	}
 
-
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
+		noticeService.viewCount(content_idx);
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
-		System.out.println(readContentDTO.getNotice_content()
-				);
-		model.addAttribute("loginUserDTO", loginUserDTO);
-		model.addAttribute("readContentDTO", readContentDTO);
-		return "notice/read";
+		NoticeDTO nextPrev = noticeService.getNextPrev(content_idx);
+		NoticeDTO nextContentDTO = noticeService.getNoticeContent(nextPrev.getNext_no());
+		NoticeDTO preContentDTO = noticeService.getNoticeContent(nextPrev.getPre_no());
 		
+		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("nextPrev", nextPrev);
+		model.addAttribute("readContentDTO", readContentDTO);
+		model.addAttribute("nextContentDTO", nextContentDTO);
+		model.addAttribute("preContentDTO", preContentDTO);
+		
+		return "notice/read";
+
 	}
 
 	@GetMapping("/write")
@@ -90,7 +101,7 @@ public class NoticeController {
 
 		return "notice/modify_success";
 	}
-	
+
 	@GetMapping("/delete")
 	public String NoticeDelete(@RequestParam("content_idx") int content_idx) {
 		noticeService.DeleteNoticeContent(content_idx);

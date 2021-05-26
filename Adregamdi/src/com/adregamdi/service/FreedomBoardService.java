@@ -46,23 +46,28 @@ public class FreedomBoardService {
 		return contentCount;
 	}
 	
+	//게시글 작성
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
 		freedomBoardDAO.InsertFreedomBoardContent(freedomBoardDTO);
 	}
 	
+	//게시글 수정
 	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
 		freedomBoardDAO.ModifyFreedomBoardContent(freedomModifyDTO);
 	}
 	
+	//(구)게시글 삭제시 패스워드 받던 컨트롤러
 	public String GetFreedomBoardPassword(int content_idx) {
 		String password = freedomBoardDAO.GetFreedomBoardPassword(content_idx);
 		return password;
 	}
 	
+	//게시글 삭제
 	public void FreedomBoardDeleteContent(int content_idx) {
 		freedomBoardDAO.FreedomBoardDeleteContent(content_idx);
 	}
 	
+	//페이징 관련
 	public PageDTO getContentCnt(int currPage) {
 		int contentCnt = freedomBoardDAO.GetFreedomBoardContentCount();
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
@@ -89,5 +94,11 @@ public class FreedomBoardService {
 	//댓글 삭제
 	public void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardDAO.DeleteFreedomBoardReply(replyWriteDTO);
+	}
+	
+	//댓글 수 조회
+	public int GetFreedomBoardReplyCount(int free_num) {
+		int reply_count = freedomBoardDAO.GetFreedomBoardReplyCount(free_num);
+		return reply_count;
 	}
 }

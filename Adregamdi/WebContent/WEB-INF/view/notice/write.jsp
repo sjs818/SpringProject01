@@ -14,6 +14,12 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
+  <script>
+	 function submit(){
+		 $("#noticeDTO").submit();
+	 }
+  </script>
 </head>
 
 <body>
@@ -39,6 +45,11 @@
               <div class="form-group">
                 <form:label path="notice_content">글 내 용</form:label>
                 <form:textarea path="notice_content" class="form-control" rows="10" style="resize:none"/>
+                <script>
+		        	CKEDITOR.replace('notice_content',{
+		        		height: 400
+		        	});
+                </script>
                 <form:errors path="notice_content" style="color:red;" />
               </div>
               <div class="form-group">

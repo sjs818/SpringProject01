@@ -39,7 +39,7 @@
 				<c:forEach var="FreedomBoardDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${FreedomBoardDTO.free_no }</td>
-						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title }</a></td>
+						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title}</a></td>
 						<td class="text-center">${FreedomBoardDTO.content_writer_id }</td>
 						<td class="text-center">${FreedomBoardDTO.free_cnt }</td>
 						<td class="text-center">${FreedomBoardDTO.content_date }</td>

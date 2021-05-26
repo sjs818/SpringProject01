@@ -20,11 +20,12 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 80px">
+	<div class="container" style="padding-top: 150px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>
 		<hr>
+		<br>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -38,7 +39,7 @@
 			<tbody>
 				<c:forEach var="NoticeDTO" items="${contentList}">
 					<tr>
-						<td class="text-center">${NoticeDTO.notice_no }</td>
+						<td class="text-center">${NoticeDTO.notice_rownum }</td>
 						<td class="text-center"><a href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
 						<td class="text-center">${NoticeDTO.content_notice_user_no }</td>
 						<td class="text-center">${NoticeDTO.notice_cnt }</td>
@@ -49,25 +50,47 @@
 		</table>
 		<div class="pageNevigation">
 			<ul class="pagination justify-content-center">
-				<li class="page-item disabled"><a class="page-link" href="#">이전</a></li>
-        		<li class="page-item active"><a class="page-link" href="#">1</a></li>
-       			<li class="page-item"><a class="page-link" href="#">2</a></li>
-        		<li class="page-item"><a class="page-link" href="#">3 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">4 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">5 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">6 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">7 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">8 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">9 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">10 </a></li>
-        		<li class="page-item"><a class="page-link" href="#">다음</a></li>
+				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
+				<c:choose>
+					<c:when test="${pageDTO.prevPage <= 0 }">
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a
+							href="${root}notice/list?page=${pageDTO.prevPage}"
+							class="page-link">이전</a></li>
+					</c:otherwise>
+				</c:choose>
+				<c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
+					<c:choose>
+						<c:when test="${idx == pageDTO.currentPage}">
+							<li class="page-item active"><a
+								href="${root }notice/list?page=${idx}" class="page-link">${idx}</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li class="page-item"><a
+								href="${root }notice/list?page=${idx}" class="page-link">${idx}</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+				</c:forEach>
+				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
+				<c:choose>
+					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
+					</c:when>
+					<c:otherwise>
+						<li class="page-item"><a
+							href="${root}notice/list?page=${pageDTO.nextPage}"
+							class="page-link">다음</a></li>
+					</c:otherwise>
+				</c:choose>
 			</ul>
 		</div>
-		  <div class="text-right">
-		    <c:if test="${loginUserDTO.userLogin == true}">
-      			<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
-      		</c:if>
-    	  </div>
-	 </div>
+		<div class="text-right">
+				<c:if test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
+					<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
+				</c:if>
+			</div>
+	</div>
 </body>
 </html>

@@ -76,4 +76,10 @@ public class FreedomBoardDAO {
 	public void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardMapper.DeleteFreedomBoardReply(replyWriteDTO);
 	}
+	
+	//댓글 수 조회
+	public int GetFreedomBoardReplyCount(int free_num) {
+		int replyCount = freedomBoardMapper.GetFreedomBoardReplyCount(free_num);
+		return replyCount;
+	}
 }

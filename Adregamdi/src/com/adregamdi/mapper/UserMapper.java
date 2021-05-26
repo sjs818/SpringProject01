@@ -1,10 +1,13 @@
 package com.adregamdi.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.UserDTO;
 
 public interface UserMapper {
@@ -13,7 +16,6 @@ public interface UserMapper {
 	@Select("SELECT USER_NAME FROM USER_INFO WHERE USER_ID = #{user_id}")
 	String checkID(String user_id);
 	
-
 	@Select("SELECT USER_NO FROM USER_INFO WHERE USER_PHONE = #{user_phone}")
 	Integer checkPhone(String user_phone);
 	
@@ -37,5 +39,16 @@ public interface UserMapper {
 
 	@Delete("DELETE FROM USER_INFO WHERE user_no in(SELECT user_no FROM user_info WHERE user_email=#{user_email} AND user_phone=#{user_phone})")
 	void deleteNaverInfo(UserDTO deleteUserDTO);
+	
+	
+	
+	@Select("SELECT A.PLAN_NO, A.USER_NO, A.PLAN_TITLE, A.PLAN_INFO, A.PLAN_IMG, A.PLAN_PRIVATE, B.PLANTOTALDATE PLAN_TERM FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.USER_NO=#{user_no} ORDER BY PLAN_NO DESC")
+	List<PlanDTO> getMyPlan(int user_no);
+	
+	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'N' AND A.USER_NO=#{user_no}")
+	String getPublicCount(int user_no);
+
+	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'Y' AND A.USER_NO=#{user_no}")
+	String getPrivateCount(int user_no);
 	
 }

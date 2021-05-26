@@ -17,9 +17,15 @@
 	<!-- flatpickr -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<!-- FontAwesome -->
+	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 	<script>
 		$(function() {
 			$('#newPlan').click(function(){
+				if($('#user_no').val() == 0) {
+					alert('로그인을 하셔야 글쓰기가 가능합니다.');
+					location.href = '${root }user/login'
+				}
 				$('#newPlanModal').modal("show");
 			});
 			
@@ -28,6 +34,14 @@
 			  minDate: "today",
 			  inline: true,
 			  static : true
+			});
+			
+			$("input:checkbox").on('click', function() {
+				if ( $(this).prop('checked') ) {
+					$('#plan_private').val('Y');
+				} else {
+					$('#plan_private').val('N');
+				}
 			});
 			
 			$("#submit").click(function(){
@@ -50,28 +64,152 @@
 			});
 		});
 	</script>
+	<style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+		
+		.card-header {
+			padding : 20px;
+		}
+		
+		.card-header p{
+			margin : 0;
+		}
+		
+		.card_hover {
+			position: relative;
+		}
+		
+		.card_hover span {
+			position: absolute;
+			top: 0;
+			left: 0;
+			background: rgba(0, 0, 0, 0.5);
+			color: white;
+			padding: 3px 6px;
+			border-radius: 3px;
+		}
+		
+		.card_hover .ellipsis {
+			white-space: normal;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+		
+		.modal-footer {
+			position: relative;
+		}
+		.modal-footer input {
+    	display: none;
+    }
+  	
+  	.modal-footer label {
+    	display: inline-block;
+    	width: 98px;
+    	height: 38px;
+    	padding: 0;
+    	margin: 0;
+    	text-align: center;
+    	cursor: pointer;
+    	position: absolute;
+    	top: 16px;
+    	left: 12px;
+    	border-radius: 38px;
+    	background: #3cf065;
+    }
+    
+    .modal-footer label::before {
+    	content: '';
+    	font-size: 16px;
+    	display: block;
+    	width: 45px;
+    	height: 30px;
+    	position: absolute;
+    	top: 4px;
+    	left: 4px;
+    	background: #ffffff;
+    	line-height: 32px;
+    	border-radius: 32px;
+    	transition: 0.3s;
+    	z-index: 999;
+    }
+   	
+    .modal-footer input:checked + label:before {
+    	transform: translateX(45px);
+    }
+    
+    .modal-footer input:checked + label {
+    	background: #dc3545;
+    }
+  	
+  	.modal-footer .first {
+  		position: absolute;
+  		top: 7px;
+  		left: 10px;
+  		color: #ffffff;
+  	}
+  	
+  	.modal-footer .second {
+  		position: absolute;
+  		top: 7px;
+  		left: 58px;
+  		color: #ffffff;
+  	}
+	</style>
 	<title>Document</title>
 </head>
 <body>
-
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>
   
   <!-- Main -->
 		
 		<!-- Content -->
-		<div class="container" style="margin-top:200px"> 
+		<div class="container" style="margin-top:150px; margin-bottom:150px"> 
 			<div class="card shadow">
 			  
 			  <div class="card-header">
-			  	<h1>title</h1>
-			  	<p>explanation</p>
+			  	<h3>여행 일정 공유</h3>
+			  	<p>나만의 여행 일정을 만들고 공유해보세요!</p>
 			  </div>
 			 	
 			 	<div class="card-body">
-				  <div class="row">
-					  
-				  </div>
+				  <div class="row mx-3 my-3 content-box">
+						<c:forEach var="planDTO" items="${planList }" >
+								<div class="col-sm-3">
+									<div class="card mb-3 card_hover">
+										<span>${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
+										<c:choose>
+											<c:when test="${planDTO.plan_img ne null }">
+												<img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기">
+											</c:when>
+											<c:when test="${planDTO.plan_img eq null }">
+												<img src="${root }images/schedule/thumbnail.jpg" class="card-img-top" height="120" alt="일정으로">
+											</c:when>
+										</c:choose>
+										<div class="card-body" style="padding: 15px;">
+											<p class="card-title lead ellipsis">${planDTO.plan_title }</p>
+											<p class="card-text ellipsis">${planDTO.plan_info }</p>
+											<ul class="btn-group" style="display: table; margin: 0; padding: 10px 0; width: 100%; border-radius: 5px; border: 1px solid #EFEFEF;  text-align: center; list-style: none;">
+												<li style="display: table-cell;">
+													<a href="${root }schedule/read?page=${pageDTO.currentPage }&plan_no=${planDTO.plan_no }"><i class='fas fa-1x fa-info-circle'></i> 자세히보기</a>
+												</li>
+											</ul>
+										</div>
+									</div>
+								</div>
+						</c:forEach>
+					</div> 
 				  
 					<div class="d-none d-md-block" style="margin-top:20px;">
 				 		<ul class="pagination justify-content-center">
@@ -112,9 +250,11 @@
 	  			</div>
 	  			<form id="writeNewPlan" action="${root }schedule/write" method="post">
 	  				<div class="modal-body">
+	  					<input type="hidden" id="user_no" name="user_no" value="${loginUserDTO.user_no }" >
 	  					<input type="hidden" id="plan_term" name="plan_term">
-	  					<input type="hidden" name="plan_info" value="temporary">
-	  					<input type="hidden" name="plan_img" value="/images/thumbnail.png">
+	  					<input type="hidden" name="plan_info" value="내용을 입력해주세요.">
+	  					<input type="hidden" id="plan_private" name="plan_private" value="N">
+	  					<input type="hidden" name="plan_img" value="/images/schedule/thumbnail.jpg">
 	  					<div class="form-group">
 	  						<label for="plan_title">일정 제목</label>
 	  						<input type="text" class="form-control" id="plan_title" name="plan_title" style="width:100%">
@@ -126,8 +266,14 @@
 	  				</div>
 	  			</form>
 	  			<div class="modal-footer">
-	  				 <button class="btn btn-primary" type="button" id="submit">만들기</button>
-	           <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
+	  				<input type="checkbox" id="switch">
+	  				
+		    		<label for="switch">
+		    			<span class="first">비공개</span>
+		    			<span class="second">공개</span>
+		    		</label>
+	  				<button class="btn btn-primary" type="button" id="submit">만들기</button>
+	          <button class="btn btn-danger" type="button" data-dismiss="modal">취소</button>
 	  			</div>
 	  		</div>
 	  	</div>

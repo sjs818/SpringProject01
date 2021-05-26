@@ -20,208 +20,16 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	
 
-<link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Stylish&display=swap"
-	rel="stylesheet">
+<script type="text/javascript" src="${root }js/spot.js" ></script>
 
 <!-- x 아이콘 -->
 <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
-
-<script>
-$(function() {
-
-    var sigungu = $("#sigunguCode").val();
-    var contentType = $("#contentTypeId").val();
-    var pNum = $('input[name=currentPage]').val();
-
-    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10 };
-
-    /* 검색에 필요한 변수 추가 */
-    var keyword_markers=[];
-    // var map = initTmap();
-    var keywordParam = { "pageNo" : 1, "numOfRow" : 10, "keyword" : ""};
-    var keyword_flag = false;
-    
-    
-    // 무조건 화면에 띄워야함.
-    $.ajax({
-        url: "/spot/information",
-        type: "get",
-        dataType: "json",
-        data: allData,
-        success: function(data) {
-            
-        	$("#total_view").show();
-    		$("#search_view").hide();
-    		$("#total_page").show();
-        	
-            // 반복함수
-            $.each(data, function(key, val) {  
-            	
-            	$("#contentId" + key).html(data[key].contentId);
-            	$("#contentTypeId" + key).html(data[key].contentTypeId);
-				$("#photo" + key).attr("src", data[key].firstImage);
-				$("#title" + key).text(data[key].title);
-                $("#addr" + key).text(data[key].addr1);
-            });
-        },
-        error: function(error) {
-            alert('첫 페이지 에러');
-        }
-    });
-    
-    var actionForm = $("#actionForm");
-
-    $(".paginate_button a").on("click", function(e) {
-        e.preventDefault();
-        actionForm.find("input[name='currentPage']").val($(this).attr("href"));
-        actionForm.submit();
-    });
-    
-	$("#btn-search").click(function(){
-		
-		keywordParam.pageNo = 1;
-				
-		$("#total_view").hide();
-		$("#search_view").show();
-		$("#total_page").hide();
-		
-		var keyword = $("#search-field").val();
-		
-		if(keyword == "") {
-			alert('키워드를 입력하세요');
-			$("#search-field").focus();
-			return false;
-		}
-		
-		keywordParam.keyword = keyword;
-		console.log("keyword : " + keyword);
-		
-		$.ajax({	
-			
-			url : "/spot/keyword",
-			type : "get",
-			dataType : "json",
-			data : keywordParam,
-			
-			success :  function(data){
-				
-				
-				$("#search_view").empty();
-				
-				$.each(data, function(key, val) {  
-					
-					var content = '<div class="col-lg-4 col-sm-6 mb-4">'
-								+'<div class="portfolio-item">'
-								+'<a class="portfolio-link" data-toggle="modal"href="#portfolioModal" onclick="detail('+key+');">'
-								+'<div class="portfolio-hover">'
-								+'<div class="portfolio-hover-content">'
-								+'<i class="fas fa-plus fa-3x"></i></div></div> '
-								+'<img class="img-fluid photo" id="searchPhoto" src="'+data[key].firstImage+'" alt="..."></a>'
-								+'<div class="portfolio-caption"><div id="searchTitle" class="portfolio-caption-heading">'+data[key].title+'</div>'
-								+'<div id="searchAddr" class="portfolio-caption-subheading text-muted">'+data[key].addr1+'</div>'
-								+'<span style="display: none" id="searchContentId">'+data[key].contentId+'</span> '
-								+'<span style="display: none" id="searchContentTypeId">'+data[key].contentTypeId+'</span></div></div></div>';
-								
-								
-	                $("#search_view").append(content);
-	            });
-	
-			},
-			error : function(error) {
-				alert("keyword 실패");
-			}
-		}); 
-	});
-});
-
-function detail(idx) {
-	
-	var contentId = $("#contentId"+idx).html();
-	var contentTypeId = $("#contentTypeId"+idx).html();
-	var param = {"contentId" : contentId, "contentTypeId" : contentTypeId};
-	
-	$.ajax({
-		
-		url: "/spot/details",
-		type: "get",
-		dataType: "json",
-		data: param,
-		success:function(data) {
-			
-			testData(data,contentTypeId);
-		}, 
-		error: function(error) {
-			alert('detail 에러');
-		}
-	});
-}
-
-function testData(data,contentTypeId) {
-	for(var i=0;i<data.length;i++){
-		if(data[i] == null){
-			data[i] = "";
-		}
-	}		
-	$("#modalPhoto").attr("src",data[0]);
-	$("#modalTitle").text(data[1]);
-	$("#modalOverview").html(data[2]);
-	$(".details").empty().append("<li id='addr'>주소 : "+data[3]+"</li><br>");
-	switch(contentTypeId) {
-	case "12" :
-		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
-		$(".details").append("<li>쉬는날 : "+data[7]+"</li><br>");
-		$(".details").append("<li>이용시간 : "+data[8]+"</li><br>");
-		break;
-	case "14" :
-		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
-		$(".details").append("<li>이용요금 : "+data[7]+"</li><br>");
-		$(".details").append("<li>이용시간 : "+data[8]+"</li><br>");
-		break;
-	case "15" :
-		$(".details").append("<li>행사 홈페이지 : "+data[6]+"</li><br>");
-		$(".details").append("<li>연락처 : "+data[7]+"</li><br>");
-		$(".details").append("<li>공연시간 : "+data[8]+"</li><br>");
-		$(".details").append("<li>이용요금 : "+data[9]+"</li><br>");//여기까지
-		break;
-	case "25" :
-		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
-		$(".details").append("<li>코스 예상 소요시간 : "+data[7]+"</li><br>");
-		$(".details").append("<li>코스 테마 : "+data[8]+"</li><br>");
-		break;
-	case "28" :
-		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
-		$(".details").append("<li>쉬는날 : "+data[7]+"</li><br>");
-		$(".details").append("<li>이용요금 : "+data[8]+"</li><br>");
-		$(".details").append("<li>이용시간 : "+data[9]+"</li><br>");
-		break;
-	case "32" :
-		$(".details").append("<li>문의 및 안내 : "+data[8]+"</li><br>");
-		$(".details").append("<li>체크인 : "+data[6]+"</li><br>");
-		$(".details").append("<li>체크아웃 : "+data[7]+"</li><br>");
-		$(".details").append("<li>홈페이지 : "+data[9]+"</li><br>");
-		$(".details").append("<li>예약안내 : "+data[10]+"</li><br>");
-		break;
-	case "38" :
-		$(".details").append("<li>문의 및 안내 : "+data[6]+"</li><br>");
-		$(".details").append("<li>영업시간 : "+data[7]+"</li><br>");
-		$(".details").append("<li>쉬는날 : "+data[8]+"</li><br>");
-		break;
-	case "39" :
-		$(".details").append("<li>문의 및 안내 : "+data[7]+"</li><br>");
-		$(".details").append("<li>대표 메뉴 : "+data[6]+"</li><br>");
-		$(".details").append("<li>영업시간 : "+data[8]+"</li><br>");
-		$(".details").append("<li>쉬는날 : "+data[9]+"</li><br>");
-		break;
-	}
-}
-
-</script>
+<link rel="stylesheet" href="${root }css/styles.css">
 
 </head>
 
@@ -230,35 +38,36 @@ function testData(data,contentTypeId) {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- Top 5 출력 -->
-	<section class="page-section bg-light" id="portfolio">
+	<section class="page-section bg-light" id="portfolio">		
 		<div class="container"
 			style="margin-top: 100px; margin-bottom: 100px;">
 			<div class="text-center">
-				<h2 class="section-heading text-uppercase">제주 지역 탐방</h2>
+				<h2 class="section-heading text-uppercase">제주 지역 탐방 - BEST 3</h2>
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
 					수 있습니다. 각 지역의 Top3 유명지를 소개합니다.</h3>
 			</div>
-
-			<!-- Best 여행지  -->
-			<div class="row" style="margin-top: 50px">
-				<c:forEach var="order" begin="0" end="2">
+			<div id="best_view" class="row">
+				<c:forEach var="i" begin="0" end="2" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
-							<a class="portfolio-link" data-toggle="modal"
-								href="#portfolioModal${order }">
+							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="best_detail(${i});">
 								<div class="portfolio-hover">
 									<div class="portfolio-hover-content">
-										<svg class="svg-inline--fa fa-plus fa-w-14 fa-3x" aria-hidden="true" focusable="false" data-prefix="fas"
-											data-icon="plus" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" data-fa-i2svg="">
-											<path fill="currentColor" d="M416 208H272V64c0-17.67-14.33-32-32-32h-32c-17.67 0-32 14.33-32 32v144H32c-17.67 0-32 14.33-32 32v32c0 17.67 14.33 32 32 32h144v144c0 17.67 14.33 32 32 32h32c17.67 0 32-14.33 32-32V304h144c17.67 0 32-14.33 32-32v-32c0-17.67-14.33-32-32-32z"></path></svg>
+										<i class="fas fa-plus fa-3x"></i>
 									</div>
-								</div> <img class="img-fluid" src="${root }images/spot/jeju.jpg"
-								alt="...">
+								</div> 
+								<img class="img-fluid photo" id="bestPhoto${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
-								<div class="portfolio-caption-heading">Top ${order +1 }</div>
-								<div class="portfolio-caption-subheading text-muted">Graphic
-									Design</div>
+								<div style="font-color:blue;">
+									<i class="far fa-hand-point-right" style="color: blue;"></i>
+										 Top ${i+1 }
+								</div>
+								<div id="bestTitle${i}" class="portfolio-caption-heading"></div>
+								<div id="bestAddr${i}"
+									class="portfolio-caption-subheading text-muted"></div>
+								<span style="display:none" id="bestContentId${i }" ></span>
+								<span style="display:none" id="bestContentTypeId${i }" ></span>
 							</div>
 						</div>
 					</div>
@@ -266,12 +75,14 @@ function testData(data,contentTypeId) {
 			</div>
 		</div>
 
+
 		<hr style="width: 80%;">
 
 		<!-- 전체 여행지 보기 -->
 		<input type="hidden" id="pageMaker" value="${pageMaker }"> 
 		<input type="hidden" id="sigunguCode" value="${sigunguCode }"> 
 		<input type="hidden" id="contentTypeId" value="${contentTypeId }">
+		<input type="hidden" id="currentPage" value="${pageMaker.currentPage }">
 		<div class="container" style="margin-top: 100px;">
 			<div class="text-center">
 				<h2 class="section-heading text-uppercase">제주 모든 여행지를 한눈에...</h2>
@@ -298,7 +109,7 @@ function testData(data,contentTypeId) {
 
 			<!-- 전체 내용 출력 -->
 			<div id="total_view" class="row">
-				<c:forEach var="i" begin="0" end="8">
+				<c:forEach var="i" begin="0" end="9" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
@@ -313,20 +124,24 @@ function testData(data,contentTypeId) {
 								<div id="title${i}" class="portfolio-caption-heading"></div>
 								<div id="addr${i}"
 									class="portfolio-caption-subheading text-muted"></div>
-								<span style="display: none" id="contentId${i }"></span> <span
-									style="display: none" id="contentTypeId${i }"></span>
+								<span style="display:none" id="contentId${i }" ></span>
+								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
-							<div class="icon_outside">
-		                        <div class="icon" style="margin-right: 60px;">
-		                             <a href="#" ><i class="far fa-thumbs-up" style="font-size:30px;"></i></a>
+							<div class="icon_outside" >
+		                        <div id="like-btn" class="icon" style="margin-right: 60px;">
+		                             <a  id="likeSendContentId${i }" onClick="likeProc(${i })" >
+		                             	<i class="far fa-thumbs-up aTagSet" style="font-size:30px;"></i>
+		                             </a>
 		                             <!-- <a href="#"><i class="fas fa-thumbs-up" style="font-size:30px;"></i></a> -->
 		                             <span style="font-size: 10px;">좋아요</span>
-		                             <span style="font-size: 10px;">208</span>
+		                             <span id="likeCnt${ i }" style="font-size: 10px;"></span><br>
 		                         </div>
 		                         <div class="icon">
-		                             <a href="#"><i class="far fa-file-alt" style="font-size:30px;"></i></a>
-		                             <span style="font-size: 10px;">리뷰쓰기</span>        
-		                             <span style="font-size: 10px;" >100</span>
+		                             <a id="reviewSendContentId${i }" href="">
+		                             	<i class="far fa-file-alt" style="font-size:30px;"></i>
+		                             </a>
+		                             <span style="font-size: 10px;">리뷰</span>        
+		                             <span id="reviewCnt${i }" style="font-size: 10px;" ></span><br>
 		                         </div>
 		                     </div>
 						</div>
@@ -396,8 +211,10 @@ function testData(data,contentTypeId) {
 								<p id="modalOverview"></p>
 								<ul class="details">
 								</ul>
-								<button class="btn btn-primary" data-dismiss="modal"
-									type="button">
+								<a id="detailBtn" class="btn btn-info" type="button" href="">
+									<i class="far fa-file-alt"></i> Write Review
+								</a>
+								<button class="btn btn-primary" data-dismiss="modal" type="button">
 									<i class="fas fa-times mr-1"></i> Close Project
 								</button>
 							</div>
@@ -407,7 +224,6 @@ function testData(data,contentTypeId) {
 			</div>
 		</div>
 	</div>
-
 
 	<!-- 하단 -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
