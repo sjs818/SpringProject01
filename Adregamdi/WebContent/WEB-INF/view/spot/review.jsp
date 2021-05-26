@@ -123,26 +123,26 @@
 					<table class="table table-hover" id='review_list'>
 						<thead>
 							<tr>
-								<th class="text-center d-none d-md-table-cell">글번호</th>
+								<th></th>
 								<th class="text-center d-none d-md-table-cell">내용</th>
 								<th class="text-center d-none d-md-table-cell">작성자</th>
 								<th class="text-center d-none d-md-table-cell">작성날짜</th>
-								<th></th>	
+								<th style="width: 30px;"></th>	
 							</tr>
 						</thead>
 						<tbody>
 							<c:forEach var="reviewDTO" items="${reviewList }">
 								<input type="hidden" id="hcontentId" value="${reviewDTO.content_id }"/>
 								<tr>
-									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_idx }</td>			
+									<td></td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_name }</td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
-									<c:if test="${loginCheck eq reviewDTO.user_no }" >
-										<td>
+									<td style="width: 30px;">
+										<c:if test="${loginCheck eq reviewDTO.user_no }" >
 											<div style="float:left;" onClick="deleteReview(${reviewDTO.review_idx})"> <i class="far fa-trash-alt"></i></div>
-										</td>
-									</c:if>
+										</c:if>
+									</td>
 								</tr>	
 							</c:forEach>
 						</tbody>
