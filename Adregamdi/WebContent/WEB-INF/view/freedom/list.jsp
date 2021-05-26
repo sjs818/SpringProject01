@@ -14,6 +14,7 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="${root}css/freedomBoard.css">
 </head>
 <body>
 	<!-- Header Import -->
@@ -39,7 +40,7 @@
 				<c:forEach var="FreedomBoardDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${FreedomBoardDTO.free_no }</td>
-						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title}</a></td>
+						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title} (${FreedomBoardDTO.reply_count})</a></td>
 						<td class="text-center">${FreedomBoardDTO.content_writer_id }</td>
 						<td class="text-center">${FreedomBoardDTO.free_cnt }</td>
 						<td class="text-center">${FreedomBoardDTO.content_date }</td>
