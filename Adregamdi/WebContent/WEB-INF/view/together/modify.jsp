@@ -23,6 +23,20 @@
 	  $("#togetherWriteDTO").submit();
   }
   </script>
+  
+  <style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+  </style>
+  
 </head>
 <body>
 	<!-- 상단 메뉴 -->

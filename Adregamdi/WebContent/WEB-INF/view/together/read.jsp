@@ -16,6 +16,24 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+    
+    .overflow{
+    	overflow: scroll;
+    }
+  </style>
+  
 </head>
 <body>
 	<!-- 상단 메뉴 -->
@@ -44,7 +62,7 @@
 			  <div class="form-group">
                  <label for="to_content">공고문</label>
                  <div class="card" >
-                 <div class="card-body overflow-auto " style="max-height :300px">
+                 <div class="card-body overflow-auto overflow" style="max-height :300px">
     				${readContentDTO.to_content }	
                   </div>
                 </div>

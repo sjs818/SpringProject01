@@ -38,6 +38,7 @@
 
 body {
 	font-family: 'Bazzi';
+	overflow: hidden;
 }
 
 a {

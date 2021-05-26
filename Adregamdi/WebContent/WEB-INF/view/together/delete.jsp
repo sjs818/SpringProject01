@@ -17,6 +17,20 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<style>
+		@font-face {
+	    font-family: 'Bazzi';
+	    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+	    font-weight: normal;
+	    font-style: normal;
+		}
+		
+  	body {
+      font-family: 'Bazzi';
+    }
+  </style>
+  
 </head>
 <body>
 <!-- 절대 경로 설정 -->
@@ -25,7 +39,7 @@
     <h3 class="InputSubject">
       <b>${togetherDeleteDTO.to_title}</b>
     </h3>
-    <h5>${togetherDeleteDTO.to_writer}&nbsp;&nbsp;&nbsp;&nbsp;${togetherDeleteDTO.to_date}</h5>
+    <h5>&nbsp;&nbsp;&nbsp;&nbsp;${togetherDeleteDTO.to_date}</h5>
     <hr>
     <div class="row">
       <div class="col-sm-8">
