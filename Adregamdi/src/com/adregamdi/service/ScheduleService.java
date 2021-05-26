@@ -161,4 +161,12 @@ public class ScheduleService {
 	public List<UserPlanDTO> readSchedule(int plan_no) {
 		return scheduleDAO.readSchedule(plan_no);
 	}
+	
+	public boolean deletePlan(int plan_no) {
+		return scheduleDAO.deletePlan(plan_no) > 0;
+	}
+	
+	public boolean deleteUserPlan(int plan_no) {
+		return scheduleDAO.deleteUserPlan(plan_no) > 0;
+	}
 }

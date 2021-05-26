@@ -68,4 +68,12 @@ public class ScheduleDAO {
 	public List<UserPlanDTO> readSchedule(int plan_no) {
 		return scheduleMapper.readSchedule(plan_no);
 	}
+	
+	public int deletePlan(int plan_no) {
+		return scheduleMapper.deletePlan(plan_no);
+	}
+	
+	public int deleteUserPlan(int plan_no) {
+		return scheduleMapper.deleteUserPlan(plan_no);
+	}
 }

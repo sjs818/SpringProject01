@@ -701,7 +701,7 @@
 		</c:if>
 		<c:if test="${isModify == 'Y'}">
 			<div id="btn-modify">
-				<button type="button" id="btn-modify" class="btn btn-primary" style="margin-top: 16px; float: right">수정</button>
+				<button type="button" id="btn-modify" class="btn btn-success" style="margin-top: 16px; float: right">수정</button>
 			</div>
 		</c:if>
 	</div>

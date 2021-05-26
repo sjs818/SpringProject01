@@ -91,7 +91,10 @@ public class ScheduleController {
 		List<UserPlanDTO> plan = new ArrayList<UserPlanDTO>();
 		if(purpose.equals("write")) {
 			plan = scheduleService.getUserPlanCreate(plan_no);
-			
+		}
+		if(purpose.equals("modify")) {
+			plan = scheduleService.readSchedule(plan_no);
+			isModify = "Y";		
 		}
 		
 		model.addAttribute("loginUserDTO", loginUserDTO);
@@ -200,5 +203,12 @@ public class ScheduleController {
 		model.addAttribute("page", page);
 		
 		return "schedule/read";
+	}
+	
+	@ResponseBody
+	@PostMapping("/delete")
+	public boolean delete(@RequestParam("plan_no") int plan_no) {
+	
+		return scheduleService.deletePlan(plan_no) && scheduleService.deleteUserPlan(plan_no);
 	}
 }

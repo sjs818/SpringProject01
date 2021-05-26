@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.FreedomBoardMapper;
 
@@ -52,5 +53,33 @@ public class FreedomBoardDAO {
 	
 	public void FreedomBoardDeleteContent(int content_idx) {
 		freedomBoardMapper.FreedomBoardDeleteContent(content_idx);
+	}
+	
+	// ============================================ 댓글 관련 컨트롤러 ==========================
+	// 댓글 리스트 불러오기
+	public List<FreedomReplyDTO> getFreedomReplyList(int free_num) {
+		List<FreedomReplyDTO> replyList = freedomBoardMapper.getFreedomReplyList(free_num);
+		return replyList;
+	}
+	
+	//댓글 입력
+	public void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.InsertFreedomBoardReply(replyWriteDTO);
+	}
+	
+	//댓글 수정
+	public void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.ModifyFreedomBoardReply(replyWriteDTO);
+	}
+	
+	//댓글 삭제
+	public void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.DeleteFreedomBoardReply(replyWriteDTO);
+	}
+	
+	//댓글 수 조회
+	public int GetFreedomBoardReplyCount(int free_num) {
+		int replyCount = freedomBoardMapper.GetFreedomBoardReplyCount(free_num);
+		return replyCount;
 	}
 }

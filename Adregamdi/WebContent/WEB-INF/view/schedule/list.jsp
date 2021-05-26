@@ -98,18 +98,10 @@
 			border-radius: 3px;
 		}
 		
-		.card_hover .ellipsis-title{
+		.card_hover .ellipsis {
 			white-space: normal;
 			display: -webkit-box;
 			-webkit-line-clamp: 1;
-			-webkit-box-orient: vertical;
-			overflow: hidden;
-		}
-
-		.card_hover .ellipsis-info {
-			white-space: normal;
-			display: -webkit-box;
-			-webkit-line-clamp: 2;
 			-webkit-box-orient: vertical;
 			overflow: hidden;
 		}
@@ -206,8 +198,8 @@
 											</c:when>
 										</c:choose>
 										<div class="card-body" style="padding: 15px;">
-											<p class="card-title lead ellipsis-title">${planDTO.plan_title }</p>
-											<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
+											<p class="card-title lead ellipsis">${planDTO.plan_title }</p>
+											<p class="card-text ellipsis">${planDTO.plan_info }</p>
 											<ul class="btn-group" style="display: table; margin: 0; padding: 10px 0; width: 100%; border-radius: 5px; border: 1px solid #EFEFEF;  text-align: center; list-style: none;">
 												<li style="display: table-cell;">
 													<a href="${root }schedule/read?page=${pageDTO.currentPage }&plan_no=${planDTO.plan_no }"><i class='fas fa-1x fa-info-circle'></i> 자세히보기</a>

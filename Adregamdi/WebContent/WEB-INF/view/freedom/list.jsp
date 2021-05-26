@@ -20,11 +20,11 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 자유 게시판 리스트 -->
-	<div class="container" style="padding-top: 80px">
+	<div class="container" style="padding-top: 120px">
 		<h3 class="BoardTitle">
 			<b>자유게시판</b>
 		</h3>
-		<hr>
+		<hr><br>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -39,7 +39,7 @@
 				<c:forEach var="FreedomBoardDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${FreedomBoardDTO.free_no }</td>
-						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title }</a></td>
+						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title}</a></td>
 						<td class="text-center">${FreedomBoardDTO.content_writer_id }</td>
 						<td class="text-center">${FreedomBoardDTO.free_cnt }</td>
 						<td class="text-center">${FreedomBoardDTO.content_date }</td>
