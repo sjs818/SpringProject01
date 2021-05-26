@@ -49,4 +49,7 @@ public interface ScheduleMapper {
 	
 	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'N'")
 	int getContentCnt();
+	
+	@Select("SELECT * FROM USER_PLAN WHERE PLAN_NO = #{plan_no } ORDER BY PLANDAY")
+	List<UserPlanDTO> readSchedule(int plan_no);
 }

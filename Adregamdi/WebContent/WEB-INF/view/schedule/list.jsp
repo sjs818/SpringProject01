@@ -17,6 +17,8 @@
 	<!-- flatpickr -->
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 	<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+	<!-- FontAwesome -->
+	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 	<script>
 		$(function() {
 			$('#newPlan').click(function(){
@@ -86,7 +88,7 @@
 			position: relative;
 		}
 		
-		.card_hover span{
+		.card_hover span {
 			position: absolute;
 			top: 0;
 			left: 0;
@@ -94,6 +96,22 @@
 			color: white;
 			padding: 3px 6px;
 			border-radius: 3px;
+		}
+		
+		.card_hover .ellipsis-title{
+			white-space: normal;
+			display: -webkit-box;
+			-webkit-line-clamp: 1;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
+		}
+
+		.card_hover .ellipsis-info {
+			white-space: normal;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
+			overflow: hidden;
 		}
 		
 		.modal-footer {
@@ -174,23 +192,27 @@
 			  </div>
 			 	
 			 	<div class="card-body">
-				  <div class="row mx-3 my-3 content-box" style=" margin-bottom: 50px;">
+				  <div class="row mx-3 my-3 content-box">
 						<c:forEach var="planDTO" items="${planList }" >
 								<div class="col-sm-3">
 									<div class="card mb-3 card_hover">
 										<span>${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
 										<c:choose>
 											<c:when test="${planDTO.plan_img ne null }">
-												<a href="#"><img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기"></a>
+												<img src="${planDTO.plan_img }" class="card-img-top" height="120" alt="일정보기">
 											</c:when>
 											<c:when test="${planDTO.plan_img eq null }">
-												<a href="#"><img src="${root }images/schedule/thumbnail.jpg" class="card-img-top" height="120" alt="일정으로"></a>
+												<img src="${root }images/schedule/thumbnail.jpg" class="card-img-top" height="120" alt="일정으로">
 											</c:when>
 										</c:choose>
-										<div class="card-body" style="padding: 10px;">
+										<div class="card-body" style="padding: 15px;">
 											<p class="card-title lead ellipsis-title">${planDTO.plan_title }</p>
 											<p class="card-text ellipsis-info">${planDTO.plan_info }</p>
-											<a href="#" class="btn btn-primary" style="float: right; padding: 3px 6px;">자세히 보기</a>
+											<ul class="btn-group" style="display: table; margin: 0; padding: 10px 0; width: 100%; border-radius: 5px; border: 1px solid #EFEFEF;  text-align: center; list-style: none;">
+												<li style="display: table-cell;">
+													<a href="${root }schedule/read?page=${pageDTO.currentPage }&plan_no=${planDTO.plan_no }"><i class='fas fa-1x fa-info-circle'></i> 자세히보기</a>
+												</li>
+											</ul>
 										</div>
 									</div>
 								</div>

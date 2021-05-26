@@ -185,4 +185,20 @@ public class ScheduleController {
 				
 		return scheduleService.updatePlan(planDTO);
 	}
+	
+	@GetMapping("/read")
+	public String read(@RequestParam("page") int page, @RequestParam("plan_no") int plan_no, Model model) {
+		
+		PlanDTO planDTO = scheduleService.getPlan(plan_no);
+		List<UserPlanDTO> userPlanList = scheduleService.readSchedule(plan_no);
+		int planTotalDate = Integer.parseInt(userPlanList.get(0).getPlanTotalDate());
+
+		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("planDTO", planDTO);
+		model.addAttribute("userPlanList", JSONArray.fromObject(userPlanList));
+		model.addAttribute("planTotalDate", planTotalDate);
+		model.addAttribute("page", page);
+		
+		return "schedule/read";
+	}
 }

@@ -39,11 +39,9 @@
 			var present_markers = [];
 			var present_polylines = [];
 			
-			console.log(user_no);
-			
 			$('#plan-info').find('ul').find('input').each(function(){
 				allInfo.push(JSON.parse($(this).val()));
-			})
+			});
 			
 			var firstDate = allInfo[0].planDate.split('-');
 			
@@ -57,7 +55,7 @@
 				if(allInfo[i].startDate =="" || allInfo[i].endDate=="") {
 					date = allInfo[i].planDate.split('-');
 					if(firstDate[0] != date[0] || firstDate[1] != date[1] || firstDate[2] != date[2]) {
-						date = firstDate;
+						firstDate = date;
 						start = 9;
 						end = 10;
 					}
@@ -75,7 +73,7 @@
 					schedule.push(data);
 				}
 			}
-			
+
 			$('.dx-tab').on("click", function() {
 				
 				var type = $(this).find('span.dx-tab-text').text();
@@ -331,9 +329,7 @@
   	}
   	
   	function addMarker(map, status, planInfo) {
-  		
-  		var markerLayer;
-  		
+  		  		
   		switch (status) {
   	  	case "start":
   	    imgURL = 'http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_s.png';

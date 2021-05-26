@@ -64,4 +64,8 @@ public class ScheduleDAO {
 	public int getContentCnt() {
 		return scheduleMapper.getContentCnt();
 	}
+	
+	public List<UserPlanDTO> readSchedule(int plan_no) {
+		return scheduleMapper.readSchedule(plan_no);
+	}
 }

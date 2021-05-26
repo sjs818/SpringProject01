@@ -157,4 +157,8 @@ public class ScheduleService {
 	public boolean updateSchedule(UserPlanDTO userPlanDTO) {
 		return scheduleDAO.updateSchedule(userPlanDTO) > 0;
 	}
+	
+	public List<UserPlanDTO> readSchedule(int plan_no) {
+		return scheduleDAO.readSchedule(plan_no);
+	}
 }
