@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 
 public interface TogetherMapper {
 	
@@ -52,4 +53,28 @@ public interface TogetherMapper {
 	@Update("UPDATE TOGETHER SET TO_CNT=to_cnt+1 "
 			  + "WHERE TO_NO = #{to_no}")
   void viewCount(int content_idx);
+	
+	
+	
+// 댓글 관련 Mapper================================================================================================================================
+	
+	@Select("SELECT REPLY_NUM, TOGETHER_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
+			"FROM TOGETHERREPLY " +
+			"WHERE TOGETHER_NUM = #{together_num}" +
+			"ORDER BY TOGETHER_NUM DESC")
+	List<TogetherReplyDTO> getTogetherReplyList(int together_num);
+	
+	//댓글 작성
+	@Insert("INSERT INTO TOGETHERREPLY(reply_num, together_num, reply_writer, reply_content, reply_date) " +
+			"VALUES (together_reply_SEQ.nextval, #{together_num}, #{reply_writer}, #{reply_content}, sysdate) ")
+	void InsertTogetherReply(TogetherReplyDTO replyWriteDTO);
+	
+	//댓글 수정
+	@Update("UPDATE TOGETHERREPLY SET reply_content = #{reply_content}, reply_date = SYSDATE WHERE together_num = #{together_num} and reply_num = #{reply_num}")
+	void ModifyTogetherReply(TogetherReplyDTO replyWriteDTO);
+	
+	//댓글 삭제
+	@Delete("DELETE FROM TOGETHERREPLY WHERE TOGETHER_NUM=#{together_num} AND REPLY_NUM=#{reply_num}")
+	void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO);
+	
 }
