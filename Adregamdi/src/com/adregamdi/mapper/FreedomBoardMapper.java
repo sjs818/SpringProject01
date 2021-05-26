@@ -9,11 +9,13 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
 import com.adregamdi.dto.FreedomBoardDTO;
+import com.adregamdi.dto.FreedomReplyDTO;
 
 public interface FreedomBoardMapper {
 
 	@Select(" SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, F.FREE_TITLE, F.FREE_CNT, " +
-			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE " + 
+			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
+			" (SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
 			" FROM FREEDOMBOARD F, USER_INFO U " +
 			" WHERE F.FREE_WRITER = U.USER_NO " + 
 			" ORDER BY F.FREE_NO DESC ")
@@ -46,4 +48,30 @@ public interface FreedomBoardMapper {
 	@Update("UPDATE FREEDOMBOARD SET FREE_TITLE=#{free_title}, FREE_CONTENT=#{free_content}, free_date=SYSDATE " + 
 			"WHERE FREE_NO = #{free_no}")
 	void modifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO);
+	
+	// ===============================================================================================================================
+	// 댓글 관련 Mapper
+	
+	@Select("SELECT REPLY_NUM, FREEDOM_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
+			"FROM FREEDOMREPLY " +
+			"WHERE FREEDOM_NUM = #{freedom_num}" +
+			"ORDER BY FREEDOM_NUM DESC")
+	List<FreedomReplyDTO> getFreedomReplyList(int freedom_num);
+	
+	//댓글 작성
+	@Insert("INSERT INTO FREEDOMREPLY(reply_num, freedom_num, reply_writer, reply_content, reply_date) " +
+			"VALUES (freedom_reply_SEQ.nextval, #{freedom_num}, #{reply_writer}, #{reply_content}, sysdate) ")
+	void InsertFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
+	
+	//댓글 수정
+	@Update("UPDATE FREEDOMREPLY SET reply_content = #{reply_content}, reply_date = SYSDATE WHERE freedom_num = #{freedom_num} and reply_num = #{reply_num}")
+	void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
+	
+	//댓글 삭제
+	@Delete("DELETE FROM FREEDOMREPLY WHERE FREEDOM_NUM=#{freedom_num} AND REPLY_NUM=#{reply_num}")
+	void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
+	
+	//댓글 갯수 조회
+	@Select("SELECT COUNT(*) FROM FREEDOMREPLY WHERE FREEDOM_NUM=#{freedom_num}")
+	int GetFreedomBoardReplyCount(int freedom_num);
 }

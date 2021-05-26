@@ -17,15 +17,38 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
   <script>
-	 function submit(){
-		 $("#freedomWriteDTO").submit();
-	 }
+  	function formSubmit(){
+  			const check_title = $("#free_title").val();
+			const check_content = CKEDITOR.instances.free_content.getData();
+  			
+			if(check_title == ""){
+  				alert("제목을 입력해주세요 !");
+  				event.preventDefault();
+  				return;
+  			} else if(check_content == ""){
+  				alert("내용을 입력해주세요 !");
+  				event.preventDefault();
+  				return;
+  			} else if(check_title != "" && check_content != ""){
+  				$("#freedomWriteDTO").submit();
+  			} 
+  	}
+  
+  	function cancelfunc(){
+  		const choice = confirm("작성하시는 글은 저장이 안됩니다 나가시겠습니까?");
+  		if(choice == true){
+  			location.href="${root}freedom/list";	
+  		} else {
+  			return;
+  		}
+  		
+  	}
   </script>
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-	<div class="container" style="margin-top: 80px;">
+	<div class="container" style="margin-top: 120px;">
   <h3 class="InputSubject">
     <b>게시글 작성</b>
   </h3>
@@ -43,14 +66,14 @@
         <textarea class="form-control" id="free_content" name="free_content"></textarea>
         <script>
         	CKEDITOR.replace('free_content',{
-        		height: 400
+        		height: 350
         	});
         </script>
       </div>
     </div>
     <div class="form-group float-right">
-      <button class="btn btn-success" style="padding : 4px; margin-right : 5px;" id="submit" onClick="submit();">작성완료</button>
-      <button class="btn btn-danger" style="padding-top : 4px; padding-bottom: 4px;" id="cancel">취소</button>
+      <button type="button" id="form_submit" class="btn btn-success" style="padding : 4px; margin-right : 5px;" onclick="formSubmit();">작성완료</button>
+      <button type="button" id="write_cancel" class="btn btn-danger" style="padding-top : 4px; padding-bottom: 4px;" onclick="cancelfunc();">취소</button>
     </div>
   </form>
 </div>
