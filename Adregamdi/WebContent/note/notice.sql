@@ -6,7 +6,7 @@ CREATE TABLE notice
     notice_title      VARCHAR2(100)    NOT NULL, 
     notice_cnt        NUMBER           NOT NULL, 
     notice_date       DATE             NOT NULL, 
-    notice_content    VARCHAR2(500)    NOT NULL
+    notice_content    VARCHAR2(4000)    NOT NULL
 );
 
 -- notice 테이블 삭제
@@ -18,6 +18,9 @@ SELECT * FROM notice;
 
 -- notice 테이블에 데이터 삽입
 INSERT INTO notice VALUES (notice_SEQ.nextval, 1, '공지사항1', '0', sysdate, '공지사항입니다.');
+
+-- ***** 관리자 계정 설정 *****
+UPDATE USER_INFO SET USER_PROVIDER=0 WHERE USER_NO=1;
 -------------------------------------------------------------------------------------------------------------------------------
 
 -- notice 테이블 시퀀스(notice_SEQ) 생성
@@ -38,7 +41,7 @@ SELECT LAST_NUMBER FROM USER_SEQUENCES WHERE SEQUENCE_NAME='notice_SEQ';
 SELECT notice_SEQ.NEXTVAL FROM DUAL;
 -------------------------------------------------------------------------------------------------------------------------------
 
--- 이전글, 다음글 쿼리문
+-- 이전글, 다음글 기능 쿼리문
 SELECT N.*
 FROM (
     SELECT
@@ -50,5 +53,8 @@ FROM (
     FROM NOTICE
 ) N
 WHERE N.notice_no = 1;
+
+-- 조회수 기능 쿼리문
+UPDATE NOTICE SET notice_cnt = notice_cnt + 1 WHERE notice_no = #{notice_cnt}
 -------------------------------------------------------------------------------------------------------------------------------
 -------------------------------------------------------------------------------------------------------------------------------

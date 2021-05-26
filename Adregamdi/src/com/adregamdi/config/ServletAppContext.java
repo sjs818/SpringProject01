@@ -28,7 +28,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
-import com.adregamdi.interceptor.NoticeInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.NoticeMapper;
