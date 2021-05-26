@@ -14,13 +14,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- CSS import -->
+<link href="${root }css/notice.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 150px">
+	<div class="container" style="padding-top: 130px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>
@@ -40,7 +44,7 @@
 				<c:forEach var="NoticeDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${NoticeDTO.notice_rownum }</td>
-						<td class="text-center"><a href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
+						<td class="text-center"><a style="color: black;" href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
 						<td class="text-center">${NoticeDTO.content_notice_user_no }</td>
 						<td class="text-center">${NoticeDTO.notice_cnt }</td>
 						<td class="text-center">${NoticeDTO.notice_date }</td>
@@ -55,7 +59,7 @@
 					<c:when test="${pageDTO.prevPage <= 0 }">
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a
+						<li class="page-item"><a 
 							href="${root}notice/list?page=${pageDTO.prevPage}"
 							class="page-link">이전</a></li>
 					</c:otherwise>
@@ -92,5 +96,6 @@
 				</c:if>
 			</div>
 	</div>
+	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

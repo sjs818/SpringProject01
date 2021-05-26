@@ -18,12 +18,16 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+	
+<!-- CSS import -->
+<link href="${root }css/notice.css" rel="stylesheet" type="text/css">
+	
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
-	<div class="container" style="margin-top: 150px;">
+	<div class="container" style="margin-top: 130px;">
 	    <h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>
@@ -68,7 +72,7 @@
 					</c:when>
 					<c:otherwise>
 						<td class="text-center" style="width:8%">이전글</td>
-						<td class="text-center" style="width:55%"><a
+						<td class="text-center" style="width:55%"><a style="color: black;"
 							href="${root}notice/read?content_idx=${nextPrev. pre_no}">${nextPrev. pre_title}</a></td>
 						<td class="text-center" style="width:8%">${preContentDTO.notice_cnt}</td>
 						<td class="text-center" style="width:15%">${preContentDTO.notice_date}</td>
@@ -83,7 +87,7 @@
 					</c:when>
 					<c:otherwise>
 						<td class="text-center" style="width:8%">다음글</td>
-						<td class="text-center" style="width:55%"><a
+						<td class="text-center" style="width:55%"><a style="color: black;"
 							href="${root}notice/read?content_idx=${nextPrev. next_no}">${nextPrev. next_title}</a></td>
 						<td class="text-center" style="width:8%">${nextContentDTO.notice_cnt}</td>
 						<td class="text-center" style="width:15%">${nextContentDTO.notice_date}</td>
@@ -92,5 +96,6 @@
 			</tr>
 		</table>
 	</div>
+	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>
