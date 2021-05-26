@@ -18,8 +18,6 @@
 	<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
 	<!-- T Map API -->
 	<script	src="https://apis.openapi.sk.com/tmap/jsv2?version=1&appKey=l7xxdc109d32e488487dbf0e29b9dfcf1a59"></script>
-	<!-- JavaScript -->
-	<%-- <script src="${root }js/schedule.js"></script> --%>
 	<script type="text/javascript">
 		
 		var infoWindow;
