@@ -85,4 +85,9 @@ public class FreedomBoardService {
 	public void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardDAO.ModifyFreedomBoardReply(replyWriteDTO);
 	}
+	
+	//댓글 삭제
+	public void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardDAO.DeleteFreedomBoardReply(replyWriteDTO);
+	}
 }

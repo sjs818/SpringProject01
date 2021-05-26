@@ -63,4 +63,7 @@ public interface FreedomBoardMapper {
 	
 	@Update("UPDATE FREEDOMREPLY SET reply_content = #{reply_content}, reply_date = SYSDATE WHERE freedom_num = #{freedom_num} and reply_num = #{reply_num}")
 	void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
+	
+	@Delete("DELETE FROM FREEDOMREPLY WHERE FREEDOM_NUM=#{freedom_num} AND REPLY_NUM=#{reply_num}")
+	void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO);
 }

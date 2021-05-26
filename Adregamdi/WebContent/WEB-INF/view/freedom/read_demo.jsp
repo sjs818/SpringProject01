@@ -98,6 +98,7 @@
    	//댓글 목록 가져오는 함수
   	function getShowReplyList(){
   		let url ="${root}freedomReply/replyGetList";
+  		let freedom_num = $('#freedom_num').val();
   		let paramData = {"freedom_num" : "${readContentDTO.free_no}"};
   		$.ajax({
   			type:"post",
@@ -118,7 +119,7 @@
 					listReply += '<strong class="text-gray-dark">'+ this.reply_writer + '</strong>';
 					listReply += '<span style="padding-left:7px; font-size:9pt">';
 					listReply += '<a href="javascript:void(0)" onclick="EditModiReply(' + this.reply_num + ',\'' + this.reply_writer + '\', \'' + this.reply_content + '\');" style="padding-right:5px">수정</a>';
-					listReply += '<a href="javascript:void(0)" onclick="deleteReply();">삭제</a>';
+					listReply += '<a href="javascript:void(0)" onclick="DeleteReply(' + this.reply_num + ', ' + this.freedom_num + ');">삭제</a>';
 					listReply += '</span>';
 					listReply += '</span>';
 					listReply += this.reply_content;
@@ -130,6 +131,7 @@
   		});
   	}
    	
+   	//수정버튼 눌렀을때 수정하는 폼으로 바꾸어 주는 함수
   	function EditModiReply(reply_num, reply_writer, reply_content){
 			let loginState = ${loginUserDTO.userLogin};
 			let loginUserID = "${loginUserDTO.user_id}";
@@ -138,7 +140,7 @@
 			if(loginState == true){
 			  if(reply_writer == loginUserID || userGrantInfo == 0){
 				let modifyHtml = "";
-			modifyHtml += '<div class="media text-muted pt-3" id="reNum' + reply_num + '">';
+				modifyHtml += '<div class="media text-muted pt-3" id="reNum' + reply_num + '">';
 			    modifyHtml += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32X32">';
 		  	    modifyHtml += '<title>Placeholder</title>';
 			    modifyHtml += '<rect width="100%" height="100%" fill="#007bff"></rect>';
@@ -169,9 +171,10 @@
 			}
   	}
   	
+   	//수정된 댓글을 저장하는 함수
   	function SaveModiReply(reply_num, freeNum, reply_writer){
   		let reply_content = $('#replyContent').val();
-  		let paramData = JSON.stringify({'reply_writer' : reply_writer, 'freedom_num' : freeNum, 'reply_content' : reply_content, 'reply_num' : reply_num});
+  		let paramData = JSON.stringify({'reply_writer':reply_writer, 'freedom_num':freeNum, 'reply_content':reply_content, 'reply_num':reply_num});
   		let headers = {'Content-Type':"application/json", "X-HTTP-Method-Override" : "POST"};
   		let url ="${root}freedomReply/replyModifyProc";
   		$.ajax({
@@ -189,6 +192,28 @@
   			}
   		});
   	}
+   	
+   	//저장된 댓글을 삭제하는 함수
+   	function DeleteReply(reply_num, freedom_num) {
+   		let paramData = JSON.stringify({'reply_num':reply_num, 'freedom_num':freedom_num});
+   		let headers = {'Content-Type':"application/json", "X-HTTP-Method-Override":"POST"};
+   		let url = "${root}freedomReply/replyDeleteProc";
+   		$.ajax({
+   			type: "post",
+   			url: url,
+   			data: paramData,
+   			dataType:'json',
+   			headers : headers,
+   			success:function(result){
+   				console.log(result);
+   				getShowReplyList();
+   				alert("댓글이 삭제되었습니다!");
+   			},
+   			error:function(error){
+   				console.log("에러 : " + error);
+   			}
+   		});
+   	}
   </script>
 </body>
 </html>

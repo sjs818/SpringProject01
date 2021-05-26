@@ -67,7 +67,13 @@ public class FreedomBoardDAO {
 		freedomBoardMapper.InsertFreedomBoardReply(replyWriteDTO);
 	}
 	
+	//댓글 수정
 	public void ModifyFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
 		freedomBoardMapper.ModifyFreedomBoardReply(replyWriteDTO);
+	}
+	
+	//댓글 삭제
+	public void DeleteFreedomBoardReply(FreedomReplyDTO replyWriteDTO) {
+		freedomBoardMapper.DeleteFreedomBoardReply(replyWriteDTO);
 	}
 }
