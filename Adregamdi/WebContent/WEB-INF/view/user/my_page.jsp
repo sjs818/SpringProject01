@@ -27,10 +27,9 @@
 
 <script>
 	$(function() {
-		var plan_no = $('#plan_no').val();
-		
-		$('#delete' + plan_no).click(function() {
+		$('.delete').click(function() {
 			if(confirm("일정을 삭제하시겠습니까?")) {
+				var plan_no = $(this).val();
 				$.ajax({
 					url : "/schedule/delete",
 					type : "POST",
@@ -95,7 +94,6 @@
 					<c:otherwise>
 						<c:forEach var="planDTO" items="${myPlan }" >
 							<c:if test="${planDTO.plan_private eq 'N' }">
-								<input type="hidden" id="plan_no" value="${planDTO.plan_no }">
 								<div class="col-sm-3">
 									<div class="card mb-3 card_hover">
 										<span class="term">${planDTO.plan_term - 1 } 박 ${planDTO.plan_term } 일</span>
@@ -112,7 +110,7 @@
 													<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;"><i class="far fa-edit"></i> 수정하기</a>
 												</li>
 												<li style="display: table-cell;">
-													<a href="#" id="delete${planDTO.plan_no }" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a>
+													<button class="delete my-btn-del" value="${planDTO.plan_no }"><a href="#" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a></button>
 												</li>
 											</ul>
 										</div>

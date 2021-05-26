@@ -97,6 +97,12 @@ a{
 	list-style: none;
 }
 
+.my-btn-del{
+	border: none; 
+	background: none; 
+	padding: 0;
+}
+
 .card_hover {
    position: relative;
 }
