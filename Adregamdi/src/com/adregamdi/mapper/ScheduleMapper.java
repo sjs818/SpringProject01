@@ -52,4 +52,10 @@ public interface ScheduleMapper {
 	
 	@Select("SELECT * FROM USER_PLAN WHERE PLAN_NO = #{plan_no } ORDER BY PLANDAY")
 	List<UserPlanDTO> readSchedule(int plan_no);
+	
+	@Delete("DELETE FROM PLAN WHERE PLAN_NO = #{plan_no }")
+	int deletePlan(int plan_no);
+	
+	@Delete("DELETE FROM USER_PLAN WHERE PLAN_NO = #{plan_no }")
+	int deleteUserPlan(int plan_no);
 }

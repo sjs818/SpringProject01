@@ -78,18 +78,10 @@ a{
 	 background-color:rgba(255,220,163,0.3);
 }
 
-.ellipsis-title{
+.ellipsis {
 	white-space: normal;
 	display: -webkit-box;
 	-webkit-line-clamp: 1;
-	-webkit-box-orient: vertical;
-	overflow: hidden;
-}
-
-.ellipsis-info {
-	white-space: normal;
-	display: -webkit-box;
-	-webkit-line-clamp: 2;
 	-webkit-box-orient: vertical;
 	overflow: hidden;
 }
