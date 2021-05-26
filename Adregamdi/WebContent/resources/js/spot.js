@@ -289,4 +289,6 @@ function likeProc(idx) {
 		}
 	});
 	
+	location.reload();
+	
 }

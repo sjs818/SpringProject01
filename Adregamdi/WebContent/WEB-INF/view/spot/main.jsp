@@ -37,7 +37,7 @@
 	<!-- 상단 메뉴바  -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
-	<!-- Top 5 출력 -->
+	<!-- Top 3 출력 -->
 	<section class="page-section bg-light" id="portfolio">		
 		<div class="container"
 			style="margin-top: 100px; margin-bottom: 100px;">
@@ -124,6 +124,7 @@
 								<div id="title${i}" class="portfolio-caption-heading"></div>
 								<div id="addr${i}"
 									class="portfolio-caption-subheading text-muted"></div>
+								
 								<span style="display:none" id="contentId${i }" ></span>
 								<span style="display:none" id="contentTypeId${i }" ></span>
 							</div>
