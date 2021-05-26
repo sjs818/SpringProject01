@@ -12,7 +12,7 @@ import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.FreedomReplyDTO;
 
 public interface FreedomBoardMapper {
-
+	//게시글 목록 불러오기
 	@Select(" SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, F.FREE_TITLE, F.FREE_CNT, " +
 			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			" (SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
@@ -21,6 +21,7 @@ public interface FreedomBoardMapper {
 			" ORDER BY F.FREE_NO DESC ")
 	List<FreedomBoardDTO> getFreedomBoardList(RowBounds rowBounds);
 	
+	//게시글 내용 불러오기
 	@Select("SELECT F.FREE_NO, U.USER_NO FREE_CONTENT_WRITER_IDX, U.USER_ID CONTENT_WRITER_ID, TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			"F.FREE_TITLE, F.FREE_CONTENT, F.FREE_CNT " + 
 			"FROM USER_INFO U, FREEDOMBOARD F " +
@@ -28,27 +29,33 @@ public interface FreedomBoardMapper {
 			"AND F.FREE_NO = #{content_idx}")
 	FreedomBoardDTO getFreedomBoardContent(int content_idx);
 	
+	//게시글 패스워드 대조 - 현재 사용 안함
 	@Select("SELECT U.USER_PW " + 
 			"FROM FREEDOMBOARD F, USER_INFO U " + 
 			"WHERE U.USER_NO = F.FREE_WRITER " + 
 			"AND F.FREE_NO = #{content_idx}")
 	String GetFreedomBoardPassword(int content_idx);
 	
+	// 페이징을 위한 게시글 갯수 불러오기
 	@Select("SELECT COUNT(*)" + 
 			"FROM FREEDOMBOARD ")
 	int GetFreedomBoardContentCount();
 	
+	//게시글 삭제 
 	@Delete("DELETE FROM FREEDOMBOARD WHERE FREE_NO = #{content_idx}")
 	void FreedomBoardDeleteContent(int content_idx);
 	
+	//게시글 작성
 	@Insert("INSERT INTO FREEDOMBOARD(FREE_NO, FREE_WRITER, FREE_TITLE, FREE_CNT, FREE_DATE, FREE_CONTENT) " + 
 			"VALUES(CONTENT_CNT_SEQ.nextval, #{free_content_writer_idx}, #{free_title}, 0, SYSDATE, #{free_content}) ")
 	void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO);
 	
+	//게시글 수정
 	@Update("UPDATE FREEDOMBOARD SET FREE_TITLE=#{free_title}, FREE_CONTENT=#{free_content}, free_date=SYSDATE " + 
 			"WHERE FREE_NO = #{free_no}")
 	void modifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO);
 	
+	//게시글 조회수 증가
 	@Update("UPDATE FREEDOMBOARD SET free_cnt = free_cnt + 1 WHERE free_no = #{content_idx}")
 	void viewCount(int content_idx);
 	

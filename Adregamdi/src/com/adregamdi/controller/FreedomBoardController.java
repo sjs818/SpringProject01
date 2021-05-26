@@ -32,6 +32,7 @@ public class FreedomBoardController {
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
 
+	//게시판 글 목록 불러오는 함수
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
 		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList(page);
@@ -44,6 +45,7 @@ public class FreedomBoardController {
 		return "freedom/list";
 	}
 	
+	// 게시판 글 삭제 함수
 	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
 	(@RequestParam("content_idx") int content_idx) {
@@ -52,6 +54,7 @@ public class FreedomBoardController {
 		return "freedom/delete_success";
 	}
 	
+	// 게시글 조회 함수
 	@GetMapping("/read")
 	public String BoardRead
 	(@ModelAttribute ("replyWriteDTO") FreedomReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
@@ -62,6 +65,7 @@ public class FreedomBoardController {
 		return "freedom/read_demo";
 	}
 
+	//게시글 작성 폼 함수
 	@GetMapping("/write")
 	public String BoardWrite
 	(@ModelAttribute("freedomWriteDTO") FreedomBoardDTO freedomWriteDTO) {
@@ -79,6 +83,7 @@ public class FreedomBoardController {
 		return "freedom/write_success";
 	}
 
+	//게시글 수정 폼 함수
 	@GetMapping("/modify")
 	public String BoardModify(@ModelAttribute("freedomModifyDTO") FreedomBoardDTO freedomModifyDTO,
 			@RequestParam("content_idx") int content_idx, Model model) {
@@ -97,7 +102,8 @@ public class FreedomBoardController {
 		return "freedom/modify_demo";
 
 	}
-
+	
+	//게시글 수정 함수
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
 	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {

@@ -3,10 +3,10 @@
 ---------- 유저 INFO 테이블 ---------------
 DROP TABLE user_info PURGE;
 CREATE TABLE user_info(
-    user_no       INT             NOT NULL,
+    user_no       NUMBER          NOT NULL,
     user_name     VARCHAR2(20)    NOT NULL, 
     user_id       VARCHAR2(20)    NOT NULL, 
-    user_pw       VARCHAR2(150)    NOT NULL, 
+    user_pw       VARCHAR2(150)   NOT NULL, 
     user_email    VARCHAR2(50)    NOT NULL, 
     user_phone    VARCHAR2(13)    NOT NULL,
     CONSTRAINT User_info_pk PRIMARY KEY (user_no)
@@ -29,7 +29,7 @@ CREATE TABLE FREEDOMBOARD (
     free_title  VARCHAR2(300)   not null,
     free_cnt    number         not null,
     free_date   date           not null,
-    free_content varchar2(2000) not null
+    free_content varchar2(4000) not null
 );
 
 ----------- 자유게시판 댓글 데이블 --------------

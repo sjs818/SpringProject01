@@ -22,39 +22,47 @@ public class FreedomBoardDAO {
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
 	
+	//게시글 목록 가져오는 함수
 	public List<FreedomBoardDTO> getFreedomBoardList(RowBounds rowBounds) {
 		List<FreedomBoardDTO> contentList = freedomBoardMapper.getFreedomBoardList(rowBounds);
 		return contentList;
 	}
 	
+	//게시글 내용 가져오는 함수
 	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
 		FreedomBoardDTO content = freedomBoardMapper.getFreedomBoardContent(content_idx);
 		return content;
 	}
 	
+	//페이징 처리를 위한 게시글 카운트 가져오는 함수
 	public int GetFreedomBoardContentCount() {
 		int contentCount = freedomBoardMapper.GetFreedomBoardContentCount();
 		return contentCount;
 	}
 	
+	//게시판 글 작성 DAO
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
 		freedomBoardDTO.setFree_content_writer_idx(loginUserDTO.getUser_no());
 		freedomBoardMapper.InsertFreedomBoardContent(freedomBoardDTO);
 	}
 	
+	//게시판 글 조회 DAO
 	public void ModifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO) {
 		freedomBoardMapper.modifyFreedomBoardContent(freedomModifyDTO);
 	}
 	
+	//(구) 게시판 글삭제 기능 (패스워드 입력 받음 현재 사용 안함)
 	public String GetFreedomBoardPassword(int content_idx) {
 		String password = freedomBoardMapper.GetFreedomBoardPassword(content_idx);
 		return password;
 	}
 	
+	//게시판 글 삭제 DAO
 	public void FreedomBoardDeleteContent(int content_idx) {
 		freedomBoardMapper.FreedomBoardDeleteContent(content_idx);
 	}
 	
+	//게시판 조회수 증가
 	public void viewCount(int content_idx) {
 		freedomBoardMapper.viewCount(content_idx);
 	}

@@ -20,32 +20,37 @@
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-	<div class="container" style="margin-top: 120px;">
-    	<h3 class="InputSubject">
-      	<b>${readContentDTO.free_title}</b>
-    	</h3>
-    	<h6>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h6>
-    	<hr><br>
-    	<form class="form-horizontal" name="freedomWriteDTO" id="freedomWriteDTO" action="${root}freedom/writeProc" method="POST">
-    		<input type="hidden" id="loginState" name="loginState" value="${loginUserDTO.userLogin}" />
-        	<input type="hidden" id="provider" name="provider" value="${loginUserDTO.user_provider}" />
-    	<div class="form-group" style="margin-bottom: 30px;">
-      		<div class="mb-3">
-        		${readContentDTO.free_content}
-      		</div>
-    	</div>
-    	<hr><br>
+	<div class="container" style="margin-top: 130px;">
+	<div class="card shadow">
+		<div class="card-header" style="padding:30px;">
+			<h3 class="InputSubject">
+      		<b>${readContentDTO.free_title}</b>
+    		</h3>
+    		<h6>${readContentDTO.content_writer_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.content_date}</h6>
+		</div>
+		<div class="card-body" style="margin-top:10px; padding:40px;">
+			<form class="form-horizontal" name="freedomWriteDTO" id="freedomWriteDTO" action="${root}freedom/writeProc" method="POST">
+    			<input type="hidden" id="loginState" name="loginState" value="${loginUserDTO.userLogin}" />
+        		<input type="hidden" id="provider" name="provider" value="${loginUserDTO.user_provider}" />
+    		<div class="form-group" style="margin-bottom: 30px;">
+      			<div class="mb-3">
+        			${readContentDTO.free_content}
+      			</div>
+    		</div>
+    		<hr><br>
     	<div class="form-group float-right">
-    	    <a href="${root}freedom/list" class="btn btn-info" style="padding : 4px; margin-right : 5px;">목록보기</a>
+    	    <a href="${root}freedom/list" class="btn btn-info" style="margin-right : 5px;">목록보기</a>
     	    <c:if test="${loginUserDTO.userLogin == true}">
               <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx || loginUserDTO.user_provider == 0}" >
                 <a href="${root}freedom/modify?content_idx=${readContentDTO.free_no}" class="btn btn-success"
-      			style="padding : 4px; margin-right : 5px;">수정하기</a>
-                <button type="button" class="btn btn-danger" style="padding : 4px; margin-right : 5px;" onclick="delContent();">삭제하기</button>
+      			style="margin-right : 5px;">수정하기</a>
+                <button type="button" class="btn btn-danger" style="margin-right : 5px;" onclick="delContent();">삭제하기</button>
               </c:if>
             </c:if>
     	</div>
     	</form>
+		</div> 
+	</div>
       <br>
       <br>
       <h6><b>댓글등록</b></h6>
