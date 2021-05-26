@@ -49,6 +49,9 @@ public interface FreedomBoardMapper {
 			"WHERE FREE_NO = #{free_no}")
 	void modifyFreedomBoardContent(FreedomBoardDTO freedomModifyDTO);
 	
+	@Update("UPDATE FREEDOMBOARD SET free_cnt = free_cnt + 1 WHERE free_no = #{content_idx}")
+	void viewCount(int content_idx);
+	
 	// ===============================================================================================================================
 	// 댓글 관련 Mapper
 	
