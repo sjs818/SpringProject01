@@ -14,13 +14,17 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- CSS import -->
+<link href="${root }css/notice.css" rel="stylesheet" type="text/css">
+
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 150px">
+	<div class="container" style="padding-top: 130px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>
@@ -29,18 +33,19 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-			      <th class="text-center" style="width:8%">글번호</th>
-        		  <th class="text-center" style="width:55%">글제목</th>
-                  <th class="text-center" style="width:10%">작성자</th>
-                  <th class="text-center" style="width:8%">조회수</th>
-                  <th class="text-center" style="width:15%">작성날짜</th>
+					<th class="text-center" style="width: 8%">글번호</th>
+					<th class="text-center" style="width: 55%">글제목</th>
+					<th class="text-center" style="width: 10%">작성자</th>
+					<th class="text-center" style="width: 8%">조회수</th>
+					<th class="text-center" style="width: 15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="NoticeDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${NoticeDTO.notice_rownum }</td>
-						<td class="text-center"><a href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
+						<td class="text-center"><a style="color: black;"
+							href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
 						<td class="text-center">${NoticeDTO.content_notice_user_no }</td>
 						<td class="text-center">${NoticeDTO.notice_cnt }</td>
 						<td class="text-center">${NoticeDTO.notice_date }</td>
@@ -87,10 +92,13 @@
 			</ul>
 		</div>
 		<div class="text-right">
-				<c:if test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
-					<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
-				</c:if>
-			</div>
+			<c:if
+				test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">
+				<!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
+				<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
+			</c:if>
+		</div>
 	</div>
+	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>
