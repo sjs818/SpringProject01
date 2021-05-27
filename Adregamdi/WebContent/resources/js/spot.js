@@ -7,12 +7,12 @@ $(function() {
     
     console.log("currentPage : " +currentPage);
 
-    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 10};
+    var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 9};
 
     /* 검색에 필요한 변수 추가 */
     var keyword_markers=[];
     // var map = initTmap();
-    var keywordParam = { "pageNo" : 1, "numOfRow" : 10, "keyword" : ""};
+    var keywordParam = { "pageNo" : 1, "numOfRow" : 9, "keyword" : ""};
     var keyword_flag = false;
     
     $.ajax({

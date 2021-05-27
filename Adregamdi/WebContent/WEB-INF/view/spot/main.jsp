@@ -109,7 +109,7 @@
 
 			<!-- 전체 내용 출력 -->
 			<div id="total_view" class="row">
-				<c:forEach var="i" begin="0" end="9" >
+				<c:forEach var="i" begin="0" end="8" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
@@ -121,7 +121,7 @@
 								<img class="img-fluid photo" id="photo${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
-								<div id="title${i}" class="portfolio-caption-heading"></div>
+								<div id="title${i}" class="portfolio-caption-heading ellipsis"></div>
 								<div id="addr${i}"
 									class="portfolio-caption-subheading text-muted"></div>
 								
