@@ -49,7 +49,7 @@ public class FreedomBoardController {
 	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
 	(@RequestParam("content_idx") int content_idx) {
-		freedomBoardService.DeleteFreedomBoardWithReply(content_idx);;
+		freedomBoardService.DeleteFreedomBoardWithReply(content_idx);
 		freedomBoardService.FreedomBoardDeleteContent(content_idx);
 		
 		return "freedom/delete_success";
