@@ -8,19 +8,17 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Adregamdi 마이페이지</title>
+<title>어드레 감디 | 마이페이지</title>
 
 <!-- Font Awesome CDN -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-	integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
-	crossorigin="anonymous">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 
 <!-- CSS import -->
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
@@ -107,10 +105,14 @@
 											</a>
 											<ul class="btn-group my-btn-group">
 												<li style="display: table-cell; border-right: 1px solid #EFEFEF;">
-													<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;"><i class="far fa-edit"></i> 수정하기</a>
+													<a href="${root }schedule/writeDetail?purpose=modify&plan_no=${planDTO.plan_no }" style="color: green;">
+														<i class="far fa-edit"></i> 수정하기
+													</a>
 												</li>
 												<li style="display: table-cell;">
-													<button class="delete my-btn-del" value="${planDTO.plan_no }"><a href="#" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a></button>
+													<button class="delete my-btn-del" value="${planDTO.plan_no }">
+														<a href="#" style="color: red;"><i class="fas fa-trash-alt"></i> 삭제하기</a>
+													</button>
 												</li>
 											</ul>
 										</div>

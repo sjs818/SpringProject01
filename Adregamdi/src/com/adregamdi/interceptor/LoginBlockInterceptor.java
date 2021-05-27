@@ -8,6 +8,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import com.adregamdi.dto.UserDTO;
 
 public class LoginBlockInterceptor implements HandlerInterceptor {
+	
 	private UserDTO loginUserDTO;
 	
 	public LoginBlockInterceptor (UserDTO loginUserDTO) {

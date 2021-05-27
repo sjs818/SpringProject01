@@ -132,7 +132,6 @@ public class UserController {
 		
 		String user_phone = joinUserDTO.getUser_phone().replace("-", "");		
 		Integer checkPhone = userDAO.checkPhone(user_phone);
-		System.out.println("회원여부 : " + checkPhone);
 		
 		if(checkPhone == null) {
 		

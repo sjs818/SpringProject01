@@ -47,7 +47,6 @@ public class NaverLoginController {
 	public String login(Model model, HttpSession session) {
 		/* 네이버아이디로 인증 URL을 생성하기 위하여 naverLoginBO클래스의 getAuthorizationUrl메소드 호출 */
 		String naverAuthUrl = naverLoginBO.getAuthorizationUrl(session);
-		System.out.println("네이버:" + naverAuthUrl);
 
 		model.addAttribute("url", naverAuthUrl);
 		return "user/naver_login";
@@ -57,7 +56,6 @@ public class NaverLoginController {
 	@RequestMapping(value = "/callback", method = { RequestMethod.GET, RequestMethod.POST })
 	public String callback(Model model, @Valid @ModelAttribute("joinUserDTO") UserDTO joinUserDTO, @RequestParam String code, @RequestParam String state, HttpSession session)
 			throws IOException, ParseException {
-		System.out.println("여기는 callback");
 		OAuth2AccessToken oauthToken;
 		oauthToken = naverLoginBO.getAccessToken(session, code, state);
 		// 1. 로그인 사용자 정보를 읽어온다.
@@ -76,10 +74,8 @@ public class NaverLoginController {
 		String id = (String) response_obj.get("id");
 		String mobile = (String) response_obj.get("mobile");
 		String name = (String) response_obj.get("name");
-		System.out.println(id);
 		model.addAttribute("result", apiResult);
 		
-		System.out.println(apiResult);
 
 		
 		String user_phone = mobile.replace("-", "");
@@ -87,7 +83,6 @@ public class NaverLoginController {
 		
 		int idx = email.indexOf("@"); 
 		String userId = email.substring(0, idx);
-		System.out.println("회원여부 : " + checkPhone);
 		
 		if(checkPhone == null) {
 			joinUserDTO.setUser_email(email);
@@ -113,7 +108,6 @@ public class NaverLoginController {
 		 
 		
 		
-		System.out.println("회원번호 : " + loginUserDTO.getUser_no());
 		loginUserDTO.setUserLogin(true);
 
 		
