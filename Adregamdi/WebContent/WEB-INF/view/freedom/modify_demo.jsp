@@ -9,12 +9,13 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>게시글 수정 - 어드레 감디 자유게시판</title>
+  <title>어드레 감디 | 게시글 수정</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
+  <link rel="stylesheet" href="${root}css/freedomBoard.css">
    <script>
 	 function submit(){
 		 $("#freedomModifyDTO").submit();
@@ -31,7 +32,7 @@
 <body>
 <!-- Header Import -->
 <c:import url="/WEB-INF/view/include/header.jsp" />
-  <div class="container" style="margin-top: 120px;">
+  <div class="container" style="margin-top: 150px; margin-bottom: 150px;">
   <h3 class="InputSubject">
     <b>게시글 수정</b>
   </h3>

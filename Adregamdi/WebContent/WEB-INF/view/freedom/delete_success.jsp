@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <script type="text/javascript">
-	alert("삭제 완료!!!!");
+	alert("게시글이 삭제되었습니다!");
 	location.href='${root}freedom/list';
 </script>

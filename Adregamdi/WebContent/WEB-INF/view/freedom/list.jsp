@@ -9,19 +9,24 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>어드레 감디 - 자유게시판</title>
+<title>어드레 감디 | 자유게시판</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <link rel="stylesheet" href="${root}css/freedomBoard.css">
+<script type="text/javaScript">
+	function WriteDoc(){
+		location.href='${root}freedom/write';
+	}
+</script>
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 자유 게시판 리스트 -->
-	<div class="container" style="padding-top: 120px">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 		<h3 class="BoardTitle">
 			<b>자유게시판</b>
 		</h3>
@@ -53,9 +58,6 @@
 				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
 				<c:choose>
 					<c:when test="${pageDTO.prevPage <= 0 }">
-						<li class="page-item disabled">
-							<a href="#" class="page-link">이전</a>
-						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
@@ -80,9 +82,6 @@
 				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
 				<c:choose>
 					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
-						<li class="page-item disabled">
-							<a href="#" class="page-link">다음</a>
-						</li>
 					</c:when>
 					<c:otherwise>
 						<li class="page-item">
@@ -94,7 +93,7 @@
 		</div>
 		  <div class="text-right">
 		    <c:if test="${loginUserDTO.userLogin == true}">
-      			<a href="${root}freedom/write" class="btn btn-info">글 쓰 기</a>
+      			<button type="button" class="btn btn-info" onclick="WriteDoc();">글 쓰 기</button>
       		</c:if>
     	  </div>
 	 </div>

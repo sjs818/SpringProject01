@@ -61,6 +61,8 @@ public class FreedomBoardController {
 	(@ModelAttribute ("replyWriteDTO") FreedomReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		freedomBoardService.viewCount(content_idx);
 		FreedomBoardDTO readContentDTO = freedomBoardService.getFreedomBoardContent(content_idx);
+		int reply_count = freedomBoardService.GetFreedomBoardReplyCount(content_idx);
+		readContentDTO.setReply_count(reply_count);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
 		return "freedom/read_demo";
