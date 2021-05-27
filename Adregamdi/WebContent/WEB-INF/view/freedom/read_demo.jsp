@@ -16,6 +16,14 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="${root}css/freedomBoard.css">
   <script type="text/javaScript" src="${root}js/freedomBoard.js"></script>
+  <script type="text/javaScript">
+  function delContent(){
+	  let result = confirm("작성한 글을 삭제 하시겠습니까?")
+	  if(result == true){
+		  location.href='${root}freedom/deleteProc?content_idx=${readContentDTO.free_no}';
+	  }
+  }
+  </script>
 </head>
 <body>
 	<!-- Header Import -->

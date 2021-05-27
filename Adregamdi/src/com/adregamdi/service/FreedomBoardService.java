@@ -78,6 +78,11 @@ public class FreedomBoardService {
 		freedomBoardDAO.viewCount(content_idx);
 	}
 	
+	//게시글 삭제시 게시글에 작성된 댓글 삭제
+	public void DeleteFreedomBoardWithReply(int content_idx) {
+		freedomBoardDAO.DeleteFreedomBoardWithReply(content_idx);
+	}
+	
 	//===================================== 댓글 관련 컨트롤러 =======================
 	// 댓글 리스트 불러오기
 	public List<FreedomReplyDTO> getFreedomReplyList(int free_num){
