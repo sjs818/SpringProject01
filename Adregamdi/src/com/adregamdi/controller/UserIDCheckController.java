@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.adregamdi.service.UserService;
 
+// join 에서 받아온 아이디 값을 받아 유효성 체크
+
 @RestController
 public class UserIDCheckController {
 	

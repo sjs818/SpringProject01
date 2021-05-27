@@ -138,7 +138,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 	
-
+	// 인터셉터 등록 부분
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 
@@ -157,9 +157,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 	  	InterceptorRegistration active_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
+	  	// 각 인터셉터별 실행시킬 Mapper 부분
 	  	topReg.addPathPatterns("/**");
-
-	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete", "/notice/modify", "/notice/delete", "/user/my_page", "/user/my_page_disable");
+	  	
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete",
+	  			"/notice/modify", "/notice/delete", "/user/my_page", "/user/my_page_disable");
 
 	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
