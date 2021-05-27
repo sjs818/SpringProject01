@@ -60,9 +60,11 @@
         	<form:hidden path="reply_writer" id="reply_writer" value="${loginUserDTO.user_id}" />
         	<form:hidden path="freedom_num" id="freedom_num" value="${readContentDTO.free_no}" />
         	<div class="col-sm-9" style="margin : 10px">
-        		<form:textarea path="reply_content" id="reply_content" rows="3" cols="100" ></form:textarea>
+        		<form:textarea path="reply_content" id="reply_content" rows="3" cols="145" ></form:textarea>
         	</div>
-        	<form:button type="button" path="btnReplySave" id="btnReplySave" class="col-sm-2 btn btn-primary" style="margin: 30px;" onclick="">댓글등록</form:button>
+        	<div class="col-sm-15 text-right">
+        		<form:button type="button" path="btnReplySave" id="btnReplySave" class="col-sm-2 btn btn-primary" style="margin: 30px;" onclick="">댓글등록</form:button>
+        	</div>
         </form:form> 
         <!-- Reply List {s}-->
 	 	  <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
