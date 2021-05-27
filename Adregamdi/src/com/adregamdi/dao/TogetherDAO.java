@@ -57,6 +57,9 @@ public class TogetherDAO {
 	public void DeleteTogetherContent(int content_idx) {
 		togetherMapper.DeleteTogetherContent(content_idx);
 	}
+	public void DeleteTogetherComment(int content_idx)	{
+		togetherMapper.DeleteTogetherComment(content_idx);
+	}
 	public void viewCount(int content_idx ) {
 		togetherMapper.viewCount(content_idx);
 	}

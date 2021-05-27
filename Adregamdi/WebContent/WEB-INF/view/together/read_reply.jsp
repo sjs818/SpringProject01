@@ -15,7 +15,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script type="text/javaScript" src="${root}js/together.js"></script>
-  
+  <script type="text/javaScript">
+  function delContent(){
+	let result = confirm("작성한 글을 삭제 하시겠습니까?") 
+	if(result == true){
+		location.href="${root}together/deleteProc?content_idx=${readContentDTO.to_no}";		
+	}
+  }
+  </script>
   <style>
 		@font-face {
 	    font-family: 'Bazzi';
@@ -29,7 +36,6 @@
     }
     
   </style>  
-  
 </head>
 <body>
 	<!-- Header Import -->
@@ -55,7 +61,7 @@
     	<div class="form-group float-right">
     	    <a href="${root}together/list" class="btn btn-info" style="margin-right : 5px;">목록보기</a>
     	    <c:if test="${loginUserDTO.userLogin == true}">
-              <c:if test="${ loginUserDTO.user_no == readContentDTO.to_id || loginUserDTO.user_provider == 0}" >
+              <c:if test="${ loginUserDTO.user_no == readContentDTO.to_writer || loginUserDTO.user_provider == 0}" >
                 <a href="${root}together/modify?content_idx=${readContentDTO.to_no}" class="btn btn-success"
       			style="margin-right : 5px;">수정하기</a>
                 <button type="button" class="btn btn-danger" style="margin-right : 5px;" onclick="delContent();">삭제하기</button>

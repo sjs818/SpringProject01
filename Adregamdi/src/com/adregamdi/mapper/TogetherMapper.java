@@ -44,6 +44,8 @@ public interface TogetherMapper {
 	@Delete("DELETE FROM TOGETHER WHERE TO_NO = #{content_idx}")
 	void DeleteTogetherContent(int content_idx);
 	
+	@Delete("DELETE FROM TOGETHERREPLY WHERE TOGETHER_NUM = #{content_idx}")
+	void DeleteTogetherComment(int content_idx);
 	
 	@Update("UPDATE TOGETHER SET TO_TITLE=#{to_title}, "
 			  +"TO_CONTENT=#{to_content}, to_date=SYSDATE "
