@@ -19,6 +19,13 @@
 	 function submit(){
 		 $("#freedomModifyDTO").submit();
 	 }
+	 
+	 function cancelModi(){
+		 let result = confirm("수정중인 사항은 저장되지 않습니다 그래도 나가시겠습니까?");
+		 if(result == true){
+			 location.href="${root}freedom/read?content_idx=${freedomModifyDTO.free_no}"; 
+		 }
+	 }
   </script>
 </head>
 <body>
@@ -50,7 +57,7 @@
     </div>
     <div class="form-group float-right">
       <button class="btn btn-success" style="padding : 4px; margin-right : 5px;" id="submit" onClick="submit();">수정완료</button>
-      <button class="btn btn-danger" style="padding-top : 4px; padding-bottom: 4px;" id="cancel">취소</button>
+      <button type="button" class="btn btn-danger" style="padding-top : 4px; padding-bottom: 4px;" id="cancel" onClick="cancelModi();">취소</button>
     </div>
   </form>
   </div>
