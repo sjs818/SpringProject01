@@ -9,6 +9,7 @@ import com.adregamdi.dto.UserDTO;
 @Configuration
 public class RootAppContext {
 	
+	// 로그인 한 유저정보를 담은 객체
 	@Bean("loginUserDTO")
 	@SessionScope
 	public UserDTO loginUserDTO() {
