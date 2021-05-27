@@ -45,6 +45,10 @@ public interface FreedomBoardMapper {
 	@Delete("DELETE FROM FREEDOMBOARD WHERE FREE_NO = #{content_idx}")
 	void FreedomBoardDeleteContent(int content_idx);
 	
+	//게시글 삭제시 게시글에 작성된 댓글 삭제
+	@Delete("DELETE FROM FREEDOMREPLY WHERE FREEDOM_NUM = #{content_idx}")
+	void DeleteFreedomBoardWithReply(int content_idx); 
+	
 	//게시글 작성
 	@Insert("INSERT INTO FREEDOMBOARD(FREE_NO, FREE_WRITER, FREE_TITLE, FREE_CNT, FREE_DATE, FREE_CONTENT) " + 
 			"VALUES(CONTENT_CNT_SEQ.nextval, #{free_content_writer_idx}, #{free_title}, 0, SYSDATE, #{free_content}) ")
