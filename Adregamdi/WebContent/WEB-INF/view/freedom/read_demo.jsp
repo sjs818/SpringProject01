@@ -48,6 +48,7 @@
 			<form class="form-horizontal" name="freedomWriteDTO" id="freedomWriteDTO" action="${root}freedom/writeProc" method="POST">
     			<input type="hidden" id="loginState" name="loginState" value="${loginUserDTO.userLogin}" />
         		<input type="hidden" id="provider" name="provider" value="${loginUserDTO.user_provider}" />
+        		<input type="hidden" id="reply_count" name="reply_count" value="${readContentDTO.reply_count}"/>
     		<div class="form-group" style="margin-bottom: 30px;">
       			<div class="mb-3">
         			${readContentDTO.free_content}
