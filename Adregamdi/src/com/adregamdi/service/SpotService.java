@@ -64,4 +64,8 @@ public class SpotService {
 	public void minusReviewCnt(String content_id) {
 		spotDAO.minusReviewCnt(content_id);
 	}
+	
+	public int getTotalSpot() {
+		return spotDAO.getTotalSpot();
+	}
 }

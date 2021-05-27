@@ -44,6 +44,24 @@ public class SpotController {
 			@RequestParam(value="sigunguCode", defaultValue="")String sigunguCode, @RequestParam(value="contentTypeId", defaultValue="")String contentTypeId, 
 			 Model model ) throws Exception {
 		
+		int check = spotService.getTotalSpot();
+		
+		if(check == 0) {
+			// SpotLikeDTO에 초기 데이터 값 넣기
+			ArrayList<String> contentIdList = spot.lgetContentId();
+			
+			SpotDTO spotDTO = new SpotDTO();
+			
+			for(int i=0; i<contentIdList.size(); i++) {
+				
+				spotDTO.setContent_id(contentIdList.get(i));
+				spotDTO.setLike_cnt(0);
+				spotDTO.setReview_cnt(0);
+				
+				spotService.inputContentId(spotDTO);
+			}
+		}
+		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
 		// System.out.println("totalCount : "+totalCount);
 		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
@@ -170,22 +188,6 @@ public class SpotController {
 	@ResponseBody
 	@GetMapping("/spot/likeProc")
 	public ArrayList<SpotDTO> likeProc(@RequestParam("contentId")String contentId) throws SAXException, IOException, ParserConfigurationException {
-		
-		/*
-		// SpotLikeDTO에 초기 데이터 값 넣기
-		ArrayList<String> contentIdList = spot.lgetContentId();
-		
-		SpotDTO spotDTO = new SpotDTO();
-		
-		for(int i=0; i<contentIdList.size(); i++) {
-			
-			spotDTO.setContent_id(contentIdList.get(i));
-			spotDTO.setLike_cnt(0);
-			spotDTO.setReview_cnt(0);
-			
-			spotService.inputContentId(spotDTO);
-		}
-		*/
 		
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
