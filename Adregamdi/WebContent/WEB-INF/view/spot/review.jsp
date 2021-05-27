@@ -26,7 +26,7 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="container bg-light" style="margin-top: 100px; margin-bottom: 100px;">		
+	<div class="container bg-light" style="margin-top: 150px; margin-bottom: 150px;">		
 		<table>
 			<tr>
 				<td>

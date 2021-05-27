@@ -40,7 +40,7 @@
 	<!-- Top 3 출력 -->
 	<section class="page-section bg-light" id="portfolio">		
 		<div class="container"
-			style="margin-top: 100px; margin-bottom: 100px;">
+			style="margin-top: 150px; margin-bottom: 150px;">
 			<div class="text-center">
 				<h2 class="section-heading text-uppercase">제주 지역 탐방 - BEST 3</h2>
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
@@ -213,10 +213,10 @@
 								<ul class="details">
 								</ul>
 								<a id="detailBtn" class="btn btn-info" type="button" href="">
-									<i class="far fa-file-alt"></i> Write Review
+									<i class="far fa-file-alt"></i> 리뷰 작성
 								</a>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
+									<i class="fas fa-times mr-1"></i> 닫기
 								</button>
 							</div>
 						</div>
