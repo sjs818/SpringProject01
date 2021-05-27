@@ -71,7 +71,7 @@
               <div class="form-group">
                 <div class="col-sm-15 text-right">
                   <form:button class="btn btn-primary">수정완료</form:button>
-                  <a href="${root}together/read" class="btn btn-danger">취소</a>
+                  <a href="${root}together/list" class="btn btn-danger">취소</a>
                 </div>
               </div>
             </form:form>

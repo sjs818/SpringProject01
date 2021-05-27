@@ -52,6 +52,9 @@ public class TogetherService {
 	public void DeleteTogetherContent(int content_idx) {
 		togetherDAO.DeleteTogetherContent(content_idx);
 	}
+	public void DeleteTogetherComment(int content_idx) {
+		togetherDAO.DeleteTogetherComment(content_idx);
+	}
 	public PageDTO getContentCnt(int currPage) {
 		int contentCnt = togetherDAO.GetTogetherContentCount();
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
