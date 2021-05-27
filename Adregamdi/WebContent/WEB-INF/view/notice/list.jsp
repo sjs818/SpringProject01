@@ -24,7 +24,7 @@
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 공지사항 리스트 -->
-	<div class="container" style="padding-top: 130px">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>

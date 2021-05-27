@@ -27,7 +27,7 @@
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
-	<div class="container" style="margin-top: 130px;">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px">
 		<h3 class="BoardTitle">
 			<b>공지사항</b>
 		</h3>

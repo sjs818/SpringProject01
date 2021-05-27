@@ -19,6 +19,8 @@
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
+<!-- CSS import -->
+<link href="${root }css/notice.css" rel="stylesheet" type="text/css">
 <script>
 	function submit() {
 		$("#noticeModifyDTO").submit();
@@ -28,9 +30,9 @@
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-	<div class="container" style="margin-top: 100px;">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px">
 		<h3 class="InputSubject">
-			<b>게시글 수정</b>
+			<b>공지사항 수정</b>
 		</h3>
 		<hr>
 		<br>
@@ -66,10 +68,11 @@
 				<button class="btn btn-success"
 					style="padding: 4px; margin-right: 5px;" id="submit"
 					onClick="submit();">수정완료</button>
-				<button class="btn btn-danger"
-					style="padding-top: 4px; padding-bottom: 4px;" id="cancel">취소</button>
+				<a class="btn btn-danger"
+					style="padding-top: 4px; padding-bottom: 4px;" id="cancel" href="${root }notice/list">취소</a>
 			</div>
 		</form>
 	</div>
+	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

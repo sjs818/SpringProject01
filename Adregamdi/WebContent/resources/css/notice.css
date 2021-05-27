@@ -12,15 +12,15 @@ body{
 	font-family:'Bazzi';
 }
 
-a:link{
+.pageNevigation a:link{
 	color: black;
 	text-decoration: none;
 }
-a:visited{
+.pageNevigation a:visited{
 	color: black;
 	text-decoration: none;
 }
-a:hover{
+.pageNevigation a:hover{
 	color: black;
 	text-decoration: underline;
 }
