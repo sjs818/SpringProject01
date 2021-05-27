@@ -3,6 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 <script type="text/javascript">
-	alert("게시글을 작성하였습니다!");
+	alert("게시글 작성이 완료되었습니다!");
 	location.href='${root}freedom/list';
 </script>

@@ -17,7 +17,7 @@
   <script type="text/javaScript" src="${root}js/together.js"></script>
   <script type="text/javaScript">
   function delContent(){
-	let result = confirm("작성한 글을 삭제 하시겠습니까?") 
+	let result = confirm("작성하신 공고을 삭제하시겠습니까?") 
 	if(result == true){
 		location.href="${root}together/deleteProc?content_idx=${readContentDTO.to_no}";		
 	}
@@ -35,18 +35,43 @@
       font-family: 'Bazzi';
     }
     
+    #btnReplySave {
+  		height: 78px;
+  		width: 100%;
+  	}
+  	
+  	#reply_content {
+  		width: 100%;
+  	}
+    
+    ::-webkit-scrollbar {
+		  width: 5px;
+		  height: 7px;
+		}
+		
+		::-webkit-scrollbar-button {
+		  width: 0px;
+		  height: 0px;
+		}
+		
+		::-webkit-scrollbar-thumb {
+		  background: #525965;
+		  border: none;
+		}
   </style>  
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-	<div class="container" style="margin-top: 130px;">
+	
+	<input type="hidden" id="content_idx" value="${content_idx }" >
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 	<div class="card shadow">
 		<div class="card-header" style="padding:30px;">
 			<h3 class="InputSubject">
       		<b>${readContentDTO.to_title}</b>
     		</h3>
-    		<h6>&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
+    		<h6>${readContentDTO.to_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
 		</div>
 		<div class="card-body" style="margin-top:10px; padding:40px;">
 			<form class="form-horizontal" name="togetherWriteDTO" id="togetherWriteDTO" action="${root}together/writeProc" method="POST">
@@ -71,27 +96,32 @@
     	</form>
 		</div> 
 	</div>
-      <br>
-      <br>
-      <h6><b>댓글등록</b></h6>
-      <hr>
-      <div class="form-group" style="padding-top : 20px;">
-        <form:form method="post" modelAttribute="replyWriteDTO" class="form-horizontal">
-        	<form:hidden path="reply_writer" id="reply_writer" value="${loginUserDTO.user_id}" />
-        	<form:hidden path="together_num" id="together_num" value="${readContentDTO.to_no}" />
-        	<div class="col-sm-9" style="margin : 10px">
-        		<form:textarea path="reply_content" id="reply_content" rows="3" cols="145" ></form:textarea>
-        	</div>
-        	<div class="col-sm-15 text-right">
-        	<form:button type="button" path="btnReplySave" id="btnReplySave" class="col-sm-2 btn btn-primary" style="margin: 30px;" onclick="">댓글등록</form:button>
-        	</div>
-        </form:form>
-        <!-- Reply List {s}-->
-	 	  <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-			 <h6 class="border-bottom pb-2 mb-0"><b>달린 댓글</b></h6>
-	 	  <div id="replyList"></div>
-	    </div>
+    <div class="card shadow" style="margin-top: 50px">
+      <div class="card-body" style="padding: 40px;">
+	      <h6><b>댓글 등록</b></h6>
+	      <hr>
+	      <div class="form-group" style="padding-top : 20px;">
+	        <form:form method="post" modelAttribute="replyWriteDTO" class="form-horizontal">
+	        	<form:hidden path="reply_writer" id="reply_writer" value="${loginUserDTO.user_id}" />
+	        	<form:hidden path="together_num" id="together_num" value="${readContentDTO.to_no}" />
+		        <div class="row" style="padding-bottom: 24px;">	
+		        	<div class="col-sm-11">
+		        		<form:textarea path="reply_content" id="reply_content" rows="3"></form:textarea>
+		        	</div>
+		        	<div class="col-sm-1" style="padding: 0px;" >
+		        		<form:button type="button" path="btnReplySave" id="btnReplySave" class="btn btn-primary" onclick="">댓글 등록</form:button>
+		        	</div>
+		        </div>
+	        </form:form>
+	        <!-- Reply List {s}-->
+				  <h6 class="border-bottom" style="padding-bottom: 16px; margin: 0px;"><b>댓글 목록 (<span id="replyCount"></span>)</b></h6>
+		 	  	<div id="replyList"></div>
+		 	  	<span id="noneReply"></span>
+		    	</div>
+		    </div>
       </div>
    </div>
+    <!-- Footer -->
+	 <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

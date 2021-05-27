@@ -17,6 +17,21 @@
   .wrapper {
      position: relative;
   }
+  
+  ::-webkit-scrollbar {
+	  width: 5px;
+	  height: 7px;
+	}
+	
+	::-webkit-scrollbar-button {
+	  width: 0px;
+	  height: 0px;
+	}
+	
+	::-webkit-scrollbar-thumb {
+	  background: #525965;
+	  border: none;
+	}
 </style>
 
       <nav class="navbar navbar-expand-md navbar-white fixed-top bg-white shadow sm" style="padding: 8px 30px;">

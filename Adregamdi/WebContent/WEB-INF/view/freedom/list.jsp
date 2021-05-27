@@ -53,7 +53,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="pageNevigation">
+		<div class="pageNevigation" style="margin-top: 50px;">
 			<ul class="pagination justify-content-center">
 				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
 				<c:choose>
@@ -97,5 +97,7 @@
       		</c:if>
     	  </div>
 	 </div>
+	 <!-- Footer -->
+	 <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

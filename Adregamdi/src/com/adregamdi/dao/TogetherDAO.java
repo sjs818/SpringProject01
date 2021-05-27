@@ -86,4 +86,9 @@ public class TogetherDAO {
 	public void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO) {
 		togetherMapper.DeleteTogetherReply(replyWriteDTO);
 	}
+	
+	//댓글 개수 조회
+	public int GetTogetherReplyCount(int together_num) {
+		return togetherMapper.GetTogetherReplyCount(together_num);
+	}
 }

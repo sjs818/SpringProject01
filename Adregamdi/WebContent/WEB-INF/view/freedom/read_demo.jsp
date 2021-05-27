@@ -32,13 +32,25 @@
 	  location.href="${root}freedom/list";
   }
   </script>
+  <style type="text/css">
+  	#btnReplySave {
+  		height: 78px;
+  		width: 100%;
+  	}
+  	
+  	#reply_content {
+  		width: 100%;
+  	}
+  </style>
 </head>
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
+	
+	<input type="hidden" id="content_idx" value="${content_idx }" >
 	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 	<div class="card shadow">
-		<div class="card-header" style="padding:30px;">
+		<div class="card-header" style="padding:30px 30px 0 30px;">
 			<h3 class="InputSubject">
       		<b>${readContentDTO.free_title}</b>
     		</h3>
@@ -56,38 +68,45 @@
     		</div>
     		<hr><br>
     	<div class="form-group float-right">
-    	    <button type="button" class="btn btn-info" style="padding: 4px; margin-right : 5px;" onclick="SeeTheList();">목록보기</button>
+    	    <button type="button" class="btn btn-info" style="margin-right : 5px;" onclick="SeeTheList();">목록보기</button>
     	    <c:if test="${loginUserDTO.userLogin == true}">
               <c:if test="${ loginUserDTO.user_no == readContentDTO.free_content_writer_idx || loginUserDTO.user_provider == 0}" >
-                <button type="button" class="btn btn-success" style="padding: 4px; margin-right : 5px;" onclick="ModContent();">수정하기</button>
-                <button type="button" class="btn btn-danger" style="padding: 4px; margin-right : 5px;" onclick="delContent();">삭제하기</button>
+                <button type="button" class="btn btn-success" style="margin-right : 5px;" onclick="ModContent();">수정하기</button>
+                <button type="button" class="btn btn-danger" style="margin-right : 5px;" onclick="delContent();">삭제하기</button>
               </c:if>
             </c:if>
     	</div>
     	</form>
 		</div> 
 	</div>
-      <br>
-      <br>
-      <h6><b>댓글등록</b></h6>
-      <hr>
-      <div class="form-group" style="padding-top : 20px;">
-        <form:form method="post" modelAttribute="replyWriteDTO" class="form-horizontal">
-        	<form:hidden path="reply_writer" id="reply_writer" value="${loginUserDTO.user_id}" />
-        	<form:hidden path="freedom_num" id="freedom_num" value="${readContentDTO.free_no}" />
-        	<div class="col-sm-9" style="margin : 10px">
-        		<form:textarea path="reply_content" id="reply_content" rows="3" cols="145" ></form:textarea>
-        	</div>
-        	<div class="col-sm-15 text-right">
-        		<form:button type="button" path="btnReplySave" id="btnReplySave" class="col-sm-2 btn btn-primary" style="margin: 30px;" onclick="">댓글등록</form:button>
-        	</div>
-        </form:form> 
-        <!-- Reply List {s}-->
-	 	  <div class="my-3 p-3 bg-white rounded shadow-sm" style="padding-top: 10px">
-			 <h6 class="border-bottom pb-2 mb-0"><b>달린 댓글</b></h6>
-	 	  <div id="replyList"></div>
-	    </div>
+     
+      <div class="card shadow" style="margin-top: 50px">
+      	<div class="card-body" style="padding: 40px;">
+		      <h6><b>댓글 등록</b></h6>
+		      <hr>
+		      <div class="form-group" style="padding-top : 20px;">
+		        <form:form method="post" modelAttribute="replyWriteDTO" class="form-horizontal">
+		        	<form:hidden path="reply_writer" id="reply_writer" value="${loginUserDTO.user_id}" />
+		        	<form:hidden path="freedom_num" id="freedom_num" value="${readContentDTO.free_no}" />
+		        	<div class="row" style="padding-bottom: 24px;">
+			        	<div class="col-sm-11">
+			        		<form:textarea path="reply_content" id="reply_content" rows="3"></form:textarea>
+			        	</div>
+			        	<div class="col-sm-1" style="padding: 0px;" >
+			        		<form:button type="button" path="btnReplySave" id="btnReplySave" class="btn btn-primary" onclick="" >댓글등록</form:button>
+			        	</div>
+		        	</div>
+		        </form:form> 
+		        <!-- Reply List {s}-->
+			 	  
+					  <h6 class="border-bottom" style="padding-bottom: 16px; margin: 0px;"><b>댓글 목록 (<span id="replyCount"></span>)</b></h6>
+			 	  	<div id="replyList"></div>
+			 	  	<span id="noneReply"></span>
+			 	  </div>
+		    </div>
       </div>
    </div>
+   <!-- Footer -->
+	 <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

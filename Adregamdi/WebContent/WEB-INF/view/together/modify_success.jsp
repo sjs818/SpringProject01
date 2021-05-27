@@ -7,6 +7,6 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script type="text/javascript">
-	alert("수정이 완료되었습니다.");
+	alert("공고 수정이 완료되었습니다!");
 	location.href='${root}together/list';
 </script>

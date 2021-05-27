@@ -62,5 +62,7 @@
     </div>
   </form>
   </div>
+  <!-- Footer -->
+	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

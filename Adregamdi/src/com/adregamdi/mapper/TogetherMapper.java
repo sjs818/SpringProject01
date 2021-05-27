@@ -23,7 +23,7 @@ public interface TogetherMapper {
 			  + "ORDER BY T.TO_NO DESC")
 	List<TogetherDTO> getTogetherList(RowBounds rowBounds);
 	
-	@Select("SELECT T.TO_NO, U.USER_NO TO_WRITER, "
+	@Select("SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, "
 				+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, "
 			  + "T.TO_TITLE, T.TO_CONTENT, T.TO_CNT "
 				+ "FROM USER_INFO U, TOGETHER T "
@@ -57,7 +57,6 @@ public interface TogetherMapper {
   void viewCount(int content_idx);
 	
 	
-	
 // 댓글 관련 Mapper================================================================================================================================
 	
 	@Select("SELECT REPLY_NUM, TOGETHER_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
@@ -79,4 +78,7 @@ public interface TogetherMapper {
 	@Delete("DELETE FROM TOGETHERREPLY WHERE TOGETHER_NUM=#{together_num} AND REPLY_NUM=#{reply_num}")
 	void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO);
 	
+	//댓글 갯수 조회
+	@Select("SELECT COUNT(*) FROM TOGETHERREPLY WHERE TOGETHER_NUM=#{together_num}")
+	int GetTogetherReplyCount(int together_num);
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.FreedomReplyDTO;
@@ -65,7 +66,14 @@ public class FreedomBoardController {
 		readContentDTO.setReply_count(reply_count);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
+		model.addAttribute("content_idx", content_idx);
 		return "freedom/read_demo";
+	}
+	
+	@ResponseBody
+	@PostMapping("/replyCount")
+	public int replyCount(@RequestParam("content_idx") int content_idx) {
+		return freedomBoardService.GetFreedomBoardReplyCount(content_idx);
 	}
 
 	//게시글 작성 폼 함수

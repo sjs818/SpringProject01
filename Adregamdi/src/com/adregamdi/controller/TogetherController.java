@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
@@ -75,8 +76,15 @@ public class TogetherController {
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
+		model.addAttribute("content_idx", content_idx);
 		
 		return "together/read_reply";
+	}
+	
+	@ResponseBody
+	@PostMapping("/replyCount")
+	public int replyCount(@RequestParam("content_idx") int content_idx) {
+		return togetherService.GetTogetherReplyCount(content_idx);
 	}
 	
 	 @GetMapping("/deleteProc")

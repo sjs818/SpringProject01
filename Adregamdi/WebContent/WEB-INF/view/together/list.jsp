@@ -29,6 +29,21 @@
   	body {
       font-family: 'Bazzi';
     }
+    
+    ::-webkit-scrollbar {
+		  width: 5px;
+		  height: 7px;
+		}
+		
+		::-webkit-scrollbar-button {
+		  width: 0px;
+		  height: 0px;
+		}
+		
+		::-webkit-scrollbar-thumb {
+		  background: #525965;
+		  border: none;
+		}
   </style>
   
 </head>
@@ -39,19 +54,20 @@
 	<!-- 상단 메뉴 -->
 	<c:import url="/WEB-INF/view/include/header.jsp"/>
 	
-	<div class="container" style="padding-top: 100px">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 		<h3 class="BoardTitle">
 			<b>같이가치</b>
 		</h3>
 		<hr>
+		<br>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 50%">공고제목</th>
+					<th class="text-center" style="width : 55%">공고제목</th>
 					<th class="text-center" style="width : 10%">작성자</th>
 					<th class="text-center" style="width : 8%">조회수</th>
-					<th class="text-center" style="width : 20%">작성날짜</th>
+					<th class="text-center" style="width : 15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -66,7 +82,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
-		<div class="pageNevigation">
+		<div class="pageNevigation" style="margin-top: 50px;">
 		  <ul class="pagination justify-content-center">
 				<c:choose>
 					<c:when test="${pageDTO.prevPage <= 0 }">
@@ -111,7 +127,8 @@
       		</c:if>  
     	  </div>
 	 </div>
-  
+   <!-- Footer -->
+	 <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>
 	

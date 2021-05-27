@@ -35,6 +35,20 @@
   	body {
       font-family: 'Bazzi';
     }
+    ::-webkit-scrollbar {
+		  width: 5px;
+		  height: 7px;
+		}
+		
+		::-webkit-scrollbar-button {
+		  width: 0px;
+		  height: 0px;
+		}
+		
+		::-webkit-scrollbar-thumb {
+		  background: #525965;
+		  border: none;
+		}
   </style>
   
 </head>
@@ -43,44 +57,39 @@
 	<c:import url="/WEB-INF/view/include/header.jsp"/>
 	
 	<!-- 메인 -->
-  <div class="container" style="margin-top: 100px;">
+  <div class="container" style="margin-top: 150px; margin-bottom: 150px;">
      <h3 class="InputSubject">
       <b>글 수정</b>
     </h3>
     <hr>
-    <div class="row">
-      <div class="col-sm-2"></div>
-      <div class="col-sm-8">
-        <div class="card shadow">
-          <div class="card-body">
-            <form:form action="${root}together/modifyProc" method="post" modelAttribute="togetherModifyDTO" class="form-horizontal">
-              <form:hidden path="to_no" />
-              <div class="form-group">
-                <form:label path="to_title">제목</form:label>
-                <form:input path="to_title" class="form-control" />
-                <form:errors path="to_title" style="color:red;" />
-              </div>
-              <div class="form-group">
-                <form:label path="to_content">공고문</form:label>
-                <form:textarea path="to_content" class="form-control" rows="10" style="resize:none" />
-                <form:errors path="to_content" style="color:red;" />
-                <script>
-                  CKEDITOR.replace('to_content');
-                </script>
-              </div>
-              <div class="form-group">
-                <div class="col-sm-15 text-right">
-                  <form:button class="btn btn-primary">수정완료</form:button>
-                  <a href="${root}together/list" class="btn btn-danger">취소</a>
-                </div>
-              </div>
-            </form:form>
-          </div>
-        </div>
-      </div>
-    </div>
+    <br>
+   
+     <form:form action="${root}together/modifyProc" method="post" modelAttribute="togetherModifyDTO" class="form-horizontal">
+       <form:hidden path="to_no" />
+       <div class="form-group">
+         <form:label path="to_title">제목</form:label>
+         <form:input path="to_title" class="form-control" />
+         <form:errors path="to_title" style="color:red;" />
+       </div>
+       <div class="form-group">
+         <form:label path="to_content">공고문</form:label>
+         <form:textarea path="to_content" class="form-control" rows="10" style="resize:none" />
+         <form:errors path="to_content" style="color:red;" />
+         <script>
+           CKEDITOR.replace('to_content');
+         </script>
+       </div>
+       <div class="form-group">
+         <div class="col-sm-15 text-right">
+           <form:button class="btn btn-success" style="margin-right : 5px;">수정완료</form:button>
+           <a href="${root}together/list" class="btn btn-danger">취소</a>
+         </div>
+       </div>
+     </form:form>
+        
   </div>
-
+	 <!-- Footer -->
+	 <c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>     
 

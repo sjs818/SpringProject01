@@ -49,7 +49,7 @@
 <body>
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
-	<div class="container" style="margin-top: 120px;">
+	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
   <h3 class="InputSubject">
     <b>게시글 작성</b>
   </h3>
@@ -78,5 +78,7 @@
     </div>
   </form>
 </div>
+<!-- Footer -->
+<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
 </html>

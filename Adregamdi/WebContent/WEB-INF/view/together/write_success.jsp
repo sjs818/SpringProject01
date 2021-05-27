@@ -7,7 +7,7 @@
 <c:set var="root" value="${pageContext.request.contextPath }/" />
 
 <script type="text/javascript">
-	alert("동행자 공고가 완료 되었습니다");
+	alert("공고 작성이 완료되었습니다!");
 	location.href='${root}together/list';
 </script>
 

@@ -16,7 +16,7 @@
 </head>
 <body>
   <script>
-    alert('동행자가 떠났습니다.');
+    alert('공고가 삭제되었습니다!');
     location.href='${root }together/list';</script>
   
 </body>

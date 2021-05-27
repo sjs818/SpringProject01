@@ -49,13 +49,9 @@
 			success:function(result){
 				let listReply = "";
 				$(result).each(function(){
-					listReply += '<div class="media text-muted pt-3" id="reNum' + this.reply_num + '">';
-					listReply += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32X32">';
-					listReply += '<title>Placeholder</title>';
-					listReply += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-					listReply += '<text x="50%" fill="#007bff" dy=".3em">32X32</text>';
-					listReply += '</svg>';
-					listReply += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+					listReply += '<div class="media text-muted pt-3 lh-125 border-bottom horder-gray" id="reNum' + this.reply_num + '">';
+					listReply += '<img style="width: 32px; height: 32px; border-radius: 32px; margin-right: 15px;" src="/images/profile.jpg">';
+					listReply += '<p class="media-body pb-3 mb-0 small">';
 					listReply += '<span class="d-block">';
 					listReply += '<strong class="text-gray-dark">'+ this.reply_writer + '</strong>';
 					listReply += '<span style="padding-left:7px; font-size:9pt">';
@@ -68,6 +64,23 @@
 					listReply += '</div>';
 				});
 				$('#replyList').html(listReply);
+			}
+		});
+		
+		var content_idx = $('#content_idx').val();
+		
+		$.ajax({ 
+			type: "post",
+			url: "/together/replyCount",
+			data: {"content_idx" : content_idx}, 
+			dataType: "text",
+			success(result) {
+				if(result == 0) {
+					$("#replyCount").html(result);
+					$("#noneReply").html("<div style='width: 100%; text-align: center; padding: 30px;'><h5>등록된 댓글이 없습니다.</h5></div>");
+			 	} else {
+			 		$("#replyCount").html(result);
+			 	}
 			}
 		});
 	}

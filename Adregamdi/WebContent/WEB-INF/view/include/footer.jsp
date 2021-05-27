@@ -13,11 +13,13 @@
   }
  
  .footer .title {
+ 	font-weight: normal;
  	float: left;
  	margin: 0;
  }
  
  .footer .content {
+ 	font-weight: normal;
  	float: right;
  	margin: 0;
  }
