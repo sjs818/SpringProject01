@@ -33,16 +33,11 @@ public class NoticeController {
 	// 게시글 페이징 처리
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
-		
 		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
-		
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
-		
 		PageDTO pageDTO = noticeService.getContentCnt(page);
-		
 		model.addAttribute("pageDTO", pageDTO);
-		
 		return "notice/list";
 	}
     
@@ -50,75 +45,58 @@ public class NoticeController {
 	// 게시글 이전글, 다음글
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
-		
 		noticeService.viewCount(content_idx);
-		
 		NoticeDTO readContentDTO = noticeService.getNoticeContent(content_idx);
 		NoticeDTO nextPrev = noticeService.getNextPrev(content_idx);
 		NoticeDTO nextContentDTO = noticeService.getNoticeContent(nextPrev.getNext_no());
 		NoticeDTO preContentDTO = noticeService.getNoticeContent(nextPrev.getPre_no());
-		
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("nextPrev", nextPrev);
 		model.addAttribute("readContentDTO", readContentDTO);
 		model.addAttribute("nextContentDTO", nextContentDTO);
 		model.addAttribute("preContentDTO", preContentDTO);
-		
 		return "notice/read";
-
 	}
     
 	// 게시글 글쓰기
 	@GetMapping("/write")
 	public String BoardWrite(@ModelAttribute("noticeWriteDTO") NoticeDTO noticeWriteDTO) {
-		
 		return "notice/write";
 	}
     
 	// 게시글 글쓰기 처리
 	@PostMapping("/writeProc")
 	public String BoardWrite_Proc(@Valid @ModelAttribute("NoticeWriteDTO") NoticeDTO noticeWriteDTO, BindingResult result) {
-		
 		if (result.hasErrors())
-			
 			return "notice/write";
-
 		noticeService.InsertNoticeContent(noticeWriteDTO);
-
 		return "notice/write_success";
 	}
     
 	// 게시글 수정
 	@GetMapping("/modify")
 	public String NoticeModify(@ModelAttribute("noticeModifyDTO") NoticeDTO noticeModifyDTO, @RequestParam("content_idx") int content_idx, Model model) {
-
 		NoticeDTO noticeContentDTO = noticeService.getNoticeContent(content_idx);
-
 		noticeModifyDTO.setNotice_no(noticeContentDTO.getNotice_no());
 		noticeModifyDTO.setNotice_title(noticeContentDTO.getNotice_title());
 		noticeModifyDTO.setNotice_content(noticeContentDTO.getNotice_content());
 		noticeModifyDTO.setNotice_cnt(noticeContentDTO.getNotice_cnt());
 		noticeModifyDTO.setContent_notice_user_no(noticeContentDTO.getContent_notice_user_no());
 		noticeModifyDTO.setNotice_date(noticeContentDTO.getNotice_date());
-
 		return "notice/modify";
 	}
     
 	// 게시글 수정 처리
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc(@Valid @ModelAttribute("noticeModifyDTO") NoticeDTO noticeModifyDTO, BindingResult result) {
-		
 		noticeService.ModifyNoticeContent(noticeModifyDTO);
-
 		return "notice/modify_success";
 	}
     
 	// 게시글 삭제
 	@GetMapping("/delete")
 	public String NoticeDelete(@RequestParam("content_idx") int content_idx) {
-		
 		noticeService.DeleteNoticeContent(content_idx);
-		
 		return "notice/delete_success";
 	}
 

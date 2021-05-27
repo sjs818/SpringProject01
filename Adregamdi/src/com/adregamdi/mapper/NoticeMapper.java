@@ -22,17 +22,12 @@ public interface NoticeMapper {
 	 
 	  // 게시글 이전글, 다음글
 	  @Select("SELECT N.* " + 
-	  		  "FROM (" + 
-	  		  "    SELECT " + 
-	  		  "        NOTICE_NO, " + 
-	  		  "        TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD HH24:MI:SS') NOTICE_DATE, " + 
-	  		  "        LEAD(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS NEXT_NO, " + 
-	  		  "        LEAD(NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS NEXT_TITLE, " + 
-	  		  "        LAG(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS PRE_NO, " + 
-	  		  "        LAG(NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS PRE_TITLE " + 
-	  		  "    FROM NOTICE " + 
-	  		  ") N " + 
-	  		  "WHERE N.NOTICE_NO = #{content_idx}")
+	  		  "FROM (SELECT NOTICE_NO, TO_CHAR(NOTICE_DATE, 'YYYY-MM-DD HH24:MI:SS') NOTICE_DATE, " + 
+	  		  "LEAD(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS NEXT_NO, " + 
+	  		  "LEAD(NOTICE_TITLE, 1, '다음글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS NEXT_TITLE, " + 
+	  		  "LAG(NOTICE_NO, 1) OVER (ORDER BY NOTICE_NO DESC) AS PRE_NO, " + 
+	  		  "LAG(NOTICE_TITLE, 1, '이전글이 없습니다') OVER (ORDER BY NOTICE_NO DESC) AS PRE_TITLE " + 
+	  		  "FROM NOTICE) N WHERE N.NOTICE_NO = #{content_idx}")
 	  NoticeDTO getNextPrev(int content_idx);
 	  
     // 게시글 본문 내용

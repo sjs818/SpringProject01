@@ -33,18 +33,19 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-			      <th class="text-center" style="width:8%">글번호</th>
-        		  <th class="text-center" style="width:55%">글제목</th>
-                  <th class="text-center" style="width:10%">작성자</th>
-                  <th class="text-center" style="width:8%">조회수</th>
-                  <th class="text-center" style="width:15%">작성날짜</th>
+					<th class="text-center" style="width: 8%">글번호</th>
+					<th class="text-center" style="width: 55%">글제목</th>
+					<th class="text-center" style="width: 10%">작성자</th>
+					<th class="text-center" style="width: 8%">조회수</th>
+					<th class="text-center" style="width: 15%">작성날짜</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="NoticeDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${NoticeDTO.notice_rownum }</td>
-						<td class="text-center"><a style="color: black;" href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
+						<td class="text-center"><a style="color: black;"
+							href="${root}notice/read?content_idx=${NoticeDTO.notice_no}">${NoticeDTO.notice_title }</a></td>
 						<td class="text-center">${NoticeDTO.content_notice_user_no }</td>
 						<td class="text-center">${NoticeDTO.notice_cnt }</td>
 						<td class="text-center">${NoticeDTO.notice_date }</td>
@@ -59,7 +60,7 @@
 					<c:when test="${pageDTO.prevPage <= 0 }">
 					</c:when>
 					<c:otherwise>
-						<li class="page-item"><a 
+						<li class="page-item"><a
 							href="${root}notice/list?page=${pageDTO.prevPage}"
 							class="page-link">이전</a></li>
 					</c:otherwise>
@@ -91,10 +92,12 @@
 			</ul>
 		</div>
 		<div class="text-right">
-				<c:if test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">  <!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
-					<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
-				</c:if>
-			</div>
+			<c:if
+				test="${loginUserDTO.userLogin == true && loginUserDTO.user_provider == 0}">
+				<!-- user_provider == 0 일 때 글쓰기 버튼 노출 -->
+				<a href="${root}notice/write" class="btn btn-info">글 쓰 기</a>
+			</c:if>
+		</div>
 	</div>
 	<c:import url="/WEB-INF/view/include/footer.jsp" />
 </body>
