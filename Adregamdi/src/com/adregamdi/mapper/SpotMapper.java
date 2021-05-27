@@ -19,6 +19,9 @@ public interface SpotMapper {
 	@Insert("INSERT INTO SPOT_INFO VALUES ( #{like_idx}, #{content_id}, #{like_cnt}, #{review_cnt})")
 	void inputContentId(SpotDTO spotDTO);
 	
+	@Select("SELECT COUNT(*) FROM SPOT_INFO")
+	int getTotalSpot();
+	
 	@Update("UPDATE SPOT_INFO SET LIKE_CNT = LIKE_CNT + 1 WHERE CONTENT_ID= #{content_id}")
 	void plusLikeCnt(String content_id);
 	

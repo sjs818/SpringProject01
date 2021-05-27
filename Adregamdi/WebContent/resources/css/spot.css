@@ -314,7 +314,7 @@ ul {
 	width: 50%;
 	height: 200px;
 	padding: 20px;
-	align: center;
+	text-align: center;
 }
 .right {
 	width: 50%;
@@ -323,7 +323,22 @@ ul {
 }
 
 .overview {
-	overflow: scroll;
+	overflow: auto;
 	height: 700px;
 	width: 100%;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+  height: 7px;
+}
+
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #525965;
+  border: none;
 }

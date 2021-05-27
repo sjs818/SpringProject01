@@ -47,6 +47,11 @@ a {
 }
 
 a:hover {
+	color: orange;
+}
+
+.wrapper .overview .button:hover {
+	border: 3px solid orange;
 	text-decoration: none;
 	color: orange;
 }

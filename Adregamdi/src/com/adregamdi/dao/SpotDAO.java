@@ -54,4 +54,8 @@ public class SpotDAO {
 	public void minusReviewCnt(String content_id) {
 		spotMapper.minusReviewCnt(content_id);
 	}
+	
+	public int getTotalSpot() {
+		return spotMapper.getTotalSpot();
+	}
 }

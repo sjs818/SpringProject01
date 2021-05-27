@@ -12,7 +12,7 @@ public class UserDTO {
 	private int 	user_no;
 	
 	@Size(min=1, max=6)
-	@Pattern(regexp = "[ê°€-íž£]*")
+	@Pattern(regexp = "[°¡-ÆR]*")
 	private String  user_name; 
 	
 	@Size(min=3, max=20)

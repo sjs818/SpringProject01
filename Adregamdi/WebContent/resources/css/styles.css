@@ -6807,6 +6807,12 @@ header.masthead .masthead-heading {
   font-weight: 700;
   margin-bottom: 0;
 }
+
+#portfolio .portfolio-caption-heading {
+	height: 40px;
+}
+
+
 #portfolio .portfolio-item .portfolio-caption .portfolio-caption-subheading {
   font-style: italic;
 }

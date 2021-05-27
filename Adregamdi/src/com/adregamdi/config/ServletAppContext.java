@@ -28,7 +28,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.interceptor.LoginBlockInterceptor;
 import com.adregamdi.interceptor.LoginInterceptor;
-import com.adregamdi.interceptor.NoticeInterceptor;
 import com.adregamdi.interceptor.TopMenuInterceptor;
 import com.adregamdi.mapper.FreedomBoardMapper;
 import com.adregamdi.mapper.NoticeMapper;
@@ -138,7 +137,7 @@ public class ServletAppContext implements WebMvcConfigurer {
 		return factoryBean;
 	}
 	
-
+	// 인터셉터 등록 부분
 	public void addInterceptors(InterceptorRegistry registry) {
 		WebMvcConfigurer.super.addInterceptors(registry);
 
@@ -157,9 +156,11 @@ public class ServletAppContext implements WebMvcConfigurer {
 	  	InterceptorRegistration active_loginReg
 		  = registry.addInterceptor(loginBlockInterceptor);
 	  	
+	  	// 각 인터셉터별 실행시킬 Mapper 부분
 	  	topReg.addPathPatterns("/**");
-
-	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete", "/notice/modify", "/notice/delete", "/user/my_page", "/user/my_page_disable");
+	  	
+	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete",
+	  			"/notice/modify", "/notice/delete", "/user/my_page", "/user/my_page_disable");
 
 	  	active_loginReg.addPathPatterns("/user/login", "/user/join");
 	
