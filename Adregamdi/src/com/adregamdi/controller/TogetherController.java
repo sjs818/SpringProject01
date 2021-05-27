@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.TogetherService;
 
@@ -69,12 +70,14 @@ public class TogetherController {
 		}
 	}
 	@GetMapping("/read")
-	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) {
+	public String TogetherRead
+	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		togetherService.viewCount(content_idx);
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
-		return "together/read";
+		
+		return "together/read_reply";
 	}
 	
 	@GetMapping("/write")
