@@ -14,13 +14,14 @@ function writeReview() {
 		data: param,
 		success:function(data) {
 			
-			alert('write success - ');
+			console.log('댓글이 등록되었습니다 - !');
 			
 		}, 
 		error: function(error) {
 			//alert('write 에러');
 		}
 	});
+	location.reload();
 }
 
 function deleteReview(review_idx) {

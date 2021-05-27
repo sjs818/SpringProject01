@@ -22,9 +22,9 @@ import com.adregamdi.dto.VisitKoreaDTO;
 
 @Service
 public class VisitKoreaAPI {
-	final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
+	//final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
-	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
+	final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
 	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
 	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
@@ -80,6 +80,7 @@ public class VisitKoreaAPI {
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList)
 			throws ParserConfigurationException, SAXException, IOException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
+		
 		for (int i = 0; i < contentIdList.size(); i++) {
 			String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?" + "serviceKey="
 					+ serviceKey + "&numOfRows=1" + "&pageNo=1" + "&MobileOS=ETC" + "&MobileApp=AppTest"
@@ -96,6 +97,7 @@ public class VisitKoreaAPI {
 			NodeList nodeList = document.getElementsByTagName("item");
 			infoList.add(nodeList);
 		}
+		System.out.println("getSpotInfo : " + infoList.size());
 		return infoList;
 	}
 
@@ -230,6 +232,7 @@ public class VisitKoreaAPI {
 	// like 異붽�
 	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotDTO> spotDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
+		System.out.println("NumOrRow() : " + visitKoreaDTO.getNumOfRow());
 		// id留� ���옣
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
 		// 怨듯넻 �젙蹂� 議고쉶

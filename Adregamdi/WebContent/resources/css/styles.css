@@ -6802,11 +6802,20 @@ header.masthead .masthead-heading {
   background-color: #fff;
 }
 
-#portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading {
+#portfolio .portfolio-item .portfolio-caption .portfolio-caption-heading  {
   font-size: 1.5rem;
   font-weight: 700;
   margin-bottom: 0;
 }
+
+#portfolio .portfolio-item .portfolio-caption .ellipsis {
+  	white-space: normal;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 
 #portfolio .portfolio-caption-heading {
 	height: 40px;

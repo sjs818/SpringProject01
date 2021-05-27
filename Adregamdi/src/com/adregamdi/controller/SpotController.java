@@ -80,11 +80,6 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		/*
-		// spotDTO에 초기값 넣을 때 화면
-		return spot.getInformation(visitKoreaDTO, totalCount);
-		*/
-		
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
 		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);
@@ -99,8 +94,8 @@ public class SpotController {
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
 		// 현재 페이지에서 Best 3
-		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*10) + 1 ;
-		int range_max = range_min + 9;
+		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*9) + 1 ;
+		int range_max = range_min + 8;
 		
 		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
 				
@@ -158,13 +153,13 @@ public class SpotController {
 		int loginCheck = loginUserDTO.getUser_no();
 		model.addAttribute("loginCheck", loginCheck);
 		
-		return "spot/review";
+		return "/spot/review";
 	}
 	
 	
 	@ResponseBody
 	@GetMapping("/spot/write_proc")
-	public void writeProc(@RequestParam("contentId")String contentId, @RequestParam("content")String content) {
+	public String writeProc(@RequestParam("contentId")String contentId, @RequestParam("content")String content) {
 		
 		ReviewDTO writeReviewDTO = new ReviewDTO();
 		
@@ -173,6 +168,8 @@ public class SpotController {
 		
 		spotService.inputReview(writeReviewDTO);
 		spotService.plusReviewCnt(contentId);		
+		
+		return "/spot/review";
 	}
 	
 	@ResponseBody
@@ -193,8 +190,6 @@ public class SpotController {
 		
 		spotService.plusLikeCnt(contentId);
 				
-		//System.out.println(spotDTO.get(0));
-		
 		return spotDTO;
 	}
 	 

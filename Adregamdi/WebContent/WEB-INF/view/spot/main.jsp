@@ -40,7 +40,7 @@
 	<!-- Top 3 출력 -->
 	<section class="page-section bg-light" id="portfolio">		
 		<div class="container"
-			style="margin-top: 100px; margin-bottom: 100px;">
+			style="margin-top: 150px; margin-bottom: 150px;">
 			<div class="text-center">
 				<h2 class="section-heading text-uppercase">제주 지역 탐방 - BEST 3</h2>
 				<h3 class="section-subheading text-muted">제주도는 제주시, 서귀포시로 크게 나뉠
@@ -109,7 +109,7 @@
 
 			<!-- 전체 내용 출력 -->
 			<div id="total_view" class="row">
-				<c:forEach var="i" begin="0" end="9" >
+				<c:forEach var="i" begin="0" end="8" >
 					<div class="col-lg-4 col-sm-6 mb-4">
 						<div class="portfolio-item">
 							<a class="portfolio-link" data-toggle="modal" href="#portfolioModal" onclick="detail(${i});">
@@ -121,7 +121,7 @@
 								<img class="img-fluid photo" id="photo${i}" src="" alt="...">
 							</a>
 							<div class="portfolio-caption">
-								<div id="title${i}" class="portfolio-caption-heading"></div>
+								<div id="title${i}" class="portfolio-caption-heading ellipsis"></div>
 								<div id="addr${i}"
 									class="portfolio-caption-subheading text-muted"></div>
 								
@@ -213,10 +213,10 @@
 								<ul class="details">
 								</ul>
 								<a id="detailBtn" class="btn btn-info" type="button" href="">
-									<i class="far fa-file-alt"></i> Write Review
+									<i class="far fa-file-alt"></i> 리뷰 작성
 								</a>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
-									<i class="fas fa-times mr-1"></i> Close Project
+									<i class="fas fa-times mr-1"></i> 닫기
 								</button>
 							</div>
 						</div>
