@@ -10,21 +10,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>어드레 감디</title>
 
-<!-- Font awesome CDN -->
-<link rel="stylesheet"
-	href="https://use.fontawesome.com/releases/v5.15.3/css/all.css"
-	integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk"
-	crossorigin="anonymous">
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
 </head>
 <style>
 @font-face {
@@ -159,13 +153,12 @@ a:hover {
 			<br> 
 			<a href="${root }schedule/list?page=1">
 				<div class="button float-right" style="width: 190px;">
-					<i class="fas fa-suitcase-rolling"></i>&nbsp
-						나만의 일정 만들기
+					<i class="fas fa-suitcase-rolling"></i>&nbsp 나만의 일정 만들기
 				</div>
 			</a> 
 			<a href="${root }spot/main">
 				<div class="button float-right" style="width: 180px;">
-					<i class="fas fa-plane"></i>&nbsp여행지 둘러보기
+					<i class="fas fa-plane"></i>&nbsp 여행지 둘러보기
 				</div>
 			</a>
 		</div>

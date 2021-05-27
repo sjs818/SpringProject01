@@ -49,7 +49,6 @@ public class UserService {
 			loginUserDTO.setUser_provider(fromDBUserDTO.getUser_provider());
 			loginUserDTO.setUserLogin(true);
 			
-			System.out.println("회원번호 : " + loginUserDTO.getUser_no());
 			
 		}
 
