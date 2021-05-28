@@ -43,4 +43,5 @@ function deleteReview(review_idx) {
 			//alert('delete 에러');
 		}
 	});
+	location.reload();
 }

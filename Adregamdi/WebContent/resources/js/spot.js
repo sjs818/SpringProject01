@@ -12,7 +12,7 @@ $(function() {
     /* 검색에 필요한 변수 추가 */
     var keyword_markers=[];
     // var map = initTmap();
-    var keywordParam = { "pageNo" : 1, "numOfRow" : 20, "keyword" : ""};
+    var keywordParam = { "pageNo" : 1, "numOfRow" : 21, "keyword" : ""};
     var keyword_flag = false;
     
     $.ajax({
