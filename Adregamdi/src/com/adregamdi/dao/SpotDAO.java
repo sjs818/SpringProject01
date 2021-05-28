@@ -34,8 +34,7 @@ public class SpotDAO {
 	
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
-		ArrayList<ReviewDTO> reviewDTO = spotMapper.getReviewInfo(content_id);
-		
+		ArrayList<ReviewDTO> reviewDTO = spotMapper.getReviewInfo(content_id);		
 		return reviewDTO;
 	}
 	

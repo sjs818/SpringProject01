@@ -136,7 +136,7 @@
 								<tr>
 									<td></td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>
-									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_name }</td>
+									<td class="text-center d-none d-md-table-cell">${reviewDTO.user_id }</td>
 									<td class="text-center d-none d-md-table-cell">${reviewDTO.review_date }</td>
 									<td style="width: 30px;">
 										<c:if test="${loginCheck eq reviewDTO.user_no }" >
