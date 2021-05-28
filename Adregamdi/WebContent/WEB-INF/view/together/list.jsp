@@ -30,6 +30,12 @@
       font-family: 'Bazzi';
     }
     
+    .table a:link { color: black; text-decoration: none;}
+
+		.table a:visited { color: black; text-decoration: none;}
+
+		.table a:hover { color: black; text-decoration: underline;}
+    
     ::-webkit-scrollbar {
 		  width: 5px;
 		  height: 7px;
