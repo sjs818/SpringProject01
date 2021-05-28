@@ -11,7 +11,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>어드레감디 - 같이가치</title>
+  <title>어드레 감디 | 같이가치</title>
   <!-- Bootstrap CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -29,6 +29,12 @@
   	body {
       font-family: 'Bazzi';
     }
+    
+    .table a:link { color: black; text-decoration: none;}
+
+		.table a:visited { color: black; text-decoration: none;}
+
+		.table a:hover { color: black; text-decoration: underline;}
     
     ::-webkit-scrollbar {
 		  width: 5px;

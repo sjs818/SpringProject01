@@ -79,6 +79,7 @@
 					$("#replyCount").html(result);
 					$("#noneReply").html("<div style='width: 100%; text-align: center; padding: 30px;'><h5>등록된 댓글이 없습니다.</h5></div>");
 			 	} else {
+			 		$("#noneReply").empty();
 			 		$("#replyCount").html(result);
 			 	}
 			}
