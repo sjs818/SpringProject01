@@ -19,6 +19,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+
 </head>
 <style>
 @font-face {
@@ -64,7 +65,11 @@ a:hover {
 	padding: 30px;
 }
 
-.footer h3, .footer h5 {
+.footer h3 {
+	color: #d3d3d3;
+}
+.footer h5 {
+	margin : 0;
 	color: #d3d3d3;
 }
 
@@ -163,8 +168,40 @@ a:hover {
 			</a>
 		</div>
 		<div class="footer">
-			<h3>어드레감디?</h3>
-			<h5>Copyright ⓒ 2021 ADREGAMDI. All rights reserved.</h5>
+			<div style="float: left;">
+				<h3>어드레감디?</h3>
+				<h5>Copyright ⓒ 2021 ADREGAMDI. All rights reserved.</h5>
+			</div>
+			<div class="weather" style="float: right;">
+				<input type="hidden" id="sky" value="${weatherDTO.sky }" >
+				<canvas id="icon1" style="height: 65px;"></canvas>
+				<!-- Skycons -->
+				<script type="text/javaScript" src="${root}skycons/skycons.js"></script>
+				<script type="text/javascript">
+						var skycons = new Skycons({"color" : "#d3d3d3"});
+						var sky = document.getElementById("sky").value;
+						if(sky == 0) {
+							skycons.add(document.getElementById("icon1"), Skycons.CLEAR-DAY)
+						};
+						if(sky == 1) {
+							skycons.add(document.getElementById("icon1"), Skycons.PARTLY-CLOUDY-DAY)
+						};
+						if(sky == 2) {
+							skycons.add(document.getElementById("icon1"), Skycons.CLOUDY)
+						};
+						if(sky == 3) {
+							skycons.add(document.getElementById("icon1"), Skycons.RAIN)
+						};
+						if(sky == 4) {
+							skycons.add(document.getElementById("icon1"), Skycons.SNOW)
+						};
+						skycons.play();
+				</script>
+				<div style="float: right;">
+					<h5>제주도<span style="font-size: 32px;">&nbsp&nbsp${weatherDTO.temper } °C</span></h5>
+					<h5>${weatherDTO.rain } mm &nbsp&nbsp&nbsp ${weatherDTO.wind } m/s</h5>
+				</div>
+			</div>
 		</div>
 	</div>
 
