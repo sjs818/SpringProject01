@@ -1,8 +1,8 @@
 -- ADREGAMDI --
 
--- 1. È¸¿øÁ¤º¸ --
+-- 1. È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 DROP TABLE USER_INFO PURGE;
 CREATE TABLE USER_INFO
 (
@@ -15,28 +15,28 @@ CREATE TABLE USER_INFO
     USER_PROVIDER NUMBER          NOT NULL
 );
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 DROP TABLE USER_INFO_SEQ;
 CREATE SEQUENCE USER_INFO_SEQ
 START WITH 1
 INCREMENT BY 1;
 
--- (3) Æ¯ÀÌ»çÇ× --
+-- (3) Æ¯ï¿½Ì»ï¿½ï¿½ï¿½ --
 
--- È¸¿øÅ»Åð¸¦ À§ÇØ ¹Ýµå½Ã ÇÊ¿äÇÑ Äõ¸®¹®
+-- È¸ï¿½ï¿½Å»ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ýµï¿½ï¿½ ï¿½Ê¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
--- ¿Ü·¡Å° ÄÃ·³ »èÁ¦
-ALTER TABLE [°¢ °Ô½ÃÆÇ Å×ÀÌºí] DROP CONSTRAINT [¿Ü·¡Å° ÀÌ¸§];
+-- ï¿½Ü·ï¿½Å° ï¿½Ã·ï¿½ ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE [ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½] DROP CONSTRAINT [ï¿½Ü·ï¿½Å° ï¿½Ì¸ï¿½];
 
--- ON DELETE CASCADE ¸¦ Àû¿ëÇÑ ¿Ü·¡Å° Àç»ý¼º
-ALTER TABLE [°¢ °Ô½ÃÆÇ Å×ÀÌºí] ADD CONSTRAINT [¿Ü·¡Å° ÀÌ¸§] FOREIGN KEY ([¿Ü·¡Å° ÀÚ½Ä ÄÃ·³])
+-- ON DELETE CASCADE ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ü·ï¿½Å° ï¿½ï¿½ï¿½ï¿½ï¿½
+ALTER TABLE [ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìºï¿½] ADD CONSTRAINT [ï¿½Ü·ï¿½Å° ï¿½Ì¸ï¿½] FOREIGN KEY ([ï¿½Ü·ï¿½Å° ï¿½Ú½ï¿½ ï¿½Ã·ï¿½])
 REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
--- PROVIDER(0) : °ü¸®ÀÚ(ADMINISTRATOR)
+-- PROVIDER(0) : ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½(ADMINISTRATOR)
 
--- 2. °øÁö»çÇ× --
+-- 2. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 DROP TABLE NOTICE PURGE;
 CREATE TABLE NOTICE(
     NOTICE_NO        NUMBER           CONSTRAINT NOTICE_PK PRIMARY KEY, 
@@ -47,23 +47,23 @@ CREATE TABLE NOTICE(
     NOTICE_CONTENT   VARCHAR2(4000)   NOT NULL
 );
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 DROP TABLE NOTICE_SEQ;
 CREATE SEQUENCE NOTICE_SEQ
 START WITH 1
 INCREMENT BY 1;
 
 
--- ON DELETE CASCADE (°­Á¦ »èÁ¦)
+-- ON DELETE CASCADE (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ALTER TABLE notice DROP CONSTRAINT notice_fk;
 
 ALTER TABLE notice ADD CONSTRAINT notice_fk FOREIGN KEY (notice_user_no)
 REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
 
--- 3. ÀÚÀ¯°Ô½ÃÆÇ --
+-- 3. ï¿½ï¿½ï¿½ï¿½ï¿½Ô½ï¿½ï¿½ï¿½ --
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 -- FREEDOMBOARD
 DROP TABLE FREEDOMBOARD PURGE;
@@ -76,7 +76,7 @@ CREATE TABLE FREEDOMBOARD (
     FREE_CONTENT   VARCHAR2(4000)    NOT NULL
 );
 
--- ON DELETE CASCADE (°­Á¦ »èÁ¦)
+-- ON DELETE CASCADE (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ALTER TABLE FREEDOMBOARD DROP CONSTRAINT FREEDOMBOARD_FK;
 
 ALTER TABLE FREEDOMBOARD ADD CONSTRAINT FREEDOMBOARD_FK FOREIGN KEY (free_writer)
@@ -92,13 +92,13 @@ CREATE TABLE FREEDOMREPLY (
     REPLY_DATE      DATE             NOT NULL
 );
 
--- ON DELETE CASCADE (°­Á¦ »èÁ¦)
+-- ON DELETE CASCADE (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ALTER TABLE FREEDOMBOARD DROP CONSTRAINT FREEDOMBOARD_FK;
 
 ALTER TABLE FREEDOMBOARD ADD CONSTRAINT FREEDOMBOARD_FK FOREIGN KEY (free_writer)
 REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 DROP TABLE FREEDOM_REPLY_SEQ;
 CREATE SEQUENCE FREEDOM_REPLY_SEQ
@@ -111,9 +111,9 @@ START WITH 1
 INCREMENT BY 1;
 
 
--- 4. ¿©ÇàÁö --
+-- 4. ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ --
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 -- SPOT_INFO
 DROP TABLE SPOT_INFO PURGE;
@@ -135,13 +135,13 @@ CREATE TABLE REVIEW_INFO (
     REVIEW_CONTENT   VARCHAR2(200)   NOT NULL
 );
 
--- ON DELETE CASCADE (°­Á¦ »èÁ¦)
+-- ON DELETE CASCADE (ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½)
 ALTER TABLE REVIEW_INFO DROP CONSTRAINT REVIEW_FK2;
 
 ALTER TABLE REVIEW_INFO ADD CONSTRAINT REVIEW_FK2 FOREIGN KEY (USER_NO)
 REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 DROP SEQUENCE SPOT_SEQ;
 CREATE SEQUENCE SPOT_SEQ
@@ -153,9 +153,9 @@ CREATE SEQUENCE REVIEW_SEQ
 START WITH 1
 INCREMENT BY 1;
 
--- 5. ¿©Çà ÀÏÁ¤ ¸¸µé±â --
+-- 5. ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ --
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 -- PLAN
 DROP TABLE PLAN PURGE;
@@ -215,16 +215,16 @@ ALTER TABLE USER_PLAN DROP CONSTRAINT USER_PLAN_FK;
 ALTER TABLE USER_PLAN ADD CONSTRAINT USER_PLAN_FK FOREIGN KEY (PLAN_NO)
 REFERENCES PLAN(PLAN_NO) ON DELETE CASCADE;
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 DROP SEQUENCE PLAN_SEQ;
 CREATE SEQUENCE PLAN_SEQ
 START WITH 1
 INCREMENT BY 1;
 
--- 6. µ¿Çà °Ô½ÃÆÇ
+-- 6. ï¿½ï¿½ï¿½ï¿½ ï¿½Ô½ï¿½ï¿½ï¿½
 
--- (1) Å×ÀÌºí »ý¼º --
+-- (1) ï¿½ï¿½ï¿½Ìºï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 -- TOGETHER
 DROP TABLE TOGETHER PURGE;
@@ -252,7 +252,7 @@ CREATE TABLE TOGETHERREPLY (
     REPLY_DATE      DATE             NOT NULL
 );
 
--- (2) ½ÃÄö½º »ý¼º --
+-- (2) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ --
 
 DROP SEQUENCE TOGETHER_SEQ;
 CREATE SEQUENCE TOGETHER_SEQ
@@ -260,7 +260,7 @@ START WITH 1
 INCREMENT BY 1;
 
 DROP SEQUENCE TOGETHERREPLY_SEQ;
-CREATE SEQUENCE TOGETHERREPLY_SEQ
+CREATE SEQUENCE together_reply_SEQ
 START WITH 1
 INCREMENT BY 1;
 
