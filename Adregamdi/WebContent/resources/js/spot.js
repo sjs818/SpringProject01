@@ -5,8 +5,7 @@ $(function() {
     var pNum = $('input[name=currentPage]').val();
     var currentPage = $("#currentPage").val();
     
-    console.log("currentPage : " +currentPage);
-
+    
     var allData = { "pageNo": pNum, "sigunguCode": sigungu, "contentTypeId": contentType, "numOfRow": 9};
 
     /* 검색에 필요한 변수 추가 */

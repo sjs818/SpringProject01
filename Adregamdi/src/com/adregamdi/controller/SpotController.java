@@ -63,7 +63,7 @@ public class SpotController {
 		}
 		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
-		// System.out.println("totalCount : "+totalCount);
+		
 		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
 		model.addAttribute("sigunguCode", sigunguCode);
 		model.addAttribute("contentTypeId", contentTypeId);		
@@ -80,8 +80,9 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
+		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
+				
 		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);
 	}
 	
