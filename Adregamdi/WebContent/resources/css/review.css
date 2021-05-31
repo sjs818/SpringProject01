@@ -86,12 +86,21 @@ table {
 	box-shadow: 3px 3px 10px #807e7e;
 }
 
-td {
-	padding: 20px;
+td.left {
+	padding-top: 20px;
 }
 
 td.right {
 	padding: 0px;
-	position: sticky;
+	vertical-align: top; 
+	overflow: hidden;
 }
 
+.btnText  {
+	color: black;
+}
+
+.btnText:hover {
+	text-decoration: none;
+	color: orange;
+}
