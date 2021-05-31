@@ -94,6 +94,7 @@ a:hover {
 .animate {
 	animation-duration: 2s;
 	animation-name: slideIn;
+	text-shadow: 6px 2px 2px gray;
 }
 
 @keyframes slideIn {
@@ -173,18 +174,19 @@ a:hover {
 				<h5>Copyright ⓒ 2021 ADREGAMDI. All rights reserved.</h5>
 			</div>
 			<div class="weather" style="float: right;">
-				<input type="hidden" id="sky" value="${weatherDTO.sky }" >
+				<input type="hidden" id="jeju" value="${jeju.sky }" >
 				<canvas id="icon1" style="height: 65px;"></canvas>
 				<!-- Skycons -->
 				<script type="text/javaScript" src="${root}skycons/skycons.js"></script>
 				<script type="text/javascript">
 						var skycons = new Skycons({"color" : "#d3d3d3"});
-						var sky = document.getElementById("sky").value;
+						var sky = document.getElementById("jeju").value;
+						console.log(sky);
 						if(sky == 0) {
-							skycons.add(document.getElementById("icon1"), Skycons.CLEAR-DAY)
+							skycons.add(document.getElementById("icon1"), Skycons.CLEAR_DAY)
 						};
 						if(sky == 1) {
-							skycons.add(document.getElementById("icon1"), Skycons.PARTLY-CLOUDY-DAY)
+							skycons.add(document.getElementById("icon1"), Skycons.PARTLY_CLOUDY_DAY)
 						};
 						if(sky == 2) {
 							skycons.add(document.getElementById("icon1"), Skycons.CLOUDY)
@@ -198,8 +200,39 @@ a:hover {
 						skycons.play();
 				</script>
 				<div style="float: right;">
-					<h5>제주도<span style="font-size: 32px;">&nbsp&nbsp${weatherDTO.temper } °C</span></h5>
-					<h5>${weatherDTO.rain } mm &nbsp&nbsp&nbsp ${weatherDTO.wind } m/s</h5>
+					<h5>제주시<span style="font-size: 32px;">&nbsp&nbsp${jeju.temper } °C</span></h5>
+					<h5>${jeju.rain } mm &nbsp&nbsp&nbsp ${jeju.wind } m/s</h5>
+				</div>
+			</div>
+			<div class="weather" style="float: right;">
+				<input type="hidden" id="seogwipo" value="${seogwipo.sky }" >
+				<canvas id="icon2" style="height: 65px;"></canvas>
+				<!-- Skycons -->
+				<script type="text/javaScript" src="${root}skycons/skycons.js"></script>
+				<script type="text/javascript">
+						var skycons = new Skycons({"color" : "#d3d3d3"});
+						var sky = document.getElementById("seogwipo").value;
+						console.log(sky);
+						if(sky == 0) {
+							skycons.add(document.getElementById("icon2"), Skycons.CLEAR_DAY)
+						};
+						if(sky == 1) {
+							skycons.add(document.getElementById("icon2"), Skycons.PARTLY_CLOUDY_DAY)
+						};
+						if(sky == 2) {
+							skycons.add(document.getElementById("icon2"), Skycons.CLOUDY)
+						};
+						if(sky == 3) {
+							skycons.add(document.getElementById("icon2"), Skycons.RAIN)
+						};
+						if(sky == 4) {
+							skycons.add(document.getElementById("icon2"), Skycons.SNOW)
+						};
+						skycons.play();
+				</script>
+				<div style="float: right;">
+					<h5>서귀포시<span style="font-size: 32px;">&nbsp&nbsp${seogwipo.temper } °C</span></h5>
+					<h5>${seogwipo.rain } mm &nbsp&nbsp&nbsp ${seogwipo.wind } m/s</h5>
 				</div>
 			</div>
 		</div>

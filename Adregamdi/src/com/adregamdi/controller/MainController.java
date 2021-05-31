@@ -21,9 +21,10 @@ public class MainController {
 	@RequestMapping(value="/", method=RequestMethod.GET)
 	public  String main(Model model) throws IOException, ParseException {
 		
-		WeatherDTO weatherDTO = weatherAPI.getWeatherJeju();
-		
-		model.addAttribute("weatherDTO", weatherDTO);
+		WeatherDTO jeju = weatherAPI.getWeatherJeju();
+		WeatherDTO seogwipo = weatherAPI.getWeatherSeogwipo();
+		model.addAttribute("jeju", jeju);
+		model.addAttribute("seogwipo", seogwipo);
 		
 		return "main";
 	}
