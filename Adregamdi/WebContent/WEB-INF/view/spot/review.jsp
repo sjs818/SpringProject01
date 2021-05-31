@@ -95,9 +95,9 @@
 							</div>
 							<div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
 								<div class="card-body">
-									<div class="reviewPrint" style="margin-top: 20px; margin-bottom: 100px;">
+									<div class="reviewPrint">
 										<c:if test="${loginCheck != 0}">
-											<div class="input-group">
+											<div class="input-group" style="padding: 20px;">
 												<input type="text" id="review_content"
 													class="form-control search-menu" placeholder="리뷰 작성"
 													style="background: #f9f9f9;"> <input type="hidden"
@@ -124,8 +124,7 @@
 														</thead>
 														<tbody>
 															<c:forEach var="reviewDTO" items="${reviewList }">
-																<input type="hidden" id="hcontentId"
-																	value="${reviewDTO.content_id }" />
+																<input type="hidden" id="hcontentId" value="${reviewDTO.content_id }" />
 																<tr>
 																	<td></td>
 																	<td class="text-center d-none d-md-table-cell">${reviewDTO.review_content }</td>

@@ -186,7 +186,7 @@
 
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal"
+	<div class="portfolio-modal modal fade center" id="portfolioModal"
 		tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">

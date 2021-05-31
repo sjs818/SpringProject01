@@ -3728,11 +3728,12 @@ a.close.disabled {
 	height: 100%;
 	overflow: hidden;
 	outline: 0;
+	vertical-align: middle;
 }
 
 .modal-dialog {
 	position: relative;
-	width: auto;
+	width: 100%;
 	margin: 0.5rem;
 	pointer-events: none;
 }
@@ -6140,7 +6141,7 @@ header.masthead .masthead-heading {
 	margin: 1rem;
 	margin-left: 20%;
 	max-width: 60%;
-	max-height: 90%;
+	vertical-align: center;
 }
 
 .portfolio-modal .modal-content {

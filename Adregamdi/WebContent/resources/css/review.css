@@ -14,7 +14,9 @@
 
 body {
 	background: #f1f1f1;
-	margin: 2rem;
+	margin-left: 10%;
+	width: 80%;
+	
 }
 
 body, h1, h2, h3, div {
@@ -47,23 +49,29 @@ ul {
 .right {
 	float: none;
 	width: 50%;
-	padding: 20px;
 	border-left: 1px dashed #cfcbc0;
+	padding: 0px;
 	top: 0px;
 }
 
+.right .card-body {
+	padding: 0px;
+}
 .overview {
 	overflow: auto;
 	border: 1px solid;
 	border-color: #d6d2d9;
-	padding : 20px;
 	height: 400px;
 	width: 100%;
+	padding: 20px;
 }
 
 .mapPrint .reviewPrint {
 	width: 100%;
-	padding: 20px;
+}
+
+button {
+	text-decoration: none;
 }
 
 ::-webkit-scrollbar {
@@ -81,9 +89,14 @@ ul {
   border: none;
 }
 
-table {
+.container {
+	padding: 0px;
+}
+
+#table {
 	background-color : white;
 	box-shadow: 3px 3px 10px #807e7e;
+	max-height: 90%;
 }
 
 td.left {
