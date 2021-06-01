@@ -9,6 +9,7 @@ public class TogetherDTO {
 	
 	// 게시글번호
 	private int to_no;
+
 	// 회원번호
 	private String to_writer;
 	// 공고제목

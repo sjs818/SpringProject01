@@ -15,10 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
+import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
 
 @Controller
@@ -30,6 +32,9 @@ public class TogetherController {
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
+	
+	@Autowired
+	private VisitKoreaAPI spot;
 	
 	@GetMapping("/list")
 	public String TogetherList(@RequestParam(value="page", defaultValue="1")int page, Model model) {
@@ -124,7 +129,7 @@ public class TogetherController {
 		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
 		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
 		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
-		togetherModifyDTO.setTo_id(TogetherDTO.getTo_id());
+		
 		
 		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
 		
@@ -139,6 +144,17 @@ public class TogetherController {
 		
 		return "together/modify_success";
 	}
+	
+	@ResponseBody
+	@GetMapping("/keyword")
+	public List<VisitKoreaDTO> getKeywordInfo(VisitKoreaDTO visitKoreaDTO, String keyword, Model model) throws Exception {
+		
+		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
+		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
+		List<VisitKoreaDTO> resultKeyword = spot.getKeywordInformation(visitKoreaDTO, keyword);
+		
+		return resultKeyword;
+	} 
 	
 }
 	
