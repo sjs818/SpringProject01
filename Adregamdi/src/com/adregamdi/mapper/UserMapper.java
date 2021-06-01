@@ -57,7 +57,10 @@ public interface UserMapper {
 	@Select("SELECT * FROM together WHERE TO_WRITER=#{user_no}")
 	List<TogetherDTO> getMytogether(int user_no);
 	
-	@Select("SELECT * FROM SUBSCRIPTION WHERE TO_NO=#{to_no}")
+	@Select("SELECT S.SUB_NO, S.TO_NO, S.SUB_MESSAGE, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS " + 
+    			"FROM SUBSCRIPTION S, USER_INFO U " + 
+    			"WHERE S.SUB_WRITER = U.USER_NO " + 
+    			"AND S.TO_NO=#{to_no}")
 	List<SubscriptionDTO> getToNotification(int to_no);
 	
 }

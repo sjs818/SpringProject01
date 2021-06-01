@@ -155,6 +155,15 @@ public class UserController {
 		return "user/modify";
 	}
 	
+	@PostMapping("/modify_proc")
+	public String modifyProc(@Valid @ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO, BindingResult result) {
+		if(result.hasErrors()) {
+			return "user/modify";
+		}
+		userService.modifyUserInfo(modifyUserDTO);
+		return "user/modify_success";
+	}
+
 	@ResponseBody
 	@PostMapping("/myToNotification")
 	public List<SubscriptionDTO> myToNotification(@RequestParam("to_no") int to_no) {
@@ -164,16 +173,6 @@ public class UserController {
 		myToNotification = userService.getToNotification(to_no);
 		System.out.println(myToNotification.size());
 		return myToNotification;
-	}
-	
-	
-	@PostMapping("/modify_proc")
-	public String modifyProc(@Valid @ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO, BindingResult result) {
-		if(result.hasErrors()) {
-			return "user/modify";
-		}
-		userService.modifyUserInfo(modifyUserDTO);
-		return "user/modify_success";
 	}
 	
 	@GetMapping("/my_to")

@@ -25,7 +25,7 @@
 
 <script>
 	$(function() {
-		$('.notifi').click(function() {
+		$('.notifi').mousedown(function() {
 			var to_no = $(this).val();
 			$('.item').remove();
 			$.ajax({
@@ -37,7 +37,7 @@
 					for(var i = 0; i < result.length; i++) {
 						var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
 								      	'<div class="d-flex justify-content-between">' +
-							      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].sub_writer + '</span>' +
+							      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
 							      		'<span>' + result[i].sub_message + '</span>' +
 							      		'<div>' +
 							      			'<button class="btn btn-sm btn-danger float-right mr-2"><a href="#" class="text-white mx-2">거절</a></button>' +
@@ -142,7 +142,7 @@
 		</div>
 
 	</div>
-
+</div>
   
 
 <!-- 하단 -->
