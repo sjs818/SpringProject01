@@ -12,15 +12,10 @@
 <title>지역별 관광지</title>
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="${root }js/spot.js" ></script>
 
@@ -191,7 +186,7 @@
 
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal"
+	<div class="portfolio-modal modal fade center" id="portfolioModal"
 		tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -206,11 +201,11 @@
 								<p id="modalAddr" class="item-intro text-muted"></p>
 								<img id="modalPhoto" class="img-fluid d-block mx-auto" src=""
 									alt="..." />
-								<p id="modalOverview"></p>
+								<!-- <p id="modalOverview"></p> -->
 								<ul class="details">
 								</ul>
 								<a id="detailBtn" class="btn btn-info" type="button" href="">
-									<i class="far fa-file-alt"></i> 리뷰 작성
+									<i class="far fa-file-alt"></i> 자세히 보기
 								</a>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
 									<i class="fas fa-times mr-1"></i> 닫기

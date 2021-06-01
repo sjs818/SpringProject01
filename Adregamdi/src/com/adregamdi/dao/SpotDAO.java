@@ -32,6 +32,9 @@ public class SpotDAO {
 		return spotMapper.getBestSpotInfo(range_min, range_max);
 	}
 	
+	public ArrayList<String> getBestSpotInfo1() {
+		return spotMapper.getBestSpotInfo1();
+	}
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		ArrayList<ReviewDTO> reviewDTO = spotMapper.getReviewInfo(content_id);		
