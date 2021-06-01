@@ -41,7 +41,7 @@ public class TogetherDAO {
 	}
 	
 	public void InsertTogetherContent(TogetherDTO togetherDTO) {
-		togetherDTO.setTo_writer(loginUserDTO.getUser_no());
+		togetherDTO.setTo_writer(loginUserDTO.getUser_id());
 		togetherMapper.InsertTogetherContent(togetherDTO);
 	}
 	

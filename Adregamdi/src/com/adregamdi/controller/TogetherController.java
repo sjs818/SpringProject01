@@ -127,10 +127,10 @@ public class TogetherController {
 		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
 		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
 		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
-		togetherModifyDTO.setTo_cnt(TogetherDTO.getTo_cnt());
+		
 		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
 		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
-		togetherModifyDTO.setTo_id(TogetherDTO.getTo_id());
+		
 		
 		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
 		

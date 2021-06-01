@@ -60,9 +60,9 @@
 						
 						content = '<li class="list-group-item" style="width: 90%;">'
 									+'<h2><b>'+data[key].title+'</b></h2>'+data[key].addr1
-									+'<a href="#" class="card-btn btn btn-dark" style="float:right;">추가하기</a>'
-									+'<span style="display: none" id="searchContentId'+key+'">'+data[key].contentId+'</span> '
-									+'<span style="display: none" id="searchContentTypeId'+key+'">'+data[key].contentTypeId+'</span>'
+									+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId()" style="float:right;">추가하기</a>'
+									+'<span style="display: none" id="getContentId'+key+'">'+data[key].contentId+'</span> '
+									+'<span style="display: none" id="getTitle'+key+'">'+data[key].title+'</span>'
 									+'</li>';				
 						$("#search_view").append(content);
 					});
@@ -76,6 +76,15 @@
 		});	
 	});
 	
+	function addSpotId() {
+		var contentId = $("#getContentId").html();
+		var title = $("#getTitle").html();
+		
+		$("#search_view").hide();
+		$("#input-group").hide();
+		$("#")
+		
+	}
 	
 	function formSubmit(){
 			const check_title = $("#to_title").val();
@@ -198,6 +207,8 @@ td {
 						</div>
 						<br>	
 						<div id="search_view" class="row">			
+						</div>
+						<div id="calendar">
 						</div>
 					</div>
 				</td>
