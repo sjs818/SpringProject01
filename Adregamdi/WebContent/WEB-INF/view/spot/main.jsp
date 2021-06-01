@@ -20,7 +20,7 @@
 <script type="text/javascript" src="${root }js/spot.js" ></script>
 
 <!-- x 아이콘 -->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="icon" type="image/x-icon"  />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
