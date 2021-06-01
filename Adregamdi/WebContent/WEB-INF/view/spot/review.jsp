@@ -23,6 +23,7 @@
 
 <link href="${root }css/review.css" rel="stylesheet">
 <script type="text/javascript" src="${root }js/review.js"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0500d926fc9607c0b97b0abd4abaeb0a"></script>
 
 </head>
 <body>
@@ -55,9 +56,10 @@
 
 							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 								<div class="card-body">
-									<div class="mapPrint">
-										지도 첨가하기
-									</div>
+									<input type="hidden" id="mapx" value="${information[5] }" />
+									<input type="hidden" id="mapy" value="${information[4] }" />
+									<input type="hidden" id="printTitle" value="${information[1] }" />
+									<div id="map" style="width:500px;height:400px;" onClick="printMap()"></div>
 								</div>
 							</div>
 						</div>
