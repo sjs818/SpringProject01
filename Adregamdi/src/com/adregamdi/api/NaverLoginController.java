@@ -71,7 +71,6 @@ public class NaverLoginController {
 		JSONObject response_obj = (JSONObject) jsonObj.get("response");
 		// response의 nickname값 파싱
 		String email = (String) response_obj.get("email");
-		String id = (String) response_obj.get("id");
 		String mobile = (String) response_obj.get("mobile");
 		String name = (String) response_obj.get("name");
 		model.addAttribute("result", apiResult);

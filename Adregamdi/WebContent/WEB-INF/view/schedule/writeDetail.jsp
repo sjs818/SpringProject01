@@ -708,7 +708,7 @@
 	<form action="/schedule/writeDetail_proc" method="post" id="scheduleForm">
 		<input type="hidden" id="schedule-plan" name="schedule" value="">
 	</form>
-	<form action="/plan/modify" method="get" id="ModifyForm">
+	<form action="/schedule/modify" method="get" id="ModifyForm">
 		<input type="hidden" id="planNo" name="planNo" value="${planNo }">
 	</form>	
 	

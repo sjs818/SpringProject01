@@ -211,4 +211,10 @@ public class ScheduleController {
 	
 		return scheduleService.deletePlan(plan_no) && scheduleService.deleteUserPlan(plan_no);
 	}
+	
+	@GetMapping("/modify")
+	public String modify() {
+		
+		return "schedule/modify";
+	}
 }
