@@ -29,8 +29,22 @@ public class WeatherAPI {
 		Date today = new Date();
 				
 		String date = format1.format(today);
-		String time = Integer.parseInt(format2.format(today)) - 1 + "00";
-		String preTime = format2.format(today) + "00";
+		
+		int baseTime = Integer.parseInt(format2.format(today)) - 1;
+		String time = "";
+		if(baseTime  < 10) {
+			time = "0" + baseTime + "00";
+		} else {
+			time =  baseTime + "00";
+		}
+		
+		int currentTime = Integer.parseInt(format2.format(today));
+		String preTime = "";
+		if(currentTime  < 10) {
+			preTime = "0" + currentTime + "00";
+		} else {
+			preTime =  currentTime + "00";
+		}
 		
 		String urlStr = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtFcst?"
 									 + "serviceKey=" + serviceKey
@@ -113,8 +127,22 @@ public class WeatherAPI {
 		Date today = new Date();
 		
 		String date = format1.format(today);
-		String time = Integer.parseInt(format2.format(today)) - 1 + "00";
-		String preTime = format2.format(today) + "00";
+		
+		int baseTime = Integer.parseInt(format2.format(today)) - 1;
+		String time = "";
+		if(baseTime  < 10) {
+			time = "0" + baseTime + "00";
+		} else {
+			time =  baseTime + "00";
+		}
+		
+		int currentTime = Integer.parseInt(format2.format(today));
+		String preTime = "";
+		if(currentTime  < 10) {
+			preTime = "0" + currentTime + "00";
+		} else {
+			preTime =  currentTime + "00";
+		}
 		
 		String urlStr = "http://apis.data.go.kr/1360000/VilageFcstInfoService/getUltraSrtFcst?"
 				+ "serviceKey=" + serviceKey

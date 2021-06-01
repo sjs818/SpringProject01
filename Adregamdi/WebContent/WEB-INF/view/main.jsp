@@ -93,21 +93,19 @@ a:hover {
 
 .animate {
 	animation-duration: 2s;
-	animation-name: slideIn;
-	text-shadow: 6px 2px 2px gray;
+	animation-name: fadeIn;
+	text-shadow: 2px 2px 2px gray;
 }
 
-@keyframes slideIn {
+@keyframes fadeIn {
 	
-	from  {	
-		margin-left:100%;
-		width: 300%;
-	}
-
-	to {
-		margin-left: 0%;
-		width: 100%;
-	}
+	from {
+  	opacity: 0;
+  }
+  
+  to {
+  	opacity: 1;
+  }
 }
 
 </style>
