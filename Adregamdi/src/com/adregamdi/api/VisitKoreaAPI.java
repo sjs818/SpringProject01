@@ -24,9 +24,9 @@ import com.adregamdi.dto.VisitKoreaDTO;
 public class VisitKoreaAPI {
 	//final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
 	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
-	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
+	final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
-	final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
+	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
 	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	
   // T map API ( 占쏙옙占� : http://tmapapi.sktelecom.com/index.html )
@@ -140,10 +140,11 @@ public class VisitKoreaAPI {
 	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO, int totalCount, ArrayList<String> bestContentIdList)
 			throws SAXException, IOException, ParserConfigurationException {
 		
-		// id留� ���옣
-		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
+		// ㅋㅋㅋㅋ 일단 가라로 ㅋㅋㅋㅋㅋㄴ
+		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), Integer.toString(100));
 		
-		// 怨듯넻 �젙蹂� 議고쉶
+		System.out.println("contentIdList : "+contentIdList.size());
+		// 怨듯넻 �젙蹂� 議고쉶s
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> bestInformation = new ArrayList<VisitKoreaDTO>();
 		

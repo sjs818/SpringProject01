@@ -95,11 +95,13 @@ public class SpotController {
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
 		// 현재 페이지에서 Best 3
-		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*9) +1 ;
-		int range_max = range_min + 8;
+		//int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*9) +1 ;
+		//int range_max = range_min + 8;
 		
-		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
-				
+		//ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
+		ArrayList<String> bestContentId = spotService.getBestSpotInfo1();
+		System.out.println("bestContentId : "+ bestContentId.toString());
+		
 		return spot.getBestInformation(visitKoreaDTO, totalCount, bestContentId);
 	}
 	
