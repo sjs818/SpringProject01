@@ -127,7 +127,6 @@ public class TogetherController {
 		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
 		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
 		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
-		
 		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
 		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
 		
