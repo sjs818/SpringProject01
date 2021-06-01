@@ -27,6 +27,7 @@
 	$(function() {
 		$('.notifi').click(function() {
 			var to_no = $(this).val();
+			$('.item').remove();
 			$.ajax({
 				url : "/user/myToNotification",
 				type : "POST",
@@ -34,7 +35,7 @@
 				data : {"to_no" : to_no},
 				success : function(result) {
 					for(var i = 0; i < result.length; i++) {
-						var content = '<div class="card-body" style="margin:auto; width:90%;">' +
+						var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
 								      	'<div class="d-flex justify-content-between">' +
 							      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].sub_writer + '</span>' +
 							      		'<span>' + result[i].sub_message + '</span>' +
@@ -44,11 +45,10 @@
 							      		'</div>' +
 							      	'</div>' +
 							      '</div>' +
-							      '<hr style="margin:0;">';
+							      '<hr class="item" style="margin:0;">';
 										
 						$(content).appendTo('.test');
 					}
-					
 				}
 			});
 		})
