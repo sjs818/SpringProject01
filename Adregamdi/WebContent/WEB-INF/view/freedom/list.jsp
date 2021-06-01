@@ -10,14 +10,29 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>어드레 감디 | 자유게시판</title>
+
+<!-- BootStarp CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+crossorigin="anonymous">
+
 <link rel="stylesheet" href="${root}css/freedomBoard.css">
 <script type="text/javaScript">
 	function WriteDoc(){
 		location.href='${root}freedom/write';
+	}
+	
+	function SearchBoard(){
+		let searchType=$('#searchType').val();
+		let keyword = $('#keywords').val();
+		
+		
 	}
 </script>
 </head>
@@ -29,8 +44,21 @@
 	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 		<h3 class="BoardTitle">
 			<b>자유게시판</b>
-		</h3>
-		<hr><br>
+		</h3><hr>
+		<nav class="navbar navbar-light bg-light" style="margin-top:-5px;">
+		  <a class="navbar-brand"></a>
+		  <form class="form-inline">
+		    <select id="searchType" class="form-control" style="margin-right:8px;">
+		    	<option id="object" value="object">제목</option>
+		    	<option id="objcon" value="objcon">제목 + 내용</option>
+		    	<option id="writerID" value="writerID">아이디</option>
+		    </select>
+		    <input class="form-control mr-sm-2" id="keywords" type="search" placeholder="Search" aria-label="Search">
+		    <button type="button" class="btn btn-secondary" onclick="SearchBoard();">
+		    	<i class="fas fa-search"></i>
+		    </button>
+		  </form>
+		</nav>
 		<table class="table table-hover">
 			<thead>
 				<tr>

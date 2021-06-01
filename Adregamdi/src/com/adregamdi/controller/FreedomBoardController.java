@@ -57,6 +57,40 @@ public class FreedomBoardController {
 		return "freedom/list";
 	}
 	
+	@GetMapping("/listSearch")
+	public String BoardListSearch
+	(@RequestParam(value="page", defaultValue="1") int page,
+	 @RequestParam("searchType") String searchType, 
+	 @RequestParam("keywords") String keywords ,Model model) {
+		if(searchType.equals("object")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObjectFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			
+			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} else if(searchType.equals("objcon")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObejctContentFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			
+			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} else if(searchType.equals("writerID")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyIdFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			
+			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} 
+		
+		return "freedom/list";
+	}
+	
 	// 게시판 글 삭제 함수
 	@GetMapping("/deleteProc")
 	public String BoardDeleteProc

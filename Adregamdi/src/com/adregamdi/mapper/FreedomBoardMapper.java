@@ -21,6 +21,31 @@ public interface FreedomBoardMapper {
 			" ORDER BY F.FREE_NO DESC ")
 	List<FreedomBoardDTO> getFreedomBoardList(RowBounds rowBounds);
 	
+	//게시글 제목으로 검색해서 불러오기
+	@Select(" SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, F.FREE_TITLE, F.FREE_CNT, " + 
+			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
+			" (SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
+			" FROM FREEDOMBOARD F, USER_INFO U " + 
+			" WHERE F.FREE_WRITER = U.USER_NO AND F.FREE_TITLE LIKE '%' || '#{keyword}' || '%' ")
+	List<FreedomBoardDTO> getSearchKeyObjectFreedomBoardList(RowBounds rowBounds, String keyword);
+	
+	//게시글 제목 + 내용으로 검색해서 불러오기
+	@Select(" SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, F.FREE_TITLE, F.FREE_CNT, " + 
+			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
+			" (SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
+			" FROM FREEDOMBOARD F, USER_INFO U " + 
+			" WHERE F.FREE_WRITER = U.USER_NO AND F.FREE_TITLE LIKE '%' || '#{keyword}' || '%' " +
+			" AND F.FREE_CONTENT LIKE '%' || '#keyword}' || '%' ")
+	List<FreedomBoardDTO> getSearchKeyObejctContentFreedomBoardList(RowBounds rowBounds, String keyword);
+	
+	//게시글 아이디로 검색해서 불러오기
+	@Select(" SELECT F.FREE_NO, U.USER_ID CONTENT_WRITER_ID, F.FREE_TITLE, F.FREE_CNT, " + 
+			" TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
+			" (SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
+			" FROM FREEDOMBOARD F, USER_INFO U " + 
+			" WHERE F.FREE_WRITER = U.USER_NO AND U.USER_ID LIKE '%' || '#{keyword}' || '%' ")
+	List<FreedomBoardDTO> getSearchKeyIdFreedomBoardList(RowBounds rowBounds, String keyword);
+	
 	//게시글 내용 불러오기
 	@Select("SELECT F.FREE_NO, U.USER_NO FREE_CONTENT_WRITER_IDX, U.USER_ID CONTENT_WRITER_ID, TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			"F.FREE_TITLE, F.FREE_CONTENT, F.FREE_CNT " + 

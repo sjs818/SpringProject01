@@ -28,6 +28,24 @@ public class FreedomBoardDAO {
 		return contentList;
 	}
 	
+	//게시글 글제목으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObjectFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyObjectFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObejctContentFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyObejctContentFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 아이디로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyIdFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyIdFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
 	//게시글 내용 가져오는 함수
 	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
 		FreedomBoardDTO content = freedomBoardMapper.getFreedomBoardContent(content_idx);
