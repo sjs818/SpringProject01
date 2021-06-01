@@ -211,13 +211,13 @@ td {
 								<form:input path="to_title" class="form-control" />
 								<form:errors path="to_title" style="color:red;" />
 							</div>
-							<div class="form-group">
+							<%-- <div class="form-group">
 								<form:label path="to_meet">여행 날짜</form:label>
 							</div>
 							<div class="form-group">
 								<form:label path="to_total">모집인원</form:label>
 								<form:input path="to_total" class="form-control"/>
-							</div>
+							</div> --%>
 							<div class="form-group">
 								<form:label path="to_content">공고문</form:label>
 								<form:textarea path="to_content" class="form-control" rows="10"
