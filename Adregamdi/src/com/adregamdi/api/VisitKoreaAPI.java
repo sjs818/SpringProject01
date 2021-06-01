@@ -137,15 +137,11 @@ public class VisitKoreaAPI {
 	}
 	
 	// BestTop �젙蹂� ���옣
-	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO, int totalCount, ArrayList<String> bestContentIdList)
+	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO,  ArrayList<String> bestContentIdList)
 			throws SAXException, IOException, ParserConfigurationException {
 		
-		// ㅋㅋㅋㅋ 일단 가라로 ㅋㅋㅋㅋㅋㄴ
-		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), Integer.toString(100));
-		
-		System.out.println("contentIdList : "+contentIdList.size());
 		// 怨듯넻 �젙蹂� 議고쉶s
-		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
+		ArrayList<NodeList> spotInfo = getSpotInfo(bestContentIdList);
 		List<VisitKoreaDTO> bestInformation = new ArrayList<VisitKoreaDTO>();
 		
 		for(int c = 0; c < bestContentIdList.size(); c++) {

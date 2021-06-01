@@ -86,7 +86,7 @@
 			});
 			
 			$('#btn-modify').click(function() {
-				$('#modifyForm').submit();
+				$('#ModifyForm').submit();
 			});
 			
 			$("input:checkbox").on('click', function() {
@@ -709,7 +709,7 @@
 		<input type="hidden" id="schedule-plan" name="schedule" value="">
 	</form>
 	<form action="/schedule/modify" method="get" id="ModifyForm">
-		<input type="hidden" id="planNo" name="planNo" value="${planNo }">
+		<input type="hidden" id="planNo" name="plan_no" value="${plan_no }">
 	</form>	
 	
 	<!-- Footer -->

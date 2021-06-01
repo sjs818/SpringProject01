@@ -208,13 +208,17 @@ public class ScheduleController {
 	@ResponseBody
 	@PostMapping("/delete")
 	public boolean delete(@RequestParam("plan_no") int plan_no) {
-	
+
 		return scheduleService.deletePlan(plan_no) && scheduleService.deleteUserPlan(plan_no);
 	}
 	
 	@GetMapping("/modify")
-	public String modify() {
+	public String modify(@RequestParam("plan_no") int plan_no) {
 		
+		scheduleService.getPlan(plan_no);
+		List<UserPlanDTO> plan = scheduleService.readSchedule(plan_no);
+		String[] date = plan.get(0).getPlanDate().split("-");
+		System.out.println(date.toString());
 		return "schedule/modify";
 	}
 }

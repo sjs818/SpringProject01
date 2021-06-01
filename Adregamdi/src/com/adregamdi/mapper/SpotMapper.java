@@ -28,9 +28,6 @@ public interface SpotMapper {
 	@Select("SELECT * FROM SPOT_INFO")
 	ArrayList<SpotDTO> getSpotInfo();
 	
-	@Select("SELECT CONTENT_ID FROM  (SELECT *  FROM SPOT_INFO WHERE LIKE_IDX>=#{range_min} AND LIKE_IDX<=#{range_max} ORDER BY LIKE_CNT DESC) WHERE ROWNUM<=3")
-	ArrayList<String> getBestSpotInfo(@Param("range_min")int range_min, @Param("range_max")int range_max);
-	
 	@Select("SELECT CONTENT_ID FROM (SELECT *  FROM SPOT_INFO ORDER BY LIKE_CNT DESC) WHERE ROWNUM<=3")
 	ArrayList<String> getBestSpotInfo1();
 	
