@@ -13,4 +13,5 @@ public class SubscriptionDTO {
 	private int sub_writer;
 	private String sub_status;
 	private Date sub_date;
+	private String notifi_writer;
 }
