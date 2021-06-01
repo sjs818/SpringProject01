@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,7 +18,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
-import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.TogetherService;
 
@@ -69,23 +69,7 @@ public class TogetherController {
 //			return "together/delete_fail";
 //		}
 //	}
-	@GetMapping("/read")
-	public String TogetherRead
-	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
-		togetherService.viewCount(content_idx);
-		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
-		model.addAttribute("loginUserDTO", loginUserDTO);
-		model.addAttribute("readContentDTO", readContentDTO);
-		model.addAttribute("content_idx", content_idx);
-		
-		return "together/read_reply";
-	}
 	
-	@ResponseBody
-	@PostMapping("/replyCount")
-	public int replyCount(@RequestParam("content_idx") int content_idx) {
-		return togetherService.GetTogetherReplyCount(content_idx);
-	}
 	
 	 @GetMapping("/deleteProc")
 	public String BoardDeleteProc
@@ -119,14 +103,7 @@ public class TogetherController {
 		
 		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
 		
-		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
-		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
-		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
-		togetherModifyDTO.setTo_cnt(TogetherDTO.getTo_cnt());
-		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
-		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
-		togetherModifyDTO.setTo_id(TogetherDTO.getTo_id());
-		
+
 		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
 		
 		return "together/modify";

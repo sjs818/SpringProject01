@@ -23,25 +23,7 @@
 <!-- CSS import -->
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
-<script>
-	$(function() {
-		$('.delete').click(function() {
-			if(confirm("일정을 삭제하시겠습니까?")) {
-				var plan_no = $(this).val();
-				$.ajax({
-					url : "/schedule/delete",
-					type : "POST",
-					dataType : "text",
-					data : {"plan_no" : plan_no},
-					success : function(data) {
-						alert('일정이 삭제되었습니다!');
-						location.href="/user/my_page"
-					}
-				});
-			}
-		});
-	});
-</script>
+<script type="text/javascript" src="${root }js/user.js"></script>
 
 
 </head>
@@ -62,6 +44,11 @@
 			<div class="card-header my-card-header">
 				<a href="${root }user/modify" class="float-right btn btn-success" style="padding: 3px 10px;">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
+					<li class="nav-item"><a class="nav-link" href="${root }user/my_to">알림함&nbsp
+						<c:if test="${myPublicCount ne '0' }">
+							<span class="badge badge-success"> ${myPublicCount }</span>
+						</c:if>
+					</a></li>
 					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page">공유일정&nbsp
 						<c:if test="${myPublicCount ne '0' }">
 							<span class="badge badge-success"> ${myPublicCount }</span>

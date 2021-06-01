@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.PlanDTO;
+import com.adregamdi.dto.SubscriptionDTO;
+import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 
 @Service
@@ -119,6 +121,14 @@ public class UserService {
 	
 	public String getPublicCount(int user_no) {
 		return userDAO.getPublicCount(user_no);
+	}
+
+	public List<TogetherDTO> getMyTo(int user_no) {
+		return userDAO.getMyTo(user_no);
+	}
+
+	public List<SubscriptionDTO> getToNotification(int to_no) {
+		return userDAO.getToNotification(to_no);
 	}
 	
 
