@@ -31,10 +31,17 @@ ul {
 	list-style: none;
 };
 
+.card .card-header:first-child, .card-header:last-child {
+	border-radius: 0px;
+}
+
 .bg-light {
 	background-color: #f8f9fa !important;
 }
 
+.btnText {
+	text-decoration: none;
+}
 .plus {
 	padding: 20px;
 	text-align : center;

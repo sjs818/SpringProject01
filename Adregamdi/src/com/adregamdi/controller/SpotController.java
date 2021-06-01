@@ -146,10 +146,6 @@ public class SpotController {
 		
 		// 리뷰 내용 출력
 		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
-		for(int i=0; i<reviewList.size(); i++) 
-		{
-			System.out.println("리뷰 : "+reviewList.get(i).toString());
-		}
 		
 		int reviewSize = reviewList.size();
 		
