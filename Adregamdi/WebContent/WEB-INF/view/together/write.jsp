@@ -77,12 +77,16 @@
 	});
 	
 	function addSpotId() {
-		var contentId = $("#getContentId").html();
-		var title = $("#getTitle").html();
+		var contentId = $("#getContentId").val();
+		var title = $("#getTitle").val();
+		
+		console.log("contentId : " + contentId);
+		console.log("title : " + title);
 		
 		$("#search_view").hide();
 		$("#input-group").hide();
-		$("#")
+		$("#printSpot").show();
+		$("#spotTitle").text(title);
 		
 	}
 	
@@ -207,6 +211,9 @@ td {
 						</div>
 						<br>	
 						<div id="search_view" class="row">			
+						</div>
+						<div id="printSpot">
+							<input type="text" id="spotTitle"/>
 						</div>
 						<div id="calendar">
 						</div>
