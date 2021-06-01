@@ -186,6 +186,8 @@ public class SpotController {
 		
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
+		spotService.plusLikeCnt(contentId);
+		
 		return spotDTO;
 	}
 	 

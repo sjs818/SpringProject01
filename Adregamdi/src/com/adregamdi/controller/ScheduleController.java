@@ -213,12 +213,14 @@ public class ScheduleController {
 	}
 	
 	@GetMapping("/modify")
-	public String modify(@RequestParam("plan_no") int plan_no) {
+	public String modify(@RequestParam("plan_no") int plan_no, Model model) {
 		
-		scheduleService.getPlan(plan_no);
-		List<UserPlanDTO> plan = scheduleService.readSchedule(plan_no);
-		String[] date = plan.get(0).getPlanDate().split("-");
-		System.out.println(date.toString());
+		PlanDTO plan = scheduleService.getPlan(plan_no);
+		List<UserPlanDTO> planList = scheduleService.readSchedule(plan_no);
+		String[] date = planList.get(0).getPlanDate().split("-");
+		String plan_date = date[0] + "-" + date[1] + "-" + (Integer.parseInt(date[2]) - (Integer.parseInt(planList.get(0).getPlanDay()) - 1));
+		
+		model.addAttribute("planList", JSONArray.fromObject(plan));
 		return "schedule/modify";
 	}
 }

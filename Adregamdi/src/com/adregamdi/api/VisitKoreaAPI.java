@@ -96,7 +96,6 @@ public class VisitKoreaAPI {
 			NodeList nodeList = document.getElementsByTagName("item");
 			infoList.add(nodeList);
 		}
-		System.out.println("getSpotInfo : " + infoList.size());
 		return infoList;
 	}
 
