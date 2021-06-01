@@ -95,13 +95,9 @@
 			if(loginState == "true"){
 			  if(reply_writer === loginUserID || userGrantInfo == "0"){
 				let modifyHtml = "";
-				modifyHtml += '<div class="media text-muted pt-3" id="reNum' + reply_num + '">';
-			    modifyHtml += '<svg class="bd-placeholder-img mr-2 rounded" width="32" height="32" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder:32X32">';
-		  	    modifyHtml += '<title>Placeholder</title>';
-			    modifyHtml += '<rect width="100%" height="100%" fill="#007bff"></rect>';
-		        modifyHtml += '<text x="50%" fill="#007bff" dy=".3em">32X32</text>';
-			    modifyHtml += '</svg>';
-			    modifyHtml += '<p class="media-body pb-3 mb-0 small lh-125 border-bottom horder-gray">';
+				modifyHtml += '<div class="media text-muted pt-3 lh-125 border-bottom horder-gray" id="reNum' + reply_num + '">';
+			    modifyHtml += '<img style="width: 32px; height: 32px; border-radius: 32px; margin-right: 15px;" src="/images/profile.jpg">';
+		  	    modifyHtml += '<p class="media-body pb-3 mb-0 small ">';
 			    modifyHtml += '<span class="d-block">';
 			    modifyHtml += '<strong class="text-gray-dark">'+ reply_writer + '</strong>';
 			    modifyHtml += '<span style="padding-left:7px; font-size:9pt">';

@@ -1,10 +1,18 @@
 package com.adregamdi.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.FreedomBoardService;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/freedom")
@@ -117,11 +128,64 @@ public class FreedomBoardController {
 	//게시글 수정 함수
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
-	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {
+	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result, Model model) {
 		
 		freedomBoardService.ModifyFreedomBoardContent(freedomModifyProcDTO);
+		model.addAttribute("content_num", freedomModifyProcDTO.getFree_no());
 		
 		return "freedom/modify_success";
+	}
+	
+	// Ckeditor를 통한 이미지 업로드 함수
+	@ResponseBody
+	@PostMapping("/fileUpload")
+	public String FileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception {
+		JsonObject json = new JsonObject();
+		PrintWriter printWriter = null;
+		OutputStream out = null;
+		MultipartFile file = multiFile.getFile("upload");
+		if(file != null) {
+			if(file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
+				if(file.getContentType().toLowerCase().startsWith("image/")) {
+					try {
+						String fileName = file.getName();
+						byte[] bytes = file.getBytes();
+						String uploadPath = req.getServletContext().getRealPath("/resources/images/freedom");
+						File uploadFile = new File(uploadPath);
+						if(!uploadFile.exists()) {
+							uploadFile.mkdirs();
+						}
+						
+						fileName = UUID.randomUUID().toString();
+						uploadPath = uploadPath + "/" + fileName;
+						out = new FileOutputStream(new File(uploadPath));
+						out.write(bytes);
+						
+						printWriter = resp.getWriter();
+						resp.setContentType("text/html");
+						String fileUrl = req.getContextPath() + "/images/freedom/" + fileName;
+						
+						json.addProperty("uploaded", 1);
+						json.addProperty("fileName", fileName);
+						json.addProperty("url", fileUrl);
+						
+						printWriter.println(json);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if(out != null) {
+							out.close();
+						}
+						
+						if(printWriter != null) {
+							printWriter.close();
+						}
+					}
+				}
+			}
+		}
+		
+		return null;
 	}
 }
 

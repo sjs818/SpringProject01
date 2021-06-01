@@ -15,7 +15,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="${root}css/freedomBoard.css">
-  <script type="text/javaScript" src="${root}js/freedomBoard.js"></script>
+  <script type="text/javaScript" src="${root}js/freedomBoard.js?ver=1"></script>
   <script type="text/javaScript">
   function delContent(){
 	  let result = confirm("작성한 글을 삭제 하시겠습니까?")
