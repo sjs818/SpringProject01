@@ -101,8 +101,8 @@ public class ScheduleService {
 			plan.setAddr((String)obj.get("addr"));
 			plan.setImg_src((String)obj.get("img"));
 			JSONObject lonlat = (JSONObject) obj.get("lonlat");
-			plan.setMapX(lonlat.get("_lng").toString());
-			plan.setMapY(lonlat.get("_lat").toString());
+			plan.setMapX(lonlat.get("_lat").toString());
+			plan.setMapY(lonlat.get("_lng").toString());
 			plan.setPlanDate((String)obj.get("planDate"));
 			plan.setPlanDay((String)obj.get("planDay"));
 			plan.setPlanTotalDate((String)obj.get("planTotalDate"));
@@ -168,5 +168,9 @@ public class ScheduleService {
 	
 	public boolean deleteUserPlan(int plan_no) {
 		return scheduleDAO.deleteUserPlan(plan_no) > 0;
+	}
+	
+	public boolean modifyUserPlan(UserPlanDTO userPlanDTO) {
+		return scheduleDAO.modifyUserPlan(userPlanDTO) > 0;
 	}
 }

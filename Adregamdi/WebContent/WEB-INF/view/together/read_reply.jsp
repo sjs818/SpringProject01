@@ -71,12 +71,15 @@
 			<h3 class="InputSubject">
       		<b>${readContentDTO.to_title}</b>
     		</h3>
+    		<h5 class="InputSubject">
+    		<b>${readContentDTO.to_place_name}</b>
+    		</h5>
     		<h6>${readContentDTO.to_writer}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
 		</div>
 		<div class="card-body" style="margin-top:10px; padding:40px;">
 			<form class="form-horizontal" name="togetherWriteDTO" id="togetherWriteDTO" action="${root}together/writeProc" method="POST">
     			<input type="hidden" id="loginState" name="loginState" value="${loginUserDTO.userLogin}" />
-        		<input type="hidden" id="provider" name="provider" value="${loginUserDTO.user_provider}" />
+        		<input type="hidden" id="provider" name="provider" value="${loginUserDTO.user_provider}" />	
     		<div class="form-group" style="margin-bottom: 30px;">
       			<div class="mb-3">
         			${readContentDTO.to_content}

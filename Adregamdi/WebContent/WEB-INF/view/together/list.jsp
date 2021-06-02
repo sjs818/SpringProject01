@@ -80,13 +80,13 @@
 			<tbody>
 				<c:forEach var="TogetherDTO" items="${contentList}">
 					<tr>
-						<td class="text-center">
+						<td class="text-left">
 							<c:choose>
 								<c:when test="${TogetherDTO.to_state == 0 }">
-									<span class="badge badge-pill badge-secondary">모집완료</span>
+									<span class="badge badge-pill badge-danger">모집중</span>
 								</c:when>	
 								<c:otherwise>
-									<span class="badge badge-pill badge-danger">모집중</span>
+									<span class="badge badge-pill badge-secondary">모집완료</span>
 								</c:otherwise>	
 							</c:choose>
 							<a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a>

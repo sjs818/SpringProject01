@@ -76,4 +76,8 @@ public class ScheduleDAO {
 	public int deleteUserPlan(int plan_no) {
 		return scheduleMapper.deleteUserPlan(plan_no);
 	}
+	
+	public int modifyUserPlan(UserPlanDTO userPlanDTO) {
+		return scheduleMapper.modifyUserPlan(userPlanDTO);
+	}
 }

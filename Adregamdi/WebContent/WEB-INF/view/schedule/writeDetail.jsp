@@ -359,16 +359,14 @@
 			var realTime = getRealTime();
 			var viaPoints = [];
 			let today = new Date();
-			console.log(startInfo.mapX);
-			console.log(endInfo.mapX);
 			for(var i = 0; i < viaInfo.length; i++) {
 				
 				var viaPoint = {};
 				
 				viaPoint.viaPointId = "경유지" + (i + 1);
 			  viaPoint.viaPointName = viaInfo[i].title;
-			  viaPoint.viaX = viaInfo[i].mapY;
-			  viaPoint.viaY = viaInfo[i].mapX;
+			  viaPoint.viaX = viaInfo[i].mapX;
+			  viaPoint.viaY = viaInfo[i].mapY;
 			  viaPoints.push(viaPoint);
 			  
 			}
@@ -383,12 +381,12 @@
 		    contentType : "application/json",
 		    data : JSON.stringify({
 		    	"startName": startInfo.title,
-		      "startX": startInfo.mapY,
-		      "startY": startInfo.mapX,
+		      "startX": startInfo.mapX,
+		      "startY": startInfo.mapY,
 		      "startTime": realTime,
 		      "endName": endInfo.title,
-		      "endX": endInfo.mapY,
-		      "endY": endInfo.mapX,
+		      "endX": endInfo.mapX,
+		      "endY": endInfo.mapY,
 		      "viaPoints": viaPoints
 		    }),
 		    success:function(response) {
