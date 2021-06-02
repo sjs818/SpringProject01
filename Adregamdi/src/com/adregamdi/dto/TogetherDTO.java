@@ -16,6 +16,8 @@ public class TogetherDTO {
 	private String to_title;
 	// 여행장소
 	private String to_place;
+	// 여행장소 이름
+	private String to_place_name;
 	// 공고문
 	private String to_content;
 	// 작성날짜

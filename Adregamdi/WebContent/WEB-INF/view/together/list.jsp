@@ -91,7 +91,7 @@
 							</c:choose>
 							<a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a>
 						</td>
-						<td class="text-center">${TogetherDTO.to_place }</td>
+						<td class="text-center">${TogetherDTO.to_place_name }</td>
 						<td class="text-center">${TogetherDTO.to_meet }</td>
 						<td class="text-center">${TogetherDTO.to_curr }/${TogetherDTO.to_total }</td>
 						<td class="text-center">${TogetherDTO.to_writer}</td>

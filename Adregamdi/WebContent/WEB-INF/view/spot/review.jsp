@@ -42,7 +42,7 @@
 					</div>
 				</td>
 				<td class="right" rowspan="3">									
-					<div class="accordion" >
+					<div class="accordion" id="accordionExample">
 						<div class="card">
 							<div class="card-header" id="headingOne">
 								<h5 class="mb-0">

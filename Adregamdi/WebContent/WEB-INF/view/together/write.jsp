@@ -131,9 +131,6 @@
 		var contentId = $("#getContentId"+key).html();
 		var title = $("#getTitle"+key).html();
 		
-		console.log("contentId : " + contentId);
-		console.log("title : " + title);
-		
 		$(".sidebar-menu").hide();
 		$(".input-group").hide();
 		$("#printSpot").show();
@@ -141,8 +138,6 @@
 		$("#fixedSpotContentId").attr("value", contentId);
 		$(".calendar").show();
 		$("#number").hide();
-		
-		
 	}
 	
 	function modifySpot() {
@@ -156,12 +151,20 @@
 	}
 	
 	function writeMeetDate() {
+		var meetDate = $("#meetDate").val();
+		
+		if(meetDate=="") {
+			alert("날짜를 입력하세요 - !");
+			return;
+		}
+		
 		$("#number").show();
 	}
 	
 	function writePersonNumber() {
 		
 		var contentId = $("#fixedSpotContentId").val();
+		var spotTitle = $("#fixedSpotTitle").val();
 		var meetDate = $("#meetDate").val();
 		var personNumber = $("#personNumber").val();
 		
@@ -170,13 +173,10 @@
 		console.log("personNumber : "+personNumber);
 		
 		
-		$("#to_place").html(contentId);
 		$("#to_place").attr("value", contentId);
-		$("#to_meet").html(meetDate);
+		$("#to_place_name").attr("value", spotTitle);
 		$("#to_meet").attr("value", meetDate);
-		$("#to_total").html(personNumber);
 		$("#to_total").attr("value", personNumber);
-		
 	}
 	
 	function formSubmit(){
@@ -337,6 +337,7 @@ td {
 						<form:form action="${root}together/writeProc" method="post" modelAttribute="togetherWriteDTO" class="form-horizontal">
 							<form:hidden path="to_no" />
 							<form:hidden path="to_place"/>
+							<form:hidden path="to_place_name"/>
 							<form:hidden path="to_meet"/>
 							<form:hidden path="to_total"/>
 							<div class="form-group">
