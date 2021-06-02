@@ -77,11 +77,11 @@ public class TogetherController {
 	@GetMapping("/read")
 	public String TogetherRead
 	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
-		togetherService.viewCount(content_idx);
+//		togetherService.viewCount(content_idx);
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
-		model.addAttribute("content_idx", content_idx);
+    model.addAttribute("content_idx", content_idx);
 		
 		return "together/read_reply";
 	}
