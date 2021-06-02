@@ -141,7 +141,7 @@
 		</div>
 		  <div class="text-right">
 		    <c:if test="${loginUserDTO.userLogin == true}">
-      		  <a href="${root}together/write" class="btn btn-info">동행자 구인공고</a>
+      		  <a href="${root}together/write" class="btn btn-info">새로운 동행 만들기</a>
       		</c:if>  
     	  </div>
 	 </div>

@@ -82,16 +82,10 @@ public class TogetherController {
 		model.addAttribute("readContentDTO", readContentDTO);
     model.addAttribute("content_idx", content_idx);
 		
-		return "together/read_reply";
+		return "together/read";
 	}
 	
-	@ResponseBody
-	@PostMapping("/replyCount")
-	public int replyCount(@RequestParam("content_idx") int content_idx) {
-		return togetherService.GetTogetherReplyCount(content_idx);
-	}
-	
-	 @GetMapping("/deleteProc")
+	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
 	(@RequestParam("content_idx") int content_idx) {
 		togetherService.DeleteTogetherComment(content_idx);
@@ -115,7 +109,6 @@ public class TogetherController {
 		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
 		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
 		
-		System.out.println(togetherWriteDTO.toString());
 		togetherService.InsertTogetherContent(togetherWriteDTO);
 			
 		return "together/write_success";

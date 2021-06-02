@@ -29,8 +29,9 @@ public class WeatherAPI {
 		Date today = new Date();
 				
 		String date = format1.format(today);
+		int currentTime = Integer.parseInt(format2.format(today));
+		int baseTime = (currentTime != 0) ? Integer.parseInt(format2.format(today)) - 1 : 11;
 		
-		int baseTime = Integer.parseInt(format2.format(today)) - 1;
 		String time = "";
 		if(baseTime  < 10) {
 			time = "0" + baseTime + "00";
@@ -38,7 +39,7 @@ public class WeatherAPI {
 			time =  baseTime + "00";
 		}
 		
-		int currentTime = Integer.parseInt(format2.format(today));
+		
 		String preTime = "";
 		if(currentTime  < 10) {
 			preTime = "0" + currentTime + "00";
