@@ -131,9 +131,15 @@ public class TogetherController {
 		
 		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
 		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
+		togetherModifyDTO.setTo_writer_no(TogetherDTO.getTo_writer_no());
 		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
+		togetherModifyDTO.setTo_place(TogetherDTO.getTo_place());
+		togetherModifyDTO.setTo_place_name(TogetherDTO.getTo_place_name());
 		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
 		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
+		togetherModifyDTO.setTo_meet(TogetherDTO.getTo_meet());
+		togetherModifyDTO.setTo_state(TogetherDTO.getTo_state());
+		togetherModifyDTO.setTo_total(TogetherDTO.getTo_total());
 		
 		
 		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
@@ -146,6 +152,7 @@ public class TogetherController {
 	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
 		
 		togetherService.ModifyTogetherContent(togetherModifyDTO);
+		System.out.println(togetherModifyDTO.toString());
 		
 		return "together/modify_success";
 	}
