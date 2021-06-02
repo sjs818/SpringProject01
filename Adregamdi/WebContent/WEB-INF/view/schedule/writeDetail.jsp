@@ -368,9 +368,7 @@
 			  viaPoint.viaX = viaInfo[i].mapX;
 			  viaPoint.viaY = viaInfo[i].mapY;
 			  viaPoints.push(viaPoint);
-			  
 			}
-			
 			headers["appKey"] = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 			
 			$.ajax({
@@ -390,7 +388,7 @@
 		      "viaPoints": viaPoints
 		    }),
 		    success:function(response) {
-		    	
+		    	console.log(response);
 		    	var resultData = response.properties;
 		      var resultFeatures = response.features;
 		      var tDistance = "총 거리 : " + (resultData.totalDistance/1000).toFixed(1) + "km,  ";
