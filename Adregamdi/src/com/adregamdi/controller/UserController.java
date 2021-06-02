@@ -183,8 +183,14 @@ public class UserController {
 	@PostMapping("/subCancel")
 	public boolean subCancel(@RequestParam("sub_no") int sub_no) {
 		
-		System.out.println(userService.subCancel(sub_no));
 		return userService.subCancel(sub_no);
+	}
+
+	@ResponseBody
+	@PostMapping("/subAccept")
+	public boolean subAccept(@RequestParam("to_no") int to_no, @RequestParam("sub_no") int sub_no) {
+		
+		return userService.subAccept(sub_no) && userService.toCurrCount(to_no);
 	}
 	
 	@GetMapping("/my_to")

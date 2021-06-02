@@ -138,6 +138,14 @@ public class UserService {
 	public boolean subCancel(int sub_no) {
 		return userDAO.subCancel(sub_no) > 0;
 	}
+
+	public boolean subAccept(int sub_no) {
+		return userDAO.subAccept(sub_no) > 0;
+	}
+
+	public boolean toCurrCount(int to_no) {
+		return userDAO.toCurrCount(to_no) > 0;
+	}
 	
 
 }

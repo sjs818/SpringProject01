@@ -71,9 +71,9 @@ public interface UserMapper {
 	int subCancel(int sub_no);
 
 	@Update("UPDATE SUBSCRIPTION SET sub_status=1 WHERE sub_no=#{sub_no}")
-	void subAccept(int sub_no);
+	int subAccept(int sub_no);
 
-	@Update("UPDATE together SET to_curr = to_curr+1 WHERE to_no = 1")
-	void toCurrCount(int to_no);
+	@Update("UPDATE together SET to_curr = to_curr+1 WHERE to_no = #{to_no}")
+	int toCurrCount(int to_no);
 	
 }

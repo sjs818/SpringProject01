@@ -33,20 +33,19 @@ function sub(no) {
 		data : {"to_no" : no},
 		success : function(result) {
 			for(var i = 0; i < result.length; i++) {
-				var item = JSON.stringify(result[i]);
-				console.log(item);
+				var subscriptionDTO = JSON.stringify(result[i]);
+				console.log(subscriptionDTO);
 				var content = "<div class='card-body item' style='margin:auto; width:90%;'>" +
 						      	"<div class='d-flex justify-content-between'>" +
 					      		"<span><img class='profile mr-4' alt='프로필' src='${root }images/profile_black.png'>" + result[i].notifi_writer + "</span>" +
 					      		"<span>" + result[i].sub_message + "</span>" +
 					      		"<div>" +
 					      			"<button class='btn btn-sm btn-danger float-right px-3' onclick='negative(" + result[i].sub_no + ")'>거절</button>" +
-					      			"<button class='btn btn-sm btn-primary float-right px-3 mr-2' onclick='accept(" + item + ")'>수락</button>" +
+					      			"<button class='btn btn-sm btn-primary float-right px-3 mr-2' onclick='accept(" + subscriptionDTO + ")'>수락</button>" +
 					      		"</div>" +
 					      	"</div>" +
 					      "</div>" +
 					      "<hr class='item' style='margin:0;'>";
-								console.log(result[i]);
 				$(content).appendTo('.test' + no);
 			}
 		}
@@ -70,16 +69,29 @@ function negative(sub_no) {
 		}
 };	
 
-function accept(item) {
-	console.log(item);
-		
+function accept(subscriptionDTO) {
+	console.log(subscriptionDTO);
+		if(confirm("동행 신청을 수락하시겠습니까?")) {
+			$.ajax({
+				url : "/user/subAccept",
+				type : "POST",
+				dataType : "text",
+				data : {"sub_no" : subscriptionDTO.sub_no,
+					"to_no" : subscriptionDTO.to_no},
+				success : function(data){
+					console.log(data);
+					if(data.trim() == 'true'){
+						alert('동행신청을 수락하셨습니다.');
+						location.href="/user/my_to"						
+					}else{
+						alert('예기치 못한 오류가 발생했습니다.');
+						location.href="/user/my_to"	
+					}
+				}
+			})
+		}
 };	
 	
-
-
-
-
-
 
 
 
@@ -168,9 +180,11 @@ function accept(item) {
 						      </h2>
 						    </div>
 							
+							<c:if test="${togetherDTO.to_curr < 4 }">
 						    <div id="${togetherDTO.to_no }" class="collapse test${togetherDTO.to_no }">
 							
 						    </div>
+						    </c:if>
 						  </div>		  
 					
 					</c:forEach>

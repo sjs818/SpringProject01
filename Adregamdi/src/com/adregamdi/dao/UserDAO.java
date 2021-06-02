@@ -99,6 +99,16 @@ public class UserDAO {
 		return userMapper.subCancel(sub_no);
 	}
 
+
+	public int subAccept(int sub_no) {
+		return userMapper.subAccept(sub_no);
+	}
+
+
+	public int toCurrCount(int to_no) {
+		return userMapper.toCurrCount(to_no);
+	}
+
 	
 	
 	
