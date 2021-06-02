@@ -25,11 +25,10 @@
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <script>
-
 	$(function() {
 		
 		var keywordParam = { "pageNo" : 1, "numOfRow" : 5, "keyword" : ""};
-		
+				
 		$("#btn-search").click(function(){
 			
 			keywordParam.pageNo = 1;
@@ -60,7 +59,7 @@
 						
 						content = '<li class="list-group-item" style="width: 90%;">'
 									+'<h2><b>'+data[key].title+'</b></h2>'+data[key].addr1
-									+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId()" style="float:right;">추가하기</a>'
+									+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId('+key+')" style="float:right;">추가하기</a>'
 									+'<span style="display: none" id="getContentId'+key+'">'+data[key].contentId+'</span> '
 									+'<span style="display: none" id="getTitle'+key+'">'+data[key].title+'</span>'
 									+'</li>';				
@@ -76,17 +75,19 @@
 		});	
 	});
 	
-	function addSpotId() {
-		var contentId = $("#getContentId").val();
-		var title = $("#getTitle").val();
+	function addSpotId(key) {
+		var contentId = $("#getContentId"+key).html();
+		var title = $("#getTitle"+key).html();
 		
 		console.log("contentId : " + contentId);
 		console.log("title : " + title);
 		
 		$("#search_view").hide();
-		$("#input-group").hide();
+		$(".input-group").hide();
 		$("#printSpot").show();
-		$("#spotTitle").text(title);
+		$("#fixedSpotTitle").attr("value", title);
+		$("#fixedSpotContentId").text(contentId);
+		
 		
 	}
 	
@@ -162,10 +163,10 @@ td {
 }
 
 .left {
-	float: left;
 	top: 0px;
 	width: 100%;
 	padding-right : 10px;
+	vertical-align: center;
 }
 
 
@@ -198,8 +199,8 @@ td {
 		<table>
 			<tr>
 				<td class="rowLine">
-					<h6> 여행지 검색</h6>
 					<div class="left">
+						<h6>여행지 </h6>
 						<div class="input-group" >
 							<input type="text" class="form-control search-menu" id="search-field" placeholder="검색..." style="background: #f9f9f9; ">
 							<div class="input-group-append" id="btn-search">
@@ -209,13 +210,15 @@ td {
 								</span>
 							</div>
 						</div>
-						<br>	
 						<div id="search_view" class="row">			
 						</div>
-						<div id="printSpot">
-							<input type="text" id="spotTitle"/>
+						<div id="printSpot" style="display:none">
+							<input type="text" class="form-control" id="fixedSpotTitle" style="background: #f9f9f9; " disabled/>
+							<input type="hidden" id="fixedSpotContentId"/>
 						</div>
-						<div id="calendar">
+						<div id="calendar" style="display:none">
+						</div>
+						<div id="number" style="display:none">
 						</div>
 					</div>
 				</td>
