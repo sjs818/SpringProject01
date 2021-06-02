@@ -14,7 +14,7 @@ import com.adregamdi.dto.TogetherReplyDTO;
 public interface TogetherMapper {
 	
 	@Insert("INSERT INTO TOGETHER(TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE) "
-			+ "VALUES(TOGETHER_SEQ.nextval, #{to_writer_no}, #{to_writer}, #{to_title}, #{to_place}, #{to_place_name}, #{to_content}, SYSDATE, 0, #{to_total}, #{to_meet}, #{to_state})") 
+			+ "VALUES(TOGETHER_SEQ.nextval, #{to_writer_no}, #{to_writer}, #{to_title}, #{to_place}, #{to_place_name}, #{to_content}, SYSDATE, 1, #{to_total}, #{to_meet}, #{to_state})") 
 	void InsertTogetherContent(TogetherDTO togetherDTO);
 	
 	@Select("SELECT T.TO_NO, U.USER_ID TO_WRITER, T.TO_TITLE, T.TO_PLACE_NAME, T.TO_CURR, T.TO_TOTAL, T.TO_STATE, T.TO_MEET, "

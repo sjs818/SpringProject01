@@ -248,6 +248,7 @@ create table together(
 );
         
 SELECT * FROM TOGETHER;
+commit;
 
 -- TOGETHERREPLY
 DROP TABLE TOGETHERREPLY PURGE;
