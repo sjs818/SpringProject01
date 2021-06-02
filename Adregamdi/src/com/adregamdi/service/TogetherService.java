@@ -60,9 +60,9 @@ public class TogetherService {
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
 	}
-	public void viewCount(int content_idx ) {
-		togetherDAO.viewCount(content_idx);
-	}	
+//	public void viewCount(int content_idx ) {
+//		togetherDAO.viewCount(content_idx);
+//	}	
 	
 	//===================================== 댓글 관련 컨트롤러 =======================
 		// 댓글 리스트 불러오기
