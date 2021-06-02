@@ -60,9 +60,9 @@ public class TogetherDAO {
 	public void DeleteTogetherComment(int content_idx)	{
 		togetherMapper.DeleteTogetherComment(content_idx);
 	}
-	public void viewCount(int content_idx ) {
-		togetherMapper.viewCount(content_idx);
-	}
+//	public void viewCount(int content_idx ) {
+//		togetherMapper.viewCount(content_idx);
+//	}
 	
 	
 //============================================ 댓글 관련 컨트롤러 ==========================

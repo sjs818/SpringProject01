@@ -9,7 +9,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<!-- Bootstrap CDN -->
+	<!-- Bootstrap CDN -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
@@ -33,7 +33,9 @@
 			var keyword_markers = [];
 			var map = initTmap();
 			var category = 0;
-			var plan_data=[];
+			var plan_data = [];
+			var allInfo = [];
+			var modify_position = [];
 
 			// 사이드바
 			$("input:checkbox").on('click', function() {
@@ -43,6 +45,24 @@
 					$('.sidebar-wrapper').css("transform", "translateX(0)"); 
 				}
 			});
+			
+			$(".planData").each(function(){
+				allInfo.push(JSON.parse($(".planData").val())); 
+			});
+			
+			for(var i = 0; i < allInfo.length; i++) {
+				console.log(allInfo);
+				var position = {title : allInfo[i].title, lonlat : new Tmapv2.LatLng(allInfo[i].mapX, allInfo[i].mapY), addr : allInfo[i].addr, img :  allInfo[i].img_src, contentId : allInfo[i].contentId, contentTypeId : allInfo[i].contentTypeId};
+				var marker = new Tmapv2.Marker({
+					position : position.lonlat,
+					map : map,
+					icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_p.png",
+					title : "[" + allInfo[i].planDay + "일차] " + position.title
+				});
+				
+				modify_position[i] = {title : position.title, lonlat : position.lonlat};
+				modifyAddPlan(position, map, marker, allInfo[i].planDay, modify_position[i]);
+			}
 			
 			// 첫 데이터 불러오기
 			$.ajax({
@@ -180,7 +200,7 @@
 					planForm.appendChild(input);
 					planForm.submit();
 				} else {
-					alert("저장된 여행지가 없습니다.")
+					alert("저장된 여행지가 없습니다.");
 				}
 			});
 		});
@@ -194,7 +214,7 @@
 	      var overview = result.overview.replace(/'/g, "");
 	      var position = { 
 	    		  title : result.title,
-	          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
+	          lonlat : new Tmapv2.LatLng(result.mapY, result.mapX),
 	          addr : result.addr1,
 	          overview : overview,
 	          img : result.firstImage2,
@@ -230,7 +250,7 @@
         
         // Tmap API 'Marker' Method (마커 생성)
         var marker = new Tmapv2.Marker({
-          position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+          position :  lonlat,
           map : map,
           title: title,
           visible: false
@@ -238,7 +258,6 @@
         
         positions[i].no = count;
         infoWindows.push(infoWindow);
-        console.log(infoWindows);
         
         markerClick(map, marker, lonlat, title, positions[i], positions[i].no);
         
@@ -248,7 +267,7 @@
         	}
           marker.setVisible(true); 
           // 지도 위치 재설정
-          map.setCenter(new Tmapv2.LatLng(lonlat.lng(), lonlat.lat() - 0.15));
+          map.setCenter(new Tmapv2.LatLng(lonlat.lat(), lonlat.lng() - 0.15));
         });
         
         markers.push(marker);
@@ -332,11 +351,10 @@
 		                    "<a href='javascript:void(0)' onclick='onClose(" + no + ")' class='btn-close' style='position: absolute; top: 10px; right: 10px; display: block; width: 15px; height: 15px;'><i class='fas fa-times' style='color:white;'></i></a>" +
 		                  "</div>";
 		    }
-		   	console.log(infoWindows[no]);
 		    if(infoWindows[no] == null) {
 			    // Tmap API 'InfoWindow' Method (팝업 생성)
 		      infoWindows[no] = new Tmapv2.InfoWindow({
-		        position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+		        position : new Tmapv2.LatLng(lonlat.lat(), lonlat.lng()),
 		        content : content,
 		        border : '0px solid #FF0000',
 		        type : 2,
@@ -348,7 +366,7 @@
 		    }
 				
 	   		// 지도 위치 재설정
-	      map.setCenter(new Tmapv2.LatLng(lonlat.lng() - 0.11, lonlat.lat() - 0.055));	      
+	      map.setCenter(new Tmapv2.LatLng(lonlat.lat() - 0.11, lonlat.lng() - 0.055));	      
 	 			
 	      if(position.contentId != null) {
 					$("#detail" + no).click(function() {
@@ -445,7 +463,7 @@
 				position.planno = $('#planNo').val();
 				position.liIndex = liIndex;
 				var marker = new Tmapv2.Marker({
-					position : new Tmapv2.LatLng(position.lonlat.lng(), position.lonlat.lat()),
+					position : new Tmapv2.LatLng(position.lonlat.lat(), position.lonlat.lng()),
 					icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_p.png",
 					map : map,
 					title : "[" + position.planDay + "일차]" + position.title
@@ -487,7 +505,7 @@
 			$.each(data, function(i, result) {
 				var position = { 
 			    		  title : result.title,
-			          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
+			          lonlat : new Tmapv2.LatLng(result.mapY, result.mapX),
 			          addr : result.addr1,
 			          overview : result.overview,
 			          img : result.firstImage2,
@@ -520,7 +538,7 @@
 				}
 				// Tmap API 'Marker' Method (마커 생성)
         var marker = new Tmapv2.Marker({
-          position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+          position : lonlat,
           map : map,
           title: title,
           visible: false
@@ -534,7 +552,7 @@
         	}
           marker.setVisible(true); 
           // 지도 위치 재설정
-          map.setCenter(new Tmapv2.LatLng(lonlat.lng(), lonlat.lat() - 0.15));
+          map.setCenter(new Tmapv2.LatLng(lonlat.lat(), lonlat.lng() - 0.15));
         });
         
         markers.push(marker);
@@ -560,7 +578,58 @@
 			});
 			return keyword_markers;
 		} // function 09 : callAjaxKeyword(keywordParam,keyword_markers,map)
-	</script>
+		
+		// function 10 : modifyAddPlan(position, map, marker, planDay, modify_position)
+		function modifyAddPlan(position, map, marker, planDay, modify_position) {
+			
+			var liIndex = $('.sub-plan' + planDay).find('li').length + 1;
+			
+			var content = $('<li class="list_add_content day' + planDay + '-' + liIndex +'">' + 
+												'<hr>' + 
+												'<div class="row testRemove">' +
+													'<div class="col-lg-5" style="background-color : #f5f5f5">' + 
+														'<img class="img-responsive" class="plan_photo" style="cursor: pointer;" src="' + position.img + '" alt="" width="135" height="90">' + 
+													'</div>' + 
+													'<div class="col-lg-7" style="background-color : #f5f5f5">' + 
+														'<h5 class="plan_title">' + position.title + '</h5>' +
+														'<h6 class="plan_addr">'+ position.addr + '</h6>' + 
+														'<span style="float: right;"><i class="fas fa-1x fa-trash"></i></span>' + 
+													'</div>' + 
+												'</div>' + 
+											'</li>');
+			
+			content.appendTo($("#day"+ planDay +" .sub-plan" + planDay ));
+			
+			$('.day' + planDay + '-' + liIndex + ' span').click(function(){
+				marker.setMap(null);
+				$('.day' + position.planDay + '-' + position.liIndex).remove();
+				position.liIndex = "false";
+				delete position['positionData'];
+				modify_position.isDelete = 'Y';
+				alert("삭제했습니다.");
+			});
+			
+			$('#addModal').modal('hide');
+			var strArr = $('#plan_date').val().split("-");
+			var startDate = new Date(parseInt(strArr[0]), parseInt(strArr[1]) - 1, parseInt(strArr[2]));
+			startDate.setDate(startDate.getDate() + (planDay - 1));
+			var month = ((startDate.getMonth() + 1) < 10 ? '0' : '') + (startDate.getMonth() + 1);
+			var day = (startDate.getDate() < 10 ? '0' : '') + startDate.getDate();
+			var split_date = startDate.getFullYear() + "-" + month + "-" + day;
+			position.planDate = split_date;
+			position.planDay = planDay;
+			position.planTotalDate = $("#plan_term").val();
+			position.planno = $("#planNo").val();
+			position.liIndex = liIndex;
+			
+			var position_data = JSON.stringify(position);
+			position.positionData = position_data;
+			var input = $("<input type='hidden' class='position-data day" + planDay + "-" + liIndex + "' value='" + position_data + "'>");
+			input.appendTo($("#day"+ planDay +" .sub-plan" + planDay));
+		} // function 10 : modifyAddPlan(position, map, marker, planDay, modify_position)
+		
+		
+		</script>
 		<style>
 		@font-face {
 	    font-family: 'Bazzi';
@@ -728,6 +797,9 @@
 	<input type="hidden" id="plan_date"  value="${plan_date }">
 	<input type="hidden" id="planNo"     value="${plan_no }">
 	<input type="hidden" id="user_no"    value="${loginUserDTO.user_no }" >
+	<c:forEach items="${planList }" var="list">
+		<input type='hidden' class='planData' name='planData' value='${list }'>
+	</c:forEach>
 	
 	<!-- Header -->
   <c:import url="/WEB-INF/view/include/header.jsp"/>
@@ -805,7 +877,7 @@
     </div>
   </div>
   
-  <form id="planForm" name="planForm" action="/schedule/write_proc" method="POST"></form>
+  <form id="planForm" name="planForm" action="/schedule/modify_proc" method="POST"></form>
   
   <!-- Modal -->
 	  <!-- Detail Modal -->

@@ -73,7 +73,9 @@ public class ScheduleController {
 	
 	@PostMapping("/write_proc")
 	public String write_proc(@RequestParam("planData") String data, RedirectAttributes redirectAttributes) throws ParseException {
+		System.out.println(data);
 		List<UserPlanDTO> list = scheduleService.convertUserPlan(data, loginUserDTO.getUser_no());
+		System.out.println(list);
 		for(int i = 0; i < list.size(); i++) {
 			scheduleService.insertUserPlan(list.get(i));
 		}
@@ -95,6 +97,9 @@ public class ScheduleController {
 		if(purpose.equals("modify")) {
 			plan = scheduleService.readSchedule(plan_no);
 			isModify = "Y";		
+		}
+		if(purpose.equals("schedule")) {
+			plan = scheduleService.readSchedule(plan_no);
 		}
 		
 		model.addAttribute("loginUserDTO", loginUserDTO);
@@ -137,7 +142,6 @@ public class ScheduleController {
 		}
 		
 		int totalCount = visitKoreaAPI.getTotalCount(visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getSigunguCode());
-		
 		return visitKoreaAPI.getInformation(visitKoreaDTO, totalCount);
 	}
 	
@@ -219,8 +223,65 @@ public class ScheduleController {
 		List<UserPlanDTO> planList = scheduleService.readSchedule(plan_no);
 		String[] date = planList.get(0).getPlanDate().split("-");
 		String plan_date = date[0] + "-" + date[1] + "-" + (Integer.parseInt(date[2]) - (Integer.parseInt(planList.get(0).getPlanDay()) - 1));
+		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("planList", JSONArray.fromObject(planList));
+		model.addAttribute("plan_title", plan.getPlan_title());
+		model.addAttribute("plan_date", plan_date);
+		model.addAttribute("plan_term", planList.get(0).getPlanTotalDate());
+		model.addAttribute("plan_no", plan_no);
 		
-		model.addAttribute("planList", JSONArray.fromObject(plan));
 		return "schedule/modify";
+	}
+	
+	@PostMapping("/modify_proc")
+	public String modify_proc(@RequestParam("planData") String data, RedirectAttributes redirectAttributes) throws ParseException {
+		
+		List<UserPlanDTO> newPlan = scheduleService.convertUserPlan(data, loginUserDTO.getUser_no());
+		List<UserPlanDTO> oldPlan = scheduleService.readSchedule(newPlan.get(0).getPlan_no());
+		boolean isDiff = true;
+		
+		System.out.println(newPlan);
+		System.out.println(oldPlan);
+		
+		scheduleService.deleteUserPlan(oldPlan.get(0).getPlan_no());
+		
+		for(int i = 0; i < newPlan.size(); i++) {
+			isDiff = true;
+			for(int j = 0; j < oldPlan.size(); j++) {
+				if(newPlan.get(i).getTitle().equals(oldPlan.get(j).getTitle())) {
+					System.out.println(oldPlan.get(j));
+					if(oldPlan.get(j).getDescript() == null) {
+						oldPlan.get(j).setDescript("");
+					}
+					scheduleService.modifyUserPlan(oldPlan.get(j));
+					isDiff = false;
+				}
+			}
+			
+			if(isDiff) {
+				System.out.println(newPlan.get(i));
+				if(newPlan.get(i).getStartDate() == null) {
+					newPlan.get(i).setStartDate("");
+				}
+				if(newPlan.get(i).getEndDate() == null) {
+					newPlan.get(i).setEndDate("");
+				}
+				if(newPlan.get(i).getDescript() == null) {
+					newPlan.get(i).setDescript("");
+				}
+				scheduleService.modifyUserPlan(newPlan.get(i));
+			}
+		}
+		
+		for(int i = 0; i < oldPlan.size(); i++) {
+			if(oldPlan.get(i).getIs_insertAfter().equals("Y")) {
+				scheduleService.updateSchedule(oldPlan.get(i));
+			}
+		}
+		
+		redirectAttributes.addAttribute("plan_no",oldPlan.get(0).getPlan_no());
+		redirectAttributes.addAttribute("purpose","schedule");
+		
+		return "redirect:/schedule/writeDetail";
 	}
 }
