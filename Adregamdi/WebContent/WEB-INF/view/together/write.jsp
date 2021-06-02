@@ -24,12 +24,23 @@
 <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
+<!-- 달력 -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
 <script>
 	$(function() {
 		
 		var keywordParam = { "pageNo" : 1, "numOfRow" : 5, "keyword" : ""};
-				
-		$("#btn-search").click(function(){
+		
+		$(".flatpickr").flatpickr({
+			enableTime:true,
+			minDate: "today",
+			dateFormat: "Y-m-d H:i"			
+		});
+		
+		
+		$(".btn-search").click(function(){
 			
 			keywordParam.pageNo = 1;
 			
@@ -42,7 +53,7 @@
 				return false;
 			}
 			
-			keywordParam.keyword = keyword;
+			keywordParam.keyword = keyword;		
 			
 			$.ajax({
 				url : "/together/keyword",
@@ -73,6 +84,47 @@
 				}				
 			});			
 		});	
+		
+		
+		
+		
+		
+		// 무한 스크롤
+		$('.sidebar-menu').scroll(function() {
+			
+			if(Math.ceil($('.sidebar-menu').scrollTop() + $('.sidebar-menu').innerHeight()) == $('.sidebar-menu')[0].scrollHeight) {
+		    	
+				keywordParam.pageNo++;
+				
+				$.ajax({
+					url : "/together/keyword",
+					type : "get",
+					dataType : "json",
+					data : keywordParam,
+					
+					success : function(data) {
+						
+						var content = '<ul class="list-group">';
+						$.each(data, function(key, val) {
+							
+							content = '<li class="list-group-item" style="width: 90%;">'
+										+'<h2><b>'+data[key].title+'</b></h2>'+data[key].addr1
+										+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId('+key+')" style="float:right;">추가하기</a>'
+										+'<span style="display: none" id="getContentId'+key+'">'+data[key].contentId+'</span> '
+										+'<span style="display: none" id="getTitle'+key+'">'+data[key].title+'</span>'
+										+'</li>';				
+							$("#search_view").append(content);
+						});
+						$("#search_view").append("</ul>");
+					},
+					
+					error : function(error) {
+						alert("keyword 실패 - !");
+					}				
+				});			
+		    	
+			  }
+		});
 	});
 	
 	function addSpotId(key) {
@@ -82,12 +134,48 @@
 		console.log("contentId : " + contentId);
 		console.log("title : " + title);
 		
-		$("#search_view").hide();
+		$(".sidebar-menu").hide();
 		$(".input-group").hide();
 		$("#printSpot").show();
 		$("#fixedSpotTitle").attr("value", title);
-		$("#fixedSpotContentId").text(contentId);
+		$("#fixedSpotContentId").attr("value", contentId);
+		$(".calendar").show();
+		$("#number").hide();
 		
+		
+	}
+	
+	function modifySpot() {
+		$(".sidebar-menu").show();
+		$(".input-group").show();
+		$("#search_view").empty();
+		$("#search-field").attr("value", "");
+		$("#printSpot").hide();
+		$(".calendar").hide();
+		$("#number").hide();
+	}
+	
+	function writeMeetDate() {
+		$("#number").show();
+	}
+	
+	function writePersonNumber() {
+		
+		var contentId = $("#fixedSpotContentId").val();
+		var meetDate = $("#meetDate").val();
+		var personNumber = $("#personNumber").val();
+		
+		console.log("contentId : "+contentId);
+		console.log("meetDate : "+meetDate);
+		console.log("personNumber : "+personNumber);
+		
+		
+		$("#to_place").html(contentId);
+		$("#to_place").attr("value", contentId);
+		$("#to_meet").html(meetDate);
+		$("#to_meet").attr("value", meetDate);
+		$("#to_total").html(personNumber);
+		$("#to_total").attr("value", personNumber);
 		
 	}
 	
@@ -114,9 +202,10 @@
 			location.href="${root}together/list";	
 		} else {
 			return;
-		}
-		
+		}		
 	}
+	
+	
 </script>
 <script>
   function submit() {
@@ -162,7 +251,7 @@ td {
 	pading: 15px;
 }
 
-.left {
+.left_col {
 	top: 0px;
 	width: 100%;
 	padding-right : 10px;
@@ -170,17 +259,23 @@ td {
 }
 
 
-.right {
+.right_col {
 	float: right;
 }
 
 #search_view {
 	display: flex;
-	justify-content: center;	
+	justify-content: center;
+	margin: 0px 5px;	
 }
 
 .list-group-item {
 	margin : 0px;
+}
+
+.sidebar-menu {
+	height: 400px;
+	overflow: auto;
 }
 
 </style>
@@ -199,53 +294,63 @@ td {
 		<table>
 			<tr>
 				<td class="rowLine">
-					<div class="left">
+					<div class="left_col">
 						<h6>여행지 </h6>
 						<div class="input-group" >
 							<input type="text" class="form-control search-menu" id="search-field" placeholder="검색..." style="background: #f9f9f9; ">
-							<div class="input-group-append" id="btn-search">
+							<div class="input-group-append btn-search">
 								<!-- 여기에요 여기!! -->
 								<span class="input-group-text" style="background: #e9e9e9;">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</span>
 							</div>
 						</div>
-						<div id="search_view" class="row">			
+						<div class="sidebar-menu">
+							<div id="search_view" class="row">			
+							</div>
 						</div>
 						<div id="printSpot" style="display:none">
 							<input type="text" class="form-control" id="fixedSpotTitle" style="background: #f9f9f9; " disabled/>
 							<input type="hidden" id="fixedSpotContentId"/>
+							<br>
+							<a href="#" class="card-btn btn btn-dark" onclick="modifySpot()" style="float:right;">수정하기</a>
 						</div>
-						<div id="calendar" style="display:none">
+						<br>
+						<div class="calendar"  style="display:none">
+							<br><br>
+							<h6>여행 날짜</h6>
+							<input id="meetDate" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." data-id="minMaxTime" readonly="readonly">
+							<br>
+							<a href="#" class="card-btn btn btn-dark" onclick="writeMeetDate()" style="float:right;">날짜 입력하기</a>
 						</div>
 						<div id="number" style="display:none">
+							<br><br>
+							<h6>모집 인원</h6>
+							<input id="personNumber" class="form-control" style="width:50%;"type="number" value="1"/>
+							<br>
+							<a href="#" class="card-btn btn btn-dark" onclick="writePersonNumber()" style="float:right;">인원 입력하기</a>							
 						</div>
 					</div>
 				</td>
 				<td class="rowLine">
-					<div class="right">
-						<form:form action="${root}together/writeProc" method="post"
-							modelAttribute="togetherWriteDTO" class="form-horizontal">
+					<div class="right_col">
+						<form:form action="${root}together/writeProc" method="post" modelAttribute="togetherWriteDTO" class="form-horizontal">
 							<form:hidden path="to_no" />
+							<form:hidden path="to_place"/>
+							<form:hidden path="to_meet"/>
+							<form:hidden path="to_total"/>
 							<div class="form-group">
 								<form:label path="to_title">제목</form:label>
 								<form:input path="to_title" class="form-control" />
 								<form:errors path="to_title" style="color:red;" />
 							</div>
-							<%-- <div class="form-group">
-								<form:label path="to_meet">여행 날짜</form:label>
-							</div>
-							<div class="form-group">
-								<form:label path="to_total">모집인원</form:label>
-								<form:input path="to_total" class="form-control"/>
-							</div> --%>
 							<div class="form-group">
 								<form:label path="to_content">공고문</form:label>
 								<form:textarea path="to_content" class="form-control" rows="10"
 									style="resize:none" />
 								<form:errors path="to_content" style="color:red;" />
 								<script>
-				          CKEDITOR.replace('to_content');
+				          		CKEDITOR.replace('to_content');
 				        </script>
 							</div>
 							<div class="form-group">

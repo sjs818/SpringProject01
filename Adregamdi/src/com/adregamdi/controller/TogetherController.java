@@ -112,7 +112,9 @@ public class TogetherController {
 	(@Valid @ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
-			togetherService.InsertTogetherContent(togetherWriteDTO);
+			
+		//togetherService.InsertTogetherContent(togetherWriteDTO);
+		System.out.println(togetherWriteDTO.toString());
 			
 		return "together/write_success";
 	}
