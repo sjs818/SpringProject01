@@ -71,7 +71,7 @@
 			<h3 class="InputSubject">
       		<b>${readContentDTO.to_title}</b>
     		</h3>
-    		<h6>${readContentDTO.to_id}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
+    		<h6>${readContentDTO.to_writer}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.to_date}</h6>
 		</div>
 		<div class="card-body" style="margin-top:10px; padding:40px;">
 			<form class="form-horizontal" name="togetherWriteDTO" id="togetherWriteDTO" action="${root}together/writeProc" method="POST">
@@ -86,7 +86,7 @@
     	<div class="form-group float-right">
     	    <a href="${root}together/list" class="btn btn-info" style="margin-right : 5px;">목록보기</a>
     	    <c:if test="${loginUserDTO.userLogin == true}">
-              <c:if test="${ loginUserDTO.user_no == readContentDTO.to_writer || loginUserDTO.user_provider == 0}" >
+              <c:if test="${ loginUserDTO.user_id == readContentDTO.to_writer || loginUserDTO.user_provider == 0}" >
                 <a href="${root}together/modify?content_idx=${readContentDTO.to_no}" class="btn btn-success"
       			style="margin-right : 5px;">수정하기</a>
                 <button type="button" class="btn btn-danger" style="margin-right : 5px;" onclick="delContent();">삭제하기</button>

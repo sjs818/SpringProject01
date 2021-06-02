@@ -77,7 +77,7 @@ public class TogetherController {
 	@GetMapping("/read")
 	public String TogetherRead
 	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
-		togetherService.viewCount(content_idx);
+		
 		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("readContentDTO", readContentDTO);
@@ -113,6 +113,7 @@ public class TogetherController {
 		if(result.hasErrors())
 			return "together/write";
 			
+		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
 		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
 		
 		System.out.println(togetherWriteDTO.toString());
@@ -158,12 +159,5 @@ public class TogetherController {
 		List<VisitKoreaDTO> resultKeyword = spot.getKeywordInformation(visitKoreaDTO, keyword);
 		
 		return resultKeyword;
-	} 
-	
+	} 	
 }
-	
-	
-	
-	
-	
-	
