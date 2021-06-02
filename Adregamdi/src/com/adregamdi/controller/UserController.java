@@ -176,8 +176,15 @@ public class UserController {
 		List<SubscriptionDTO> myToNotification = new ArrayList<SubscriptionDTO>();
 		
 		myToNotification = userService.getToNotification(to_no);
-		System.out.println(myToNotification.size());
 		return myToNotification;
+	}
+	
+	@ResponseBody
+	@PostMapping("/subCancel")
+	public boolean subCancel(@RequestParam("sub_no") int sub_no) {
+		
+		System.out.println(userService.subCancel(sub_no));
+		return userService.subCancel(sub_no);
 	}
 	
 	@GetMapping("/my_to")
@@ -186,8 +193,8 @@ public class UserController {
 		List<TogetherDTO> myTo
 		= userService.getMyTo(loginUserDTO.getUser_no());
 		model.addAttribute("myTo", myTo);
-		System.out.println(myTo);
-		
+
+
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
 		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
 		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());

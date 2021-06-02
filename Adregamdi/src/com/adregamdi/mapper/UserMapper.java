@@ -46,7 +46,7 @@ public interface UserMapper {
 	// MY_PAGE
 	
 	@Select("SELECT A.PLAN_NO, A.USER_NO, A.PLAN_TITLE, A.PLAN_INFO, A.PLAN_IMG, A.PLAN_PRIVATE, B.PLANTOTALDATE PLAN_TERM FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.USER_NO=#{user_no} ORDER BY PLAN_NO DESC")
-	List<PlanDTO> getMyPlan(int user_no);
+	List<PlanDTO> getMyPlan(int user_no);	
 	
 	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'N' AND A.USER_NO=#{user_no}")
 	String getPublicCount(int user_no);
@@ -61,9 +61,19 @@ public interface UserMapper {
 	List<TogetherDTO> getMytogether(int user_no);
 	
 	@Select("SELECT S.SUB_NO, S.TO_NO, S.SUB_MESSAGE, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS " + 
-    			"FROM SUBSCRIPTION S, USER_INFO U " + 
-    			"WHERE S.SUB_WRITER = U.USER_NO " + 
-    			"AND S.TO_NO=#{to_no} ORDER BY S.SUB_NO")
+			"FROM SUBSCRIPTION S, USER_INFO U " + 
+			"WHERE S.SUB_WRITER = U.USER_NO " + 
+			"AND S.TO_NO=#{to_no}" +
+			"AND S.SUB_STATUS=0 ORDER BY S.SUB_NO")
 	List<SubscriptionDTO> getToNotification(int to_no);
+	
+	@Update("UPDATE SUBSCRIPTION SET sub_status=2 WHERE sub_no=#{sub_no}")
+	int subCancel(int sub_no);
+
+	@Update("UPDATE SUBSCRIPTION SET sub_status=1 WHERE sub_no=#{sub_no}")
+	void subAccept(int sub_no);
+
+	@Update("UPDATE together SET to_curr = NVL(TO_NUMBER(to_curr),1)+1 WHERE to_no = 1")
+	void toCurrCount(int to_no);
 	
 }

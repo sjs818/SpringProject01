@@ -134,6 +134,10 @@ public class UserService {
 	public String getMyToCount(int user_no) {
 		return userDAO.getMyToCount(user_no);
 	}
+
+	public boolean subCancel(int sub_no) {
+		return userDAO.subCancel(sub_no) > 0;
+	}
 	
 
 }

@@ -24,35 +24,57 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 <script>
-	
-	
-	function fucking(no) {
-		console.log(no);
-		$.ajax({
-			url : "/user/myToNotification",
-			type : "POST",
-			dataType : "json",
-			data : {"to_no" : no},
-			success : function(result) {
-				console.log(result.length);
-				for(var i = 0; i < result.length; i++) {
-					var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
-							      	'<div class="d-flex justify-content-between">' +
-						      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
-						      		'<span>' + result[i].sub_message + '</span>' +
-						      		'<div>' +
-						      			'<button class="btn btn-sm btn-danger float-right mr-2"><a href="#" class="text-white mx-2">거절</a></button>' +
-						      			'<button class="btn btn-sm btn-primary float-right mr-2"><a href="#" class="text-white mx-2">수락</a></button>' +
-						      		'</div>' +
-						      	'</div>' +
-						      '</div>' +
-						      '<hr class="item" style="margin:0;">';
-									
-					$(content).appendTo('.test' + no);
-				}
+function sub(no) {
+	console.log(no);
+	$.ajax({
+		url : "/user/myToNotification",
+		type : "POST",
+		dataType : "json",
+		data : {"to_no" : no},
+		success : function(result) {
+			for(var i = 0; i < result.length; i++) {
+				var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
+						      	'<div class="d-flex justify-content-between">' +
+					      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
+					      		'<span>' + result[i].sub_message + '</span>' +
+					      		'<div>' +
+					      			'<button class="btn btn-sm btn-danger float-right px-3" onclick="negative(' + result[i].sub_no + ')">거절</button>' +
+					      			'<button class="btn btn-sm btn-primary float-right px-3 mr-2" onclick="negative(' + result[i].sub_no + ')">수락</button>' +
+					      		'</div>' +
+					      	'</div>' +
+					      '</div>' +
+					      '<hr class="item" style="margin:0;">';
+								
+				$(content).appendTo('.test' + no);
 			}
-		});
-	}
+		}
+	});
+}
+
+function negative(sub_no) {
+	console.log(sub_no);
+		if(confirm("동행 신청을 거절하시겠습니까?")) {
+			$.ajax({
+				url : "/user/subCancel",
+				type : "POST",
+				dataType : "text",
+				data : {"sub_no" : sub_no},
+				success : function(data) {
+					console.log(data);
+					alert('동행신청이 거절되었습니다.');
+					location.href="/user/my_to"
+				}
+			});
+		}
+};	
+	
+
+
+
+
+
+
+
 
 </script>
 
@@ -113,10 +135,10 @@
 						<div class="card px-0 mb-3 shadow-sm rounded">
 						    <div class="card-header p-2" id="headingOne">
 						      <h2 class="mb-0">
-						        <button class="btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" onmousedown="fucking(${togetherDTO.to_no }); this.onmousedown=null;"  style="color:black; text-decoration:none; width:91%;">
+						        <button class="btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" onmousedown="sub(${togetherDTO.to_no }); this.onmousedown=null;"  style="color:black; text-decoration:none; width:91%;">
 						          <span class="card_hover d-flex justify-content-between">
 							        <span>
-							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">( ${togetherDTO.to_place } )</span>
+							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">[ ${togetherDTO.to_place } ]</span>
 							          	<c:if test="${togetherDTO.status != 0 }">
 							          		<span class="ml-2 text-danger"><i class="far fa-comment-dots"></i></span>
 							          	</c:if>
@@ -124,12 +146,12 @@
 						          	</span>
 						          	<span>
 						          	<c:choose>
-						          	  <c:when test="${togetherDTO.to_state eq 1 }">
+						          	  <c:when test="${togetherDTO.to_curr ne togetherDTO.to_total }">
 								          <span class="badge badge-pill badge-danger mr-1">&nbsp모집중&nbsp</span>
 							          </c:when>
-						          	  <c:otherwise>
+						          	  <c:when test="${togetherDTO.to_curr >= togetherDTO.to_total }">
 								          <span class="badge badge-pill badge-secondary mr-1">&nbsp마감&nbsp</span>
-							          </c:otherwise>
+							          </c:when>
 						          	</c:choose>
 							          <span class="badge badge-pill badge-secondary px-2 mr-3"> ${togetherDTO.to_curr } / ${togetherDTO.to_total } </span>
 							        </span>

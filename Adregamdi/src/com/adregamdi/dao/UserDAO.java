@@ -94,6 +94,11 @@ public class UserDAO {
 		return userMapper.getMyToCount(user_no);
 	}
 
+
+	public int subCancel(int sub_no) {
+		return userMapper.subCancel(sub_no);
+	}
+
 	
 	
 	
