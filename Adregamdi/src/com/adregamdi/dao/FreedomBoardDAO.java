@@ -58,6 +58,24 @@ public class FreedomBoardDAO {
 		return contentCount;
 	}
 	
+	//게시판 제목으로 검색한 카운트
+	public int getSearchKeyObjectCount(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyObjectCount(keywords);
+		return contentCount;
+	}
+	
+	//게시판 제목 + 내용으로 검색한 카운트
+	public int getSearchKeyObjectContent(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyObjectContent(keywords);
+		return contentCount;
+	}
+	
+	//게시판 아이디로 검색한 카운트
+	public int getSearchKeyId(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyIdCount(keywords);
+		return contentCount;
+	}
+	
 	//게시판 글 작성 DAO
 	public void InsertFreedomBoardContent(FreedomBoardDTO freedomBoardDTO) {
 		freedomBoardDTO.setFree_content_writer_idx(loginUserDTO.getUser_no());

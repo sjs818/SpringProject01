@@ -28,11 +28,15 @@ crossorigin="anonymous">
 		location.href='${root}freedom/write';
 	}
 	
+	//검색 호출 자바스크립트
 	function SearchBoard(){
-		let searchType=$('#searchType').val();
-		let keyword = $('#keywords').val();
-		
-		
+		let searchTypeVal=$('#searchType').val();
+		let keywordVal = $('#keywords').val();
+		if(keywordVal == ""){
+			alert("검색어를 입력해주세요!");
+		} else {
+			location.href="${root}freedom/listSearch?searchType=" + searchTypeVal + "&keywords=" + keywordVal;
+		}
 	}
 </script>
 </head>
@@ -46,6 +50,9 @@ crossorigin="anonymous">
 			<b>자유게시판</b>
 		</h3><hr>
 		<nav class="navbar navbar-light bg-light" style="margin-top:-5px;">
+		 <c:if test="${search_done == 1}">
+		  키워드&nbsp;:&nbsp;${keyword} 검색 결과&nbsp; - &nbsp; 총 &nbsp;${search_res_count} &nbsp; 개 입니다.
+		 </c:if>
 		  <a class="navbar-brand"></a>
 		  <form class="form-inline">
 		    <select id="searchType" class="form-control" style="margin-right:8px;">
@@ -53,8 +60,8 @@ crossorigin="anonymous">
 		    	<option id="objcon" value="objcon">제목 + 내용</option>
 		    	<option id="writerID" value="writerID">아이디</option>
 		    </select>
-		    <input class="form-control mr-sm-2" id="keywords" type="search" placeholder="Search" aria-label="Search">
-		    <button type="button" class="btn btn-secondary" onclick="SearchBoard();">
+		    <input class="form-control mr-sm-2" id="keywords" name="keywords" type="text" aria-label="Search" onKeypress="javascript:if(event.keyCode==13){SearchBoard();event.preventDefault();}">
+		    <button type="button" class="btn btn-secondary" onClick="SearchBoard();">
 		    	<i class="fas fa-search"></i>
 		    </button>
 		  </form>

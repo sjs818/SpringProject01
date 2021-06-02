@@ -98,6 +98,27 @@ public class FreedomBoardService {
 		return tumpPageDTO;
 	}
 	
+	//게시글 제목으로 검색시 페이징
+	public PageDTO getSearchKeyObjectCount(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectCount(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	//게시글 제목 + 내용으로 검색시 페이징
+	public PageDTO getSearchKeyObjectContent(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectContent(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	//게시글 아이디로 검색시 페이징
+	public PageDTO getSearchKeyId(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyId(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
 	public void viewCount(int content_idx) {
 		freedomBoardDAO.viewCount(content_idx);
 	}

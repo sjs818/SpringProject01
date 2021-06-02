@@ -47,9 +47,16 @@ public class FreedomBoardController {
 	//게시판 글 목록 불러오는 함수
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		int search_done = 0;
+		int search_res_count = 0;
+		String keywords = "";
 		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList(page);
+		
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		model.addAttribute("search_done", search_done);
+		model.addAttribute("search_res_count", search_res_count);
+		model.addAttribute("keyword", keywords);
 		
 		PageDTO pageDTO = freedomBoardService.getContentCnt(page);
 		model.addAttribute("pageDTO", pageDTO);
@@ -66,24 +73,42 @@ public class FreedomBoardController {
 			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObjectFreedomBoardList(keywords, page);
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = contentList.size();
 			
-			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectCount(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
 			return "freedom/list";
 		} else if(searchType.equals("objcon")) {
 			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObejctContentFreedomBoardList(keywords, page);
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = contentList.size();
 			
-			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectContent(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
 			return "freedom/list";
 		} else if(searchType.equals("writerID")) {
 			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyIdFreedomBoardList(keywords, page);
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = contentList.size();
 			
-			PageDTO pageDTO = freedomBoardService.getContentCnt(page);
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyId(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
 			return "freedom/list";
 		} 
