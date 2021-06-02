@@ -21,7 +21,7 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
+
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <!-- 달력 -->
@@ -350,9 +350,6 @@ td {
 								<form:textarea path="to_content" class="form-control" rows="10"
 									style="resize:none" />
 								<form:errors path="to_content" style="color:red;" />
-								<script>
-				          		CKEDITOR.replace('to_content');
-				        </script>
 							</div>
 							<div class="form-group">
 								<div class="col-sm-15 text-right">
