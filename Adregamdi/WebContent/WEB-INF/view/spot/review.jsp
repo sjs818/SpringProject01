@@ -24,6 +24,13 @@
 <link href="${root }css/review.css" rel="stylesheet">
 <script type="text/javascript" src="${root }js/review.js"></script>
 
+<script src = "https://apis.skplanetx.com/tmap/js?version=1&format=javascript&appKey=l7xxdc109d32e488487dbf0e29b9dfcf1a59"></script>
+<script type="text/javascript">
+		var mapy = $("#mapy").val();
+		var mapx = $("#mapx").val();
+		var map = new Tmap.Map({div:"map_div", width:'500px', height:'500px'});
+	
+</script>
 </head>
 <body>
 	<!-- 상단 헤더 -->
@@ -56,7 +63,9 @@
 							<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
 								<div class="card-body">
 									<div class="mapPrint">
-										지도 첨가하기
+										<div id="map_div"></div>
+										<input type="hidden" id="mapy" value="${information[5] }" />
+										<input type="hidden" id="mapx" value="${information[4] }" />
 									</div>
 								</div>
 							</div>
