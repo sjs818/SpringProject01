@@ -27,11 +27,5 @@ public class TogetherDTO {
 	// 여행날짜
 	private String to_meet;
 	// 공고현황
-	private int to_state;
-	
-	// 유저 비밀번호
-	private String to_user_pw;
-	// 유저 ID
-	private String to_id;
-	
+	private int to_state;	
 }
