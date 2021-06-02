@@ -74,6 +74,52 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
+	public VisitKoreaDTO getOneSpotInfo(String contentId) throws ParserConfigurationException, SAXException, IOException {
+		VisitKoreaDTO oneSpot = new VisitKoreaDTO();
+		
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?" + "serviceKey="
+				+ serviceKey + "&numOfRows=1" + "&pageNo=1" + "&MobileOS=ETC" + "&MobileApp=AppTest"
+				+ "&areacodeYN=Y" + "&catcodeYN=Y" + "&addrinfoYN=Y" + "&contentId=" + contentId
+				+ "&contentTypeId=" + "&defaultYN=Y" + "&firstImageYN=Y" + "&mapinfoYN=Y" + "&overviewYN=Y";
+		
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+		
+		document.getDocumentElement().normalize();
+		
+		NodeList nodeList = document.getElementsByTagName("item");
+		
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (getTagValue("firstimage", element) == null) {
+					oneSpot.setFirstImage("/images/schedule/thumbnail.jpg");
+				} else {
+					oneSpot.setFirstImage(getTagValue("firstimage", element));
+				}
+				if (getTagValue("firstimage2", element) == null) {
+					oneSpot.setFirstImage2("/images/schedule/thumbnail.jpg");
+				} else {
+					oneSpot.setFirstImage2(getTagValue("firstimage2", element));
+				}
+				oneSpot.setTitle(getTagValue("title", element));
+				if(getTagValue("addr1", element) == null) {
+					oneSpot.setAddr1("주소가 없습니다.");
+				} else {
+					oneSpot.setAddr1(getTagValue("addr1", element));
+				}
+				oneSpot.setOverview(getTagValue("overview", element));
+				oneSpot.setContentId(getTagValue("contentid", element));
+				oneSpot.setContentTypeId(getTagValue("contenttypeid", element));
+				oneSpot.setMapX(getTagValue("mapx", element));
+				oneSpot.setMapY(getTagValue("mapy", element));
+			}
+		}
+		return oneSpot;
+	}
 
 	// Spot의 정보를 가져옴
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList)

@@ -23,12 +23,7 @@ public interface TogetherMapper {
 			+ "ORDER BY T.TO_NO DESC")
 	List<TogetherDTO> getTogetherList(RowBounds rowBounds);
 	
-	@Select("SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, "
-				+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, "
-			  + "T.TO_TITLE, T.TO_CONTENT, T.TO_CNT "
-				+ "FROM USER_INFO U, TOGETHER T "
-			  + "WHERE U.USER_NO = T.TO_WRITER "
-				+ "AND T.TO_NO = #{content_idx}")
+	@Select("SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, T.TO_TITLE, T.TO_CONTENT, T.TO_PLACE, T.TO_CURR, T.TO_TOTAL, T.TO_MEET, T.TO_STATE FROM USER_INFO U, TOGETHER T WHERE U.USER_NO = T.TO_WRITER AND T.TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
 	
 	@Select("SELECT U.USER_PW " 
