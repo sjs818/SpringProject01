@@ -24,36 +24,35 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 <script>
-	$(function() {
-		$('.notifi').mousedown(function() {
-			var to_no = $(this).val();
-			$('.item').remove();
-			$.ajax({
-				url : "/user/myToNotification",
-				type : "POST",
-				dataType : "json",
-				data : {"to_no" : to_no},
-				success : function(result) {
-					for(var i = 0; i < result.length; i++) {
-						var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
-								      	'<div class="d-flex justify-content-between">' +
-							      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
-							      		'<span>' + result[i].sub_message + '</span>' +
-							      		'<div>' +
-							      			'<button class="btn btn-sm btn-danger float-right mr-2"><a href="#" class="text-white mx-2">거절</a></button>' +
-							      			'<button class="btn btn-sm btn-primary float-right mr-2"><a href="#" class="text-white mx-2">수락</a></button>' +
-							      		'</div>' +
-							      	'</div>' +
-							      '</div>' +
-							      '<hr class="item" style="margin:0;">';
-										
-						$(content).appendTo('.test');
-					}
+	
+	
+	function fucking(no) {
+		console.log(no);
+		$.ajax({
+			url : "/user/myToNotification",
+			type : "POST",
+			dataType : "json",
+			data : {"to_no" : no},
+			success : function(result) {
+				console.log(result.length);
+				for(var i = 0; i < result.length; i++) {
+					var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
+							      	'<div class="d-flex justify-content-between">' +
+						      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
+						      		'<span>' + result[i].sub_message + '</span>' +
+						      		'<div>' +
+						      			'<button class="btn btn-sm btn-danger float-right mr-2"><a href="#" class="text-white mx-2">거절</a></button>' +
+						      			'<button class="btn btn-sm btn-primary float-right mr-2"><a href="#" class="text-white mx-2">수락</a></button>' +
+						      		'</div>' +
+						      	'</div>' +
+						      '</div>' +
+						      '<hr class="item" style="margin:0;">';
+									
+					$(content).appendTo('.test' + no);
 				}
-			});
-		})
-	});
-
+			}
+		});
+	}
 
 </script>
 
@@ -75,9 +74,9 @@
 			<div class="card-header my-card-header">
 				<a href="${root }user/modify" class="float-right btn btn-success" style="padding: 3px 10px;">회원정보</a>
 				<ul class="nav nav-tabs card-header-tabs">
-					<li class="nav-item"><a class="nav-link active" href="${root }user/my_to">동행알림&nbsp
-						<c:if test="${myPublicCount ne '0' }">
-							<span class="badge badge-danger"> ${myPublicCount }</span>
+					<li class="nav-item"><a class="nav-link active" href="${root }user/my_to">동행찾기&nbsp
+						<c:if test="${myToCount ne '0' }">
+							<span class="badge badge-success"> ${myToCount }</span>
 						</c:if>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp
@@ -94,51 +93,61 @@
 			</div>
 
 			<div class="row mx-5 my-4">
-	<!--  		
-				<div class="col-sm-12 text-center">
-				<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
-				  <div class="container">
-				    <h1 class="display-5">나의 알림함이 비어있습니다...<i class="far fa-sad-tear"></i></h1>
-				    <p class="lead">아래 버튼을 눌러 아름다운 제주여행을 함께할 동행을 찾아보세요!</p>
-				  </div>
-				</div>
-					<a class="btn btn-outline-success btn-lg mb-5" href="${root }together/list">동행 찾기</a>
-				</div>
-	-->			
-				
-				
-				
-				
+ 			<c:choose>
+	 			<c:when test="${myToCount eq '0' }">	
+					<div class="col-sm-12 text-center">
+					<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
+					  <div class="container">
+					    <h1 class="display-5">나의 알림함이 비어있습니다...<i class="far fa-sad-tear"></i></h1>
+					    <p class="lead">아래 버튼을 눌러 아름다운 제주여행을 함께할 동행을 찾아보세요!</p>
+					  </div>
+					</div>
+						<a class="btn btn-outline-success btn-lg mb-5" href="${root }together/list">동행 찾기</a>
+					</div>
+				</c:when>
+					
+					
+				<c:otherwise>			
+					<div class="accordion col-sm-12" id="accordionExample">
+					<c:forEach var="togetherDTO" items="${myTo }" >
+						<div class="card px-0 mb-3 shadow-sm rounded">
+						    <div class="card-header p-2" id="headingOne">
+						      <h2 class="mb-0">
+						        <button class="btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" onmousedown="fucking(${togetherDTO.to_no }); this.onmousedown=null;"  style="color:black; text-decoration:none; width:91%;">
+						          <span class="card_hover d-flex justify-content-between">
+							        <span>
+							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">( ${togetherDTO.to_place } )</span>
+							          	<c:if test="${togetherDTO.status != 0 }">
+							          		<span class="ml-2 text-danger"><i class="far fa-comment-dots"></i></span>
+							          	</c:if>
+							          </li>
+						          	</span>
+						          	<span>
+						          	<c:choose>
+						          	  <c:when test="${togetherDTO.to_state eq 1 }">
+								          <span class="badge badge-pill badge-danger mr-1">&nbsp모집중&nbsp</span>
+							          </c:when>
+						          	  <c:otherwise>
+								          <span class="badge badge-pill badge-secondary mr-1">&nbsp마감&nbsp</span>
+							          </c:otherwise>
+						          	</c:choose>
+							          <span class="badge badge-pill badge-secondary px-2 mr-3"> ${togetherDTO.to_curr } / ${togetherDTO.to_total } </span>
+							        </span>
+						          </span>
+						        </button>
+						        <button class="btn btn-sm btn-info float-right mt-1 mr-2"><a href="#" class="text-white">게시판으로</a></button>
+						      </h2>
+						    </div>
 							
-			<c:forEach var="togetherDTO" items="${myTo }" >
-				<div class="card col-sm-12 px-0 mb-3 shadow-sm rounded">
-				    <div class="card-header border-bottom-0 p-2" id="headingOne">
-				      <h2 class="mb-0">
-				        <button class="notifi btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" style="color:black; text-decoration:none;">
-				          <span class="card_hover">
-				          	<c:choose>
-				          	  <c:when test="${togetherDTO.to_state eq 1 }">
-						          <span class="badge badge-pill badge-danger mr-4">&nbsp모집중&nbsp</span>
-					          </c:when>
-				          	  <c:otherwise>
-						          <span class="badge badge-pill badge-secondary mr-4">&nbsp마감&nbsp</span>
-					          </c:otherwise>
-				          	</c:choose>
-					          ${togetherDTO.to_title }
-					          <span class="badge badge-secondary ml-2 px-2"> ${togetherDTO.to_curr } / ${togetherDTO.to_total } </span>
-				          </span>
-				        </button>
-				        <button class="btn btn-sm btn-info float-right mt-1 mr-2"><a href="#" class="text-white">게시물 보기</a></button>
-				      </h2>
-				    </div>
+						    <div id="${togetherDTO.to_no }" class="collapse test${togetherDTO.to_no }">
+							
+						    </div>
+						  </div>		  
 					
-				    <div id="${togetherDTO.to_no }" class="collapse test">
-					
-				    </div>
-				  </div>		  
-			
-			</c:forEach>
-				
+					</c:forEach>
+					</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 
 	</div>

@@ -89,6 +89,11 @@ public class UserDAO {
 		return userMapper.getToNotification(to_no);
 	}
 
+
+	public String getMyToCount(int user_no) {
+		return userMapper.getMyToCount(user_no);
+	}
+
 	
 	
 	

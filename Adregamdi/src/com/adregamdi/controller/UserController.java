@@ -164,6 +164,11 @@ public class UserController {
 		return "user/modify_success";
 	}
 
+	
+	
+	
+	
+	
 	@ResponseBody
 	@PostMapping("/myToNotification")
 	public List<SubscriptionDTO> myToNotification(@RequestParam("to_no") int to_no) {
@@ -181,11 +186,14 @@ public class UserController {
 		List<TogetherDTO> myTo
 		= userService.getMyTo(loginUserDTO.getUser_no());
 		model.addAttribute("myTo", myTo);
+		System.out.println(myTo);
 		
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
 		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
 		
 		return "user/my_to";
 	}
@@ -199,9 +207,11 @@ public class UserController {
 		
 		
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
-		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());	
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
 	
 		return "user/my_page";
 	}
@@ -215,8 +225,10 @@ public class UserController {
 		
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
 		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
 
 		
 		return "user/my_page_disable";

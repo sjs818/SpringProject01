@@ -54,13 +54,16 @@ public interface UserMapper {
 	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'Y' AND A.USER_NO=#{user_no}")
 	String getPrivateCount(int user_no);
 	
-	@Select("SELECT * FROM together WHERE TO_WRITER=#{user_no}")
+	@Select("SELECT COUNT(*) FROM TOGETHER T, USER_INFO U WHERE U.USER_NO = T.TO_WRITER AND U.USER_NO=#{user_no}")
+	String getMyToCount(int user_no);
+ 	
+	@Select("SELECT * FROM TOGETHER T LEFT OUTER JOIN (SELECT A.TO_NO, COUNT(SUB_STATUS) STATUS FROM SUBSCRIPTION A, TOGETHER B WHERE A.TO_NO = B.TO_NO AND SUB_STATUS = 0 GROUP BY A.TO_NO) S ON T.TO_NO = S.TO_NO WHERE TO_WRITER = #{user_no}")
 	List<TogetherDTO> getMytogether(int user_no);
 	
 	@Select("SELECT S.SUB_NO, S.TO_NO, S.SUB_MESSAGE, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS " + 
     			"FROM SUBSCRIPTION S, USER_INFO U " + 
     			"WHERE S.SUB_WRITER = U.USER_NO " + 
-    			"AND S.TO_NO=#{to_no}")
+    			"AND S.TO_NO=#{to_no} ORDER BY S.SUB_NO")
 	List<SubscriptionDTO> getToNotification(int to_no);
 	
 }

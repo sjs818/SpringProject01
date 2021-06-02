@@ -130,6 +130,10 @@ public class UserService {
 	public List<SubscriptionDTO> getToNotification(int to_no) {
 		return userDAO.getToNotification(to_no);
 	}
+
+	public String getMyToCount(int user_no) {
+		return userDAO.getMyToCount(user_no);
+	}
 	
 
 }

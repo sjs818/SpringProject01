@@ -25,4 +25,5 @@ public class TogetherDTO {
 	// 유저 ID
 	private String to_meet;
 	private int to_state;
+	private int status;
 }
