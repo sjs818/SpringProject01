@@ -73,7 +73,7 @@ public interface UserMapper {
 	@Update("UPDATE SUBSCRIPTION SET sub_status=1 WHERE sub_no=#{sub_no}")
 	void subAccept(int sub_no);
 
-	@Update("UPDATE together SET to_curr = NVL(TO_NUMBER(to_curr),1)+1 WHERE to_no = 1")
+	@Update("UPDATE together SET to_curr = to_curr+1 WHERE to_no = 1")
 	void toCurrCount(int to_no);
 	
 }

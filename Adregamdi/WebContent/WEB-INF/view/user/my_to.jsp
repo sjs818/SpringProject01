@@ -33,18 +33,20 @@ function sub(no) {
 		data : {"to_no" : no},
 		success : function(result) {
 			for(var i = 0; i < result.length; i++) {
-				var content = '<div class="card-body item" style="margin:auto; width:90%;">' +
-						      	'<div class="d-flex justify-content-between">' +
-					      		'<span><img class="profile mr-4" alt="프로필" src="${root }images/profile_black.png">' + result[i].notifi_writer + '</span>' +
-					      		'<span>' + result[i].sub_message + '</span>' +
-					      		'<div>' +
-					      			'<button class="btn btn-sm btn-danger float-right px-3" onclick="negative(' + result[i].sub_no + ')">거절</button>' +
-					      			'<button class="btn btn-sm btn-primary float-right px-3 mr-2" onclick="negative(' + result[i].sub_no + ')">수락</button>' +
-					      		'</div>' +
-					      	'</div>' +
-					      '</div>' +
-					      '<hr class="item" style="margin:0;">';
-								
+				var item = JSON.stringify(result[i]);
+				console.log(item);
+				var content = "<div class='card-body item' style='margin:auto; width:90%;'>" +
+						      	"<div class='d-flex justify-content-between'>" +
+					      		"<span><img class='profile mr-4' alt='프로필' src='${root }images/profile_black.png'>" + result[i].notifi_writer + "</span>" +
+					      		"<span>" + result[i].sub_message + "</span>" +
+					      		"<div>" +
+					      			"<button class='btn btn-sm btn-danger float-right px-3' onclick='negative(" + result[i].sub_no + ")'>거절</button>" +
+					      			"<button class='btn btn-sm btn-primary float-right px-3 mr-2' onclick='accept(" + item + ")'>수락</button>" +
+					      		"</div>" +
+					      	"</div>" +
+					      "</div>" +
+					      "<hr class='item' style='margin:0;'>";
+								console.log(result[i]);
 				$(content).appendTo('.test' + no);
 			}
 		}
@@ -66,6 +68,11 @@ function negative(sub_no) {
 				}
 			});
 		}
+};	
+
+function accept(item) {
+	console.log(item);
+		
 };	
 	
 
