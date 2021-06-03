@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.adregamdi.dto.TogetherDTO;
-import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.TogetherMapper;
 
@@ -65,30 +64,5 @@ public class TogetherDAO {
 //	}
 	
 	
-//============================================ 댓글 관련 컨트롤러 ==========================
-	// 댓글 리스트 불러오기
-	public List<TogetherReplyDTO> getTogetherReplyList(int to_num) {
-		List<TogetherReplyDTO> replyList = togetherMapper.getTogetherReplyList(to_num);
-		return replyList;
-	}
-	
-	//댓글 입력
-	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
-		togetherMapper.InsertTogetherReply(replyWriteDTO);
-	}
-	
-	//댓글 수정
-	public void ModifyTogetherReply(TogetherReplyDTO replyWriteDTO) {
-		togetherMapper.ModifyTogetherReply(replyWriteDTO);
-	}
-	
-	//댓글 삭제
-	public void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO) {
-		togetherMapper.DeleteTogetherReply(replyWriteDTO);
-	}
-	
-	//댓글 개수 조회
-	public int GetTogetherReplyCount(int together_num) {
-		return togetherMapper.GetTogetherReplyCount(together_num);
-	}
+
 }

@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
@@ -77,6 +78,7 @@ public class TogetherController {
 //			return "together/delete_fail";
 //		}
 //	}
+	
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
@@ -88,6 +90,14 @@ public class TogetherController {
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		
 		return "together/read";
+	}
+	
+	@ResponseBody
+	@PostMapping("/subcription")
+	public boolean subcription(@RequestParam("") SubscriptionDTO subscriptionDTO) {
+		
+		
+		return true;
 	}
 	
 	@GetMapping("/deleteProc")
@@ -120,9 +130,7 @@ public class TogetherController {
 	}
 	
 	@GetMapping("/modify")
-	public String TogetherModify
-	(@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
-	 @RequestParam("content_idx") int content_idx, Model model) {
+	public String TogetherModify(@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 	 @RequestParam("content_idx") int content_idx, Model model) {
 		
 		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
 		
@@ -144,15 +152,15 @@ public class TogetherController {
 		return "together/modify";
 	}
 	
-	@PostMapping("/modifyProc")
-	public String TogetherModify_Proc
-	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+	@PostMapping("/modifyProc")	public String TogetherModify_Proc0	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
 		
 		togetherService.ModifyTogetherContent(togetherModifyDTO);
 		System.out.println(togetherModifyDTO.toString());
 		
 		return "together/modify_success";
 	}
+
+  
 	
 	@ResponseBody
 	@GetMapping("/keyword")

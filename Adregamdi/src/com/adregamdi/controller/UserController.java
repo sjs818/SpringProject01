@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -19,9 +20,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.adregamdi.dao.UserDAO;
 import com.adregamdi.dto.PlanDTO;
+import com.adregamdi.dto.SubscriptionDTO;
+import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.UserService;
 import com.adregamdi.validator.UserValidator;
@@ -151,7 +155,6 @@ public class UserController {
 		return "user/modify";
 	}
 	
-	
 	@PostMapping("/modify_proc")
 	public String modifyProc(@Valid @ModelAttribute("modifyUserDTO") UserDTO modifyUserDTO, BindingResult result) {
 		if(result.hasErrors()) {
@@ -160,7 +163,53 @@ public class UserController {
 		userService.modifyUserInfo(modifyUserDTO);
 		return "user/modify_success";
 	}
+
 	
+	
+	
+	
+	
+	@ResponseBody
+	@PostMapping("/myToNotification")
+	public List<SubscriptionDTO> myToNotification(@RequestParam("to_no") int to_no) {
+		
+		List<SubscriptionDTO> myToNotification = new ArrayList<SubscriptionDTO>();
+		
+		myToNotification = userService.getToNotification(to_no);
+		return myToNotification;
+	}
+	
+	@ResponseBody
+	@PostMapping("/subCancel")
+	public boolean subCancel(@RequestParam("sub_no") int sub_no) {
+		
+		return userService.subCancel(sub_no);
+	}
+
+	@ResponseBody
+	@PostMapping("/subAccept")
+	public boolean subAccept(@RequestParam("to_no") int to_no, @RequestParam("sub_no") int sub_no) {
+		
+		return userService.subAccept(sub_no) && userService.toCurrCount(to_no);
+	}
+	
+	@GetMapping("/my_to")
+	public String myTo(Model model) {
+		
+		List<TogetherDTO> myTo
+		= userService.getMyTo(loginUserDTO.getUser_no());
+		model.addAttribute("myTo", myTo);
+
+
+		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
+		model.addAttribute("myPublicCount", myPublicCount);
+		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
+		
+		return "user/my_to";
+	}
 	
 	@GetMapping("/my_page")
 	public String myPage(Model model) {
@@ -169,10 +218,13 @@ public class UserController {
 		= userService.getMyPlan(loginUserDTO.getUser_no());
 		model.addAttribute("myPlan", myPlan);
 		
+		
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
-		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());	
+		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
 	
 		return "user/my_page";
 	}
@@ -186,19 +238,23 @@ public class UserController {
 		
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
 		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
+		String myToCount = userService.getMyToCount(loginUserDTO.getUser_no());
 		model.addAttribute("myPublicCount", myPublicCount);
 		model.addAttribute("myPrivatCount", myPrivatCount);
+		model.addAttribute("myToCount", myToCount);
 
 		
 		return "user/my_page_disable";
 	}
+
 	
 	
 	
 	
+
 	@InitBinder
-  public void initBinder(WebDataBinder binder) {
+	public void initBinder(WebDataBinder binder) {
 	  	UserValidator validator1 = new UserValidator();
 	  	binder.addValidators(validator1);
-	  }
+	}
 }
