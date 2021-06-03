@@ -27,10 +27,18 @@ public class WeatherAPI {
 		SimpleDateFormat format2 = new SimpleDateFormat ( "HH" );
 				
 		Date today = new Date();
-				
-		String date = format1.format(today);
+		Date yesterday = new Date(today.getTime() - (1000 * 60 * 60 * 24));
+		int currentTime = Integer.parseInt(format2.format(today));
+		int baseTime = (currentTime != 0) ? Integer.parseInt(format2.format(today)) - 1 : 23;
 		
-		int baseTime = Integer.parseInt(format2.format(today)) - 1;
+		String date = "";
+		
+		if(currentTime == 0) {
+			date = format1.format(yesterday);
+		} else {
+			date = format1.format(today);
+		}
+		
 		String time = "";
 		if(baseTime  < 10) {
 			time = "0" + baseTime + "00";
@@ -38,7 +46,6 @@ public class WeatherAPI {
 			time =  baseTime + "00";
 		}
 		
-		int currentTime = Integer.parseInt(format2.format(today));
 		String preTime = "";
 		if(currentTime  < 10) {
 			preTime = "0" + currentTime + "00";
@@ -82,11 +89,11 @@ public class WeatherAPI {
 			String category = (String) obj.get("category");
 			if(fcstTime.equals(preTime) && category.equals("T1H")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setTemper(Integer.parseInt(fcstValue));
+				weatherDTO.setTemper(Float.parseFloat(fcstValue));
 			}
 			if(fcstTime.equals(preTime) && category.equals("RN1")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setRain(Integer.parseInt(fcstValue));
+				weatherDTO.setRain(Float.parseFloat(fcstValue));
 			}
 			if(fcstTime.equals(preTime) && category.equals("SKY")) {
 				sky = (String) obj.get("fcstValue");
@@ -96,7 +103,7 @@ public class WeatherAPI {
 			}
 			if(fcstTime.equals(preTime) && category.equals("WSD")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setWind(Integer.parseInt(fcstValue));
+				weatherDTO.setWind(Float.parseFloat(fcstValue));
 			}
 		}
 		
@@ -123,12 +130,21 @@ public class WeatherAPI {
 		
 		SimpleDateFormat format1 = new SimpleDateFormat ( "yyyyMMdd");
 		SimpleDateFormat format2 = new SimpleDateFormat ( "HH" );
-		
+				
 		Date today = new Date();
+		Date yesterday = new Date(today.getTime() - (1000 * 60 * 60 * 24));
 		
-		String date = format1.format(today);
+		int currentTime = Integer.parseInt(format2.format(today));
+		int baseTime = (currentTime != 0) ? Integer.parseInt(format2.format(today)) - 1 : 23;
 		
-		int baseTime = Integer.parseInt(format2.format(today)) - 1;
+		String date = "";
+		
+		if(currentTime == 0) {
+			date = format1.format(yesterday);
+		} else {
+			date = format1.format(today);
+		}
+		
 		String time = "";
 		if(baseTime  < 10) {
 			time = "0" + baseTime + "00";
@@ -136,7 +152,6 @@ public class WeatherAPI {
 			time =  baseTime + "00";
 		}
 		
-		int currentTime = Integer.parseInt(format2.format(today));
 		String preTime = "";
 		if(currentTime  < 10) {
 			preTime = "0" + currentTime + "00";
@@ -180,11 +195,11 @@ public class WeatherAPI {
 			String category = (String) obj.get("category");
 			if(fcstTime.equals(preTime) && category.equals("T1H")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setTemper(Integer.parseInt(fcstValue));
+				weatherDTO.setTemper(Float.parseFloat(fcstValue));
 			}
 			if(fcstTime.equals(preTime) && category.equals("RN1")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setRain(Integer.parseInt(fcstValue));
+				weatherDTO.setRain(Float.parseFloat(fcstValue));
 			}
 			if(fcstTime.equals(preTime) && category.equals("SKY")) {
 				sky = (String) obj.get("fcstValue");
@@ -194,7 +209,7 @@ public class WeatherAPI {
 			}
 			if(fcstTime.equals(preTime) && category.equals("WSD")) {
 				String fcstValue = (String) obj.get("fcstValue");
-				weatherDTO.setWind(Integer.parseInt(fcstValue));
+				weatherDTO.setWind(Float.parseFloat(fcstValue));
 			}
 		}
 		

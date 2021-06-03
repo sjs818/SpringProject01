@@ -1,9 +1,12 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +17,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
-import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
@@ -75,23 +78,19 @@ public class TogetherController {
 //		}
 //	}
 	@GetMapping("/read")
-	public String TogetherRead
-	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
-		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
-		model.addAttribute("loginUserDTO", loginUserDTO);
-		model.addAttribute("readContentDTO", readContentDTO);
-    model.addAttribute("content_idx", content_idx);
+	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
-		return "together/read_reply";
+		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
+		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
+		
+		model.addAttribute("togetherDTO", togetherDTO);
+		model.addAttribute("place", place);
+		model.addAttribute("loginUserDTO", loginUserDTO);
+		
+		return "together/read";
 	}
 	
-	@ResponseBody
-	@PostMapping("/replyCount")
-	public int replyCount(@RequestParam("content_idx") int content_idx) {
-		return togetherService.GetTogetherReplyCount(content_idx);
-	}
-	
-	 @GetMapping("/deleteProc")
+	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
 	(@RequestParam("content_idx") int content_idx) {
 		togetherService.DeleteTogetherComment(content_idx);
@@ -115,7 +114,6 @@ public class TogetherController {
 		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
 		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
 		
-		System.out.println(togetherWriteDTO.toString());
 		togetherService.InsertTogetherContent(togetherWriteDTO);
 			
 		return "together/write_success";

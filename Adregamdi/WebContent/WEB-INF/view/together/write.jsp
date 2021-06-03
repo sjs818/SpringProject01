@@ -46,9 +46,8 @@
 			
 			var keyword = $("#search-field").val();
 			
-			console.log("keyword : "+keyword);
 			if(keyword == "") {
-				alert('키워드를 입력하세요');
+				alert('검색어를 입력해주세요!');
 				$("#search-field").focus();
 				return false;
 			}
@@ -62,18 +61,25 @@
 				data : keywordParam,
 				
 				success : function(data) {
+					 
+					if(data.length == 0) {
+						alert('검색결과가 없습니다!');
+						return false;
+					}
 					
 					$("#search_view").empty();
+					$(".sidebar-menu").show();
 					
 					var content = '<ul class="list-group">';
 					$.each(data, function(key, val) {
 						
-						content = '<li class="list-group-item" style="width: 90%;">'
-									+'<h2><b>'+data[key].title+'</b></h2>'+data[key].addr1
-									+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId('+key+')" style="float:right;">추가하기</a>'
-									+'<span style="display: none" id="getContentId'+key+'">'+data[key].contentId+'</span> '
-									+'<span style="display: none" id="getTitle'+key+'">'+data[key].title+'</span>'
-									+'</li>';				
+						var result = {contentId : '' + data[key].contentId, title : '' + data[key].title};
+						var item = JSON.stringify(result);
+						
+						content = "<li class='list-group-item' style='width: 100%; border: none;'>"
+									+ "<h5><b>" + data[key].title + "</b></h5>" + data[key].addr1
+									+ "<a href='#' class='card-btn btn btn-dark' onclick='addSpotId(" + item + ")' style='float:right; padding: 3px 6px;'>추가하기</a>"
+									+ "<hr style='margin: 26px 0 0 0;'></li>";				
 						$("#search_view").append(content);
 					});
 					$("#search_view").append("</ul>");
@@ -107,12 +113,13 @@
 						var content = '<ul class="list-group">';
 						$.each(data, function(key, val) {
 							
-							content = '<li class="list-group-item" style="width: 90%;">'
-										+'<h2><b>'+data[key].title+'</b></h2>'+data[key].addr1
-										+'<a href="#" class="card-btn btn btn-dark" onclick="addSpotId('+key+')" style="float:right;">추가하기</a>'
-										+'<span style="display: none" id="getContentId'+key+'">'+data[key].contentId+'</span> '
-										+'<span style="display: none" id="getTitle'+key+'">'+data[key].title+'</span>'
-										+'</li>';				
+							var result = {contentId : '' + data[key].contentId, title : '' + data[key].title};
+							var item = JSON.stringify(result);
+							
+							content = "<li class='list-group-item' style='width: 100%; border: none;'>"
+										+ "<h5><b>" + data[key].title + "</b></h5>" + data[key].addr1
+										+ "<a href='#' class='card-btn btn btn-dark' onclick='addSpotId(" + item + ")' style='float:right; padding: 3px 6px;'>추가하기</a>"
+										+ "<hr style='margin: 26px 0 0 0;'></li>";				
 							$("#search_view").append(content);
 						});
 						$("#search_view").append("</ul>");
@@ -127,12 +134,12 @@
 		});
 	});
 	
-	function addSpotId(key) {
-		var contentId = $("#getContentId"+key).html();
-		var title = $("#getTitle"+key).html();
+	function addSpotId(item) {
+		var contentId = item.contentId;
+		var title = item.title;
 		
 		$(".sidebar-menu").hide();
-		$(".input-group").hide();
+		$(".findSpot").hide();
 		$("#printSpot").show();
 		$("#fixedSpotTitle").attr("value", title);
 		$("#fixedSpotContentId").attr("value", contentId);
@@ -142,7 +149,7 @@
 	
 	function modifySpot() {
 		$(".sidebar-menu").show();
-		$(".input-group").show();
+		$(".findSpot").show();
 		$("#search_view").empty();
 		$("#search-field").attr("value", "");
 		$("#printSpot").hide();
@@ -154,7 +161,7 @@
 		var meetDate = $("#meetDate").val();
 		
 		if(meetDate=="") {
-			alert("날짜를 입력하세요 - !");
+			alert("날짜와 시간을 입력해주세요!");
 			return;
 		}
 		
@@ -286,67 +293,73 @@ td {
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 
 	<!-- 메인 -->
-	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
+	<div class="container" style="margin-top: 150px; margin-bottom: 100px;">
 		<h3 class="InputSubject">
-			<b>동행자 구인 공고</b>
+			<b>새로운 동행 만들기</b>
 		</h3>
 		<hr>
-		<table>
-			<tr>
-				<td class="rowLine">
-					<div class="left_col">
-						<h6>여행지 </h6>
-						<div class="input-group" >
-							<input type="text" class="form-control search-menu" id="search-field" placeholder="검색..." style="background: #f9f9f9; ">
+		<br>
+		<div class="row no-gutters">
+			<div class="col-md-6">
+				<div class="card mr-3">
+					<div class="card-body" style="padding: 20px;">
+						<label for="search-field">동행할 여행지 검색</label>
+						<div class="input-group findSpot" >
+							<input type="text" class="form-control" id="search-field" placeholder="검색..." style="background: #f9f9f9; ">
 							<div class="input-group-append btn-search">
-								<!-- 여기에요 여기!! -->
 								<span class="input-group-text" style="background: #e9e9e9;">
 									<i class="fa fa-search" aria-hidden="true"></i>
 								</span>
 							</div>
 						</div>
-						<div class="sidebar-menu">
+						<div class="sidebar-menu" style="display: none; border: 1px solid #e9e9e9; max-height: 348px;">
 							<div id="search_view" class="row">			
 							</div>
 						</div>
-						<div id="printSpot" style="display:none">
+						<div class="input-group" id="printSpot" style="display:none;">
 							<input type="text" class="form-control" id="fixedSpotTitle" style="background: #f9f9f9; " disabled/>
-							<input type="hidden" id="fixedSpotContentId"/>
-							<br>
-							<a href="#" class="card-btn btn btn-dark" onclick="modifySpot()" style="float:right;">수정하기</a>
+							<input type="hidden" id="fixedSpotContentId">
+							<div class="input-group-append">
+								<a href="#" class="card-btn btn btn-dark" onclick="modifySpot()">수정하기</a>
+							</div>
 						</div>
-						<br>
-						<div class="calendar"  style="display:none">
-							<br><br>
-							<h6>여행 날짜</h6>
-							<input id="meetDate" class="form-control flatpickr flatpickr-input active" type="text" placeholder="Select Date.." data-id="minMaxTime" readonly="readonly">
-							<br>
-							<a href="#" class="card-btn btn btn-dark" onclick="writeMeetDate()" style="float:right;">날짜 입력하기</a>
+						<div class="calendar" style="display:none; margin-top: 20px;">
+							<label for="meetDate">동행할 일정</label>
+							<div class="input-group">
+								<input id="meetDate" class="form-control flatpickr flatpickr-input active" type="text" placeholder="날짜와 시간을 선택해주세요..." data-id="minMaxTime" readonly="readonly">
+								<div class="input-group-append">
+									<a href="#" class="card-btn btn btn-dark" onclick="writeMeetDate()" style="float:right;">일정 선택</a>
+								</div>
+							</div>
 						</div>
-						<div id="number" style="display:none">
-							<br><br>
-							<h6>모집 인원</h6>
-							<input id="personNumber" class="form-control" style="width:50%;"type="number" value="1"/>
-							<br>
-							<a href="#" class="card-btn btn btn-dark" onclick="writePersonNumber()" style="float:right;">인원 입력하기</a>							
+						<div id="number" style="display:none; margin-top: 20px;">
+							<label for="personNumber">동행할 인원</label>
+							<div class="input-group">
+								<input id="personNumber" class="form-control" style="width:50%;"type="number" value="1"/>
+								<div class="input-group-append">	
+									<a href="#" class="card-btn btn btn-dark" onclick="writePersonNumber()" style="float:right;">인원 선택</a>							
+								</div>
+							</div>
 						</div>
 					</div>
-				</td>
-				<td class="rowLine">
-					<div class="right_col">
-						<form:form action="${root}together/writeProc" method="post" modelAttribute="togetherWriteDTO" class="form-horizontal">
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="card">
+					<div class="card-body" style="padding: 16px 20px 0;">
+						<form:form action="${root}together/writeProc" method="post" modelAttribute="togetherWriteDTO">
 							<form:hidden path="to_no" />
 							<form:hidden path="to_place"/>
 							<form:hidden path="to_place_name"/>
 							<form:hidden path="to_meet"/>
 							<form:hidden path="to_total"/>
 							<div class="form-group">
-								<form:label path="to_title">제목</form:label>
+								<form:label path="to_title">동행 이름</form:label>
 								<form:input path="to_title" class="form-control" />
 								<form:errors path="to_title" style="color:red;" />
 							</div>
 							<div class="form-group">
-								<form:label path="to_content">공고문</form:label>
+								<form:label path="to_content">동행 내용</form:label>
 								<form:textarea path="to_content" class="form-control" rows="10"
 									style="resize:none" />
 								<form:errors path="to_content" style="color:red;" />
@@ -359,9 +372,9 @@ td {
 							</div>
 						</form:form>
 					</div>
-				</td>
-			</tr>
-		</table>
+				</div>
+			</div>
+		</div>
 	</div>
 	<!-- Footer -->
 	<c:import url="/WEB-INF/view/include/footer.jsp" />

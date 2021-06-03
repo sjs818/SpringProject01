@@ -23,11 +23,11 @@ import com.adregamdi.dto.VisitKoreaDTO;
 @Service
 public class VisitKoreaAPI {
 	//final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
-	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
+	final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
 	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
 	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
-	final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
+	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
 	
   // T map API ( 占쏙옙占� : http://tmapapi.sktelecom.com/index.html )
 	final String tmapKey = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
@@ -72,6 +72,52 @@ public class VisitKoreaAPI {
 			}
 		}
 		return contentIdList;
+	}
+	
+	public VisitKoreaDTO getOneSpot(String contentId) throws ParserConfigurationException, SAXException, IOException {
+		VisitKoreaDTO spot = new VisitKoreaDTO();
+		
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?" + "serviceKey="
+				+ serviceKey + "&numOfRows=1" + "&pageNo=1" + "&MobileOS=ETC" + "&MobileApp=AppTest"
+				+ "&areacodeYN=Y" + "&catcodeYN=Y" + "&addrinfoYN=Y" + "&contentId=" + contentId
+				+ "&contentTypeId=" + "&defaultYN=Y" + "&firstImageYN=Y" + "&mapinfoYN=Y" + "&overviewYN=Y";
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+
+		document.getDocumentElement().normalize();
+
+		NodeList nodeList = document.getElementsByTagName("item");
+		
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (getTagValue("firstimage", element) == null) {
+					spot.setFirstImage("/images/schedule/thumbnail.png");
+				} else {
+					spot.setFirstImage(getTagValue("firstimage", element));
+				}
+				
+				if (getTagValue("firstimage2", element) == null) {
+					spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+				} else {
+					spot.setFirstImage2(getTagValue("firstimage2", element));
+				}
+				spot.setTitle(getTagValue("title", element));
+				if (getTagValue("addr1", element) == null) {
+					spot.setAddr1("해당 여행지는 코스이므로 주소가 없습니다.");
+				} else {
+					spot.setAddr1(getTagValue("addr1", element));
+				}
+				spot.setOverview(getTagValue("overview", element));
+				spot.setContentId(getTagValue("contentid", element));
+				spot.setContentTypeId(getTagValue("contenttypeid", element));
+			}
+		}
+		return spot;
 	}
 	
 
@@ -154,11 +200,18 @@ public class VisitKoreaAPI {
 						Element element = (Element) node;
 						
 						
-						if (getTagValue("firstimage2", element) == null) {
+						if (getTagValue("firstimage", element) == null) {
 							spot.setFirstImage("/images/schedule/thumbnail.png");
 						} else {
 							spot.setFirstImage(getTagValue("firstimage", element));
 						}
+						
+						if (getTagValue("firstimage2", element) == null) {
+							spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+						} else {
+							spot.setFirstImage2(getTagValue("firstimage2", element));
+						}
+						
 						spot.setTitle(getTagValue("title", element));
 						if (!visitKoreaDTO.getContentTypeId().equals("25")) {
 							spot.setAddr1(getTagValue("addr1", element));
@@ -481,6 +534,13 @@ public class VisitKoreaAPI {
 					} else {
 						spot.setFirstImage(getTagValue("firstimage", element));
 					}
+
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+					} else {
+						spot.setFirstImage2(getTagValue("firstimage2", element));
+					}
+					
 					spot.setTitle(getTagValue("title", element));
 					
 					if (!visitKoreaDTO.getContentTypeId().equals("25")) {
