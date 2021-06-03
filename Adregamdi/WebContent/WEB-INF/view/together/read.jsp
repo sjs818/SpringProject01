@@ -397,21 +397,23 @@
 	  	<input type="hidden" name="to_writer" id="to_writer" value="${togetherDTO.to_writer }"/>
 		<input type="hidden" name="content_idx" id="content_idx" value="${content_idx }"/>    
 		<input type="hidden" name="login_id" id="login_id" value="${loginUserDTO.user_id }"/>
-      <div class="col-md-5 ">
-        <div class="card" >
-          <div class="card-header">채팅</div>
-        <div class="card-body" style="height:450px; padding: 10px;">
-        	<div id="chat">
-        	</div>
-        </div>
-        <div class="input-group">
-            <input type="text" class="form-control" id="message" name="message" placeholder="입력...." >
-            <div class="input-group-append">
-                   <button type="button" id="btnReplySave" class="btn btn-primary" onclick="writeText()" >입력</button>
-            </div>
-        </div>
-      </div>
-    </div>
+		<c:if test="${loginUserDTO.user_no != '' }">
+	      <div class="col-md-5 ">
+	        <div class="card" >
+	          <div class="card-header">채팅</div>
+	        <div class="card-body" style="height:450px; padding: 10px;">
+	        	<div id="chat">
+	        	</div>
+	        </div>
+	        <div class="input-group">
+	            <input type="text" class="form-control" id="message" name="message" placeholder="입력...." >
+	            <div class="input-group-append">
+	                   <button type="button" id="btnReplySave" class="btn btn-primary" onclick="writeText()" >입력</button>
+	            </div>
+	        </div>
+	      </div>
+	    </div>
+	    </c:if>
     </div>
   </div>
      
