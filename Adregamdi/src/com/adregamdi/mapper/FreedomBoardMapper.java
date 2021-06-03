@@ -34,7 +34,7 @@ public interface FreedomBoardMapper {
 			"TO_CHAR(F.FREE_DATE, 'YYYY-MM-DD HH24:MI:SS') CONTENT_DATE, " + 
 			"(SELECT COUNT(*) FROM FREEDOMREPLY R WHERE F.FREE_NO = R.FREEDOM_NUM) REPLY_COUNT " + 
 			"FROM FREEDOMBOARD F, USER_INFO U " + 
-			"WHERE F.FREE_WRITER = U.USER_NO AND F.FREE_TITLE LIKE '%' || #{keywords} || '%' " + 
+			"WHERE F.FREE_WRITER = U.USER_NO AND (F.FREE_TITLE || F.FREE_CONTENT) LIKE '%' || #{keywords} || '%' " + 
 			"AND F.FREE_CONTENT LIKE '%' || #{keywords} || '%' ")
 	List<FreedomBoardDTO> getSearchKeyObejctContentFreedomBoardList(RowBounds rowBounds, String keywords);
 	
