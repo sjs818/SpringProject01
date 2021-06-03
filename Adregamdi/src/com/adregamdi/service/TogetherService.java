@@ -29,6 +29,8 @@ public class TogetherService {
 		RowBounds rowBounds = new RowBounds(start, page_listcnt);
 		
 		List<TogetherDTO> contentList = togetherDAO.getTogetherList(rowBounds);
+		
+		System.out.println("Service : " + contentList.toString());
 		return contentList;
 	}
 	public TogetherDTO getTogetherContent(int content_idx) {

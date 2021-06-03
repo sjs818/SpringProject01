@@ -157,6 +157,9 @@ public class TogetherController {
   @PostMapping("/modifyProc")
   public String TogetherModify_Proc
   (@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+	  
+	  if(result.hasErrors())
+			return "together/modify";
      
      togetherService.ModifyTogetherContent(togetherModifyDTO);
      System.out.println(togetherModifyDTO.toString());

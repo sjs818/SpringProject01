@@ -112,7 +112,22 @@ body {
 			</div>
 			<div class="form-group">
 				<form:label path="to_total">모집인원</form:label>
-				<form:input path="to_total" text="number" class="form-control" />
+				<form:select path="to_total" class="form-control" >
+					<form:option value="${togetherModifyDTO.to_total }">${togetherModifyDTO.to_total }명</form:option>
+					<c:if test="${togetherModifyDTO.to_total == 2 }">
+						<form:option value="3">3명</form:option>
+                        <form:option value="4">4명</form:option>
+					</c:if>
+					<c:if test="${togetherModifyDTO.to_total == 3 }">
+						<form:option value="2">2명</form:option>
+                        <form:option value="4">4명</form:option>
+					</c:if>
+					<c:if test="${togetherModifyDTO.to_total == 4 }">
+						<form:option value="2">2명</form:option>
+                        <form:option value="3">3명</form:option>
+					</c:if>
+				</form:select>
+				<p style="color: red; margin: 10px 0 0 10px;">※ 5인 이상 집합금지 명령에 따라 인원은 최대 4인 까지 선택 가능합니다.</p>                  
 			</div>
 			<div class="form-group">
 				<div class="col-sm-15 text-right">
