@@ -38,7 +38,7 @@ function sub(no) {
 				var content = "<div class='card-body item' style='margin:auto; width:90%;'>" +
 						      	"<div class='d-flex justify-content-between'>" +
 					      		"<span><img class='profile mr-4' alt='프로필' src='${root }images/profile_black.png'>" + result[i].notifi_writer + "</span>" +
-					      		"<span>" + result[i].sub_message + "</span>" +
+					      		"<span>" + result[i].sub_message + "<span class='ml-2' style='color:#8c8c8c;'>("+ result[i].sub_date +")</span></span>" +
 					      		"<div>" +
 					      			"<button class='btn btn-sm btn-danger float-right px-3' onclick='negative(" + result[i].sub_no + ")'>거절</button>" +
 					      			"<button class='btn btn-sm btn-primary float-right px-3 mr-2' onclick='accept(" + subscriptionDTO + ")'>수락</button>" +
@@ -139,7 +139,7 @@ function accept(subscriptionDTO) {
 					<div class="col-sm-12 text-center">
 					<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
 					  <div class="container">
-					    <h1 class="display-5">나의 알림함이 비어있습니다...<i class="far fa-sad-tear"></i></h1>
+					    <h1 class="display-5">새로운 동행을 찾아보세요!<i class="fas fa-user-friends ml-2"></i></h1>
 					    <p class="lead">아래 버튼을 눌러 아름다운 제주여행을 함께할 동행을 찾아보세요!</p>
 					  </div>
 					</div>
@@ -158,7 +158,7 @@ function accept(subscriptionDTO) {
 						          <span class="card_hover d-flex justify-content-between">
 							        <span>
 							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">[ ${togetherDTO.to_place } ]</span>
-							          	<c:if test="${togetherDTO.status != 0 }">
+							          	<c:if test="${togetherDTO.status != 0 && togetherDTO.to_curr < togetherDTO.to_total }">
 							          		<span class="ml-2 text-danger"><i class="far fa-comment-dots"></i></span>
 							          	</c:if>
 							          </li>
@@ -180,11 +180,63 @@ function accept(subscriptionDTO) {
 						      </h2>
 						    </div>
 							
-							<c:if test="${togetherDTO.to_curr < 4 }">
-						    <div id="${togetherDTO.to_no }" class="collapse test${togetherDTO.to_no }">
-							
-						    </div>
-						    </c:if>
+							<c:choose>
+								<c:when test="${togetherDTO.to_curr < togetherDTO.to_total }">
+							    	<c:choose>
+							    		<c:when test="${togetherDTO.status == 0 }">
+							    			<div id="${togetherDTO.to_no }" class="collapse">
+												<div class="row mx-5 my-4">
+													<div class="col-sm-12 text-center">
+														<div class="jumbotron jumbotron-fluid bg-white"
+															style="padding: 2rem 0; margin-bottom: -20px;">
+															<div class="container">
+																<h1 class="display-5">
+																	<i class="far fa-paper-plane mr-2"></i>도착한 동행 신청이
+																	없습니다..
+																</h1>
+																<p class="lead">기다리시면 마음이 맞는 새로운 동행자가 나타날 거예요!</p>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+							    		</c:when>
+							    		<c:otherwise>
+										   	<div id="${togetherDTO.to_no }" class="collapse test${togetherDTO.to_no }">
+										
+								    		</div>
+							    		</c:otherwise>
+							    	</c:choose>
+							    </c:when>
+							    <c:when test="${togetherDTO.to_curr == togetherDTO.to_total  }">
+							    <div id="${togetherDTO.to_no }" class="collapse">
+							    	<div class="row mx-5 my-4">
+										<div class="col-sm-12 text-center">
+										<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
+										  <div class="container">
+										    <h1 class="display-5"><i class="fas fa-child mr-2"></i>동행 인원이 가득 찼습니다.</h1>
+				    					    <p class="lead">새로운 동행 신청을 받으려면 동행 인원을 조정하세요.</p>
+									      </div>
+										</div>
+										</div>
+									</div>
+								</div>
+							    </c:when>
+							    <c:when test="${togetherDTO.status eq 0 }">
+ 									<div id="${togetherDTO.to_no }" class="collapse">
+								    	<div class="row mx-5 my-4">
+											<div class="col-sm-12 text-center">
+											<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
+											  <div class="container">
+											    <h1 class="display-5"><i class="far fa-paper-plane mr-2"></i>도착한 동행 신청이 없습니다..</h1>
+					    					    <p class="lead">기다리시면 마음이 맞는 새로운 동행자가 나타날 거예요!</p>
+										      </div>
+											</div>
+											</div>
+										</div>
+									</div>
+							    </c:when>
+						    </c:choose>
 						  </div>		  
 					
 					</c:forEach>
