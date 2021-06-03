@@ -22,78 +22,74 @@ public class NoticeDAO {
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
     
-	// 게시글 리스트
+	// 공지사항 목록
 	public List<NoticeDTO> getNoticeList(RowBounds rowBounds) {
 		List<NoticeDTO> contentList = noticeMapper.getNoticeList(rowBounds);
 		return contentList;
 	}
 	
-	// 게시글 이전글, 다음글
+	// 공지사항 이전 / 다음글
 	public NoticeDTO getNextPrev(int content_idx) {
 		NoticeDTO getNextPrev = noticeMapper.getNextPrev(content_idx);
 		return getNextPrev;
 	}
 	
-    // 게시글 본문 내용
+    // 공지사항 본문 내용
 	public NoticeDTO getNoticeContent(int content_idx) {
 		NoticeDTO content = noticeMapper.getNoticeContent(content_idx);
 		return content;
 	}
 	
-	// 게시글 페이징
+	// 공지사항 페이징
 	public int GetNoticeContentCount() {
 		int contentCount = noticeMapper.GetNoticeContentCount();
 		return contentCount;
 	}
 	
-	// 게시글 글쓰기
+	// 공지사항 글쓰기
 	public void InsertNoticeContent(NoticeDTO noticeDTO) {
 		noticeDTO.setNotice_user_no(loginUserDTO.getUser_no());
 		noticeMapper.InsertNoticeContent(noticeDTO);
 	}
 
-	// 게시글 수정
+	// 공지사항 수정
 	public void ModifyNoticeContent(NoticeDTO noticeModifyDTO) {
 		noticeMapper.modifyNoticeContent(noticeModifyDTO);
 	}
 
-	// 게시글 삭제
+	// 공지사항 삭제
 	public void DeleteNoticeContent(int content_idx) {
 		noticeMapper.deleteNoticeContent(content_idx);
 	}
 	
-	// 게시글 조회수
+	// 공지사항 조회수
 	public void viewCount(int content_idx) {
 		noticeMapper.viewCount(content_idx);
 	}
 	
-	//게시글 제목으로 검색해서 가져오는 함수
+	// 공지사항 제목으로 검색해서 가져오는 메서드
 	public List<NoticeDTO> getSearchKeyObjectNoticeList(RowBounds rowBounds, String keywords){
 		List<NoticeDTO> contentList = noticeMapper.getSearchKeyObejctNoticeList(rowBounds, keywords);
 		return contentList;
 	}
 	
-	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	// 공지사항 제목 + 내용으로 검색해서 가져오는 공지사항
 	public List<NoticeDTO> getSearchKeyObejctContentNoticeBoardList(RowBounds rowBounds, String keywords){
 		List<NoticeDTO> contentList = noticeMapper.getSearchKeyObejctContentNoticeList(rowBounds, keywords);
 		return contentList;
 	}
 	
-	//게시판 제목으로 검색한 카운트
+	// 공지사항 제목으로 검색한 갯수
 	public int getSearchKeyObjectCount(String keywords) {
 		int contentCount = noticeMapper.getSearchKeyObjectCount(keywords);
 		return contentCount;
 	}
 	
-	//게시판 제목 + 내용으로 검색한 카운트
+	// 공지사항 제목 + 내용으로 검색한 갯수
 	public int getSearchKeyObjectContent(String keywords) {
 		int contentCount = noticeMapper.getSearchKeyObjectContent(keywords);
 		return contentCount;
 	}
-	
-	// 게시글 제목으로 검색시 게시물 개수
-	
-	// 게시글 제목 + 내용으로 검색시 게시물 개수
-	
 
+	
 }

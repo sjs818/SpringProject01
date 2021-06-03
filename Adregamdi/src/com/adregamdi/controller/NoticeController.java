@@ -31,26 +31,21 @@ public class NoticeController{
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
     
-	// 게시글 페이징 처리
+	// 공지사항 목록
+	// 공지사항 페이징 처리
 	@GetMapping("/list")
-	public String BoardList(@RequestParam(value="page", defaultValue="1") int page,
-							@RequestParam(defaultValue="all") String search_option,
-							@RequestParam(defaultValue="") String keyword,
-							Model model) {
-		List<NoticeDTO> contentList = noticeService.getNoticeList(page, search_option, keyword);
+	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
 		PageDTO pageDTO = noticeService.getContentCnt(page);
 		model.addAttribute("pageDTO", pageDTO);
 		
-		model.addAttribute("search_option", search_option);
-		model.addAttribute("keyword", keyword);
-		
 		return "notice/list";
 	}
     
-	// 게시글 본문 내용
-	// 게시글 이전글, 다음글
+	// 공지사항 본문 내용
+	// 공지사항 이전 / 다음글
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
 		noticeService.viewCount(content_idx);
@@ -66,13 +61,13 @@ public class NoticeController{
 		return "notice/read";
 	}
     
-	// 게시글 글쓰기
+	// 공지사항 글쓰기
 	@GetMapping("/write")
 	public String BoardWrite(@ModelAttribute("noticeWriteDTO") NoticeDTO noticeWriteDTO) {
 		return "notice/write";
 	}
     
-	// 게시글 글쓰기 처리
+	// 공지사항 글쓰기 처리
 	@PostMapping("/writeProc")
 	public String BoardWrite_Proc(@Valid @ModelAttribute("NoticeWriteDTO") NoticeDTO noticeWriteDTO, BindingResult result) {
 		if (result.hasErrors())
@@ -81,7 +76,7 @@ public class NoticeController{
 		return "notice/write_success";
 	}
     
-	// 게시글 수정
+	// 공지사항 수정
 	@GetMapping("/modify")
 	public String NoticeModify(@ModelAttribute("noticeModifyDTO") NoticeDTO noticeModifyDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		NoticeDTO noticeContentDTO = noticeService.getNoticeContent(content_idx);
@@ -108,7 +103,7 @@ public class NoticeController{
 		return "notice/delete_success";
 	}
 	
-	// 게시글 검색
+	// 공지사항 검색
 	@GetMapping("/listSearch")
 	public String BoardListSearch
 	(@RequestParam(value="page", defaultValue="1") int page,

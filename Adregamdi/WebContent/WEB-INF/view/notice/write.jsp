@@ -75,7 +75,7 @@
 					</div>
 					<div class="form-group">
 						<div class="text-right">
-							<form:button class="btn btn-success"  onclick="formSubmit();">작성완료</form:button>
+							<button class="btn btn-success"  onclick="formSubmit();">작성완료</button>
 							<a href="${root}notice/list" class="btn btn-danger" style="color: white;" onclick="cancelfunc();">취소</a>
 						</div>
 					</div>
