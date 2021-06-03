@@ -50,7 +50,7 @@
 				let listReply = "";
 				$(result).each(function(){
 					listReply += '<div class="media text-muted pt-3 lh-125 border-bottom horder-gray" id="reNum' + this.reply_num + '">';
-					listReply += '<img style="width: 32px; height: 32px; border-radius: 32px; margin-right: 15px;" src="/images/profile.jpg">';
+					listReply += '<img style="width: 32px; height: 32px; border-radius: 32px; margin-right: 15px;" src="/images/profile_black.jpg">';
 					listReply += '<p class="media-body pb-3 mb-0 small ">';
 					listReply += '<span class="d-block">';
 					listReply += '<strong class="text-gray-dark">'+ this.reply_writer + '</strong>';

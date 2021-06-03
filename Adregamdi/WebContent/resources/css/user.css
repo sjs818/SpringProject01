@@ -103,6 +103,13 @@ a{
 	padding: 0;
 }
 
+.card-body .profile{
+    width: 25px;
+    height: 25px; 
+    border-radius: 70%;
+    overflow: hidden;
+}
+
 .card_hover {
    position: relative;
 }

@@ -8,9 +8,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.TogetherDAO;
-import com.adregamdi.dto.TogetherDTO;
-import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.TogetherDTO;
 
 @Service
 public class TogetherService {
@@ -66,30 +65,5 @@ public class TogetherService {
 //		togetherDAO.viewCount(content_idx);
 //	}	
 	
-	//===================================== 댓글 관련 컨트롤러 =======================
-		// 댓글 리스트 불러오기
-		public List<TogetherReplyDTO> getTogetherReplyList(int to_num){
-			List<TogetherReplyDTO> replyList = togetherDAO.getTogetherReplyList(to_num);
-			return replyList;
-		}
-		
-		//댓글 입력
-		public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
-			togetherDAO.InsertTogetherReply(replyWriteDTO);
-		}
-		
-		//댓글 수정
-		public void ModifyTogetherReply(TogetherReplyDTO replyWriteDTO) {
-			togetherDAO.ModifyTogetherReply(replyWriteDTO);
-		}
-		
-		//댓글 삭제
-		public void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO) {
-			togetherDAO.DeleteTogetherReply(replyWriteDTO);
-		}
-		
-		//댓글 개수 조회
-		public int GetTogetherReplyCount(int together_num) {
-			return togetherDAO.GetTogetherReplyCount(together_num);
-		}
+	
 }
