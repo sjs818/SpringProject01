@@ -18,5 +18,5 @@ public class NoticeDTO {
 	
 	private int pre_no;
 	private String pre_title;
-
+	
 }
