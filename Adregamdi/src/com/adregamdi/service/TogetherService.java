@@ -12,10 +12,8 @@ import com.adregamdi.dao.TogetherDAO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.TogetherReplyDTO;
-
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.ChatroomDTO;
-import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 
 @Service
@@ -36,7 +34,6 @@ public class TogetherService {
 		
 		List<TogetherDTO> contentList = togetherDAO.getTogetherList(rowBounds);
 		
-		System.out.println("Service : " + contentList.toString());
 		return contentList;
 	}
 	public TogetherDTO getTogetherContent(int content_idx) {
@@ -92,6 +89,29 @@ public class TogetherService {
 		}
 		
 		return userList;
+	}
+	
+	public boolean minusUser(int to_no, int user_no) {
+		
+		ChatroomDTO chatroomDTO = togetherDAO.getChatMember(to_no);
+		
+		if(chatroomDTO.getUser1() == user_no) {
+			return togetherDAO.minusUser1(to_no) > 0;
+		} else if(chatroomDTO.getUser2() == user_no) {
+			return togetherDAO.minusUser2(to_no) > 0;
+		} else if(chatroomDTO.getUser3() == user_no) {
+			return togetherDAO.minusUser3(to_no) > 0;
+		}
+		
+		return false;
+	}
+	
+	public boolean deleteSub(int sub_writer) {
+		return togetherDAO.deleteSub(sub_writer) > 0;
+	}
+	
+	public boolean minusToCurr(int to_no) {
+		return togetherDAO.minusToCurr(to_no) > 0;
 	}
 	
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {

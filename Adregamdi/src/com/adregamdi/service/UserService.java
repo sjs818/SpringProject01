@@ -59,11 +59,6 @@ public class UserService {
 
 	}	
 	
-	
-
-	
-
-	
 	public void addUserInfo(UserDTO JoinUserDTO) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 		String securePw = encoder.encode(JoinUserDTO.getUser_pw());

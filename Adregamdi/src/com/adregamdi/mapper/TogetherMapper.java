@@ -47,6 +47,21 @@ public interface TogetherMapper {
 	@Select("SELECT COUNT(*) FROM SUBSCRIPTION WHERE SUB_WRITER = #{sub_writer } AND TO_NO = #{to_no }")
 	int confirmSubscription(SubscriptionDTO subscriptionDTO);
 	
+	@Delete("DELETE FROM SUBSCRIPTION WHERE SUB_WRITER = #{sub_writer }")
+	int deleteSub(int sub_writer);
+	
+	@Update("UPDATE TOGETHER SET TO_CURR = TO_CURR - 1 WHERE TO_NO = #{to_no}")
+	int minusToCurr(int to_no);
+	
+	@Update("UPDATE CHATROOM SET USER1 = 0 WHERE TO_NO = #{to_no}")
+	int minusUser1(int to_no);
+	
+	@Update("UPDATE CHATROOM SET USER2 = 0 WHERE TO_NO = #{to_no}")
+	int minusUser2(int to_no);
+
+	@Update("UPDATE CHATROOM SET USER3 = 0 WHERE TO_NO = #{to_no}")
+	int minusUser3(int to_no);
+	
 	
 	@Select("SELECT U.USER_PW " 
 			  + "FROM TOGETHER T, USER_INFO U "

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.NoticeDAO;
-import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.PageDTO;
 

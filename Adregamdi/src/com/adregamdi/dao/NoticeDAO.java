@@ -8,7 +8,6 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.NoticeMapper;

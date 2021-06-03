@@ -95,6 +95,24 @@ public class TogetherDAO {
 		return togetherMapper.getTogetherReplyList(together_num);
 	}
 	
+	public int minusUser1(int to_no) {
+		return togetherMapper.minusUser1(to_no);
+	}
 	
+	public int minusUser2(int to_no) {
+		return togetherMapper.minusUser2(to_no);
+	}
+	
+	public int minusUser3(int to_no) {
+		return togetherMapper.minusUser3(to_no);
+	}
+	
+	public int minusToCurr(int to_no) {
+		return togetherMapper.minusToCurr(to_no);
+	}
+	
+	public int deleteSub(int sub_writer) {
+		return togetherMapper.deleteSub(sub_writer);
+	}
 
 }

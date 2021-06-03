@@ -63,8 +63,6 @@ public class TogetherController {
 	@PostMapping("/subAccept")
 	public boolean subAccept(@ModelAttribute SubscriptionDTO subscriptionDTO) {
 		
-		System.out.println(subscriptionDTO);
-		
 		return userService.subAccept(subscriptionDTO.getSub_no()) && userService.toCurrCount(subscriptionDTO.getTo_no()) && userService.setChatUser(subscriptionDTO);
 	}
 
@@ -72,16 +70,24 @@ public class TogetherController {
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
 		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
+		
 		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
+		
 		ChatroomDTO chatroomDTO = togetherService.getChatroom(content_idx);
+		
 		ArrayList<UserDTO> userList = togetherService.getChatMember(content_idx);
+		
+		SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
+		subscriptionDTO.setSub_writer(loginUserDTO.getUser_no());
+		subscriptionDTO.setTo_no(content_idx);
+		int confirmSub = togetherService.confirmSubscription(subscriptionDTO);
 		
 		model.addAttribute("togetherDTO", togetherDTO);
 		model.addAttribute("place", place);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("chatroomDTO", chatroomDTO);
 		model.addAttribute("userList", userList);
-		model.addAttribute("content_idx", content_idx);
+		model.addAttribute("confirmSub", confirmSub);
 		
 		return "together/read";
 	}
@@ -100,6 +106,18 @@ public class TogetherController {
 		} else {
 			result = 0;
 		}
+		
+		return result;
+	}
+	
+	@ResponseBody
+	@PostMapping("/userMinus")
+	public boolean userMinus(@ModelAttribute  SubscriptionDTO subscriptionDTO) {
+		
+		int user_no = subscriptionDTO.getSub_writer();
+		int to_no = subscriptionDTO.getTo_no();
+		
+		boolean result = togetherService.minusUser(to_no, user_no) && togetherService.minusToCurr(to_no) && togetherService.deleteSub(user_no);
 		
 		return result;
 	}

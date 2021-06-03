@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;

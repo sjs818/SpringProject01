@@ -51,13 +51,36 @@
 	  })
   }
   
-  $(function() {
-	
-	  var together_num = $("#content_idx").val();
-	  var login_id = $("#login_id").val();
+  function userMinus(user_no) {
 	  
+	  var to_no = $('#to_no').val();
+	  var param = {"sub_writer" : user_no, "to_no" : to_no};
+	  
+		$.ajax({
+			url: "/together/userMinus",
+			type: "post",
+			dataType: "json",
+			data: param,
+			success: function(data) {
+				if(data) {
+					alert('해당 참가자의 동행 탈퇴 처리가 완료되었습니다!');
+				}
+			}
+		});
+	}
+  
+  $(function() {
+		
+	  var confirmSub = $('#confirmSub').val();
+		
+	  if(confirmSub > 0) {
+			$("#before").hide();
+			$("#after").show();
+		}
+		
+	  var together_num = $("#to_no").val();
+	  var login_id = $("#login_id").val();
 	  var allData = {"together_num" : together_num};
-
 	
 	  $.ajax({
 	        url: "/together/getMessage",
@@ -71,20 +94,20 @@
 	        		console.log ("login_id : "+ login_id);
 					
 	        		if(login_id != data[key].reply_writer){
-	        			
-	        			var content = 
-							'<div class="myself">'
-		        			+ '<figure style="width: 50px; text-align: center;">'
+	        			console.log(login_id != data[key].reply_writer);
+	        			var content = '<div class="myself">'
 		        			+'<img style="width: 32px; height: 32px; border-radius: 32px;" src="/images/profile_black.png" >'
-		        			+'<figcaption style="text-align: center; font-size: 5px;">'+data[key].reply_writer+'</figcaption>'
-		        			+'</figure>'
-		        			+'<p class="message" style="height:50px;">'+data[key].reply_content+'</p>'
+		        			+'<div class="box">'
+		        			+'<p class="writer">' + data[key].reply_writer + '</p>'
+		        			+'<p class="message">'+data[key].reply_content+'</p>'
+		        			+'</div>'
 		        			+'</div>';	
 	        		}
 	        		if(login_id == data[key].reply_writer) {
+	        			console.log(data[key].reply_writer);
 	        			var content =
 	        				'<div class="myself-right">'
-		        			+'<p class="message" style="height:50px;">'+data[key].reply_content+'</p>'
+		        			+'<p class="message">'+data[key].reply_content+'</p>'
 		        			+'</div>';
 	        		}
 					
@@ -100,7 +123,7 @@
   
   function writeText() {
 	
-	var together_num = $("#content_idx").val();
+	var together_num = $("#to_no").val();
 	var reply_writer = $("#login_id").val();
 	var reply_content = $("#message").val();
 	
@@ -233,7 +256,7 @@
 		.card-header {
 			position: relative;
 		}
-		.card-header span {
+		.card-header .detail {
 			position: absolute;
 			top: 11px;
 			right: 20px;
@@ -266,62 +289,72 @@
 		  border: none;
 		}
 		
-		 
-        .card-body .myself {
-        	position: relative;
-        	margin-bottom: 10px;        	
-        }
-        
-        .card-body .myself-right {
-        	position: relative;
-        	margin-bottom: 10px;        	
-        }
-        
-        
-        
-        .card-body .myself .message {
-        	position: relative;
-        	top:0;
-        	left:0;
-        	margin-left : 50px;
-        	margin-bottom: 0px;
-        	vertical-align : middle;
-        	max-width: 70%;
-        	
-        	background-color :#ebfad2;
-        	padding: 5px;
-        	border-radius: 5px;    
-        }
-        
-        .card-body .myself-right .message {
-        	position: relative;
-        	top:0;
-        	right:0;
-        	margin-left : 100px;
-        	margin-bottom: 0px;
-        	vertical-align : middle;
-        	max-width: 70%;
-        	
-        	background-color :#fcfcd4;
-        	padding: 5px;
-        	border-radius: 5px;      	
-        	
-        	
-        }       
 
-        
-        .card-body figure {
-        	position: absolute;
-        	top : 0;
-        	left : 0;
-        }
-        
-        .chat {
-        	overflow: hidden;
-        }
+    .card-body .myself {
+    	position: relative;
+    	display : inline-block;
+    	width: 100%;
+    	margin-bottom: 5px;        	
+    }
+    
+    .card-body .myself-right {
+    	position: relative;
+    	display : inline-block;
+    	width: 100%;
+    	margin-bottom: 10px;
+    }
+    
+    .card-body .myself .box {
+    	float:left;
+    	max-width: 75%;
+    }
+    
+    .card-body .myself .box .writer {
+    	font-size: 12px;
+    	margin: 0;
+    }
+    
+    .card-body .myself .message {
+    	display: inline-block;
+    	margin-bottom: 0px;
+    	vertical-align : middle;
+    	background-color : white;
+    	padding: 5px;
+    	border-radius: 5px;    
+    }
+    
+    .card-body .myself-right .message {
+    	position: relative;
+    	display: inline-block;
+    	float: right;
+    	margin-bottom : 0px;
+    	vertical-align : middle;
+    	max-width: 70%;
+    	background-color :#ffff1e;
+    	padding: 5px;
+    	border-radius: 5px;      	
+    }       
+
+    
+    .card-body img {
+    	float:left;
+    	margin: 5px 5px 0 0;
+    }
+    
+    .chat {
+    	display: flex;
+    	overflow: hidden;
+    }
   </style>  
 </head>
 <body>
+	<!-- Model -->
+	<input type="hidden" name="to_writer" id="to_writer" value="${togetherDTO.to_writer }"/>
+	<input type="hidden" name="login_id" id="login_id" value="${loginUserDTO.user_id }"/>
+	<input type="hidden" name="to_no" id="to_no" value="${togetherDTO.to_no }">
+	<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
+	<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
+	<input type="hidden" name="confirmSub" id="confirmSub" value="${confirmSub }">
 	<!-- Header Import -->
 	<c:import url="/WEB-INF/view/include/header.jsp" />
 	
@@ -338,16 +371,16 @@
        	<div class="card mr-3">
 	        <div class="card-header">
 	          <h6 class="card-title" style="padding: 0; margin: 0;">${place.title }</h6>
-	          <span><a href="#" onclick="detail();" style="color: #8c8c8c;">+ 더 보기</a></span>
+	          <span class="detail"><a href="#" onclick="detail();" style="color: #8c8c8c;">+ 더 보기</a></span>
 	        </div>
 	        <div class="row no-gutters">
 	          <div class="col-md-4">
 	          	<img alt="" src="${place.firstImage2 }" style="width: 100%;">
 	          </div>
 	          <div class="col-md-8">
-	            <div class="card-body">
-	              <p class="card-text">${place.addr1 }</p>
-	              <p class="card-text">${place.overview }</p>
+	            <div class="card-body" style="padding: 12px;">
+	              <p class="card-text" style="margin-bottom: 8px;">${place.addr1 }</p>
+	              <p class="card-text" style="margin-bottom: 8px;">${place.overview }</p>
 	              <input type="hidden" id="contentId" value="${place.contentId }">
 	              <input type="hidden" id="contentTypeId" value="${place.contentTypeId }">
 	            </div>
@@ -367,26 +400,6 @@
 		      </div>
 		    </div>
 		    <c:choose>
-		    	<c:when test="${togetherDTO.to_writer_no != loginUserDTO.user_no && loginUserDTO.user_no != 0 }">
-				    <div class="card mt-3 mr-3">
-				      <div id="before" class="card-body" style="padding: 20px;">
-				      	<input type="hidden" name="to_no" id="to_no" value="${togetherDTO.to_no }">
-			      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
-			      		<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
-			      		<label for="sub_message">동행 신청</label>
-				        <div class="input-group">
-		              <input type="text" class="form-control" id="sub_message" name="sub_message" placeholder="자신을 간단하게 소개해주세요...">
-		              <div class="input-group-append">
-			            	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="subscription()">신청</button>
-		            	</div>
-		            </div>
-				      </div>
-				      <div id="after" class="card-body" style="padding: 20px; display: none;">
-				      	<label for="sub_message">동행 신청</label>
-				      	<h5 style="text-align: center; margin-top: 8px; color: #8c8c8c;"><i class="fas fa-exclamation-circle"></i> 이미 신청이 완료된 동행입니다...</h5>
-				      </div>
-				   	</div>
-			   	</c:when>
 			   	<c:when test="${loginUserDTO.user_no == 0 }">
 			   		<div class="card mt-3 mr-3">
 				      <div class="card-body" style="padding: 20px;">
@@ -400,7 +413,7 @@
 				      </div>
 				   	</div>
 			   	</c:when>
-			   	<c:otherwise>
+			   	<c:when test="${(chatroomDTO.to_writer_no == loginUserDTO.user_no || chatroomDTO.user1 == loginUserDTO.user_no || chatroomDTO.user2 == loginUserDTO.user_no || chatroomDTO.user2 == loginUserDTO.user_no) && loginUserDTO.user_no != 0}">
 			   		<div class="card mt-3 mr-3">
 				      <div class="card-body" style="padding: 20px;">
 				      	<label>동행 참가자 목록</label>
@@ -429,9 +442,16 @@
 														<td>-</td>
 													</c:when>
 													<c:otherwise>
-														<td>
-															<button class="btn btn-danger">내보내기</button>
-														</td>
+														<c:choose>
+															<c:when test="${chatroomDTO.to_writer_no == loginUserDTO.user_no }">
+																<td>
+																	<a href="#" onclick="userMinus(${userDTO.user_no })" style="color: red;"><i class="fas fa-user-minus"></i></a>
+																</td>
+															</c:when>
+															<c:otherwise>
+																<td>-</td>
+															</c:otherwise>
+														</c:choose>
 													</c:otherwise>
 												</c:choose>
 											</tr>
@@ -440,31 +460,64 @@
 								</table>
 				      </div>
 				   	</div>
+			   	</c:when>
+			   	<c:otherwise>
+				    <div class="card mt-3 mr-3">
+				      <div id="before" class="card-body" style="padding: 20px;">
+			      		<label for="sub_message">동행 신청</label>
+				        <div class="input-group">
+		              <input type="text" class="form-control" id="sub_message" name="sub_message" placeholder="자신을 간단하게 소개해주세요...">
+		              <div class="input-group-append">
+			            	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="subscription()">신청</button>
+		            	</div>
+		            </div>
+				      </div>
+				      <div id="after" class="card-body" style="padding: 20px; display: none;">
+				      	<label for="sub_message">동행 신청</label>
+				      	<h5 style="text-align: center; margin-top: 8px; color: #8c8c8c;"><i class="fas fa-exclamation-circle"></i> 이미 신청이 완료된 동행입니다...</h5>
+				      </div>
+				   	</div>
 			   	</c:otherwise>
 		   	</c:choose>
 	  	</div>
-	  	<input type="hidden" name="to_writer" id="to_writer" value="${togetherDTO.to_writer }"/>
-		<input type="hidden" name="content_idx" id="content_idx" value="${content_idx }"/>    
-		<input type="hidden" name="login_id" id="login_id" value="${loginUserDTO.user_id }"/>
-		<c:if test="${loginUserDTO.user_no != '' }">
-	      <div class="col-md-5 ">
-	        <div class="card" >
-	          <div class="card-header">채팅</div>
-	        <div class="card-body" style="height:450px; padding: 10px;">
-	        	<div id="chat">
-	        	</div>
-	        </div>
-	        <div class="input-group">
-	            <input type="text" class="form-control" id="message" name="message" placeholder="입력...." >
-	            <div class="input-group-append">
-	                   <button type="button" id="btnReplySave" class="btn btn-primary" onclick="writeText()" >입력</button>
-	            </div>
-	        </div>
-	      </div>
-	    </div>
-	    </c:if>
-    </div>
-  </div>
+      <div class="col-md-5 ">
+        <div class="card" >
+          <div class="card-header">
+          	<h6 class="card-title" style="padding: 0; margin: 0;">채팅<span class="badge badge-secondary ml-2">${togetherDTO.to_curr } / ${togetherDTO.to_total }</span></h6>
+          </div>
+          <c:choose>
+          	<c:when test="${(chatroomDTO.to_writer_no == loginUserDTO.user_no || chatroomDTO.user1 == loginUserDTO.user_no || chatroomDTO.user2 == loginUserDTO.user_no || chatroomDTO.user2 == loginUserDTO.user_no) && loginUserDTO.user_no != 0}">
+			        <div class="card-body" style="height:500px; padding: 10px; background-color: #9bbbd4;">
+			        	<div id="chat">
+			        	</div>
+			        </div>
+			        <div class="card-footer" >
+				        <div class="input-group">
+				        	<input type="text" class="form-control" id="message" name="message" placeholder="입력...." >
+				          <div class="input-group-append">
+				          	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="writeText()">입력</button>
+				          </div>
+				        </div>
+			        </div>
+		        </c:when>
+		        <c:otherwise>
+		        	<div class="card-body" style="height:500px; padding: 10px; background-color: #f5f5f5;">
+			        	<h5 style="text-align: center; margin: 228px 0;">동행 신청이 수락된 후에 이용가능합니다...<i class="far fa-sad-tear"></i></h5>
+			        </div>
+			        <div class="card-footer" >
+				        <div class="input-group">
+				        	<input type="text" class="form-control" id="message" name="message" placeholder="동행 신청이 수락된 후에 이용가능합니다..." disabled>
+				          <div class="input-group-append">
+				          	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="login()">입력</button>
+				          </div>
+				        </div>
+			        </div>
+		        </c:otherwise>
+	        </c:choose>
+      	</div>
+    	</div>
+   	</div>
+ 	</div>
      
   <!-- Modal -->
   <div class="portfolio-modal modal fade center" id="portfolioModal" tabindex="-1" role="dialog" aria-hidden="true">

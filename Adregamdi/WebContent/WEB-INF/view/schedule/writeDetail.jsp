@@ -353,7 +353,6 @@
 		}
   	
   	function testAPI(map, startInfo, endInfo, viaInfo) {
-			
   		var line_arr = [];
 			var headers = [];
 			var realTime = getRealTime();
@@ -365,8 +364,8 @@
 				
 				viaPoint.viaPointId = "경유지" + (i + 1);
 			  viaPoint.viaPointName = viaInfo[i].title;
-			  viaPoint.viaX = viaInfo[i].mapX;
-			  viaPoint.viaY = viaInfo[i].mapY;
+			  viaPoint.viaX = viaInfo[i].mapY;
+			  viaPoint.viaY = viaInfo[i].mapX;
 			  viaPoints.push(viaPoint);
 			}
 			headers["appKey"] = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
@@ -378,16 +377,19 @@
 		    async : false,
 		    contentType : "application/json",
 		    data : JSON.stringify({
+		    	"reqCoordType": "WGS84GEO",
+				  "resCoordType" : "EPSG3857",
 		    	"startName": startInfo.title,
-		      "startX": startInfo.mapX,
-		      "startY": startInfo.mapY,
+		      "startX": startInfo.mapY,
+		      "startY": startInfo.mapX,
 		      "startTime": realTime,
 		      "endName": endInfo.title,
-		      "endX": endInfo.mapX,
-		      "endY": endInfo.mapY,
+		      "endX": endInfo.mapY,
+		      "endY": endInfo.mapX,
+		      "searchOption" : "0",
 		      "viaPoints": viaPoints
 		    }),
-		    success:function(response) {
+		    success : function(response) {
 		    	console.log(response);
 		    	var resultData = response.properties;
 		      var resultFeatures = response.features;
