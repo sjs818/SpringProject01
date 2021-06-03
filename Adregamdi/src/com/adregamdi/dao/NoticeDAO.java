@@ -8,6 +8,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.NoticeMapper;
@@ -65,5 +66,34 @@ public class NoticeDAO {
 	public void viewCount(int content_idx) {
 		noticeMapper.viewCount(content_idx);
 	}
+	
+	//게시글 제목으로 검색해서 가져오는 함수
+	public List<NoticeDTO> getSearchKeyObjectNoticeList(RowBounds rowBounds, String keywords){
+		List<NoticeDTO> contentList = noticeMapper.getSearchKeyObejctNoticeList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	public List<NoticeDTO> getSearchKeyObejctContentNoticeBoardList(RowBounds rowBounds, String keywords){
+		List<NoticeDTO> contentList = noticeMapper.getSearchKeyObejctContentNoticeList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시판 제목으로 검색한 카운트
+	public int getSearchKeyObjectCount(String keywords) {
+		int contentCount = noticeMapper.getSearchKeyObjectCount(keywords);
+		return contentCount;
+	}
+	
+	//게시판 제목 + 내용으로 검색한 카운트
+	public int getSearchKeyObjectContent(String keywords) {
+		int contentCount = noticeMapper.getSearchKeyObjectContent(keywords);
+		return contentCount;
+	}
+	
+	// 게시글 제목으로 검색시 게시물 개수
+	
+	// 게시글 제목 + 내용으로 검색시 게시물 개수
+	
 
 }

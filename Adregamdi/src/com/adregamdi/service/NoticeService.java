@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.NoticeDAO;
+import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.PageDTO;
 
@@ -26,7 +27,7 @@ public class NoticeService {
 	private int page_pagination;
 	
 	// 페이징 처리
-	public List<NoticeDTO> getNoticeList(int page) {
+	public List<NoticeDTO> getNoticeList(int page, String search_option, String keyword) {
 		int start = (page - 1) * page_listcnt;
 		RowBounds rowBounds = new RowBounds(start, page_listcnt);
 		List<NoticeDTO> contentList = noticeDAO.getNoticeList(rowBounds);
@@ -77,5 +78,49 @@ public class NoticeService {
 	public void viewCount(int content_idx) {
 		noticeDAO.viewCount(content_idx);
 	}
+	
+	//게시글 글제목으로 검색해서 가져오는 함수
+	public List<NoticeDTO> getSearchKeyObjectNoticeList(String keywords, int page) {
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		List<NoticeDTO> contentList = noticeDAO.getSearchKeyObjectNoticeList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	public List<NoticeDTO> getSearchKeyObejctContentNoticeList(String keywords, int page) {
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		List<NoticeDTO> contentList = noticeDAO.getSearchKeyObejctContentNoticeBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목으로 검색시 페이징
+	public PageDTO getSearchKeyObjectCount(String keywords, int currPage) {
+		int contentCnt = noticeDAO.getSearchKeyObjectCount(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	
+	//게시글 제목 + 내용으로 검색시 페이징
+	public PageDTO getSearchKeyObjectContent(String keywords, int currPage) {
+		int contentCnt = noticeDAO.getSearchKeyObjectContent(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	// 게시글 제목으로 검색시 게시물 개수
+	public int getSearchKeyObjectCount(String keywords) {
+		int contentCount = noticeDAO.getSearchKeyObjectCount(keywords);
+		return contentCount;	
+	}
+	
+	// 게시글 제목 + 내용으로 검색시 게시물 개수
+	public int getSearchKeyObjectContent(String keywords) {
+		int contentCount = noticeDAO.getSearchKeyObjectContent(keywords);
+		return contentCount;
+	}
+	
 
 }

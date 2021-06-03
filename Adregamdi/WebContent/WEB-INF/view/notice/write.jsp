@@ -10,21 +10,40 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>어드레감디 | 공지사항 글쓰기</title>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 <script type="text/javascript" src="${root}ckeditor/ckeditor.js"></script>
 <!-- CSS import -->
 <link href="${root }css/notice.css" rel="stylesheet" type="text/css">
 <script>
-	 function submit(){
-		 $("#noticeDTO").submit();
-	 }
+	function formSubmit(){
+			const check_title = $("#notice_title").val();
+		const check_content = CKEDITOR.instances.notice_content.getData();
+			
+		if(check_title == ""){
+				alert("제목을 입력해주세요");
+				event.preventDefault();
+				return;
+			} else if(check_content == ""){
+				alert("내용을 입력해주세요");
+				event.preventDefault();
+				return;
+			} else if(check_title != "" && check_content != ""){
+				$("#noticeDTO").submit();
+			} 
+	}
+
+	function cancelfunc(){
+		const choice = confirm("이 페이지를 벗어나면 마지막 저장 후 수정된 내용은 저장되지 않습니다");
+		if(choice == true){
+			location.href="${root}notice/list";	
+		} else {
+			return;
+		}
+		
+	}
   </script>
 </head>
 <body>
@@ -56,8 +75,8 @@
 					</div>
 					<div class="form-group">
 						<div class="text-right">
-							<form:button class="btn btn-success">작성완료</form:button>
-							<a href="${root}notice/list" class="btn btn-danger" style="color: white;">취소</a>
+							<form:button class="btn btn-success"  onclick="formSubmit();">작성완료</form:button>
+							<a href="${root}notice/list" class="btn btn-danger" style="color: white;" onclick="cancelfunc();">취소</a>
 						</div>
 					</div>
 				</form:form>

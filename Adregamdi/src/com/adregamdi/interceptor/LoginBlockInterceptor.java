@@ -19,7 +19,7 @@ public class LoginBlockInterceptor implements HandlerInterceptor {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		
-		if(loginUserDTO.isUserLogin() == true) {
+		if(loginUserDTO.isUserLogin() == true && loginUserDTO.getUser_provider() != 0 ) {
 			String contextPath = request.getContextPath();
 			response.sendRedirect(contextPath + "/user/active_login");
 			

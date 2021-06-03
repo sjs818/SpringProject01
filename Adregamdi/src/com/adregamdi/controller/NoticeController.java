@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
@@ -22,7 +23,7 @@ import com.adregamdi.service.NoticeService;
 
 @Controller
 @RequestMapping("/notice")
-public class NoticeController {
+public class NoticeController{
 
 	@Autowired
 	NoticeService noticeService;
@@ -32,12 +33,19 @@ public class NoticeController {
     
 	// 게시글 페이징 처리
 	@GetMapping("/list")
-	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
-		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
+	public String BoardList(@RequestParam(value="page", defaultValue="1") int page,
+							@RequestParam(defaultValue="all") String search_option,
+							@RequestParam(defaultValue="") String keyword,
+							Model model) {
+		List<NoticeDTO> contentList = noticeService.getNoticeList(page, search_option, keyword);
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
 		PageDTO pageDTO = noticeService.getContentCnt(page);
 		model.addAttribute("pageDTO", pageDTO);
+		
+		model.addAttribute("search_option", search_option);
+		model.addAttribute("keyword", keyword);
+		
 		return "notice/list";
 	}
     
@@ -99,5 +107,46 @@ public class NoticeController {
 		noticeService.DeleteNoticeContent(content_idx);
 		return "notice/delete_success";
 	}
-
+	
+	// 게시글 검색
+	@GetMapping("/listSearch")
+	public String BoardListSearch
+	(@RequestParam(value="page", defaultValue="1") int page,
+	 @RequestParam("searchType") String searchType, 
+	 @RequestParam("keywords") String keywords ,Model model) {
+		if(searchType.equals("object")) {
+			List<NoticeDTO> contentList = noticeService.getSearchKeyObjectNoticeList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = noticeService.getSearchKeyObjectCount(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = noticeService.getSearchKeyObjectCount(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "notice/list";
+		} else if(searchType.equals("objcon")) {
+			List<NoticeDTO> contentList = noticeService.getSearchKeyObejctContentNoticeList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = noticeService.getSearchKeyObjectContent(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = noticeService.getSearchKeyObjectContent(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "notice/list";
+		}
+		return "notice/list";
+	}
+	
+	
 }
