@@ -81,11 +81,11 @@ public class TogetherController {
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
 		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
-		
 		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
 		
 		model.addAttribute("togetherDTO", togetherDTO);
 		model.addAttribute("place", place);
+		model.addAttribute("loginUserDTO", loginUserDTO);
 		
 		return "together/read";
 	}

@@ -170,7 +170,7 @@
        	<div class="card mr-3">
 	        <div class="card-header">
 	          <h6 class="card-title" style="padding: 0; margin: 0;">${place.title }</h6>
-	          <span><a href="#" onclick="detail();">+ 더 보기</a></span>
+	          <span><a href="#" onclick="detail();" style="color: #8c8c8c;">+ 더 보기</a></span>
 	        </div>
 	        <div class="row no-gutters">
 	          <div class="col-md-4">
@@ -198,22 +198,42 @@
 		        </div>
 		      </div>
 		    </div>
-		    <div class="card mt-3 mr-3">
-		      <div class="card-body" style="padding: 20px;">
-		      	<form action="/together/subcription">
-		      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
-		      		<input type="hidden" name="" id="" value="">
-		      		<input type="hidden" name="" id="" value="">
-		      		<label for="sub_message">동행 신청</label>
-			        <div class="input-group">
-	              <input type="text" class="form-control" id="sub_message" name="sub_message" placeholder="자신을 간단하게 소개해주세요...">
-	              <div class="input-group-append">
-		            	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="">신청</button>
-	            	</div>
-	            </div>
-			      </form> 
-		      </div>
-		   	</div>
+		    <c:choose>
+		    	<c:when test="${togetherDTO.to_writer_no != loginUserDTO.user_no && loginUserDTO.user_no != 0 }">
+				    <div class="card mt-3 mr-3">
+				      <div class="card-body" style="padding: 20px;">
+				      	<form action="/together/subcription">
+				      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
+				      		<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
+				      		<label for="sub_message">동행 신청</label>
+					        <div class="input-group">
+			              <input type="text" class="form-control" id="sub_message" name="sub_message" placeholder="자신을 간단하게 소개해주세요...">
+			              <div class="input-group-append">
+				            	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="">신청</button>
+			            	</div>
+			            </div>
+					      </form> 
+				      </div>
+				   	</div>
+			   	</c:when>
+			   	<c:when test="${loginUserDTO.user_no == 0 }">
+			   		 <div class="card mt-3 mr-3">
+				      <div class="card-body" style="padding: 20px;">
+				      	<form action="/together/subcription">
+				      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
+				      		<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
+				      		<label for="sub_message">동행 신청</label>
+					        <div class="input-group">
+			              <input type="text" class="form-control" id="sub_message" name="sub_message" value="동행 신청은 로그인 후에 가능합니다..." disabled>
+			              <div class="input-group-append">
+				            	<button type="button" id="btnReplySave" class="btn btn-primary" onclick="" disabled>신청</button>
+			            	</div>
+			            </div>
+					      </form> 
+				      </div>
+				   	</div>
+			   	</c:when>
+		   	</c:choose>
 	  	</div>
       <div class="col-md-5 ">
       	<div class="card">
