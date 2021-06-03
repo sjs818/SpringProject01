@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.adregamdi.dao.TogetherDAO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 
 @Service
 public class TogetherService {
@@ -61,9 +62,17 @@ public class TogetherService {
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
 	}
-//	public void viewCount(int content_idx ) {
-//		togetherDAO.viewCount(content_idx);
-//	}	
+	
+	//채팅 입력
+	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
+		togetherDAO.InsertTogetherReply(replyWriteDTO);
+	}
+	
+	//채팅 리스트
+	public List<TogetherReplyDTO> getTogetherReplyList(int together_num){
+		List<TogetherReplyDTO> replyList = togetherDAO.getTogetherReplyList(together_num);
+		return replyList;
+	}	
 	
 	
 }

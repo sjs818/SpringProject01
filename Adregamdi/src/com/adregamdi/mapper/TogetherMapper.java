@@ -9,6 +9,7 @@ import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 
 public interface TogetherMapper {
 	
@@ -52,5 +53,14 @@ public interface TogetherMapper {
 			  + "WHERE TO_NO = #{to_no}")
 	void viewCount(int content_idx);
 	
+   @Insert("INSERT INTO TOGETHERREPLY(reply_num, together_num, reply_writer, reply_content, reply_date) " +
+	         "VALUES (together_reply_SEQ.nextval, #{together_num}, #{reply_writer}, #{reply_content}, sysdate) ")
+   void InsertTogetherReply(TogetherReplyDTO replyWriteDTO);
+   
+   @Select("SELECT REPLY_NUM, TOGETHER_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
+         "FROM TOGETHERREPLY " +
+         "WHERE TOGETHER_NUM = #{together_num}" +
+         "ORDER BY TOGETHER_NUM DESC")
+   List<TogetherReplyDTO> getTogetherReplyList(int together_num);
 	
 }

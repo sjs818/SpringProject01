@@ -19,6 +19,83 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
   <script>
+  $(function() {
+	
+	  var together_num = $("#content_idx").val();
+	  var login_id = $("#login_id").val();
+	  
+	  var allData = {"together_num" : together_num};
+
+	
+	  $.ajax({
+	        url: "/together/getMessage",
+	        type: "get",
+	        dataType: "json",
+	        data: allData,	        
+	        
+	        success: function(data) {
+				
+	        	$.each(data, function(key, val) {  
+	        		console.log ("login_id : "+ login_id);
+					
+	        		if(login_id != data[key].reply_writer){
+	        			
+	        			var content = 
+							'<div class="myself">'
+		        			+ '<figure style="width: 50px; text-align: center;">'
+		        			+'<img style="width: 32px; height: 32px; border-radius: 32px;" src="/images/profile_black.png" >'
+		        			+'<figcaption style="text-align: center; font-size: 5px;">'+data[key].reply_writer+'</figcaption>'
+		        			+'</figure>'
+		        			+'<p class="message" style="height:50px;">'+data[key].reply_content+'</p>'
+		        			+'</div>';	
+	        		}
+	        		if(login_id == data[key].reply_writer) {
+	        			var content =
+	        				'<div class="myself-right">'
+		        			+'<p class="message" style="height:50px;">'+data[key].reply_content+'</p>'
+		        			+'</div>';
+	        		}
+					
+	                $("#chat").append(content);
+	            });	
+	        	
+	        },
+	        error: function(error) {
+	            //alert('message 에러');
+	        }
+	    });
+  });
+  
+  function writeText() {
+	
+	var together_num = $("#content_idx").val();
+	var reply_writer = $("#login_id").val();
+	var reply_content = $("#message").val();
+	
+	console.log("together_num : "+together_num);
+	console.log("reply_writer : "+reply_writer);
+	console.log("reply_content : "+reply_content);
+	
+	var allData = { "together_num": together_num, "reply_writer": reply_writer, "reply_content": reply_content};
+	
+	$.ajax({
+        url: "/together/writeMessage",
+        type: "get",
+        dataType: "json",
+        data: allData,
+        
+        
+        success: function() {
+
+        	alert('message 입력 완료 - !');
+        },
+        error: function(error) {
+            //alert('message 에러');
+        }
+    });
+	location.reload();
+	 
+  }
   function detail() {
 		
 		var contentId = $("#contentId").val();
@@ -129,6 +206,10 @@
 			right: 20px;
 			color: #8c8c8c;
 		}
+		
+		.card-body {
+			overflow: auto;
+		}
   	.card-body .card-text {
 			white-space: normal;
 			display: -webkit-box;
@@ -151,6 +232,60 @@
 		  background: #525965;
 		  border: none;
 		}
+		
+		 
+        .card-body .myself {
+        	position: relative;
+        	margin-bottom: 10px;        	
+        }
+        
+        .card-body .myself-right {
+        	position: relative;
+        	margin-bottom: 10px;        	
+        }
+        
+        
+        
+        .card-body .myself .message {
+        	position: relative;
+        	top:0;
+        	left:0;
+        	margin-left : 50px;
+        	margin-bottom: 0px;
+        	vertical-align : middle;
+        	max-width: 70%;
+        	
+        	background-color :#ebfad2;
+        	padding: 5px;
+        	border-radius: 5px;    
+        }
+        
+        .card-body .myself-right .message {
+        	position: relative;
+        	top:0;
+        	right:0;
+        	margin-left : 100px;
+        	margin-bottom: 0px;
+        	vertical-align : middle;
+        	max-width: 70%;
+        	
+        	background-color :#fcfcd4;
+        	padding: 5px;
+        	border-radius: 5px;      	
+        	
+        	
+        }       
+
+        
+        .card-body figure {
+        	position: absolute;
+        	top : 0;
+        	left : 0;
+        }
+        
+        .chat {
+        	overflow: hidden;
+        }
   </style>  
 </head>
 <body>
@@ -203,7 +338,7 @@
 				    <div class="card mt-3 mr-3">
 				      <div class="card-body" style="padding: 20px;">
 				      	<form action="/together/subcription">
-				      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
+				      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }"/>
 				      		<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
 				      		<label for="sub_message">동행 신청</label>
 					        <div class="input-group">
@@ -259,16 +394,26 @@
 			   	</c:otherwise>
 		   	</c:choose>
 	  	</div>
-      <div class="col-md-5 ">
-      	<div class="card">
-        	<div class="card-header">채팅</div>
-          <div class="card-body">
-           	<div class="card-text">
-              <p>채팅내용</p>
-            </div>
-          </div>
-        </div>
-      </div>
+	  	<input type="hidden" name="to_writer" id="to_writer" value="${togetherDTO.to_writer }"/>
+		<input type="hidden" name="content_idx" id="content_idx" value="${content_idx }"/>    
+		<input type="hidden" name="login_id" id="login_id" value="${loginUserDTO.user_id }"/>
+		<c:if test="${loginUserDTO.user_no != '' }">
+	      <div class="col-md-5 ">
+	        <div class="card" >
+	          <div class="card-header">채팅</div>
+	        <div class="card-body" style="height:450px; padding: 10px;">
+	        	<div id="chat">
+	        	</div>
+	        </div>
+	        <div class="input-group">
+	            <input type="text" class="form-control" id="message" name="message" placeholder="입력...." >
+	            <div class="input-group-append">
+	                   <button type="button" id="btnReplySave" class="btn btn-primary" onclick="writeText()" >입력</button>
+	            </div>
+	        </div>
+	      </div>
+	    </div>
+	    </c:if>
     </div>
   </div>
      

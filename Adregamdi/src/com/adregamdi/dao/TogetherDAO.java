@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.TogetherMapper;
 
@@ -59,9 +60,14 @@ public class TogetherDAO {
 	public void DeleteTogetherComment(int content_idx)	{
 		togetherMapper.DeleteTogetherComment(content_idx);
 	}
-//	public void viewCount(int content_idx ) {
-//		togetherMapper.viewCount(content_idx);
-//	}
+	
+	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
+		togetherMapper.InsertTogetherReply(replyWriteDTO);
+	}
+	
+	public List<TogetherReplyDTO> getTogetherReplyList(int together_num) {
+		return togetherMapper.getTogetherReplyList(together_num);
+	}
 	
 	
 
