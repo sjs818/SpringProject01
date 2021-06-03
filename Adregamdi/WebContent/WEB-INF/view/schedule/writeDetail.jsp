@@ -86,7 +86,7 @@
 			});
 			
 			$('#btn-modify').click(function() {
-				$('#modifyForm').submit();
+				$('#ModifyForm').submit();
 			});
 			
 			$("input:checkbox").on('click', function() {
@@ -359,20 +359,16 @@
 			var realTime = getRealTime();
 			var viaPoints = [];
 			let today = new Date();
-			console.log(startInfo.mapX);
-			console.log(endInfo.mapX);
 			for(var i = 0; i < viaInfo.length; i++) {
 				
 				var viaPoint = {};
 				
 				viaPoint.viaPointId = "경유지" + (i + 1);
 			  viaPoint.viaPointName = viaInfo[i].title;
-			  viaPoint.viaX = viaInfo[i].mapY;
-			  viaPoint.viaY = viaInfo[i].mapX;
+			  viaPoint.viaX = viaInfo[i].mapX;
+			  viaPoint.viaY = viaInfo[i].mapY;
 			  viaPoints.push(viaPoint);
-			  
 			}
-			
 			headers["appKey"] = "l7xxdc109d32e488487dbf0e29b9dfcf1a59";
 			
 			$.ajax({
@@ -383,16 +379,16 @@
 		    contentType : "application/json",
 		    data : JSON.stringify({
 		    	"startName": startInfo.title,
-		      "startX": startInfo.mapY,
-		      "startY": startInfo.mapX,
+		      "startX": startInfo.mapX,
+		      "startY": startInfo.mapY,
 		      "startTime": realTime,
 		      "endName": endInfo.title,
-		      "endX": endInfo.mapY,
-		      "endY": endInfo.mapX,
+		      "endX": endInfo.mapX,
+		      "endY": endInfo.mapY,
 		      "viaPoints": viaPoints
 		    }),
 		    success:function(response) {
-		    	
+		    	console.log(response);
 		    	var resultData = response.properties;
 		      var resultFeatures = response.features;
 		      var tDistance = "총 거리 : " + (resultData.totalDistance/1000).toFixed(1) + "km,  ";
@@ -709,7 +705,7 @@
 		<input type="hidden" id="schedule-plan" name="schedule" value="">
 	</form>
 	<form action="/schedule/modify" method="get" id="ModifyForm">
-		<input type="hidden" id="planNo" name="planNo" value="${planNo }">
+		<input type="hidden" id="planNo" name="plan_no" value="${plan_no }">
 	</form>	
 	
 	<!-- Footer -->

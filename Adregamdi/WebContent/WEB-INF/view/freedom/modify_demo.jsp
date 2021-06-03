@@ -27,6 +27,8 @@
 			 location.href="${root}freedom/read?content_idx=${freedomModifyDTO.free_no}"; 
 		 }
 	 }
+	 
+	 CKEDITOR.config.height = 350;
   </script>
 </head>
 <body>
@@ -51,7 +53,7 @@
         <textarea class="form-control" id="free_content" name="free_content">${freedomModifyDTO.free_content}</textarea>
         <script>
         	CKEDITOR.replace('free_content',{
-        		height: 400
+        		filebrowserUploadUrl : '${root}freedom/fileUpload'
         	});
         </script>
       </div>

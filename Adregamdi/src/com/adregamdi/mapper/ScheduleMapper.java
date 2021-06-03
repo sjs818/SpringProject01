@@ -58,4 +58,7 @@ public interface ScheduleMapper {
 	
 	@Delete("DELETE FROM USER_PLAN WHERE PLAN_NO = #{plan_no }")
 	int deleteUserPlan(int plan_no);
+	
+	@Insert("INSERT INTO USER_PLAN (PLAN_NO, USER_NO, TITLE, CONTENTID, CONTENTTYPEID, ADDR, IMG_SRC, MAPX, MAPY, PLANDATE, PLANDAY, PLANTOTALDATE, STARTDATE, ENDDATE, DESCRIPT) VALUES (#{plan_no }, #{user_no }, #{title }, #{contentId }, #{contentTypeId }, #{addr }, #{img_src }, #{mapX }, #{mapY }, #{planDate }, #{planDay }, #{planTotalDate }, #{startDate }, #{endDate }, #{descript })")
+	int modifyUserPlan(UserPlanDTO userPlanDTO);
 }

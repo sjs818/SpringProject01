@@ -69,20 +69,32 @@
 		<table class="table table-hover">
 			<thead>
 				<tr>
-					<th class="text-center" style="width : 8%">글번호</th>
-					<th class="text-center" style="width : 55%">공고제목</th>
-					<th class="text-center" style="width : 10%">작성자</th>
-					<th class="text-center" style="width : 8%">조회수</th>
-					<th class="text-center" style="width : 15%">작성날짜</th>
+					<th class="text-center" style="width : 20%">동행 제목</th>
+					<th class="text-center" style="width : 20%">동행할 장소</th>
+					<th class="text-center" style="width : 12%">동행할 날짜</th>
+					<th class="text-center" style="width : 8%">모집인원</th>
+					<th class="text-center" style="width : 8%">작성자</th>
+					<th class="text-center" style="width : 12%">작성일</th>
 				</tr>
 			</thead>
 			<tbody>
 				<c:forEach var="TogetherDTO" items="${contentList}">
 					<tr>
-						<td class="text-center">${TogetherDTO.to_no }</td>
-						<td class="text-center"><a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a></td>
-						<td class="text-center">${TogetherDTO.to_id }</td>
-						<td class="text-center">${TogetherDTO.to_cnt }</td>
+						<td class="text-left">
+							<c:choose>
+								<c:when test="${TogetherDTO.to_state == 0 }">
+									<span class="badge badge-pill badge-danger mr-2">모집중</span>
+								</c:when>	
+								<c:otherwise>
+									<span class="badge badge-pill badge-secondary mr-2">모집완료</span>
+								</c:otherwise>	
+							</c:choose>
+							<a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a>
+						</td>
+						<td class="text-center">${TogetherDTO.to_place_name }</td>
+						<td class="text-center">${TogetherDTO.to_meet }</td>
+						<td class="text-center">${TogetherDTO.to_curr }/${TogetherDTO.to_total }</td>
+						<td class="text-center">${TogetherDTO.to_writer}</td>
 						<td class="text-center">${TogetherDTO.to_date }</td>
 					</tr>
 				</c:forEach>
@@ -129,7 +141,7 @@
 		</div>
 		  <div class="text-right">
 		    <c:if test="${loginUserDTO.userLogin == true}">
-      		  <a href="${root}together/write" class="btn btn-info">동행자 구인공고</a>
+      		  <a href="${root}together/write" class="btn btn-info">새로운 동행 만들기</a>
       		</c:if>  
     	  </div>
 	 </div>

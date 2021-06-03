@@ -28,6 +28,24 @@ public class FreedomBoardDAO {
 		return contentList;
 	}
 	
+	//게시글 글제목으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObjectFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyObjectFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObejctContentFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyObejctContentFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 아이디로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyIdFreedomBoardList(RowBounds rowBounds, String keywords){
+		List<FreedomBoardDTO> contentList = freedomBoardMapper.getSearchKeyIdFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
 	//게시글 내용 가져오는 함수
 	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
 		FreedomBoardDTO content = freedomBoardMapper.getFreedomBoardContent(content_idx);
@@ -37,6 +55,24 @@ public class FreedomBoardDAO {
 	//페이징 처리를 위한 게시글 카운트 가져오는 함수
 	public int GetFreedomBoardContentCount() {
 		int contentCount = freedomBoardMapper.GetFreedomBoardContentCount();
+		return contentCount;
+	}
+	
+	//게시판 제목으로 검색한 카운트
+	public int getSearchKeyObjectCount(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyObjectCount(keywords);
+		return contentCount;
+	}
+	
+	//게시판 제목 + 내용으로 검색한 카운트
+	public int getSearchKeyObjectContent(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyObjectContent(keywords);
+		return contentCount;
+	}
+	
+	//게시판 아이디로 검색한 카운트
+	public int getSearchKeyId(String keywords) {
+		int contentCount = freedomBoardMapper.getSearchKeyIdCount(keywords);
 		return contentCount;
 	}
 	

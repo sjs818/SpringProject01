@@ -10,14 +10,33 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>어드레 감디 | 자유게시판</title>
+
+<!-- BootStarp CDN -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+<!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" 
+integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" 
+crossorigin="anonymous">
+
 <link rel="stylesheet" href="${root}css/freedomBoard.css">
 <script type="text/javaScript">
 	function WriteDoc(){
 		location.href='${root}freedom/write';
+	}
+	
+	//검색 호출 자바스크립트
+	function SearchBoard(){
+		let searchTypeVal=$('#searchType').val();
+		let keywordVal = $('#keywords').val();
+		if(keywordVal == ""){
+			alert("검색어를 입력해주세요!");
+		} else {
+			location.href="${root}freedom/listSearch?searchType=" + searchTypeVal + "&keywords=" + keywordVal;
+		}
 	}
 </script>
 </head>
@@ -29,8 +48,24 @@
 	<div class="container" style="margin-top: 150px; margin-bottom: 150px;">
 		<h3 class="BoardTitle">
 			<b>자유게시판</b>
-		</h3>
-		<hr><br>
+		</h3><hr>
+		<nav class="navbar navbar-light bg-light" style="margin-top:-5px;">
+		 <c:if test="${search_done == 1}">
+		  키워드&nbsp;:&nbsp;${keyword} 검색 결과&nbsp; - &nbsp; 총 &nbsp;${search_res_count} &nbsp; 개 입니다.
+		 </c:if>
+		  <a class="navbar-brand"></a>
+		  <form class="form-inline">
+		    <select id="searchType" class="form-control" style="margin-right:8px;">
+		    	<option id="object" value="object">제목</option>
+		    	<option id="objcon" value="objcon">제목 + 내용</option>
+		    	<option id="writerID" value="writerID">아이디</option>
+		    </select>
+		    <input class="form-control mr-sm-2" id="keywords" name="keywords" type="text" aria-label="Search" onKeypress="javascript:if(event.keyCode==13){SearchBoard();event.preventDefault();}">
+		    <button type="button" class="btn btn-secondary" onClick="SearchBoard();">
+		    	<i class="fas fa-search"></i>
+		    </button>
+		  </form>
+		</nav>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -55,40 +90,66 @@
 		</table>
 		<div class="pageNevigation" style="margin-top: 50px;">
 			<ul class="pagination justify-content-center">
-				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
-				<c:choose>
-					<c:when test="${pageDTO.prevPage <= 0 }">
-					</c:when>
-					<c:otherwise>
-						<li class="page-item">
-							<a href="${root}freedom/list?page=${pageDTO.prevPage}" class="page-link">이전</a>
-						</li>
+			    <c:choose>
+			      <c:when test="${search_done == 1}">
+			       <c:choose>
+			         <c:when test="${pageDTO.prevPage <= 0 }"></c:when>
+			         <c:otherwise>
+						<li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.prevPage}" class="page-link">이전</a></li>
 					</c:otherwise>
-				</c:choose>
-				<c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
-					<c:choose>
-						<c:when test="${idx == pageDTO.currentPage}">
-						<li class="page-item active">
-							<a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a>
-						</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item">
-								<a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a>
-							</li>
+			       </c:choose>
+			      </c:when>
+			      <c:otherwise>
+			       <c:choose>
+			        <c:when test="${pageDTO.prevPage <= 0 }"></c:when>
+					<c:otherwise>
+						<li class="page-item"><a href="${root}freedom/list?page=${pageDTO.prevPage}" class="page-link">이전</a></li>
+					</c:otherwise>
+				   </c:choose>
+			      </c:otherwise>
+			    </c:choose>
+			    <c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
+			      <c:choose>
+			        <c:when test="${search_done == 1}">
+			          <c:choose>
+			            <c:when test="${idx == pageDTO.currentPage}">
+			              <li class="page-item active"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
+			            </c:when>
+			            <c:otherwise>
+						  <li class="page-item"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
 						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
-				<c:choose>
-					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
-					</c:when>
-					<c:otherwise>
-						<li class="page-item">
-							<a href="${root}freedom/list?page=${pageDTO.nextPage}" class="page-link">다음</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
+			          </c:choose>
+			        </c:when>
+			        <c:otherwise>
+			           <c:choose>
+			             <c:when test="${idx == pageDTO.currentPage}">
+			               <li class="page-item active"><a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a></li>
+			             </c:when>
+			             <c:otherwise>
+			               <li class="page-item"><a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a></li>
+			             </c:otherwise>
+			           </c:choose>
+			        </c:otherwise>
+			      </c:choose>
+			    </c:forEach>
+			    <c:choose>
+			      <c:when test="${search_done == 1}">
+			        <c:choose>
+			          <c:when test="${pageDTO.max >= pageDTO.pageCount }"></c:when>
+			          <c:otherwise>
+			            <li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.nextPage}" class="page-link">다음</a></li>
+			          </c:otherwise>
+			        </c:choose>
+			      </c:when>
+			      <c:otherwise>
+			        <c:choose>
+			          <c:when test="${pageDTO.max >= pageDTO.pageCount }"></c:when>
+			          <c:otherwise>
+						<li class="page-item"><a href="${root}freedom/list?page=${pageDTO.nextPage}" class="page-link">다음</a></li>
+					  </c:otherwise>  
+			        </c:choose>
+			      </c:otherwise>
+			    </c:choose>
 			</ul>
 		</div>
 		  <div class="text-right">

@@ -28,6 +28,8 @@ public class TogetherService {
 		RowBounds rowBounds = new RowBounds(start, page_listcnt);
 		
 		List<TogetherDTO> contentList = togetherDAO.getTogetherList(rowBounds);
+		
+		System.out.println("Service : " + contentList.toString());
 		return contentList;
 	}
 	public TogetherDTO getTogetherContent(int content_idx) {
@@ -59,9 +61,9 @@ public class TogetherService {
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
 	}
-	public void viewCount(int content_idx ) {
-		togetherDAO.viewCount(content_idx);
-	}	
+//	public void viewCount(int content_idx ) {
+//		togetherDAO.viewCount(content_idx);
+//	}	
 	
 	
 }

@@ -35,10 +35,9 @@ public class SpotService {
 		return spotDAO.getSpotInfo();
 	}
 	
-	public ArrayList<String> getBestSpotInfo(int range_min, int range_max) {
-		return spotDAO.getBestSpotInfo(range_min, range_max);
-	}
-	
+	public ArrayList<String> getBestSpotInfo1() {
+		return spotDAO.getBestSpotInfo1();
+	}	
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		

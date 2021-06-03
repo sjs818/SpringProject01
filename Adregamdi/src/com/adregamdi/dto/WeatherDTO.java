@@ -4,10 +4,10 @@ import lombok.Data;
 
 @Data
 public class WeatherDTO {
-	private int temper;
-	private int rain;
+	private float temper;
+	private float rain;
 	private int sky; // 맑음(0 / clear-day), 구름많음(1 / partly-cloudy-day), 흐림(2 / cloudy), 비(3 / rain), 눈(4 / snow)
-	private int wind;
+	private float wind;
 }
 
 /*
