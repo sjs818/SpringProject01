@@ -4,7 +4,6 @@ import javax.validation.constraints.NotBlank;
 
 import com.sun.istack.internal.NotNull;
 
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -49,6 +48,8 @@ public class TogetherDTO {
 	
 	// 공고현황
 	private int to_state;	
+	
+	private int status;
 	
 	public TogetherDTO() {}
 }

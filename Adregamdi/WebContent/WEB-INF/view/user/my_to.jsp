@@ -157,7 +157,7 @@ function accept(subscriptionDTO) {
 						        <button class="btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" onmousedown="sub(${togetherDTO.to_no }); this.onmousedown=null;"  style="color:black; text-decoration:none; width:91%;">
 						          <span class="card_hover d-flex justify-content-between">
 							        <span>
-							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">[ ${togetherDTO.to_place } ]</span>
+							          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">[ ${togetherDTO.to_place_name } ]</span>
 							          	<c:if test="${togetherDTO.status != 0 && togetherDTO.to_curr < togetherDTO.to_total }">
 							          		<span class="ml-2 text-danger"><i class="far fa-comment-dots"></i></span>
 							          	</c:if>
@@ -176,7 +176,7 @@ function accept(subscriptionDTO) {
 							        </span>
 						          </span>
 						        </button>
-						        <button class="btn btn-sm btn-info float-right mt-1 mr-2"><a href="#" class="text-white">게시판으로</a></button>
+						        <button class="btn btn-sm btn-info float-right mt-1 mr-2"><a href="${root }together/read?content_idx=${togetherDTO.to_no }" class="text-white">게시판으로</a></button>
 						      </h2>
 						    </div>
 							
