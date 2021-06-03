@@ -70,14 +70,13 @@ function negative(sub_no) {
 };	
 
 function accept(subscriptionDTO) {
-	console.log(subscriptionDTO);
+	console.log(JSON.stringify(subscriptionDTO));
 		if(confirm("동행 신청을 수락하시겠습니까?")) {
 			$.ajax({
-				url : "/user/subAccept",
+				url : "/together/subAccept",
 				type : "POST",
 				dataType : "text",
-				data : {"sub_no" : subscriptionDTO.sub_no,
-					"to_no" : subscriptionDTO.to_no},
+				data : subscriptionDTO,
 				success : function(data){
 					console.log(data);
 					if(data.trim() == 'true'){
@@ -122,7 +121,7 @@ function accept(subscriptionDTO) {
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp
 						<c:if test="${myPublicCount ne '0' }">
-							<span class="badge badge-success"> ${myPublicCount }</span>
+							<span class="badge badge-secondary"> ${myPublicCount }</span>
 						</c:if>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page_disable">숨긴일정&nbsp 

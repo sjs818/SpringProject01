@@ -24,7 +24,26 @@
 <link href="${root }css/user.css" rel="stylesheet" type="text/css">
 
 
-<script type="text/javascript" src="${root }js/user.js"></script>
+<script type="text/javascript">
+/* 마이페이지 일정삭제*/
+$(function() {
+	$('.delete').click(function() {
+		if(confirm("일정을 삭제하시겠습니까?")) {
+			var plan_no = $(this).val();
+			$.ajax({
+				url : "/schedule/delete",
+				type : "POST",
+				dataType : "text",
+				data : {"plan_no" : plan_no},
+				success : function(data) {
+					alert('일정이 삭제되었습니다!');
+					location.href="/user/my_page_disable"
+				}
+			});
+		}
+	});
+});
+</script>
 
 
 
@@ -48,7 +67,7 @@
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_to">동행찾기&nbsp
 						<c:if test="${myToCount ne '0' }">
-							<span class="badge badge-success"> ${myToCount }</span>
+							<span class="badge badge-secondary"> ${myToCount }</span>
 						</c:if>
 					</a></li>
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_page">공유일정&nbsp

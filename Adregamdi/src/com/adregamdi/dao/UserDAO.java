@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
@@ -109,7 +110,16 @@ public class UserDAO {
 		return userMapper.toCurrCount(to_no);
 	}
 
+	public int setChatUser (ChatroomDTO chatroomDTO) {
+		return userMapper.setChatUser(chatroomDTO);
+	}
+	
+	public int getToTotal(int to_no) {
+		return userMapper.getToTotal(to_no);
+	}
 	
 	
-	
+	public ChatroomDTO getChatroom (int to_no) {
+		return userMapper.getChatroom(to_no);
+	}
 }

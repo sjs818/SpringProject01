@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.adregamdi.dao.UserDAO;
+import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
@@ -20,6 +21,8 @@ public class UserService {
 	
 	@Autowired
 	private UserDAO userDAO;
+	
+	
 	
 	@Resource(name="loginUserDTO") 
 	private UserDTO loginUserDTO;
@@ -145,6 +148,40 @@ public class UserService {
 
 	public boolean toCurrCount(int to_no) {
 		return userDAO.toCurrCount(to_no) > 0;
+	}
+	
+	public boolean setChatUser (SubscriptionDTO subscriptionDTO) {
+		
+		int total = userDAO.getToTotal(subscriptionDTO.getTo_no()) - 1;
+		ChatroomDTO chatroomDTO = userDAO.getChatroom(subscriptionDTO.getTo_no());
+		
+		switch(total) {
+			case 1:
+				chatroomDTO.setUser1(subscriptionDTO.getSub_writer());
+				break;
+			case 2:
+				if(chatroomDTO.getUser1() == 0) {
+					chatroomDTO.setUser1(subscriptionDTO.getSub_writer());
+				}else {
+					chatroomDTO.setUser2(subscriptionDTO.getSub_writer());
+				}
+				break;
+			case 3:
+				if(!(chatroomDTO.getUser1() != subscriptionDTO.getSub_writer() && 0 != chatroomDTO.getUser1())) {
+					chatroomDTO.setUser1(subscriptionDTO.getSub_writer()); 
+					break;
+				}
+				if(!(chatroomDTO.getUser2() != subscriptionDTO.getSub_writer() && 0 != chatroomDTO.getUser2())) {
+					chatroomDTO.setUser2(subscriptionDTO.getSub_writer());
+					break;
+				}
+				if(!(chatroomDTO.getUser3() != subscriptionDTO.getSub_writer() && 0 != chatroomDTO.getUser3())) {
+					chatroomDTO.setUser3(subscriptionDTO.getSub_writer());
+					break;
+				}
+		}
+		
+		return userDAO.setChatUser(chatroomDTO) > 0;
 	}
 	
 
