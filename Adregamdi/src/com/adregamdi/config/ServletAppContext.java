@@ -160,9 +160,10 @@ public class ServletAppContext implements WebMvcConfigurer {
 	  	topReg.addPathPatterns("/**");
 	  	
 	  	not_loginReg.addPathPatterns("/user/modify", "/user/logout", "/user/delete",
-	  			"/notice/modify", "/notice/delete", "/notice/write", "/user/my_page", "/user/my_page_disable");
+	  			"/notice/modify", "/notice/delete", "/notice/write", "/user/my_page", "/user/my_to", "/user/my_page_disable");
 
-	  	active_loginReg.addPathPatterns("/user/login", "/user/join" );
+	  	active_loginReg.addPathPatterns("/user/login", "/user/join", "/notice/write", "/notice/modify");
+	  	
 	
 	}
 

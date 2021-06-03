@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.NoticeDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
@@ -22,7 +23,7 @@ import com.adregamdi.service.NoticeService;
 
 @Controller
 @RequestMapping("/notice")
-public class NoticeController {
+public class NoticeController{
 
 	@Autowired
 	NoticeService noticeService;
@@ -30,7 +31,8 @@ public class NoticeController {
 	@Resource(name = "loginUserDTO")
 	private UserDTO loginUserDTO;
     
-	// 게시글 페이징 처리
+	// 공지사항 목록
+	// 공지사항 페이징 처리
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
 		List<NoticeDTO> contentList = noticeService.getNoticeList(page);
@@ -38,11 +40,12 @@ public class NoticeController {
 		model.addAttribute("contentList", contentList);
 		PageDTO pageDTO = noticeService.getContentCnt(page);
 		model.addAttribute("pageDTO", pageDTO);
+		
 		return "notice/list";
 	}
     
-	// 게시글 본문 내용
-	// 게시글 이전글, 다음글
+	// 공지사항 본문 내용
+	// 공지사항 이전 / 다음글
 	@GetMapping("/read")
 	public String NoticeRead(@RequestParam("content_idx") int content_idx, Model model) {
 		noticeService.viewCount(content_idx);
@@ -58,13 +61,13 @@ public class NoticeController {
 		return "notice/read";
 	}
     
-	// 게시글 글쓰기
+	// 공지사항 글쓰기
 	@GetMapping("/write")
 	public String BoardWrite(@ModelAttribute("noticeWriteDTO") NoticeDTO noticeWriteDTO) {
 		return "notice/write";
 	}
     
-	// 게시글 글쓰기 처리
+	// 공지사항 글쓰기 처리
 	@PostMapping("/writeProc")
 	public String BoardWrite_Proc(@Valid @ModelAttribute("NoticeWriteDTO") NoticeDTO noticeWriteDTO, BindingResult result) {
 		if (result.hasErrors())
@@ -73,7 +76,7 @@ public class NoticeController {
 		return "notice/write_success";
 	}
     
-	// 게시글 수정
+	// 공지사항 수정
 	@GetMapping("/modify")
 	public String NoticeModify(@ModelAttribute("noticeModifyDTO") NoticeDTO noticeModifyDTO, @RequestParam("content_idx") int content_idx, Model model) {
 		NoticeDTO noticeContentDTO = noticeService.getNoticeContent(content_idx);
@@ -99,5 +102,46 @@ public class NoticeController {
 		noticeService.DeleteNoticeContent(content_idx);
 		return "notice/delete_success";
 	}
-
+	
+	// 공지사항 검색
+	@GetMapping("/listSearch")
+	public String BoardListSearch
+	(@RequestParam(value="page", defaultValue="1") int page,
+	 @RequestParam("searchType") String searchType, 
+	 @RequestParam("keywords") String keywords ,Model model) {
+		if(searchType.equals("object")) {
+			List<NoticeDTO> contentList = noticeService.getSearchKeyObjectNoticeList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = noticeService.getSearchKeyObjectCount(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = noticeService.getSearchKeyObjectCount(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "notice/list";
+		} else if(searchType.equals("objcon")) {
+			List<NoticeDTO> contentList = noticeService.getSearchKeyObejctContentNoticeList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = noticeService.getSearchKeyObjectContent(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = noticeService.getSearchKeyObjectContent(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "notice/list";
+		}
+		return "notice/list";
+	}
+	
+	
 }

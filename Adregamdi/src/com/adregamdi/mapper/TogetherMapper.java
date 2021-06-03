@@ -27,9 +27,9 @@ public interface TogetherMapper {
 	void createChatroom(TogetherDTO togetherDTO);
 	
 	@Select("SELECT T.TO_NO, U.USER_ID TO_WRITER, T.TO_TITLE, T.TO_PLACE_NAME, T.TO_CURR, T.TO_TOTAL, T.TO_STATE, T.TO_MEET, "
-			+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE "
-			+ "FROM TOGETHER T, USER_INFO U WHERE T.TO_WRITER = U.USER_ID "
-			+ "ORDER BY T.TO_NO DESC")
+	         + "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE "
+	         + "FROM TOGETHER T, USER_INFO U WHERE T.TO_WRITER = U.USER_ID "
+	         + "ORDER BY T.TO_NO DESC")
 	List<TogetherDTO> getTogetherList(RowBounds rowBounds);
 	
 	@Select("SELECT TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_CHAR(TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE FROM TOGETHER WHERE TO_NO = #{content_idx}")
@@ -70,31 +70,16 @@ public interface TogetherMapper {
 	
 	@Update("UPDATE TOGETHER SET TO_CNT=to_cnt+1 "
 			  + "WHERE TO_NO = #{to_no}")
-  void viewCount(int content_idx);
+	void viewCount(int content_idx);
 	
+   @Insert("INSERT INTO TOGETHERREPLY(reply_num, together_num, reply_writer, reply_content, reply_date) " +
+	         "VALUES (together_reply_SEQ.nextval, #{together_num}, #{reply_writer}, #{reply_content}, sysdate) ")
+   void InsertTogetherReply(TogetherReplyDTO replyWriteDTO);
+   
+   @Select("SELECT REPLY_NUM, TOGETHER_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
+         "FROM TOGETHERREPLY " +
+         "WHERE TOGETHER_NUM = #{together_num}" +
+         "ORDER BY TOGETHER_NUM DESC")
+   List<TogetherReplyDTO> getTogetherReplyList(int together_num);
 	
-// 댓글 관련 Mapper================================================================================================================================
-	
-	@Select("SELECT REPLY_NUM, TOGETHER_NUM, REPLY_WRITER, REPLY_CONTENT, REPLY_DATE " + 
-			"FROM TOGETHERREPLY " +
-			"WHERE TOGETHER_NUM = #{together_num}" +
-			"ORDER BY TOGETHER_NUM DESC")
-	List<TogetherReplyDTO> getTogetherReplyList(int together_num);
-	
-	//댓글 작성
-	@Insert("INSERT INTO TOGETHERREPLY(reply_num, together_num, reply_writer, reply_content, reply_date) " +
-			"VALUES (together_reply_SEQ.nextval, #{together_num}, #{reply_writer}, #{reply_content}, sysdate) ")
-	void InsertTogetherReply(TogetherReplyDTO replyWriteDTO);
-	
-	//댓글 수정
-	@Update("UPDATE TOGETHERREPLY SET reply_content = #{reply_content}, reply_date = SYSDATE WHERE together_num = #{together_num} and reply_num = #{reply_num}")
-	void ModifyTogetherReply(TogetherReplyDTO replyWriteDTO);
-	
-	//댓글 삭제
-	@Delete("DELETE FROM TOGETHERREPLY WHERE TOGETHER_NUM=#{together_num} AND REPLY_NUM=#{reply_num}")
-	void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO);
-	
-	//댓글 갯수 조회
-	@Select("SELECT COUNT(*) FROM TOGETHERREPLY WHERE TOGETHER_NUM=#{together_num}")
-	int GetTogetherReplyCount(int together_num);
 }

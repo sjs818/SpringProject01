@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 import com.adregamdi.dto.PlanDTO;
+import com.adregamdi.dto.SubscriptionDTO;
+import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 
 public interface UserMapper {
@@ -41,14 +43,37 @@ public interface UserMapper {
 	void deleteNaverInfo(UserDTO deleteUserDTO);
 	
 	
+	// MY_PAGE
 	
 	@Select("SELECT A.PLAN_NO, A.USER_NO, A.PLAN_TITLE, A.PLAN_INFO, A.PLAN_IMG, A.PLAN_PRIVATE, B.PLANTOTALDATE PLAN_TERM FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.USER_NO=#{user_no} ORDER BY PLAN_NO DESC")
-	List<PlanDTO> getMyPlan(int user_no);
+	List<PlanDTO> getMyPlan(int user_no);	
 	
 	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'N' AND A.USER_NO=#{user_no}")
 	String getPublicCount(int user_no);
 
 	@Select("SELECT COUNT(*) FROM PLAN A JOIN (SELECT PLAN_NO, AVG(PLANTOTALDATE) PLANTOTALDATE FROM USER_PLAN GROUP BY PLAN_NO) B ON A.PLAN_NO = B.PLAN_NO WHERE A.PLAN_PRIVATE = 'Y' AND A.USER_NO=#{user_no}")
 	String getPrivateCount(int user_no);
+	
+	@Select("SELECT COUNT(*) FROM TOGETHER T, USER_INFO U WHERE U.USER_NO = T.TO_WRITER_NO AND U.USER_NO=#{user_no}")
+	String getMyToCount(int user_no);
+ 	
+	@Select("SELECT * FROM TOGETHER T LEFT OUTER JOIN (SELECT A.TO_NO, COUNT(SUB_STATUS) STATUS FROM SUBSCRIPTION A, TOGETHER B WHERE A.TO_NO = B.TO_NO AND SUB_STATUS = 0 GROUP BY A.TO_NO) S ON T.TO_NO = S.TO_NO WHERE TO_WRITER_NO = #{user_no}")
+	List<TogetherDTO> getMytogether(int user_no);
+	
+	@Select("SELECT S.SUB_NO, S.TO_NO, S.SUB_MESSAGE, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS, TO_CHAR(S.SUB_DATE, 'YY-MM-DD') SUB_DATE " + 
+			"FROM SUBSCRIPTION S, USER_INFO U " + 
+			"WHERE S.SUB_WRITER = U.USER_NO " + 
+			"AND S.TO_NO=#{to_no}" +
+			"AND S.SUB_STATUS=0 ORDER BY S.SUB_NO")
+	List<SubscriptionDTO> getToNotification(int to_no);
+	
+	@Update("UPDATE SUBSCRIPTION SET sub_status=2 WHERE sub_no=#{sub_no}")
+	int subCancel(int sub_no);
+
+	@Update("UPDATE SUBSCRIPTION SET sub_status=1 WHERE sub_no=#{sub_no}")
+	int subAccept(int sub_no);
+
+	@Update("UPDATE together SET to_curr = to_curr+1 WHERE to_no = #{to_no}")
+	int toCurrCount(int to_no);
 	
 }

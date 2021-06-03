@@ -25,6 +25,7 @@ import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
@@ -54,33 +55,6 @@ public class TogetherController {
 		return "together/list";
 	}
 	
-//	@GetMapping("/delete")
-//	public String TogetherDelete(@RequestParam("content_idx")int content_idx,
-//		@ModelAttribute("tmptogetherDeleteDTO")TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		TogetherDTO togetherDeleteDTO = togetherService.getTogetherContent(content_idx);
-//		model.addAttribute("togetherDeleteDTO", togetherDeleteDTO);
-//		return "together/delete";
-//	}
-//	
-//	@PostMapping("/deleteProc")
-//	public String TogetherDeleteProc
-//	(@RequestParam("content_idx") int content_idx, 
-//	 @ModelAttribute("tmptogetherDeleteDTO") TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		
-//		String user_pw = togetherService.GetTogetherPassword(content_idx);
-//    String input_pw = tmptogetherDeleteDTO.getTo_user_pw();
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		
-//		boolean pwMatchRes = encoder.matches(input_pw, user_pw);
-//		if(input_pw != null && pwMatchRes == true) {
-//			togetherService.DeleteTogetherContent(content_idx);
-//			return "together/delete_success";
-//		} else {
-//			model.addAttribute("content_idx", content_idx);
-//			return "together/delete_fail";
-//		}
-//	}
-	
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
@@ -94,6 +68,7 @@ public class TogetherController {
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("chatroomDTO", chatroomDTO);
 		model.addAttribute("userList", userList);
+		model.addAttribute("content_idx", content_idx);
 		
 		return "together/read";
 	}
@@ -175,6 +150,9 @@ public class TogetherController {
   @PostMapping("/modifyProc")
   public String TogetherModify_Proc
   (@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+	  
+	  if(result.hasErrors())
+			return "together/modify";
      
      togetherService.ModifyTogetherContent(togetherModifyDTO);
      System.out.println(togetherModifyDTO.toString());
@@ -192,4 +170,23 @@ public class TogetherController {
 		
 		return resultKeyword;
 	} 	
+	
+	@ResponseBody
+	@GetMapping("/writeMessage")
+	public void writeMessage(TogetherReplyDTO togetherReplyDTO) {
+		togetherService.InsertTogetherReply(togetherReplyDTO);		
+	}
+	
+	@ResponseBody
+	@GetMapping("/getMessage")
+	public List<TogetherReplyDTO> getMessage(int together_num) {
+		
+		List<TogetherReplyDTO> getReply = togetherService.getTogetherReplyList(together_num);
+		/*
+		for(int i=0; i<getReply.size(); i++) {
+			System.out.println("list : "+getReply.get(i).toString());
+		}
+ 		*/
+		return getReply;
+	}
 }

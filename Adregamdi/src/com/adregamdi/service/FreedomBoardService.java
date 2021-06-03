@@ -26,7 +26,7 @@ public class FreedomBoardService {
 	@Value("${page.pagination}")
 	private int page_pagination;
 	
-	// 페이징 작업
+	// 페이징 작업 게시글 목록 불러오는 함수
 	public List<FreedomBoardDTO> getFreedomBoardList(int page){
 		int start = (page - 1) * page_listcnt;
 		RowBounds rowBounds = new RowBounds(start, page_listcnt);
@@ -35,10 +35,34 @@ public class FreedomBoardService {
 		return contentList;
 	}
 	
-	// 크으... 미련하게 List<FreedomBoardDTO>로 받고 있었어....
+	// 크으... 미련하게 List<FreedomBoardDTO>로 받고 있었어.... 
 	public FreedomBoardDTO getFreedomBoardContent(int content_idx) {
 		FreedomBoardDTO content = freedomBoardDAO.getFreedomBoardContent(content_idx);
 		return content;
+	}
+	
+	//게시글 글제목으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObjectFreedomBoardList(String keywords, int page) {
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		List<FreedomBoardDTO> contentList = freedomBoardDAO.getSearchKeyObjectFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 제목 + 내용으로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyObejctContentFreedomBoardList(String keywords, int page) {
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		List<FreedomBoardDTO> contentList = freedomBoardDAO.getSearchKeyObejctContentFreedomBoardList(rowBounds, keywords);
+		return contentList;
+	}
+	
+	//게시글 아이디로 검색해서 가져오는 함수
+	public List<FreedomBoardDTO> getSearchKeyIdFreedomBoardList(String keywords, int page) {
+		int start = (page - 1) * page_listcnt;
+		RowBounds rowBounds = new RowBounds(start, page_listcnt);
+		List<FreedomBoardDTO> contentList = freedomBoardDAO.getSearchKeyIdFreedomBoardList(rowBounds, keywords);
+		return contentList;
 	}
 	
 	public int GetFreedomBoardContentCount() {
@@ -70,6 +94,42 @@ public class FreedomBoardService {
 	//페이징 관련
 	public PageDTO getContentCnt(int currPage) {
 		int contentCnt = freedomBoardDAO.GetFreedomBoardContentCount();
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	//게시글 제목으로 검색시 페이징
+	public PageDTO getSearchKeyObjectCount(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectCount(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	public int getSearchKeyObjectCnt(String keywords) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectCount(keywords);
+		return contentCnt;
+	}
+	
+	public int getSearchKeyObjectContent(String keywords) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectContent(keywords);
+		return contentCnt;
+	}
+	
+	public int getSearchKeyIdCnt(String keywords) {
+		int contentCnt = freedomBoardDAO.getSearchKeyIdCnt(keywords);
+		return contentCnt;
+	}
+	
+	//게시글 제목 + 내용으로 검색시 페이징2
+	public PageDTO getSearchKeyObjectContent(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyObjectContent(keywords);
+		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
+		return tumpPageDTO;
+	}
+	
+	//게시글 아이디로 검색시 페이징
+	public PageDTO getSearchKeyId(String keywords, int currPage) {
+		int contentCnt = freedomBoardDAO.getSearchKeyIdCnt(keywords);
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
 	}

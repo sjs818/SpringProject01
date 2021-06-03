@@ -34,8 +34,7 @@
 				<h6 style="margin-top: 15px">${readContentDTO.content_notice_user_no}&nbsp;&nbsp;&nbsp;&nbsp;${readContentDTO.notice_date}</h6>
 			</div>
 			<div class="card-body" style="margin-top: 10px; padding: 40px;">
-				<form class="form-horizontal" name="noticeDTO" id="noticeDTO"
-					action="${root}notice/writeProc" method="POST">
+				<form class="form-horizontal" name="noticeDTO" id="noticeDTO" action="${root}notice/writeProc" method="POST">
 					<div class="form-group" style="margin-bottom: 30px;">
 						<div class="mb-3">${readContentDTO.notice_content}</div>
 					</div>
@@ -43,15 +42,14 @@
 					<div class="form-group float-right">
 						<a href="${root}notice/list" class="btn btn-info" style="color: white">목록보기</a>
 						<c:if test="${loginUserDTO.user_no != 0 && loginUserDTO.user_provider == 0}">
-							<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}"
-							   class="btn btn-success" style="color: white">수정하기</a>
-							<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" 
-							   class="btn btn-danger" style="color: white">삭제하기</a>
+							<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}" class="btn btn-success" style="color: white">수정하기</a>
+							<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}"  class="btn btn-danger" style="color: white">삭제하기</a>
 						</c:if>
 					</div>
 				</form>
 			</div>
 		</div>
+		<!-- 이전 / 다음글 -->
 		<table class="table table-hover" style="margin: 100px 0;">
 			<tr>
 				<c:choose>

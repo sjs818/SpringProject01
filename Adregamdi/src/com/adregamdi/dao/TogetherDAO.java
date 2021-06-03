@@ -86,35 +86,15 @@ public class TogetherDAO {
 	public void DeleteTogetherComment(int content_idx)	{
 		togetherMapper.DeleteTogetherComment(content_idx);
 	}
-//	public void viewCount(int content_idx ) {
-//		togetherMapper.viewCount(content_idx);
-//	}
 	
-	
-//============================================ 댓글 관련 컨트롤러 ==========================
-	// 댓글 리스트 불러오기
-	public List<TogetherReplyDTO> getTogetherReplyList(int to_num) {
-		List<TogetherReplyDTO> replyList = togetherMapper.getTogetherReplyList(to_num);
-		return replyList;
-	}
-	
-	//댓글 입력
 	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
 		togetherMapper.InsertTogetherReply(replyWriteDTO);
 	}
 	
-	//댓글 수정
-	public void ModifyTogetherReply(TogetherReplyDTO replyWriteDTO) {
-		togetherMapper.ModifyTogetherReply(replyWriteDTO);
+	public List<TogetherReplyDTO> getTogetherReplyList(int together_num) {
+		return togetherMapper.getTogetherReplyList(together_num);
 	}
 	
-	//댓글 삭제
-	public void DeleteTogetherReply(TogetherReplyDTO replyWriteDTO) {
-		togetherMapper.DeleteTogetherReply(replyWriteDTO);
-	}
 	
-	//댓글 개수 조회
-	public int GetTogetherReplyCount(int together_num) {
-		return togetherMapper.GetTogetherReplyCount(together_num);
-	}
+
 }

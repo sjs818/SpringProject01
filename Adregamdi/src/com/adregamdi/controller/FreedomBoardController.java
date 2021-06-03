@@ -1,10 +1,18 @@
 package com.adregamdi.controller;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.util.List;
+import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +24,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.adregamdi.dto.FreedomBoardDTO;
 import com.adregamdi.dto.FreedomReplyDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.service.FreedomBoardService;
+import com.google.gson.JsonObject;
 
 @Controller
 @RequestMapping("/freedom")
@@ -36,12 +47,74 @@ public class FreedomBoardController {
 	//게시판 글 목록 불러오는 함수
 	@GetMapping("/list")
 	public String BoardList(@RequestParam(value="page", defaultValue="1") int page, Model model) {
+		int search_done = 0;
+		int search_res_count = 0;
+		String keywords = "";
 		List<FreedomBoardDTO> contentList = freedomBoardService.getFreedomBoardList(page);
+		
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		model.addAttribute("contentList", contentList);
+		model.addAttribute("search_done", search_done);
+		model.addAttribute("search_res_count", search_res_count);
+		model.addAttribute("keyword", keywords);
 		
 		PageDTO pageDTO = freedomBoardService.getContentCnt(page);
 		model.addAttribute("pageDTO", pageDTO);
+		
+		return "freedom/list";
+	}
+	
+	@GetMapping("/listSearch")
+	public String BoardListSearch
+	(@RequestParam(value="page", defaultValue="1") int page,
+	 @RequestParam("searchType") String searchType, 
+	 @RequestParam("keywords") String keywords ,Model model) {
+		if(searchType.equals("object")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObjectFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = freedomBoardService.getSearchKeyObjectCnt(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectCount(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} else if(searchType.equals("objcon")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyObejctContentFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = freedomBoardService.getSearchKeyObjectContent(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectContent(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} else if(searchType.equals("writerID")) {
+			List<FreedomBoardDTO> contentList = freedomBoardService.getSearchKeyIdFreedomBoardList(keywords, page);
+			model.addAttribute("loginUserDTO", loginUserDTO);
+			model.addAttribute("contentList", contentList);
+			int search_done = 1;
+			int search_res_count = freedomBoardService.getSearchKeyIdCnt(keywords);
+			
+			model.addAttribute("search_done", search_done);
+			model.addAttribute("search_res_count", search_res_count);
+			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
+			
+			PageDTO pageDTO = freedomBoardService.getSearchKeyId(keywords, page);
+			model.addAttribute("pageDTO", pageDTO);
+			return "freedom/list";
+		} 
 		
 		return "freedom/list";
 	}
@@ -117,11 +190,64 @@ public class FreedomBoardController {
 	//게시글 수정 함수
 	@PostMapping("/modifyProc")
 	public String BoardModify_Proc
-	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result) {
+	(@Valid @ModelAttribute("freedomModifyProcDTO") FreedomBoardDTO freedomModifyProcDTO, BindingResult result, Model model) {
 		
 		freedomBoardService.ModifyFreedomBoardContent(freedomModifyProcDTO);
+		model.addAttribute("content_num", freedomModifyProcDTO.getFree_no());
 		
 		return "freedom/modify_success";
+	}
+	
+	// Ckeditor를 통한 이미지 업로드 함수
+	@ResponseBody
+	@PostMapping("/fileUpload")
+	public String FileUpload(HttpServletRequest req, HttpServletResponse resp, MultipartHttpServletRequest multiFile) throws Exception {
+		JsonObject json = new JsonObject();
+		PrintWriter printWriter = null;
+		OutputStream out = null;
+		MultipartFile file = multiFile.getFile("upload");
+		if(file != null) {
+			if(file.getSize() > 0 && StringUtils.isNotBlank(file.getName())) {
+				if(file.getContentType().toLowerCase().startsWith("image/")) {
+					try {
+						String fileName = file.getName();
+						byte[] bytes = file.getBytes();
+						String uploadPath = req.getServletContext().getRealPath("/resources/images/freedom");
+						File uploadFile = new File(uploadPath);
+						if(!uploadFile.exists()) {
+							uploadFile.mkdirs();
+						}
+						
+						fileName = UUID.randomUUID().toString();
+						uploadPath = uploadPath + "/" + fileName;
+						out = new FileOutputStream(new File(uploadPath));
+						out.write(bytes);
+						
+						printWriter = resp.getWriter();
+						resp.setContentType("text/html");
+						String fileUrl = req.getContextPath() + "/images/freedom/" + fileName;
+						
+						json.addProperty("uploaded", 1);
+						json.addProperty("fileName", fileName);
+						json.addProperty("url", fileUrl);
+						
+						printWriter.println(json);
+					} catch (Exception e) {
+						e.printStackTrace();
+					} finally {
+						if(out != null) {
+							out.close();
+						}
+						
+						if(printWriter != null) {
+							printWriter.close();
+						}
+					}
+				}
+			}
+		}
+		
+		return null;
 	}
 }
 

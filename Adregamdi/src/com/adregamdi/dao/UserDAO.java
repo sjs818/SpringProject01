@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.adregamdi.dto.PlanDTO;
+import com.adregamdi.dto.SubscriptionDTO;
+import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.UserMapper;
 
@@ -75,6 +77,36 @@ public class UserDAO {
 
 	public String getPublicCount(int user_no) {
 		return userMapper.getPublicCount(user_no);
+	}
+
+
+	public List<TogetherDTO> getMyTo(int user_no) {
+		return userMapper.getMytogether(user_no);
+	}
+
+
+	public List<SubscriptionDTO> getToNotification(int to_no) {
+		return userMapper.getToNotification(to_no);
+	}
+
+
+	public String getMyToCount(int user_no) {
+		return userMapper.getMyToCount(user_no);
+	}
+
+
+	public int subCancel(int sub_no) {
+		return userMapper.subCancel(sub_no);
+	}
+
+
+	public int subAccept(int sub_no) {
+		return userMapper.subAccept(sub_no);
+	}
+
+
+	public int toCurrCount(int to_no) {
+		return userMapper.toCurrCount(to_no);
 	}
 
 	
