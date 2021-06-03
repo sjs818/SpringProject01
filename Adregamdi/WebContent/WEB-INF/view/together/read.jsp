@@ -217,9 +217,9 @@
 				   	</div>
 			   	</c:when>
 			   	<c:when test="${loginUserDTO.user_no == 0 }">
-			   		 <div class="card mt-3 mr-3">
+			   		<div class="card mt-3 mr-3">
 				      <div class="card-body" style="padding: 20px;">
-				      	<form action="/together/subcription">
+				      	<form action="${root }together/subcription" method="post">
 				      		<input type="hidden" name="to_writer_no" id="to_writer_no" value="${togetherDTO.to_writer_no }">
 				      		<input type="hidden" name="sub_writer" id="sub_writer" value="${loginUserDTO.user_no }">
 				      		<label for="sub_message">동행 신청</label>
@@ -233,6 +233,30 @@
 				      </div>
 				   	</div>
 			   	</c:when>
+			   	<c:otherwise>
+			   		<div class="card mt-3 mr-3">
+				      <div class="card-body" style="padding: 20px;">
+				      	<label>동행 참가자 목록</label>
+								<table class="table table-hover">
+									<thead>
+										<tr>
+											<th scope="col">번호</th>
+											<th scope="col">아이디</th>
+											<th scope="col"></th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>1</td>
+											<td>sjshi</td>
+											<td>
+											</td>
+										</tr>
+									</tbody>
+								</table>
+				      </div>
+				   	</div>
+			   	</c:otherwise>
 		   	</c:choose>
 	  	</div>
       <div class="col-md-5 ">

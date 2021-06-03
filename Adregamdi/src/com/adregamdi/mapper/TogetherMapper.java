@@ -42,9 +42,8 @@ public interface TogetherMapper {
 	@Delete("DELETE FROM TOGETHERREPLY WHERE TOGETHER_NUM = #{content_idx}")
 	void DeleteTogetherComment(int content_idx);
 	
-	@Update("UPDATE TOGETHER SET TO_TITLE=#{to_title}, "
-			  +"TO_CONTENT=#{to_content}, to_date=SYSDATE "
-			  +"WHERE TO_NO = #{to_no}")
+	@Update("UPDATE TOGETHER SET TO_TITLE=#{to_title}, TO_CONTENT=#{to_content}, to_date=SYSDATE, TO_TOTAL=#{to_total}, TO_MEET = #{to_meet} "
+      + "WHERE TO_NO = #{to_no}")
 	void ModifyTogetherContent(TogetherDTO togetherModifyDTO);
 	
 	@Update("UPDATE TOGETHER SET TO_CNT=to_cnt+1 "

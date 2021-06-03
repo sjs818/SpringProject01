@@ -21,6 +21,7 @@ import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
@@ -77,6 +78,7 @@ public class TogetherController {
 //			return "together/delete_fail";
 //		}
 //	}
+	
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
@@ -88,6 +90,14 @@ public class TogetherController {
 		model.addAttribute("loginUserDTO", loginUserDTO);
 		
 		return "together/read";
+	}
+	
+	@ResponseBody
+	@PostMapping("/subcription")
+	public boolean subcription(@RequestParam("") SubscriptionDTO subscriptionDTO) {
+		
+		
+		return true;
 	}
 	
 	@GetMapping("/deleteProc")
@@ -120,32 +130,39 @@ public class TogetherController {
 	}
 	
 	@GetMapping("/modify")
-	public String TogetherModify
-	(@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
-	 @RequestParam("content_idx") int content_idx, Model model) {
-		
-		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
-		
-		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
-		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
-		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
-		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
-		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
-		
-		
-		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
-		
-		return "together/modify";
-	}
-	
-	@PostMapping("/modifyProc")
-	public String TogetherModify_Proc
-	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
-		
-		togetherService.ModifyTogetherContent(togetherModifyDTO);
-		
-		return "together/modify_success";
-	}
+  public String TogetherModify
+  (@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
+   @RequestParam("content_idx") int content_idx, Model model) {
+     
+     TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
+     
+     togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
+     togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
+     togetherModifyDTO.setTo_writer_no(TogetherDTO.getTo_writer_no());
+     togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
+     togetherModifyDTO.setTo_place(TogetherDTO.getTo_place());
+     togetherModifyDTO.setTo_place_name(TogetherDTO.getTo_place_name());
+     togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
+     togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
+     togetherModifyDTO.setTo_meet(TogetherDTO.getTo_meet());
+     togetherModifyDTO.setTo_state(TogetherDTO.getTo_state());
+     togetherModifyDTO.setTo_total(TogetherDTO.getTo_total());
+     
+     
+     model.addAttribute("togetherModifyDTO", togetherModifyDTO);
+     
+     return "together/modify";
+  }
+  
+  @PostMapping("/modifyProc")
+  public String TogetherModify_Proc
+  (@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+     
+     togetherService.ModifyTogetherContent(togetherModifyDTO);
+     System.out.println(togetherModifyDTO.toString());
+     
+     return "together/modify_success";
+  }
 	
 	@ResponseBody
 	@GetMapping("/keyword")
