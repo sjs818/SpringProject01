@@ -74,7 +74,7 @@ public class FreedomBoardController {
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
 			int search_done = 1;
-			int search_res_count = contentList.size();
+			int search_res_count = freedomBoardService.getSearchKeyObjectCnt(keywords);
 			
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);
@@ -89,7 +89,7 @@ public class FreedomBoardController {
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
 			int search_done = 1;
-			int search_res_count = contentList.size();
+			int search_res_count = freedomBoardService.getSearchKeyObjectContent(keywords);
 			
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);
@@ -104,7 +104,7 @@ public class FreedomBoardController {
 			model.addAttribute("loginUserDTO", loginUserDTO);
 			model.addAttribute("contentList", contentList);
 			int search_done = 1;
-			int search_res_count = contentList.size();
+			int search_res_count = freedomBoardService.getSearchKeyIdCnt(keywords);
 			
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);

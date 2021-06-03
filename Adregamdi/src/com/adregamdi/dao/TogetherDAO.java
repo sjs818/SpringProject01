@@ -8,7 +8,10 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.adregamdi.dto.ChatroomDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.mapper.TogetherMapper;
 
@@ -34,6 +37,14 @@ public class TogetherDAO {
 		return content;
 	}
 	
+	public int sendSubscription(SubscriptionDTO subscriptionDTO) {
+		return togetherMapper.sendSubscription(subscriptionDTO);
+	}
+	
+	public int confirmSubscription(SubscriptionDTO subscriptionDTO) {
+		return togetherMapper.confirmSubscription(subscriptionDTO);
+	}
+	
 	public int GetTogetherContentCount() {
 		int contentCount = togetherMapper.GetTogetherContentCount();
 		return contentCount;
@@ -42,6 +53,22 @@ public class TogetherDAO {
 	public void InsertTogetherContent(TogetherDTO togetherDTO) {
 		togetherDTO.setTo_writer(loginUserDTO.getUser_id());
 		togetherMapper.InsertTogetherContent(togetherDTO);
+	}
+	
+	public int getTogetherNo() {
+		return togetherMapper.getTogetherNo();
+	}
+	
+	public void createChatroom(TogetherDTO togetherDTO) {
+		togetherMapper.createChatroom(togetherDTO);
+	}
+	
+	public ChatroomDTO getChatMember(int content_idx) {
+		return togetherMapper.getChatMember(content_idx);
+	}
+	
+	public UserDTO getUserID(int user_no) {
+		return togetherMapper.getUserID(user_no);
 	}
 	
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
@@ -59,9 +86,14 @@ public class TogetherDAO {
 	public void DeleteTogetherComment(int content_idx)	{
 		togetherMapper.DeleteTogetherComment(content_idx);
 	}
-//	public void viewCount(int content_idx ) {
-//		togetherMapper.viewCount(content_idx);
-//	}
+	
+	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
+		togetherMapper.InsertTogetherReply(replyWriteDTO);
+	}
+	
+	public List<TogetherReplyDTO> getTogetherReplyList(int together_num) {
+		return togetherMapper.getTogetherReplyList(together_num);
+	}
 	
 	
 

@@ -272,3 +272,21 @@ select * from together;
 insert into together values (together_seq.nextval, 1, '휴애리자연생활공원 가실 분', '322836', '6월 6일에 휴애리 자연생활농원 놀러가실 분 구합니다!!', sysdate, 1, 3, sysdate, 0); 
 SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, T.TO_TITLE, T.TO_CONTENT, T.TO_CURR, T.TO_TOTAL, T.TO_MEET, T.TO_STATE FROM USER_INFO U, TOGETHER T WHERE U.USER_NO = T.TO_WRITER AND T.TO_NO = 1;
 commit;
+
+SELECT TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_CHAR(TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE FROM TOGETHER WHERE TO_NO = 1;
+
+DROP TABLE SUBSCRIPTION PURGE;
+CREATE TABLE SUBSCRIPTION (
+    sub_no          NUMBER  CONSTRAINT SUBSCRIPTION_PK PRIMARY KEY,
+    to_no           NUMBER constraint SUBSCRIPTION_FK references TOGETHER(to_no),
+    to_writer_no    NUMBER,
+    sub_message     VARCHAR2(500),
+    sub_writer      NUMBER,
+    sub_status      VARCHAR(1) DEFAULT '0',
+    sub_date        DATE
+);
+
+drop sequence SUBSCRIPTION_seq;
+create sequence SUBSCRIPTION_seq
+start with 1
+increment by 1;

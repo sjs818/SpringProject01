@@ -71,7 +71,7 @@ public class FreedomBoardDAO {
 	}
 	
 	//게시판 아이디로 검색한 카운트
-	public int getSearchKeyId(String keywords) {
+	public int getSearchKeyIdCnt(String keywords) {
 		int contentCount = freedomBoardMapper.getSearchKeyIdCount(keywords);
 		return contentCount;
 	}

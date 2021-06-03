@@ -1,5 +1,6 @@
 package com.adregamdi.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
@@ -10,6 +11,12 @@ import org.springframework.stereotype.Service;
 import com.adregamdi.dao.TogetherDAO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
+
+import com.adregamdi.dto.UserDTO;
+import com.adregamdi.dto.ChatroomDTO;
+import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 
 @Service
 public class TogetherService {
@@ -36,13 +43,57 @@ public class TogetherService {
 		TogetherDTO content = togetherDAO.getTogetherContent(content_idx);
 		return content;
 	}
+	
+	public boolean sendSubscription(SubscriptionDTO subscriptionDTO) {
+		return togetherDAO.sendSubscription(subscriptionDTO) > 0;
+	}
+	
+	public int confirmSubscription(SubscriptionDTO subscriptionDTO) {
+		return togetherDAO.confirmSubscription(subscriptionDTO);
+	}
+	
 	public int GetTogetherContentCount() {
 		int contentCount = togetherDAO.GetTogetherContentCount();
 		return contentCount;
 	}
 	public void InsertTogetherContent(TogetherDTO togetherDTO) {
 		togetherDAO.InsertTogetherContent(togetherDTO);
-	}	
+	}
+	
+	public int getTogetherNo() {
+		return togetherDAO.getTogetherNo();
+	}
+	
+	public void createChatroom(TogetherDTO togetherDTO) {
+		togetherDAO.createChatroom(togetherDTO);
+	}
+	
+	public ChatroomDTO getChatroom(int content_idx) {
+		return togetherDAO.getChatMember(content_idx);
+	}
+	
+	public ArrayList<UserDTO> getChatMember(int content_idx) {
+		ArrayList<UserDTO> userList = new ArrayList<UserDTO>();
+		
+		ChatroomDTO chatroomDTO = togetherDAO.getChatMember(content_idx);
+		
+		userList.add(togetherDAO.getUserID(chatroomDTO.getTo_writer_no()));
+		
+		if(chatroomDTO.getUser1() != 0) {
+			userList.add(togetherDAO.getUserID(chatroomDTO.getUser1()));
+		}
+		
+		if(chatroomDTO.getUser2() != 0) {
+			userList.add(togetherDAO.getUserID(chatroomDTO.getUser2()));
+		}
+		
+		if(chatroomDTO.getUser3() != 0) {
+			userList.add(togetherDAO.getUserID(chatroomDTO.getUser3()));
+		}
+		
+		return userList;
+	}
+	
 	public void ModifyTogetherContent(TogetherDTO togetherModifyDTO) {
 		togetherDAO.ModifyTogetherContent(togetherModifyDTO);
 	}
@@ -61,9 +112,17 @@ public class TogetherService {
 		PageDTO tumpPageDTO = new PageDTO(contentCnt, currPage, page_listcnt, page_pagination);
 		return tumpPageDTO;
 	}
-//	public void viewCount(int content_idx ) {
-//		togetherDAO.viewCount(content_idx);
-//	}	
+	
+	//채팅 입력
+	public void InsertTogetherReply(TogetherReplyDTO replyWriteDTO) {
+		togetherDAO.InsertTogetherReply(replyWriteDTO);
+	}
+	
+	//채팅 리스트
+	public List<TogetherReplyDTO> getTogetherReplyList(int together_num){
+		List<TogetherReplyDTO> replyList = togetherDAO.getTogetherReplyList(together_num);
+		return replyList;
+	}	
 	
 	
 }

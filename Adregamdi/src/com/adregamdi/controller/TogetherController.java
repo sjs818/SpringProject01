@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,9 +21,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
+import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
@@ -56,32 +59,6 @@ public class TogetherController {
 		return "together/list";
 	}
 	
-//	@GetMapping("/delete")
-//	public String TogetherDelete(@RequestParam("content_idx")int content_idx,
-//		@ModelAttribute("tmptogetherDeleteDTO")TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		TogetherDTO togetherDeleteDTO = togetherService.getTogetherContent(content_idx);
-//		model.addAttribute("togetherDeleteDTO", togetherDeleteDTO);
-//		return "together/delete";
-//	}
-//	
-//	@PostMapping("/deleteProc")
-//	public String TogetherDeleteProc
-//	(@RequestParam("content_idx") int content_idx, 
-//	 @ModelAttribute("tmptogetherDeleteDTO") TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		
-//		String user_pw = togetherService.GetTogetherPassword(content_idx);
-//    String input_pw = tmptogetherDeleteDTO.getTo_user_pw();
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		
-//		boolean pwMatchRes = encoder.matches(input_pw, user_pw);
-//		if(input_pw != null && pwMatchRes == true) {
-//			togetherService.DeleteTogetherContent(content_idx);
-//			return "together/delete_success";
-//		} else {
-//			model.addAttribute("content_idx", content_idx);
-//			return "together/delete_fail";
-//		}
-//	}
 	@ResponseBody
 	@PostMapping("/subAccept")
 	public boolean subAccept(@ModelAttribute SubscriptionDTO subscriptionDTO) {
@@ -90,26 +67,41 @@ public class TogetherController {
 		
 		return userService.subAccept(subscriptionDTO.getSub_no()) && userService.toCurrCount(subscriptionDTO.getTo_no()) && userService.setChatUser(subscriptionDTO);
 	}
-	
+
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
 		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
 		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
+		ChatroomDTO chatroomDTO = togetherService.getChatroom(content_idx);
+		ArrayList<UserDTO> userList = togetherService.getChatMember(content_idx);
 		
 		model.addAttribute("togetherDTO", togetherDTO);
 		model.addAttribute("place", place);
 		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("chatroomDTO", chatroomDTO);
+		model.addAttribute("userList", userList);
+		model.addAttribute("content_idx", content_idx);
 		
 		return "together/read";
 	}
 	
 	@ResponseBody
 	@PostMapping("/subcription")
-	public boolean subcription(@RequestParam("") SubscriptionDTO subscriptionDTO) {
+	public int subcription(@ModelAttribute SubscriptionDTO subscriptionDTO) {
 		
+		int result = 0;
 		
-		return true;
+		int confirm = togetherService.confirmSubscription(subscriptionDTO);
+		
+		if(confirm == 0) {
+			togetherService.sendSubscription(subscriptionDTO);
+			result = 1;
+		} else {
+			result = 0;
+		}
+		
+		return result;
 	}
 	
 	@GetMapping("/deleteProc")
@@ -135,9 +127,11 @@ public class TogetherController {
 			
 		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
 		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
-		
+
 		togetherService.InsertTogetherContent(togetherWriteDTO);
-			
+		togetherWriteDTO.setTo_no(togetherService.getTogetherNo());
+		togetherService.createChatroom(togetherWriteDTO);
+		
 		return "together/write_success";
 	}
 	
@@ -189,4 +183,23 @@ public class TogetherController {
 		
 		return resultKeyword;
 	} 	
+	
+	@ResponseBody
+	@GetMapping("/writeMessage")
+	public void writeMessage(TogetherReplyDTO togetherReplyDTO) {
+		togetherService.InsertTogetherReply(togetherReplyDTO);		
+	}
+	
+	@ResponseBody
+	@GetMapping("/getMessage")
+	public List<TogetherReplyDTO> getMessage(int together_num) {
+		
+		List<TogetherReplyDTO> getReply = togetherService.getTogetherReplyList(together_num);
+		/*
+		for(int i=0; i<getReply.size(); i++) {
+			System.out.println("list : "+getReply.get(i).toString());
+		}
+ 		*/
+		return getReply;
+	}
 }
