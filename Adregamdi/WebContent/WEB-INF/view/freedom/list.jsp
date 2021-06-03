@@ -90,40 +90,66 @@ crossorigin="anonymous">
 		</table>
 		<div class="pageNevigation" style="margin-top: 50px;">
 			<ul class="pagination justify-content-center">
-				<!-- 맨 처음 페이지인 경우에는 이전 페이지가 비활성화 하게 함 -->
-				<c:choose>
-					<c:when test="${pageDTO.prevPage <= 0 }">
-					</c:when>
-					<c:otherwise>
-						<li class="page-item">
-							<a href="${root}freedom/list?page=${pageDTO.prevPage}" class="page-link">이전</a>
-						</li>
+			    <c:choose>
+			      <c:when test="${search_done == 1}">
+			       <c:choose>
+			         <c:when test="${pageDTO.prevPage <= 0 }"></c:when>
+			         <c:otherwise>
+						<li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.prevPage}" class="page-link">이전</a></li>
 					</c:otherwise>
-				</c:choose>
-				<c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
-					<c:choose>
-						<c:when test="${idx == pageDTO.currentPage}">
-						<li class="page-item active">
-							<a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a>
-						</li>
-						</c:when>
-						<c:otherwise>
-							<li class="page-item">
-								<a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a>
-							</li>
+			       </c:choose>
+			      </c:when>
+			      <c:otherwise>
+			       <c:choose>
+			        <c:when test="${pageDTO.prevPage <= 0 }"></c:when>
+					<c:otherwise>
+						<li class="page-item"><a href="${root}freedom/list?page=${pageDTO.prevPage}" class="page-link">이전</a></li>
+					</c:otherwise>
+				   </c:choose>
+			      </c:otherwise>
+			    </c:choose>
+			    <c:forEach var="idx" begin="${pageDTO.min}" end="${pageDTO.max}">
+			      <c:choose>
+			        <c:when test="${search_done == 1}">
+			          <c:choose>
+			            <c:when test="${idx == pageDTO.currentPage}">
+			              <li class="page-item active"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
+			            </c:when>
+			            <c:otherwise>
+						  <li class="page-item"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
 						</c:otherwise>
-					</c:choose>
-				</c:forEach>
-				<!-- 맨 마지막일 경우 다음페이지를 비활성화 시킴 -->
-				<c:choose>
-					<c:when test="${pageDTO.max >= pageDTO.pageCount }">
-					</c:when>
-					<c:otherwise>
-						<li class="page-item">
-							<a href="${root}freedom/list?page=${pageDTO.nextPage}" class="page-link">다음</a>
-						</li>
-					</c:otherwise>
-				</c:choose>
+			          </c:choose>
+			        </c:when>
+			        <c:otherwise>
+			           <c:choose>
+			             <c:when test="${idx == pageDTO.currentPage}">
+			               <li class="page-item active"><a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a></li>
+			             </c:when>
+			             <c:otherwise>
+			               <li class="page-item"><a href="${root }freedom/list?page=${idx}" class="page-link">${idx}</a></li>
+			             </c:otherwise>
+			           </c:choose>
+			        </c:otherwise>
+			      </c:choose>
+			    </c:forEach>
+			    <c:choose>
+			      <c:when test="${search_done == 1}">
+			        <c:choose>
+			          <c:when test="${pageDTO.max >= pageDTO.pageCount }"></c:when>
+			          <c:otherwise>
+			            <li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.nextPage}" class="page-link">다음</a></li>
+			          </c:otherwise>
+			        </c:choose>
+			      </c:when>
+			      <c:otherwise>
+			        <c:choose>
+			          <c:when test="${pageDTO.max >= pageDTO.pageCount }"></c:when>
+			          <c:otherwise>
+						<li class="page-item"><a href="${root}freedom/list?page=${pageDTO.nextPage}" class="page-link">다음</a></li>
+					  </c:otherwise>  
+			        </c:choose>
+			      </c:otherwise>
+			    </c:choose>
 			</ul>
 		</div>
 		  <div class="text-right">

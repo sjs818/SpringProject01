@@ -79,6 +79,7 @@ public class FreedomBoardController {
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);
 			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
 			
 			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectCount(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
@@ -93,6 +94,7 @@ public class FreedomBoardController {
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);
 			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
 			
 			PageDTO pageDTO = freedomBoardService.getSearchKeyObjectContent(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
@@ -107,6 +109,7 @@ public class FreedomBoardController {
 			model.addAttribute("search_done", search_done);
 			model.addAttribute("search_res_count", search_res_count);
 			model.addAttribute("keyword", keywords);
+			model.addAttribute("searchType", searchType);
 			
 			PageDTO pageDTO = freedomBoardService.getSearchKeyId(keywords, page);
 			model.addAttribute("pageDTO", pageDTO);
