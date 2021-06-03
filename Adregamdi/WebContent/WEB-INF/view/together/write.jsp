@@ -27,9 +27,7 @@
 <!-- 달력 -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
 <script type="text/javascript" src="${root }js/together_write.js" ></script>
-
 <style>
 @font-face {
 	font-family: 'Bazzi';
@@ -145,11 +143,17 @@ td {
 						<div id="number" style="display:none; margin-top: 20px;">
 							<label for="personNumber">동행할 인원</label>
 							<div class="input-group">
-								<input id="personNumber" class="form-control" style="width:50%;"type="number" value="1"/>
+								<select id="personNumber" class="form-control" >
+									<option selected>동행할 인원을 선택해주세요...</option>
+									<option value="2">2명</option>
+									<option value="3">3명</option>
+									<option value="4">4명</option>
+								</select>
 								<div class="input-group-append">	
 									<a href="#" class="card-btn btn btn-dark" onclick="writePersonNumber()" style="float:right;">인원 선택</a>							
 								</div>
 							</div>
+							<p style="color: red; margin: 10px 0 0 10px;">※ 5인 이상 집합금지 명령에 따라 인원은 최대 4인 까지 선택 가능합니다.</p>
 						</div>
 					</div>
 				</div>
