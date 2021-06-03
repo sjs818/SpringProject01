@@ -76,7 +76,7 @@ public interface FreedomBoardMapper {
 	@Select("SELECT COUNT(*) " + 
 			"FROM FREEDOMBOARD F, USER_INFO U " + 
 			"WHERE F.FREE_WRITER = U.USER_NO AND F.FREE_TITLE LIKE '%' || #{keywords} ||'%' " + 
-			"AND F.FREE_CONTENT LIKE '%' || #{keywords} || '%' ")
+			"OR F.FREE_CONTENT LIKE '%' || #{keywords} || '%' ")
 	int getSearchKeyObjectContent(String keywords);
 	
 	//게시글 아이디로 검색해서 불러온 카운트
