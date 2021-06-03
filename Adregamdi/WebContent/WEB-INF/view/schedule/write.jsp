@@ -194,7 +194,7 @@
 	      var overview = result.overview.replace(/'/g, "");
 	      var position = { 
 	    		  title : result.title,
-	          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
+	          lonlat : new Tmapv2.LatLng(result.mapY, result.mapX),
 	          addr : result.addr1,
 	          overview : overview,
 	          img : result.firstImage2,
@@ -230,7 +230,7 @@
         
         // Tmap API 'Marker' Method (마커 생성)
         var marker = new Tmapv2.Marker({
-          position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+          position : lonlat,
           map : map,
           title: title,
           visible: false
@@ -248,7 +248,7 @@
         	}
           marker.setVisible(true); 
           // 지도 위치 재설정
-          map.setCenter(new Tmapv2.LatLng(lonlat.lng(), lonlat.lat() - 0.15));
+          map.setCenter(new Tmapv2.LatLng(lonlat.lat(), lonlat.lng() - 0.15));
         });
         
         markers.push(marker);
@@ -336,7 +336,7 @@
 		    if(infoWindows[no] == null) {
 			    // Tmap API 'InfoWindow' Method (팝업 생성)
 		      infoWindows[no] = new Tmapv2.InfoWindow({
-		        position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+		        position : new Tmapv2.LatLng(lonlat.lat(), lonlat.lng()),
 		        content : content,
 		        border : '0px solid #FF0000',
 		        type : 2,
@@ -348,7 +348,7 @@
 		    }
 				
 	   		// 지도 위치 재설정
-	      map.setCenter(new Tmapv2.LatLng(lonlat.lng() - 0.11, lonlat.lat() - 0.055));	      
+	      map.setCenter(new Tmapv2.LatLng(lonlat.lat() - 0.11, lonlat.lng() - 0.055));	      
 	 			
 	      if(position.contentId != null) {
 					$("#detail" + no).click(function() {
@@ -445,7 +445,7 @@
 				position.planno = $('#planNo').val();
 				position.liIndex = liIndex;
 				var marker = new Tmapv2.Marker({
-					position : new Tmapv2.LatLng(position.lonlat.lng(), position.lonlat.lat()),
+					position : new Tmapv2.LatLng(position.lonlat.lat(), position.lonlat.lng()),
 					icon : "http://tmapapis.sktelecom.com/upload/tmap/marker/pin_r_m_p.png",
 					map : map,
 					title : "[" + position.planDay + "일차]" + position.title
@@ -487,7 +487,7 @@
 			$.each(data, function(i, result) {
 				var position = { 
 			    		  title : result.title,
-			          lonlat : new Tmapv2.LatLng(result.mapX, result.mapY),
+			          lonlat : new Tmapv2.LatLng(result.mapY, result.mapX),
 			          addr : result.addr1,
 			          overview : result.overview,
 			          img : result.firstImage2,
@@ -520,7 +520,7 @@
 				}
 				// Tmap API 'Marker' Method (마커 생성)
         var marker = new Tmapv2.Marker({
-          position : new Tmapv2.LatLng(lonlat.lng(), lonlat.lat()),
+          position : lonlat,
           map : map,
           title: title,
           visible: false
@@ -534,7 +534,7 @@
         	}
           marker.setVisible(true); 
           // 지도 위치 재설정
-          map.setCenter(new Tmapv2.LatLng(lonlat.lng(), lonlat.lat() - 0.15));
+          map.setCenter(new Tmapv2.LatLng(lonlat.lat(), lonlat.lng() - 0.15));
         });
         
         markers.push(marker);

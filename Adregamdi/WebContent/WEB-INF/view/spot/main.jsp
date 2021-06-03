@@ -12,20 +12,15 @@
 <title>지역별 관광지</title>
 
 <!-- Bootstrap CDN -->
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<script
-	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-	
+<link rel="stylesheet"	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+<script	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
 <script type="text/javascript" src="${root }js/spot.js" ></script>
 
 <!-- x 아이콘 -->
-<link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
+<link rel="icon" type="image/x-icon"  />
 <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js" ></script>
 
 <link href="${root }css/spot.css" rel="stylesheet">
@@ -161,14 +156,13 @@
 				<div class="col-sm-12">
 					<ul class="pagination" id="pagination-demo">
 						<c:if test="${pageMaker.prev }">
-							<li class="paginate_button previous"><a
-								href="${pageMaker.min -1 }">&laquo;</a></li>
+							<li class="paginate_button previous">
+								<a href="${pageMaker.min -1 }">&laquo;</a>
+							</li>
 						</c:if>
-						<c:forEach var="num" begin="${pageMaker.min }"
-							end="${pageMaker.max }">
-							<li
-								class="paginate_button ${pageMaker.currentPage == num ? 'active':'' }">
-								<a href="${num }">${num} </a>
+						<c:forEach var="num" begin="${pageMaker.min }" end="${pageMaker.max }">
+							<li class="paginate_button ${pageMaker.currentPage == num ? 'active':'' }">
+								<a href="${num }"><button class="pageBtn" style="outline:0; border:0; background-color: transparent !important; font-size:13px;">${num}</button> </a>
 							</li>
 						</c:forEach>
 						<c:if test="${pageMaker.next }">
@@ -178,11 +172,9 @@
 					</ul>
 				</div>
 				<form id='actionForm' action="/spot/main" method='get'>
-					<input type='hidden' name='currentPage'
-						value='${pageMaker.currentPage }'> <input type="hidden"
-						name="sigunguCode" id="sigu" value="${sigunguCode }" /> <input
-						type="hidden" name="contentTypeId" id="cont"
-						value="${contentTypeId }" />
+					<input type='hidden' name='currentPage' value='${pageMaker.currentPage }'> 
+					<input type="hidden" name="sigunguCode" id="sigu" value="${sigunguCode }" /> 
+					<input type="hidden" name="contentTypeId" id="cont" value="${contentTypeId }" />
 				</form>
 			</div>
 			
@@ -194,7 +186,7 @@
 
 
 	<!-- 1개 클릭 시 세부사항 -->
-	<div class="portfolio-modal modal fade" id="portfolioModal"
+	<div class="portfolio-modal modal fade center" id="portfolioModal"
 		tabindex="-1" role="dialog" aria-hidden="true">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -209,11 +201,11 @@
 								<p id="modalAddr" class="item-intro text-muted"></p>
 								<img id="modalPhoto" class="img-fluid d-block mx-auto" src=""
 									alt="..." />
-								<p id="modalOverview"></p>
+								<!-- <p id="modalOverview"></p> -->
 								<ul class="details">
 								</ul>
 								<a id="detailBtn" class="btn btn-info" type="button" href="">
-									<i class="far fa-file-alt"></i> 리뷰 작성
+									<i class="far fa-file-alt"></i> 자세히 보기
 								</a>
 								<button class="btn btn-primary" data-dismiss="modal" type="button">
 									<i class="fas fa-times mr-1"></i> 닫기

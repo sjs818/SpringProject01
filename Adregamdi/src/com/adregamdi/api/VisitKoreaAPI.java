@@ -23,8 +23,8 @@ import com.adregamdi.dto.VisitKoreaDTO;
 @Service
 public class VisitKoreaAPI {
 	//final String serviceKey = "JfJVEeeIonh3aWVPoAYN0TNONgdW1JYIJGc3vQrNtsia5qmmOdoEmVgTXQjgkCC4wYqdEXhDdG6Q6HnCH01fww%3D%3D";
-	//final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
-	final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
+	final String serviceKey = "qnCiac2R%2FyDsI9qIRqZ8fYyyptvK%2FW%2F5hLtuE7CrNIoMLR1gJtqlIa0VbbYvYGhAVCOnheRCj2NsHdX2H58Y0g%3D%3D";
+	//final String serviceKey = "VacIglqrkZWUmOB%2Fj3T5GH2f%2BzGHYDoVxCK7ZAd4rjFI7yFptSwKUX%2BQWF0abo%2FCqOJQW6JbM83IE5Ry55QO7A%3D%3D";
 	//final String serviceKey = "Smzhs16%2BToWtT1PvYihg48fomJ6J9OEs3LAsF0KolSdPioT%2FxVGkOKouPuhGdWIdducYehyL2T9XC2bvnEDV0Q%3D%3D";
 	//final String serviceKey = "rW8xQWWEtsVq3gxRs6WbPsAm3K5ifzEyxT67BoZn94XFj5KPOT0C0TcLpifB18t%2Blcz4ANQooKbGI6j2Chcp%2BQ%3D%3D";
 	//final String serviceKey = "1Pu4UXuCj88qEZ2m7lWAsNCj4FcA8nhUutYQlXwqrnKRQiB5cuYHPlvedpq%2B0uoo8%2FuZ0TqCSiMtt0BA51OWNA%3D%3D";
@@ -45,7 +45,7 @@ public class VisitKoreaAPI {
 		}
 	}
 
-	// 吏��뿭湲곕컲 愿�愿묒젙蹂댁“�쉶
+	// 설정한 개수만큼 contentId List를 가져옴
 	public ArrayList<String> getContentIdList(String pageNo, String sigunguCode, String contentTypeId, String numOfRow)
 			throws SAXException, IOException, ParserConfigurationException {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/areaBasedList?" + "serviceKey="
@@ -74,9 +74,54 @@ public class VisitKoreaAPI {
 		return contentIdList;
 	}
 	
+	public VisitKoreaDTO getOneSpot(String contentId) throws ParserConfigurationException, SAXException, IOException {
+		VisitKoreaDTO spot = new VisitKoreaDTO();
+		
+		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?" + "serviceKey="
+				+ serviceKey + "&numOfRows=1" + "&pageNo=1" + "&MobileOS=ETC" + "&MobileApp=AppTest"
+				+ "&areacodeYN=Y" + "&catcodeYN=Y" + "&addrinfoYN=Y" + "&contentId=" + contentId
+				+ "&contentTypeId=" + "&defaultYN=Y" + "&firstImageYN=Y" + "&mapinfoYN=Y" + "&overviewYN=Y";
+		// XML Parsing
+		DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
+		Document document = documentBuilder.parse(url);
+
+		document.getDocumentElement().normalize();
+
+		NodeList nodeList = document.getElementsByTagName("item");
+		
+		for (int i = 0; i < nodeList.getLength(); i++) {
+			Node node = nodeList.item(i);
+			
+			if (node.getNodeType() == Node.ELEMENT_NODE) {
+				Element element = (Element) node;
+				if (getTagValue("firstimage", element) == null) {
+					spot.setFirstImage("/images/schedule/thumbnail.png");
+				} else {
+					spot.setFirstImage(getTagValue("firstimage", element));
+				}
+				
+				if (getTagValue("firstimage2", element) == null) {
+					spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+				} else {
+					spot.setFirstImage2(getTagValue("firstimage2", element));
+				}
+				spot.setTitle(getTagValue("title", element));
+				if (getTagValue("addr1", element) == null) {
+					spot.setAddr1("해당 여행지는 코스이므로 주소가 없습니다.");
+				} else {
+					spot.setAddr1(getTagValue("addr1", element));
+				}
+				spot.setOverview(getTagValue("overview", element));
+				spot.setContentId(getTagValue("contentid", element));
+				spot.setContentTypeId(getTagValue("contenttypeid", element));
+			}
+		}
+		return spot;
+	}
 	
 
-	// 怨듯넻 �젙蹂� 議고쉶
+	// Spot의 정보를 가져옴
 	public ArrayList<NodeList> getSpotInfo(ArrayList<String> contentIdList)
 			throws ParserConfigurationException, SAXException, IOException {
 		ArrayList<NodeList> infoList = new ArrayList<NodeList>();
@@ -97,7 +142,6 @@ public class VisitKoreaAPI {
 			NodeList nodeList = document.getElementsByTagName("item");
 			infoList.add(nodeList);
 		}
-		System.out.println("getSpotInfo : " + infoList.size());
 		return infoList;
 	}
 
@@ -129,7 +173,7 @@ public class VisitKoreaAPI {
 		return contentIdList.get(0);
 	}
 
-	// contentId瑜� �씪愿꾩쟻�쑝濡� ���옣�븯湲� �쐞�빐 �궗�슜�븳 留ㅼ꽌�뱶
+	// 일괄적으로 contentId를 저장함.
 	public ArrayList<String> lgetContentId() throws SAXException, IOException, ParserConfigurationException {
 		
 		ArrayList<String> contentIdList = getContentIdList("1", "", "", String.valueOf(getTotalCount("","")));
@@ -138,14 +182,11 @@ public class VisitKoreaAPI {
 	}
 	
 	// BestTop �젙蹂� ���옣
-	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO, int totalCount, ArrayList<String> bestContentIdList)
+	public List<VisitKoreaDTO> getBestInformation(VisitKoreaDTO visitKoreaDTO,  ArrayList<String> bestContentIdList)
 			throws SAXException, IOException, ParserConfigurationException {
 		
-		// id留� ���옣
-		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
-		
-		// 怨듯넻 �젙蹂� 議고쉶
-		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
+		// 怨듯넻 �젙蹂� 議고쉶s
+		ArrayList<NodeList> spotInfo = getSpotInfo(bestContentIdList);
 		List<VisitKoreaDTO> bestInformation = new ArrayList<VisitKoreaDTO>();
 		
 		for(int c = 0; c < bestContentIdList.size(); c++) {
@@ -159,11 +200,18 @@ public class VisitKoreaAPI {
 						Element element = (Element) node;
 						
 						
-						if (getTagValue("firstimage2", element) == null) {
+						if (getTagValue("firstimage", element) == null) {
 							spot.setFirstImage("/images/schedule/thumbnail.png");
 						} else {
 							spot.setFirstImage(getTagValue("firstimage", element));
 						}
+						
+						if (getTagValue("firstimage2", element) == null) {
+							spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+						} else {
+							spot.setFirstImage2(getTagValue("firstimage2", element));
+						}
+						
 						spot.setTitle(getTagValue("title", element));
 						if (!visitKoreaDTO.getContentTypeId().equals("25")) {
 							spot.setAddr1(getTagValue("addr1", element));
@@ -229,19 +277,20 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// like 異붽�
+	// like 추가한 내용 가져오기
 	public List<VisitKoreaDTO> getInformationPlusLike(VisitKoreaDTO visitKoreaDTO, ArrayList<SpotDTO> spotDTO, int totalCount)
 			throws SAXException, IOException, ParserConfigurationException {
-		System.out.println("NumOrRow() : " + visitKoreaDTO.getNumOfRow());
-		// id留� ���옣
+		
+		// 9개씩 id 값 가져오기
 		ArrayList<String> contentIdList = getContentIdList(visitKoreaDTO.getPageNo(), visitKoreaDTO.getSigunguCode(), visitKoreaDTO.getContentTypeId(), visitKoreaDTO.getNumOfRow());
-		// 怨듯넻 �젙蹂� 議고쉶
+				
+		// 해당 아이디의 값으로 Spot별 내용 가져오기
 		ArrayList<NodeList> spotInfo = getSpotInfo(contentIdList);
 		List<VisitKoreaDTO> information = new ArrayList<VisitKoreaDTO>();
 		
 		for (int i = 0; i < spotInfo.size(); i++) {
 			VisitKoreaDTO spot = new VisitKoreaDTO();
-			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 10 + i;
+			int searchIdx = (Integer.parseInt(visitKoreaDTO.getPageNo()) -1 ) * 9 + i;
 			
 			spot.setLike_cnt(spotDTO.get(searchIdx).getLike_cnt());
 			spot.setReview_cnt(spotDTO.get(searchIdx).getReview_cnt());
@@ -271,7 +320,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 	
-	// �꽭遺��궗�빆 媛��졇�삤湲�
+	// 상세정보 가져오기
 	public List<String> getEachInformation(VisitKoreaDTO visitKoreaDTO) throws Exception {
 		List<String> information = new ArrayList<String>();
 		information = getCommonInfo(visitKoreaDTO.getContentId(), visitKoreaDTO.getContentTypeId(), information);
@@ -280,7 +329,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 
-	// 怨듯넻 �젙蹂� 媛��졇�삤湲�
+	// 공통정보 가져오기
 	public List<String> getCommonInfo(String contentId, String contentTypeId, List<String> information)
 			throws Exception {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailCommon?" + "serviceKey="
@@ -294,7 +343,7 @@ public class VisitKoreaAPI {
 
 		// root tag
 		doc.getDocumentElement().normalize();
-		//System.out.println("占쏙옙占쏙옙 element :" + doc.getDocumentElement().getNodeName());
+		
 		// 占식쏙옙占쏙옙 tag
 		NodeList nList = doc.getElementsByTagName("item");
 		for (int i = 0; i < nList.getLength(); i++) {
@@ -315,7 +364,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 
-	// �냼媛� 湲곕컲 �젙蹂� (�긽�꽭�젙蹂닿��졇�삤湲�)
+	// 상세정보 가져오기
 	public List<String> getIntroduceInfo(String contentId, String contentTypeId, List<String> information)
 			throws Exception {
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro?" + "serviceKey="
@@ -327,9 +376,8 @@ public class VisitKoreaAPI {
 		Document doc = dBuilder.parse(url);
 		// root tag
 		doc.getDocumentElement().normalize();
-		//System.out.println("占쏙옙 element :" + doc.getDocumentElement().getNodeName());
+		
 
-		// 占식쏙옙占쏙옙 tag
 		NodeList nList = doc.getElementsByTagName("item");
 		switch (contentTypeId) {
 		case "12":
@@ -429,7 +477,7 @@ public class VisitKoreaAPI {
 		return information;
 	}
 
-	// VisitKorea �궎�썙�뱶議고쉶
+	// 키워드 ..
 	public List<VisitKoreaDTO> getKeywordInformation(VisitKoreaDTO visitKoreaDTO, String keyword) throws ParserConfigurationException, SAXException, IOException, InterruptedException {
 		String encodeKeyword = URLEncoder.encode(keyword, "UTF-8");
 		String url = "http://api.visitkorea.or.kr/openapi/service/rest/KorService/searchKeyword?" 
@@ -486,6 +534,13 @@ public class VisitKoreaAPI {
 					} else {
 						spot.setFirstImage(getTagValue("firstimage", element));
 					}
+
+					if (getTagValue("firstimage2", element) == null) {
+						spot.setFirstImage2("/images/schedule/thumbnail.jpg");
+					} else {
+						spot.setFirstImage2(getTagValue("firstimage2", element));
+					}
+					
 					spot.setTitle(getTagValue("title", element));
 					
 					if (!visitKoreaDTO.getContentTypeId().equals("25")) {

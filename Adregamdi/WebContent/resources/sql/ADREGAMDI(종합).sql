@@ -1,9 +1,8 @@
-
 -- ADREGAMDI --
 
--- 1. ȸ������ --
+-- 1. 회원정보 --
 
--- (1) ���̺� ���� --
+-- (1) 테이블 생성 --
 DROP TABLE USER_INFO PURGE;
 CREATE TABLE USER_INFO
 (
@@ -16,28 +15,28 @@ CREATE TABLE USER_INFO
     USER_PROVIDER NUMBER          NOT NULL
 );
 
--- (2) ������ ���� --
-DROP TABLE USER_INFO_SEQ;
+-- (2) 시퀀스 생성 --
+DROP SEQUENCE USER_INFO_SEQ;
 CREATE SEQUENCE USER_INFO_SEQ
 START WITH 1
 INCREMENT BY 1;
 
--- (3) Ư�̻��� --
+-- (3) 특이사항 --
 
--- ȸ��Ż�� ���� �ݵ�� �ʿ��� ������
+-- 회원탈퇴를 위해 반드시 필요한 쿼리문
 
--- �ܷ�Ű �÷� ����
-ALTER TABLE [�� �Խ��� ���̺�] DROP CONSTRAINT [�ܷ�Ű �̸�];
+-- 외래키 컬럼 삭제
+ALTER TABLE [각 게시판 테이블] DROP CONSTRAINT [외래키 이름];
 
--- ON DELETE CASCADE �� ������ �ܷ�Ű �����
-ALTER TABLE [�� �Խ��� ���̺�] ADD CONSTRAINT [�ܷ�Ű �̸�] FOREIGN KEY ([�ܷ�Ű �ڽ� �÷�])
+-- ON DELETE CASCADE 를 적용한 외래키 재생성
+ALTER TABLE [각 게시판 테이블] ADD CONSTRAINT [외래키 이름] FOREIGN KEY ([외래키 자식 컬럼])
 REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
--- PROVIDER(0) : ������(ADMINISTRATOR)
+-- PROVIDER(0) : 관리자(ADMINISTRATOR)
 
--- 2. �������� --
+-- 2. 공지사항 --
 
--- (1) ���̺� ���� --
+-- (1) 테이블 생성 --
 DROP TABLE NOTICE PURGE;
 CREATE TABLE NOTICE(
     NOTICE_NO        NUMBER           CONSTRAINT NOTICE_PK PRIMARY KEY, 
@@ -48,23 +47,16 @@ CREATE TABLE NOTICE(
     NOTICE_CONTENT   VARCHAR2(4000)   NOT NULL
 );
 
--- (2) ������ ���� --
-DROP TABLE NOTICE_SEQ;
+-- (2) 시퀀스 생성 --
+DROP SEQUENCE NOTICE_SEQ;
 CREATE SEQUENCE NOTICE_SEQ
 START WITH 1
 INCREMENT BY 1;
 
 
--- ON DELETE CASCADE (���� ����)
-ALTER TABLE notice DROP CONSTRAINT notice_fk;
+-- 3. 자유게시판 --
 
-ALTER TABLE notice ADD CONSTRAINT notice_fk FOREIGN KEY (notice_user_no)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
-
--- 3. �����Խ��� --
-
--- (1) ���̺� ���� --
+-- (1) 테이블 생성 --
 
 -- FREEDOMBOARD
 DROP TABLE FREEDOMBOARD PURGE;
@@ -77,12 +69,6 @@ CREATE TABLE FREEDOMBOARD (
     FREE_CONTENT   VARCHAR2(4000)    NOT NULL
 );
 
--- ON DELETE CASCADE (���� ����)
-ALTER TABLE FREEDOMBOARD DROP CONSTRAINT FREEDOMBOARD_FK;
-
-ALTER TABLE FREEDOMBOARD ADD CONSTRAINT FREEDOMBOARD_FK FOREIGN KEY (free_writer)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
 -- FREEDOMREPLY
 DROP TABLE FREEDOMREPLY PURGE;
 CREATE TABLE FREEDOMREPLY (
@@ -93,32 +79,30 @@ CREATE TABLE FREEDOMREPLY (
     REPLY_DATE      DATE             NOT NULL
 );
 
--- ON DELETE CASCADE (���� ����)
-ALTER TABLE FREEDOMBOARD DROP CONSTRAINT FREEDOMBOARD_FK;
+-- (2) 시퀀스 생성 --
 
-ALTER TABLE FREEDOMBOARD ADD CONSTRAINT FREEDOMBOARD_FK FOREIGN KEY (free_writer)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
--- (2) ������ ���� --
-
-DROP TABLE FREEDOM_REPLY_SEQ;
+DROP SEQUENCE FREEDOM_REPLY_SEQ;
 CREATE SEQUENCE FREEDOM_REPLY_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-DROP TABLE CONTENT_CNT_SEQ;
+DROP SEQUENCE CONTENT_CNT_SEQ;
 CREATE SEQUENCE CONTENT_CNT_SEQ
 START WITH 1
 INCREMENT BY 1;
 
 
--- 4. ������ --
+-- 4. 여행지 --
 
--- (1) ���̺� ���� --
+select rownum, like_idx, content_id, like_cnt, review_cnt 
+from (select * from spot_info order by like_cnt desc)
+where rownum <= 3;
+
+
+-- (1) 테이블 생성 --
 
 -- SPOT_INFO
 DROP TABLE SPOT_INFO PURGE;
-
 CREATE TABLE SPOT_INFO (
     LIKE_IDX     NUMBER         CONSTRAINT LIKE_PK PRIMARY KEY,
     CONTENT_ID   VARCHAR2(10)   NOT NULL,
@@ -126,56 +110,18 @@ CREATE TABLE SPOT_INFO (
     REVIEW_CNT   NUMBER
 );
 
-
--- 데이터 입력 --
-
-SELECT * FROM SPOT_INFO;
-
-
-UPDATE SPOT_INFO SET LIKE_CNT = 25 WHERE CONTENT_ID = '322836';
-UPDATE SPOT_INFO SET LIKE_CNT = 85 WHERE CONTENT_ID = '127813';
-UPDATE SPOT_INFO SET LIKE_CNT = 78 WHERE CONTENT_ID = '126438';
-UPDATE SPOT_INFO SET LIKE_CNT = 70 WHERE CONTENT_ID = '126435';
-UPDATE SPOT_INFO SET LIKE_CNT = 195 WHERE CONTENT_ID = '228854';
-UPDATE SPOT_INFO SET LIKE_CNT = 854 WHERE CONTENT_ID = '126452';
-UPDATE SPOT_INFO SET LIKE_CNT = 45 WHERE CONTENT_ID = '129617';
-UPDATE SPOT_INFO SET LIKE_CNT = 748 WHERE CONTENT_ID = '141736';
-UPDATE SPOT_INFO SET LIKE_CNT = 87 WHERE CONTENT_ID = '126439';
-UPDATE SPOT_INFO SET LIKE_CNT = 755 WHERE CONTENT_ID = '667418';
-UPDATE SPOT_INFO SET LIKE_CNT = 744 WHERE CONTENT_ID = '228853';
-UPDATE SPOT_INFO SET LIKE_CNT = 78 WHERE CONTENT_ID = '126471';
-UPDATE SPOT_INFO SET LIKE_CNT = 78 WHERE CONTENT_ID = '127490';
-UPDATE SPOT_INFO SET LIKE_CNT = 7 WHERE CONTENT_ID = '127479';
-UPDATE SPOT_INFO SET LIKE_CNT = 78 WHERE CONTENT_ID = '139008';
-UPDATE SPOT_INFO SET LIKE_CNT = 74 WHERE CONTENT_ID = '126470';
-UPDATE SPOT_INFO SET LIKE_CNT = 88 WHERE CONTENT_ID = '127635';
-UPDATE SPOT_INFO SET LIKE_CNT = 77 WHERE CONTENT_ID = '142948';
-UPDATE SPOT_INFO SET LIKE_CNT = 7 WHERE CONTENT_ID = '127336';
-UPDATE SPOT_INFO SET LIKE_CNT = 123 WHERE CONTENT_ID = '127053';
-UPDATE SPOT_INFO SET LIKE_CNT = 754 WHERE CONTENT_ID = '2444532';
-UPDATE SPOT_INFO SET LIKE_CNT = 78 WHERE CONTENT_ID = '130474';
-UPDATE SPOT_INFO SET LIKE_CNT = 54 WHERE CONTENT_ID = '128556';
-
-commit; 
-
 -- REVIEW_INFO
 DROP TABLE REVIEW_INFO PURGE;
 CREATE TABLE REVIEW_INFO (
     REVIEW_IDX       NUMBER          CONSTRAINT REVIEW_PK PRIMARY KEY,
     CONTENT_ID       VARCHAR2(10)    NOT NULL,
     USER_NO          NUMBER          CONSTRAINT REVIEW_FK2 REFERENCES USER_INFO(USER_NO),
-    USER_ID        VARCHAR2(50)    NOT NULL,
+    USER_NAME        VARCHAR2(15)    NOT NULL,
     REVIEW_DATE      VARCHAR2(100)   NOT NULL,
     REVIEW_CONTENT   VARCHAR2(200)   NOT NULL
 );
 
--- ON DELETE CASCADE (���� ����)
-ALTER TABLE REVIEW_INFO DROP CONSTRAINT REVIEW_FK2;
-
-ALTER TABLE REVIEW_INFO ADD CONSTRAINT REVIEW_FK2 FOREIGN KEY (USER_NO)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
--- (2) ������ ���� --
+-- (2) 시퀀스 생성 --
 
 DROP SEQUENCE SPOT_SEQ;
 CREATE SEQUENCE SPOT_SEQ
@@ -187,11 +133,9 @@ CREATE SEQUENCE REVIEW_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-SELECT * FROM REVIEW_INFO;
+-- 5. 여행 일정 만들기 --
 
--- 5. ���� ���� ����� --
-
--- (1) ���̺� ���� --
+-- (1) 테이블 생성 --
 
 -- PLAN
 DROP TABLE PLAN PURGE;
@@ -204,12 +148,6 @@ CREATE TABLE PLAN (
     PLAN_PRIVATE   VARCHAR(1)       DEFAULT 'N'
 );
 
-
-ALTER TABLE PLAN DROP CONSTRAINT PLAN_FK;
-
-ALTER TABLE PLAN ADD CONSTRAINT PLAN_FK FOREIGN KEY (USER_NO)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
 -- PLAN_IMG
 DROP TABLE PLAN_IMG PURGE;
 CREATE TABLE PLAN_IMG (
@@ -218,11 +156,6 @@ CREATE TABLE PLAN_IMG (
     PLAN_IMG   VARCHAR2(300)   NOT NULL,
     REGDATE    DATE            NOT NULL
 );
-
-ALTER TABLE PLAN_IMG DROP CONSTRAINT PLAN_IMG_FK;
-
-ALTER TABLE PLAN_IMG ADD CONSTRAINT PLAN_IMG_FK FOREIGN KEY (PLAN_NO)
-REFERENCES PLAN(PLAN_NO) ON DELETE CASCADE;
 
 -- USER_PLAN
 DROP TABLE USER_PLAN PURGE;
@@ -246,21 +179,16 @@ CREATE TABLE USER_PLAN (
     ISACC            VARCHAR(1)       DEFAULT 'N'
 );
 
-ALTER TABLE USER_PLAN DROP CONSTRAINT USER_PLAN_FK;
-
-ALTER TABLE USER_PLAN ADD CONSTRAINT USER_PLAN_FK FOREIGN KEY (PLAN_NO)
-REFERENCES PLAN(PLAN_NO) ON DELETE CASCADE;
-
--- (2) ������ ���� --
+-- (2) 시퀀스 생성 --
 
 DROP SEQUENCE PLAN_SEQ;
 CREATE SEQUENCE PLAN_SEQ
 START WITH 1
 INCREMENT BY 1;
 
--- 6. ���� �Խ���
+-- 6. 동행 게시판
 
--- (1) ���̺� ���� --
+-- (1) 테이블 생성 --
 
 -- TOGETHER
 DROP TABLE TOGETHER PURGE;
@@ -273,11 +201,6 @@ CREATE TABLE TOGETHER(
     TO_CONTENT   VARCHAR2(4000)   NOT NULL
 );
 
-ALTER TABLE TOGETHER DROP CONSTRAINT TOGETHER_FK;
-
-ALTER TABLE TOGETHER ADD CONSTRAINT TOGETHER_FK FOREIGN KEY (TO_WRITER)
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
-
 -- TOGETHERREPLY
 DROP TABLE TOGETHERREPLY PURGE;
 CREATE TABLE TOGETHERREPLY (
@@ -288,14 +211,64 @@ CREATE TABLE TOGETHERREPLY (
     REPLY_DATE      DATE             NOT NULL
 );
 
--- (2) ������ ���� --
+-- (2) 시퀀스 생성 --
 
 DROP SEQUENCE TOGETHER_SEQ;
 CREATE SEQUENCE TOGETHER_SEQ
 START WITH 1
 INCREMENT BY 1;
 
-DROP SEQUENCE TOGETHERREPLY_SEQ;
-CREATE SEQUENCE together_reply_SEQ
+DROP SEQUENCE TOGETHER_REPLY_SEQ;
+CREATE SEQUENCE TOGETHER_REPLY_SEQ
 START WITH 1
-INCREMENT BY 1;
+INCREMENT BY 1;.
+
+select rownum, like_idx, content_id, like_cnt, review_cnt 
+from (select * from spot_info order by like_cnt desc)
+where rownum <= 3;
+
+select * from user_plan;
+select * from plan;
+
+DROP TABLE TOGETHER PURGE;
+create table together(
+
+    to_no       NUMBER              constraint together_pk primary key,                      -- 게시글번호
+    to_writer_no   number           constraint together_fk1 references user_info(user_no),   -- 회원번호
+    to_writer   varchar2(50)        constraint together_fk2 references user_info(user_id),   -- 회원번호
+    to_title    varchar2(300)       not null,                                                -- 공고제목   
+    to_place    varchar2(300)       not null,                                                -- 여행장소    
+    to_place_name varchar2(100)     not null,
+    to_content  varchar2(4000)      not null,                                                -- 공고문
+    to_date     date                not null,                                                -- 작성날짜   
+    to_curr     number              DEFAULT '1',                                            -- 현재인원    
+    to_total    number              not null,                                                -- 모집인원   
+    to_meet     varchar2(100)       not null,                                                -- 여행날짜   
+    to_state    number              not null                                                 -- 공고현황   
+);
+        
+SELECT * FROM TOGETHER;
+commit;
+
+-- TOGETHERREPLY
+DROP TABLE TOGETHERREPLY PURGE;
+DROP TABLE TOGETHER_REPLY PURGE;
+CREATE TABLE TOGETHERREPLY (
+    REPLY_NUM       NUMBER           CONSTRAINT TOGETHERREPLY_PK PRIMARY KEY,
+    TOGETHER_NUM    NUMBER           CONSTRAINT TOGETHERREPLY_FK REFERENCES TOGETHER(TO_NO),
+    REPLY_WRITER    VARCHAR2(100)    NOT NULL,
+    REPLY_CONTENT   VARCHAR2(1000)   NOT NULL,
+    REPLY_DATE      DATE             NOT NULL
+);
+
+
+drop sequence together_seq;
+create sequence together_seq
+start with 1
+increment by 1;
+
+select * from together;
+
+insert into together values (together_seq.nextval, 1, '휴애리자연생활공원 가실 분', '322836', '6월 6일에 휴애리 자연생활농원 놀러가실 분 구합니다!!', sysdate, 1, 3, sysdate, 0); 
+SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, T.TO_TITLE, T.TO_CONTENT, T.TO_CURR, T.TO_TOTAL, T.TO_MEET, T.TO_STATE FROM USER_INFO U, TOGETHER T WHERE U.USER_NO = T.TO_WRITER AND T.TO_NO = 1;
+commit;

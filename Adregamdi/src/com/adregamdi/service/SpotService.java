@@ -35,10 +35,9 @@ public class SpotService {
 		return spotDAO.getSpotInfo();
 	}
 	
-	public ArrayList<String> getBestSpotInfo(int range_min, int range_max) {
-		return spotDAO.getBestSpotInfo(range_min, range_max);
-	}
-	
+	public ArrayList<String> getBestSpotInfo1() {
+		return spotDAO.getBestSpotInfo1();
+	}	
 	
 	public ArrayList<ReviewDTO> getReviewInfo(String content_id) {
 		
@@ -48,7 +47,9 @@ public class SpotService {
 	public void inputReview(ReviewDTO writeReviewDTO) {
 		
 		writeReviewDTO.setUser_no(loginUserDTO.getUser_no());
-		writeReviewDTO.setUser_name(loginUserDTO.getUser_name());
+		writeReviewDTO.setUser_id(loginUserDTO.getUser_id());
+		
+		System.out.println(writeReviewDTO.toString());
 		
 		spotDAO.inputReview(writeReviewDTO);
 	}

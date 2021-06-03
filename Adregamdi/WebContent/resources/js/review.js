@@ -18,7 +18,7 @@ function writeReview() {
 			
 		}, 
 		error: function(error) {
-			//alert('write 에러');
+			alert('write 에러');
 		}
 	});
 	location.reload();
@@ -40,7 +40,8 @@ function deleteReview(review_idx) {
 			alert("delete 완료!");
 		}, 
 		error: function(error) {
-			//alert('delete 에러');
+			alert('delete 에러');
 		}
 	});
+	location.reload();
 }

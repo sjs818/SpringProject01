@@ -42,7 +42,7 @@
 					<hr>
 					<div class="form-group float-right">
 						<a href="${root}notice/list" class="btn btn-info" style="color: white">목록보기</a>
-						<c:if test="${loginUserDTO.user_no == readContentDTO.notice_user_no && loginUserDTO.user_provider == 0}">
+						<c:if test="${loginUserDTO.user_no != 0 && loginUserDTO.user_provider == 0}">
 							<a href="${root}notice/modify?content_idx=${readContentDTO.notice_no}"
 							   class="btn btn-success" style="color: white">수정하기</a>
 							<a href="${root}notice/delete?content_idx=${readContentDTO.notice_no}" 

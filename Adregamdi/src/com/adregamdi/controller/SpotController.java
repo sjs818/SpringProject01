@@ -63,7 +63,7 @@ public class SpotController {
 		}
 		
 		totalCount = spot.getTotalCount(contentTypeId, sigunguCode);
-		// System.out.println("totalCount : "+totalCount);
+		
 		model.addAttribute("pageMaker", new PageDTO(currentPage, totalCount, 10));
 		model.addAttribute("sigunguCode", sigunguCode);
 		model.addAttribute("contentTypeId", contentTypeId);		
@@ -80,8 +80,9 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
+		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
+				
 		return spot.getInformationPlusLike(visitKoreaDTO, spotDTO, totalCount);
 	}
 	
@@ -93,13 +94,9 @@ public class SpotController {
 		if(visitKoreaDTO.getSigunguCode()==null) visitKoreaDTO.setSigunguCode("");
 		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
 		
-		// 현재 페이지에서 Best 3
-		int range_min = ((Integer.parseInt(visitKoreaDTO.getPageNo())-1)*9) + 1 ;
-		int range_max = range_min + 8;
+		ArrayList<String> bestContentId = spotService.getBestSpotInfo1();
 		
-		ArrayList<String> bestContentId = spotService.getBestSpotInfo(range_min, range_max);
-				
-		return spot.getBestInformation(visitKoreaDTO, totalCount, bestContentId);
+		return spot.getBestInformation(visitKoreaDTO,  bestContentId);
 	}
 	
 	@ResponseBody
@@ -145,6 +142,7 @@ public class SpotController {
 		
 		// 리뷰 내용 출력
 		ArrayList<ReviewDTO> reviewList = spotService.getReviewInfo(contentId);
+		
 		int reviewSize = reviewList.size();
 		
 		model.addAttribute("reviewList", reviewList);
@@ -189,7 +187,7 @@ public class SpotController {
 		ArrayList<SpotDTO> spotDTO = spotService.getSpotInfo();
 		
 		spotService.plusLikeCnt(contentId);
-				
+		
 		return spotDTO;
 	}
 	 

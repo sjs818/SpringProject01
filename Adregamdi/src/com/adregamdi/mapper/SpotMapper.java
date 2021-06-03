@@ -28,8 +28,8 @@ public interface SpotMapper {
 	@Select("SELECT * FROM SPOT_INFO")
 	ArrayList<SpotDTO> getSpotInfo();
 	
-	@Select("SELECT CONTENT_ID FROM  (SELECT *  FROM SPOT_INFO WHERE LIKE_IDX>=#{range_min} AND LIKE_IDX<=#{range_max} ORDER BY LIKE_CNT DESC) WHERE ROWNUM<=3")
-	ArrayList<String> getBestSpotInfo(@Param("range_min")int range_min, @Param("range_max")int range_max);
+	@Select("SELECT CONTENT_ID FROM (SELECT *  FROM SPOT_INFO ORDER BY LIKE_CNT DESC) WHERE ROWNUM<=3")
+	ArrayList<String> getBestSpotInfo1();
 	
 	
 	@Select("SELECT * FROM REVIEW_INFO WHERE CONTENT_ID = #{content_id}")
@@ -38,7 +38,7 @@ public interface SpotMapper {
 	
 	@SelectKey(statement="select REVIEW_SEQ.NEXTVAL from dual", keyProperty="review_idx", before=true, resultType=int.class)
 	
-	@Insert("INSERT INTO REVIEW_INFO VALUES (#{review_idx}, #{content_id} , #{user_no}, #{user_name}, to_char(SYSDATE, 'YYYY.MM.DD HH24:MI'), #{review_content})")
+	@Insert("INSERT INTO REVIEW_INFO VALUES (#{review_idx}, #{content_id} , #{user_no}, #{user_id}, to_char(SYSDATE, 'YYYY.MM.DD HH24:MI'), #{review_content})")
 	void inputReview(ReviewDTO reviewDTO);
 	
 	@Update("UPDATE SPOT_INFO SET REVIEW_CNT = REVIEW_CNT + 1 WHERE CONTENT_ID= #{content_id}")

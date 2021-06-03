@@ -1,9 +1,12 @@
 package com.adregamdi.controller;
 
+import java.io.IOException;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.validation.Valid;
+import javax.xml.parsers.ParserConfigurationException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,11 +17,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.xml.sax.SAXException;
 
+import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
-import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
+import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
 
 @Controller
@@ -30,6 +36,9 @@ public class TogetherController {
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
+	
+	@Autowired
+	private VisitKoreaAPI spot;
 	
 	@GetMapping("/list")
 	public String TogetherList(@RequestParam(value="page", defaultValue="1")int page, Model model) {
@@ -69,25 +78,29 @@ public class TogetherController {
 //			return "together/delete_fail";
 //		}
 //	}
+	
 	@GetMapping("/read")
-	public String TogetherRead
-	(@ModelAttribute ("replyWriteDTO") TogetherReplyDTO replyWriteDTO, @RequestParam("content_idx") int content_idx, Model model) {
-		togetherService.viewCount(content_idx);
-		TogetherDTO readContentDTO = togetherService.getTogetherContent(content_idx);
-		model.addAttribute("loginUserDTO", loginUserDTO);
-		model.addAttribute("readContentDTO", readContentDTO);
-		model.addAttribute("content_idx", content_idx);
+	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
-		return "together/read_reply";
+		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
+		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
+		
+		model.addAttribute("togetherDTO", togetherDTO);
+		model.addAttribute("place", place);
+		model.addAttribute("loginUserDTO", loginUserDTO);
+		
+		return "together/read";
 	}
 	
 	@ResponseBody
-	@PostMapping("/replyCount")
-	public int replyCount(@RequestParam("content_idx") int content_idx) {
-		return togetherService.GetTogetherReplyCount(content_idx);
+	@PostMapping("/subcription")
+	public boolean subcription(@RequestParam("") SubscriptionDTO subscriptionDTO) {
+		
+		
+		return true;
 	}
 	
-	 @GetMapping("/deleteProc")
+	@GetMapping("/deleteProc")
 	public String BoardDeleteProc
 	(@RequestParam("content_idx") int content_idx) {
 		togetherService.DeleteTogetherComment(content_idx);
@@ -107,44 +120,58 @@ public class TogetherController {
 	(@Valid @ModelAttribute("togetherWriteDTO") TogetherDTO togetherWriteDTO, BindingResult result) {
 		if(result.hasErrors())
 			return "together/write";
-			togetherService.InsertTogetherContent(togetherWriteDTO);
+			
+		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
+		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
+		
+		togetherService.InsertTogetherContent(togetherWriteDTO);
 			
 		return "together/write_success";
 	}
 	
 	@GetMapping("/modify")
-	public String TogetherModify
-	(@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
-	 @RequestParam("content_idx") int content_idx, Model model) {
-		
-		TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
-		
-		togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
-		togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
-		togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
-		togetherModifyDTO.setTo_cnt(TogetherDTO.getTo_cnt());
-		togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
-		togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
-		togetherModifyDTO.setTo_id(TogetherDTO.getTo_id());
-		
-		model.addAttribute("togetherModifyDTO", togetherModifyDTO);
-		
-		return "together/modify";
-	}
+  public String TogetherModify
+  (@ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, 
+   @RequestParam("content_idx") int content_idx, Model model) {
+     
+     TogetherDTO TogetherDTO = togetherService.getTogetherContent(content_idx);
+     
+     togetherModifyDTO.setTo_no(TogetherDTO.getTo_no());
+     togetherModifyDTO.setTo_writer(TogetherDTO.getTo_writer());
+     togetherModifyDTO.setTo_writer_no(TogetherDTO.getTo_writer_no());
+     togetherModifyDTO.setTo_title(TogetherDTO.getTo_title());
+     togetherModifyDTO.setTo_place(TogetherDTO.getTo_place());
+     togetherModifyDTO.setTo_place_name(TogetherDTO.getTo_place_name());
+     togetherModifyDTO.setTo_date(TogetherDTO.getTo_date());
+     togetherModifyDTO.setTo_content(TogetherDTO.getTo_content());
+     togetherModifyDTO.setTo_meet(TogetherDTO.getTo_meet());
+     togetherModifyDTO.setTo_state(TogetherDTO.getTo_state());
+     togetherModifyDTO.setTo_total(TogetherDTO.getTo_total());
+     
+     
+     model.addAttribute("togetherModifyDTO", togetherModifyDTO);
+     
+     return "together/modify";
+  }
+  
+  @PostMapping("/modifyProc")
+  public String TogetherModify_Proc
+  (@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+     
+     togetherService.ModifyTogetherContent(togetherModifyDTO);
+     System.out.println(togetherModifyDTO.toString());
+     
+     return "together/modify_success";
+  }
 	
-	@PostMapping("/modifyProc")
-	public String TogetherModify_Proc
-	(@Valid @ModelAttribute("togetherModifyDTO") TogetherDTO togetherModifyDTO, BindingResult result) {
+	@ResponseBody
+	@GetMapping("/keyword")
+	public List<VisitKoreaDTO> getKeywordInfo(VisitKoreaDTO visitKoreaDTO, String keyword, Model model) throws Exception {
 		
-		togetherService.ModifyTogetherContent(togetherModifyDTO);
+		if(visitKoreaDTO.getPageNo()==null) visitKoreaDTO.setPageNo("1");
+		if(visitKoreaDTO.getContentTypeId()==null) visitKoreaDTO.setContentTypeId("");
+		List<VisitKoreaDTO> resultKeyword = spot.getKeywordInformation(visitKoreaDTO, keyword);
 		
-		return "together/modify_success";
-	}
-	
+		return resultKeyword;
+	} 	
 }
-	
-	
-	
-	
-	
-	
