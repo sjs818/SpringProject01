@@ -185,14 +185,10 @@ public class UserController {
 		
 		return userService.subCancel(sub_no);
 	}
-
-	@ResponseBody
-	@PostMapping("/subAccept")
-	public boolean subAccept(@RequestParam("to_no") int to_no, @RequestParam("sub_no") int sub_no) {
-		
-		return userService.subAccept(sub_no) && userService.toCurrCount(to_no);
-	}
 	
+	
+	// accept 는 together controller 에...
+
 	@GetMapping("/my_to")
 	public String myTo(Model model) {
 		
@@ -246,6 +242,8 @@ public class UserController {
 		
 		return "user/my_page_disable";
 	}
+	
+
 
 	
 	

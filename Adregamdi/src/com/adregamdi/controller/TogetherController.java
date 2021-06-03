@@ -26,6 +26,7 @@ import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
+import com.adregamdi.service.UserService;
 
 @Controller
 @RequestMapping("/together")
@@ -33,6 +34,9 @@ public class TogetherController {
 
 	@Autowired
 	TogetherService togetherService;
+	
+	@Autowired
+	UserService userService;
 	
 	@Resource(name="loginUserDTO")
 	private UserDTO loginUserDTO;
@@ -78,6 +82,14 @@ public class TogetherController {
 //			return "together/delete_fail";
 //		}
 //	}
+	@ResponseBody
+	@PostMapping("/subAccept")
+	public boolean subAccept(@ModelAttribute SubscriptionDTO subscriptionDTO) {
+		
+		System.out.println(subscriptionDTO);
+		
+		return userService.subAccept(subscriptionDTO.getSub_no()) && userService.toCurrCount(subscriptionDTO.getTo_no()) && userService.setChatUser(subscriptionDTO);
+	}
 	
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PlanDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
@@ -60,7 +61,7 @@ public interface UserMapper {
 	@Select("SELECT * FROM TOGETHER T LEFT OUTER JOIN (SELECT A.TO_NO, COUNT(SUB_STATUS) STATUS FROM SUBSCRIPTION A, TOGETHER B WHERE A.TO_NO = B.TO_NO AND SUB_STATUS = 0 GROUP BY A.TO_NO) S ON T.TO_NO = S.TO_NO WHERE TO_WRITER_NO = #{user_no}")
 	List<TogetherDTO> getMytogether(int user_no);
 	
-	@Select("SELECT S.SUB_NO, S.TO_NO, S.SUB_MESSAGE, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS, TO_CHAR(S.SUB_DATE, 'YY-MM-DD') SUB_DATE " + 
+	@Select("SELECT S.SUB_NO,  S.TO_NO, S.SUB_MESSAGE, S.TO_WRITER_NO, S.SUB_WRITER, U.USER_ID notifi_writer, S.SUB_STATUS, TO_CHAR(S.SUB_DATE, 'YY-MM-DD') SUB_DATE " + 
 			"FROM SUBSCRIPTION S, USER_INFO U " + 
 			"WHERE S.SUB_WRITER = U.USER_NO " + 
 			"AND S.TO_NO=#{to_no}" +
@@ -76,4 +77,12 @@ public interface UserMapper {
 	@Update("UPDATE together SET to_curr = to_curr+1 WHERE to_no = #{to_no}")
 	int toCurrCount(int to_no);
 	
+	@Update("UPDATE CHATROOM SET USER1 = #{user1}, USER2 = #{user2}, USER3 = #{user3} WHERE TO_NO = #{to_no}")
+	int setChatUser (ChatroomDTO chatroomDTO);
+	
+	@Select("SELECT TO_TOTAL FROM TOGETHER WHERE TO_NO = #{to_no}")
+	int getToTotal(int to_no);
+	
+	@Select("SELECT * FROM CHATROOM WHERE TO_NO = #{to_no}")
+	ChatroomDTO getChatroom (int to_no);
 }

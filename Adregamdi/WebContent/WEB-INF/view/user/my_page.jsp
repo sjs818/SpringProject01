@@ -46,7 +46,7 @@
 				<ul class="nav nav-tabs card-header-tabs">
 					<li class="nav-item"><a class="nav-link" href="${root }user/my_to">동행찾기&nbsp
 						<c:if test="${myToCount ne '0' }">
-							<span class="badge badge-success"> ${myToCount }</span>
+							<span class="badge badge-secondary"> ${myToCount }</span>
 						</c:if>
 					</a></li>
 					<li class="nav-item"><a class="nav-link active" href="${root }user/my_page">공유일정&nbsp
