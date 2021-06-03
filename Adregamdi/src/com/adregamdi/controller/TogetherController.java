@@ -23,6 +23,7 @@ import com.adregamdi.api.VisitKoreaAPI;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
+import com.adregamdi.dto.TogetherReplyDTO;
 import com.adregamdi.dto.UserDTO;
 import com.adregamdi.dto.VisitKoreaDTO;
 import com.adregamdi.service.TogetherService;
@@ -61,6 +62,7 @@ public class TogetherController {
 		model.addAttribute("togetherDTO", togetherDTO);
 		model.addAttribute("place", place);
 		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("content_idx", content_idx);
 		
 		return "together/read";
 	}
@@ -150,4 +152,23 @@ public class TogetherController {
 		
 		return resultKeyword;
 	} 	
+	
+	@ResponseBody
+	@GetMapping("/writeMessage")
+	public void writeMessage(TogetherReplyDTO togetherReplyDTO) {
+		togetherService.InsertTogetherReply(togetherReplyDTO);		
+	}
+	
+	@ResponseBody
+	@GetMapping("/getMessage")
+	public List<TogetherReplyDTO> getMessage(int together_num) {
+		
+		List<TogetherReplyDTO> getReply = togetherService.getTogetherReplyList(together_num);
+		/*
+		for(int i=0; i<getReply.size(); i++) {
+			System.out.println("list : "+getReply.get(i).toString());
+		}
+ 		*/
+		return getReply;
+	}
 }
