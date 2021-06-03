@@ -8,14 +8,23 @@ import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.session.RowBounds;
 
+import com.adregamdi.dto.ChatroomDTO;
+import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
 import com.adregamdi.dto.TogetherReplyDTO;
+import com.adregamdi.dto.UserDTO;
 
 public interface TogetherMapper {
 	
 	@Insert("INSERT INTO TOGETHER(TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE) "
 			+ "VALUES(TOGETHER_SEQ.nextval, #{to_writer_no}, #{to_writer}, #{to_title}, #{to_place}, #{to_place_name}, #{to_content}, SYSDATE, 1, #{to_total}, #{to_meet}, #{to_state})") 
 	void InsertTogetherContent(TogetherDTO togetherDTO);
+	
+	@Select("SELECT TOGETHER_SEQ.CURRVAL FROM DUAL")
+	int getTogetherNo();
+	
+	@Insert("INSERT INTO CHATROOM (TO_NO, TO_WRITER_NO) VALUES(#{to_no }, #{to_writer_no})")
+	void createChatroom(TogetherDTO togetherDTO);
 	
 	@Select("SELECT T.TO_NO, U.USER_ID TO_WRITER, T.TO_TITLE, T.TO_PLACE_NAME, T.TO_CURR, T.TO_TOTAL, T.TO_STATE, T.TO_MEET, "
 			+ "TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE "
@@ -25,6 +34,19 @@ public interface TogetherMapper {
 	
 	@Select("SELECT TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_CHAR(TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE FROM TOGETHER WHERE TO_NO = #{content_idx}")
 	TogetherDTO getTogetherContent(int content_idx);
+	
+	@Select("SELECT * FROM CHATROOM WHERE TO_NO = #{content_idx}")
+	ChatroomDTO getChatMember(int content_idx);
+	
+	@Select("SELECT USER_NO, USER_ID FROM USER_INFO WHERE USER_NO = #{user_no }")
+	UserDTO getUserID(int user_no);
+	
+	@Insert("INSERT INTO SUBSCRIPTION VALUES(SUBSCRIPTION_SEQ.NEXTVAL, #{to_no}, #{to_writer_no}, #{sub_message }, #{sub_writer}, 0, SYSDATE)")
+	int sendSubscription(SubscriptionDTO subscriptionDTO);
+	
+	@Select("SELECT COUNT(*) FROM SUBSCRIPTION WHERE SUB_WRITER = #{sub_writer } AND TO_NO = #{to_no }")
+	int confirmSubscription(SubscriptionDTO subscriptionDTO);
+	
 	
 	@Select("SELECT U.USER_PW " 
 			  + "FROM TOGETHER T, USER_INFO U "

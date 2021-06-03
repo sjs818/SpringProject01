@@ -1,6 +1,7 @@
 package com.adregamdi.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.xml.sax.SAXException;
 
 import com.adregamdi.api.VisitKoreaAPI;
+import com.adregamdi.dto.ChatroomDTO;
 import com.adregamdi.dto.PageDTO;
 import com.adregamdi.dto.SubscriptionDTO;
 import com.adregamdi.dto.TogetherDTO;
@@ -84,20 +86,34 @@ public class TogetherController {
 		
 		TogetherDTO togetherDTO = togetherService.getTogetherContent(content_idx);
 		VisitKoreaDTO place = spot.getOneSpot(togetherDTO.getTo_place());
+		ChatroomDTO chatroomDTO = togetherService.getChatroom(content_idx);
+		ArrayList<UserDTO> userList = togetherService.getChatMember(content_idx);
 		
 		model.addAttribute("togetherDTO", togetherDTO);
 		model.addAttribute("place", place);
 		model.addAttribute("loginUserDTO", loginUserDTO);
+		model.addAttribute("chatroomDTO", chatroomDTO);
+		model.addAttribute("userList", userList);
 		
 		return "together/read";
 	}
 	
 	@ResponseBody
 	@PostMapping("/subcription")
-	public boolean subcription(@RequestParam("") SubscriptionDTO subscriptionDTO) {
+	public int subcription(@ModelAttribute SubscriptionDTO subscriptionDTO) {
 		
+		int result = 0;
 		
-		return true;
+		int confirm = togetherService.confirmSubscription(subscriptionDTO);
+		
+		if(confirm == 0) {
+			togetherService.sendSubscription(subscriptionDTO);
+			result = 1;
+		} else {
+			result = 0;
+		}
+		
+		return result;
 	}
 	
 	@GetMapping("/deleteProc")
@@ -123,9 +139,11 @@ public class TogetherController {
 			
 		togetherWriteDTO.setTo_writer_no(loginUserDTO.getUser_no());
 		togetherWriteDTO.setTo_writer(loginUserDTO.getUser_id());
-		
+
 		togetherService.InsertTogetherContent(togetherWriteDTO);
-			
+		togetherWriteDTO.setTo_no(togetherService.getTogetherNo());
+		togetherService.createChatroom(togetherWriteDTO);
+		
 		return "together/write_success";
 	}
 	
