@@ -52,33 +52,6 @@ public class TogetherController {
 		return "together/list";
 	}
 	
-//	@GetMapping("/delete")
-//	public String TogetherDelete(@RequestParam("content_idx")int content_idx,
-//		@ModelAttribute("tmptogetherDeleteDTO")TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		TogetherDTO togetherDeleteDTO = togetherService.getTogetherContent(content_idx);
-//		model.addAttribute("togetherDeleteDTO", togetherDeleteDTO);
-//		return "together/delete";
-//	}
-//	
-//	@PostMapping("/deleteProc")
-//	public String TogetherDeleteProc
-//	(@RequestParam("content_idx") int content_idx, 
-//	 @ModelAttribute("tmptogetherDeleteDTO") TogetherDTO tmptogetherDeleteDTO, BindingResult result, Model model) {
-//		
-//		String user_pw = togetherService.GetTogetherPassword(content_idx);
-//    String input_pw = tmptogetherDeleteDTO.getTo_user_pw();
-//		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
-//		
-//		boolean pwMatchRes = encoder.matches(input_pw, user_pw);
-//		if(input_pw != null && pwMatchRes == true) {
-//			togetherService.DeleteTogetherContent(content_idx);
-//			return "together/delete_success";
-//		} else {
-//			model.addAttribute("content_idx", content_idx);
-//			return "together/delete_fail";
-//		}
-//	}
-	
 	@GetMapping("/read")
 	public String TogetherRead(@RequestParam("content_idx") int content_idx, Model model) throws ParserConfigurationException, SAXException, IOException {
 		
