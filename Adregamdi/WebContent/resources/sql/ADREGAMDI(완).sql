@@ -1,3 +1,4 @@
+
 -- ADREGAMDI --
 
 -- 1. ȸ������ --
@@ -298,5 +299,3 @@ DROP SEQUENCE TOGETHERREPLY_SEQ;
 CREATE SEQUENCE together_reply_SEQ
 START WITH 1
 INCREMENT BY 1;
-
-
