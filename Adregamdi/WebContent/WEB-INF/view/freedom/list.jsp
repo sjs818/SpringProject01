@@ -60,7 +60,8 @@ crossorigin="anonymous">
 		    	<option id="objcon" value="objcon">제목 + 내용</option>
 		    	<option id="writerID" value="writerID">아이디</option>
 		    </select>
-		    <input class="form-control mr-sm-2" id="keywords" name="keywords" type="text" aria-label="Search" onKeypress="javascript:if(event.keyCode==13){SearchBoard();event.preventDefault();}">
+		    <input class="form-control mr-sm-2" id="keywords" name="keywords" type="text" aria-label="Search" 
+		    onKeypress="javascript:if(event.keyCode==13){SearchBoard();event.preventDefault();}">
 		    <button type="button" class="btn btn-secondary" onClick="SearchBoard();">
 		    	<i class="fas fa-search"></i>
 		    </button>
@@ -80,7 +81,8 @@ crossorigin="anonymous">
 				<c:forEach var="FreedomBoardDTO" items="${contentList}">
 					<tr>
 						<td class="text-center">${FreedomBoardDTO.free_no }</td>
-						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">${FreedomBoardDTO.free_title} (${FreedomBoardDTO.reply_count})</a></td>
+						<td class="text-center"><a href="${root}freedom/read?content_idx=${FreedomBoardDTO.free_no}">
+						${FreedomBoardDTO.free_title} (${FreedomBoardDTO.reply_count})</a></td>
 						<td class="text-center">${FreedomBoardDTO.content_writer_id }</td>
 						<td class="text-center">${FreedomBoardDTO.free_cnt }</td>
 						<td class="text-center">${FreedomBoardDTO.content_date }</td>
@@ -95,7 +97,9 @@ crossorigin="anonymous">
 			       <c:choose>
 			         <c:when test="${pageDTO.prevPage <= 0 }"></c:when>
 			         <c:otherwise>
-						<li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.prevPage}" class="page-link">이전</a></li>
+						<li class="page-item">
+						<a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.prevPage}" class="page-link">이전</a>
+						</li>
 					</c:otherwise>
 			       </c:choose>
 			      </c:when>
@@ -113,10 +117,14 @@ crossorigin="anonymous">
 			        <c:when test="${search_done == 1}">
 			          <c:choose>
 			            <c:when test="${idx == pageDTO.currentPage}">
-			              <li class="page-item active"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
+			              <li class="page-item active">
+			              <a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a>
+			              </li>
 			            </c:when>
 			            <c:otherwise>
-						  <li class="page-item"><a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a></li>
+						  <li class="page-item">
+						  <a href="${root }freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${idx}" class="page-link">${idx}</a>
+						  </li>
 						</c:otherwise>
 			          </c:choose>
 			        </c:when>
@@ -137,7 +145,9 @@ crossorigin="anonymous">
 			        <c:choose>
 			          <c:when test="${pageDTO.max >= pageDTO.pageCount }"></c:when>
 			          <c:otherwise>
-			            <li class="page-item"><a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.nextPage}" class="page-link">다음</a></li>
+			            <li class="page-item">
+			            <a href="${root}freedom/listSearch?keywords=${keyword}&searchType=${searchType}&page=${pageDTO.nextPage}" class="page-link">다음</a>
+			            </li>
 			          </c:otherwise>
 			        </c:choose>
 			      </c:when>
