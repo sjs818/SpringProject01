@@ -55,8 +55,8 @@ public interface NoticeMapper {
 	int getSearchKeyObjectContent(String keywords);
     
 	// 공지사항 글쓰기
-	@Insert("INSERT INTO NOTICE(NOTICE_NO, NOTICE_USER_NO, NOTICE_TITLE, NOTICE_CNT, NOTICE_DATE, NOTICE_CONTENT) "
-			+ "VALUES(NOTICE_SEQ.nextval, #{notice_user_no}, #{notice_title}, 0, SYSDATE, #{notice_content}) ")
+	@Insert("INSERT INTO NOTICE(NOTICE_NO, NOTICE_USER_NO, NOTICE_TITLE, NOTICE_CNT, NOTICE_DATE, NOTICE_CONTENT) " + 
+			"VALUES(NOTICE_SEQ.nextval, #{notice_user_no}, #{notice_title}, 0, SYSDATE, #{notice_content}) ")
 	void InsertNoticeContent(NoticeDTO noticeDTO);
     
 	// 공지사항 수정
