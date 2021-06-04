@@ -378,7 +378,7 @@
 		    contentType : "application/json",
 		    data : JSON.stringify({
 		    	"reqCoordType": "WGS84GEO",
-				  "resCoordType" : "EPSG3857",
+				  "resCoordType" : "WGS84GEO",
 		    	"startName": startInfo.title,
 		      "startX": startInfo.mapY,
 		      "startY": startInfo.mapX,
@@ -390,30 +390,29 @@
 		      "viaPoints": viaPoints
 		    }),
 		    success : function(response) {
-		    	console.log(response);
 		    	var resultData = response.properties;
 		      var resultFeatures = response.features;
 		      var tDistance = "총 거리 : " + (resultData.totalDistance/1000).toFixed(1) + "km,  ";
 		      var tTime = "총 시간 : " + Math.round((resultData.totalTime/60)) + "분  <br />";
 		      var routeName = "최적 경로 : " + (resultFeatures[0].properties.viaPointName).substring(4, ((resultFeatures[0].properties.viaPointName).length)) + " -> ";
-		      console.log(response.features);
+		      
 		      for(var i = 0; i < resultFeatures.length; i++) {
-		    	  console.log(resultFeatures[i]);
 		    	  var geometry = resultFeatures[i].geometry;
 		        var properties = resultFeatures[i].properties;
 		        var polyline;
 		        
-		        drawInfoArr = [];
+		        console.log(geometry);
 		        
+		        drawInfoArr = [];
+		       
 		        if(geometry.type == 'LineString') {
 		        	
 		        	for(var j = 0; j < geometry.coordinates.length; j++) {
-								
+		        		
 		        		var point = new Tmapv2.LatLng(geometry.coordinates[j][1], geometry.coordinates[j][0]);
 		        		
 		        		drawInfoArr.push(point);
 		        	}
-		        
 			        polyline = new Tmapv2.Polyline({
 			        	path : drawInfoArr,
 			        	strokeColor : "#FF0000",
@@ -430,6 +429,7 @@
 		      $('#result').html(tDistance + tTime + routeName);
 		    }
 		  });
+			
 			return line_arr;
 		}
   	
