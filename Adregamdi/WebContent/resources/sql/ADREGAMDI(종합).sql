@@ -233,7 +233,7 @@ CREATE TABLE TOGETHER(
     TO_CURR        NUMBER           DEFAULT '1',                                          
     TO_TOTAL       NUMBER           NOT NULL,                                           
     TO_MEET        VARCHAR2(100)    NOT NULL,                                             
-    TO_STATE    N   UMBER           NOT NULL                                              
+    TO_STATE       NUMBER           NOT NULL                                              
 );
 
 ALTER TABLE TOGETHER DROP CONSTRAINT together_fk1
@@ -271,8 +271,8 @@ CREATE TABLE SUBSCRIPTION (
 -- CHATROOM
 DROP TABLE CHATROOM PURGE;
 CREATE TABLE CHATROOM(
-    TO_NO           NUMBER   CONSTRAINT CHATROOM_FK1 REFERENCES TOGETHER(TO_NO),
-    TO_WRITER_NO    NUMBER   CONSTRAINT CHATROOM_FK2 REFERENCES TOGETHER(TO_WRITER_NO),
+    TO_NO           NUMBER,   
+    TO_WRITER_NO    NUMBER,  
     USER1           NUMBER   DEFAULT '0',
     USER2           NUMBER   DEFAULT '0',
     USER3           NUMBER   DEFAULT '0'
@@ -288,7 +288,7 @@ INCREMENT BY 1;
 DROP SEQUENCE TOGETHER_REPLY_SEQ;
 CREATE SEQUENCE TOGETHER_REPLY_SEQ
 START WITH 1
-INCREMENT BY 1;.
+INCREMENT BY 1;
 
 DROP SEQUENCE SUBSCRIPTION_SEQ;
 CREATE SEQUENCE SUBSCRIPTION_SEQ
