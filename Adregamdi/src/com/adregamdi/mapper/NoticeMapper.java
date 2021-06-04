@@ -51,8 +51,7 @@ public interface NoticeMapper {
 	// 공지사항 제목 + 내용 검색한 카운트 불러와 페이징 처리
 	@Select("SELECT COUNT(*) " + 
 			"FROM NOTICE N, USER_INFO U " + 
-			"WHERE N.NOTICE_USER_NO = U.USER_NO AND N.NOTICE_TITLE LIKE '%' || #{keywords} ||'%' " + 
-			"OR N.NOTICE_CONTENT LIKE '%' || #{keywords} || '%' ")
+			"WHERE N.NOTICE_USER_NO = U.USER_NO AND (N.NOTICE_TITLE || N.NOTICE_CONTENT) LIKE '%' || #{keywords} ||'%'")
 	int getSearchKeyObjectContent(String keywords);
     
 	// 공지사항 글쓰기
