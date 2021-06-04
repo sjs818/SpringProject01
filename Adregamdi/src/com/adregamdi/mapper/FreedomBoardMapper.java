@@ -75,8 +75,7 @@ public interface FreedomBoardMapper {
 	//게시글 제목 + 내용 검색한 카운트 불러와 페이징 처리
 	@Select("SELECT COUNT(*) " + 
 			"FROM FREEDOMBOARD F, USER_INFO U " + 
-			"WHERE F.FREE_WRITER = U.USER_NO AND F.FREE_TITLE LIKE '%' || #{keywords} ||'%' " + 
-			"OR F.FREE_CONTENT LIKE '%' || #{keywords} || '%' ")
+			"WHERE F.FREE_WRITER = U.USER_NO AND (F.FREE_TITLE || F.FREE_CONTENT) LIKE '%' || #{keywords} ||'%' ")
 	int getSearchKeyObjectContent(String keywords);
 	
 	//게시글 아이디로 검색해서 불러온 카운트
