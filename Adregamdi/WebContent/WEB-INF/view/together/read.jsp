@@ -78,6 +78,8 @@
 			$("#after").show();
 		}
 		
+	  $("#message").keyup(function(e){if(e.keyCode == 13)  writeText(); });
+	 	  
 	  var together_num = $("#to_no").val();
 	  var login_id = $("#login_id").val();
 	  var allData = {"together_num" : together_num};

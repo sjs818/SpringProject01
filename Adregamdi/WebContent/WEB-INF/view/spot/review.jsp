@@ -23,8 +23,8 @@
 
 <link href="${root }css/review.css" rel="stylesheet">
 <script type="text/javascript" src="${root }js/review.js"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0500d926fc9607c0b97b0abd4abaeb0a"></script>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=0500d926fc9607c0b97b0abd4abaeb0a&libraries=services,clusterer,drawing"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9cd7ccda94b3121198366e34313ed8c0"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=9cd7ccda94b3121198366e34313ed8c0&libraries=services,clusterer,drawing"></script>
 
 </head>
 <body>

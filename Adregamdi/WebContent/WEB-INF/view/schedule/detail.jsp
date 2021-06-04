@@ -45,57 +45,67 @@
 			$("#main-img").attr("src",data[0]);
 			$(".title").text(data[1]);
 			$("#overview").html(data[2]);
-			$(".address").html("<i class='fas fa-map-pin'></i> " + data[3]);
+			$(".address").html("<i class='fas fa-map-pin mr-2'></i> " + data[3]);
 			switch(contentTypeId) {
 				case "12" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i> 문의 및 안내<br>"+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-calendar-alt'></i> 쉬는날 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'></i> 이용시간 : "+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i> 문의 및 안내</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-calendar-alt mr-2'></i> 쉬는날</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'></i> 이용시간</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
 					break;
 				case "14" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i>문의 및 안내 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-won-sign'></i> 이용요금 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 이용시간 : "+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i>문의 및 안내</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-won-sign mr-2'></i> 이용요금</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 이용시간</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
 					break;
 				case "15" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i>행사 홈페이지 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-phone-alt'></i> 연락처 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 공연시간 : "+data[8]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-won-sign'></i>이용요금 : "+data[9]+"</p>");//여기까지
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i>행사 홈페이지</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-phone-alt mr-2'></i> 연락처</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 공연시간</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-won-sign mr-2'></i>이용요금</p><p class='ml-3 mb-3'>"+data[9]+"</p>");//여기까지
 					break;
 				case "25" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i>문의 및 안내 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 코스 예상 소요시간 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-question-circle'></i> 코스 테마 : "+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i>문의 및 안내</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 코스 예상 소요시간</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-question-circle mr-2'></i> 코스 테마</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
 					break;
 				case "28" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i> 문의 및 안내 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-calendar-alt'></i> 쉬는날 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-won-sign'></i> 이용요금 : "+data[8]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 이용시간 : "+data[9]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i> 문의 및 안내</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-calendar-alt mr-2'></i> 쉬는날</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-won-sign mr-2'></i> 이용요금</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 이용시간</p><p class='ml-3 mb-3'>"+data[9]+"</p>");
 					break;
 				case "32" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i> 문의 및 안내 : "+data[8]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 체크인 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 체크아웃 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-link'></i> 홈페이지 : "+data[9]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-question-circle'></i> 예약안내 : "+data[10]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i> 문의 및 안내</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 체크인</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 체크아웃</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-link mr-2'></i> 홈페이지</p><p class='ml-3 mb-3'>"+data[9]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-question-circle mr-2'></i> 예약안내</p><p class='ml-3 mb-3'>"+data[10]+"</p>");
 					break;
 				case "38" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i> 문의 및 안내 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 영업시간 : "+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-calendar-alt'></i>쉬는날 : "+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i> 문의 및 안내</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 영업시간</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-calendar-alt mr-2'></i>쉬는날</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
 					break;
 				case "39" :
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-info-circle'></i> 문의 및 안내 <br>"+data[7]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='fas fa-1x fa-utensils'></i> 대표 메뉴 : "+data[6]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-clock'> 영업시간 : "+data[8]+"</p>");
-					$(".details").append("<p style='font-weight:bold;'><i class='far fa-1x fa-calendar-alt'></i> 쉬는날 : "+data[9]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-info-circle mr-2'></i> 문의 및 안내</p><p class='ml-3 mb-3'>"+data[7]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='fas fa-1x fa-utensils mr-2'></i> 대표 메뉴</p><p class='ml-3 mb-3'>"+data[6]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-clock mr-2'> 영업시간</p><p class='ml-3 mb-3'>"+data[8]+"</p>");
+					$(".details").append("<p style='margin-bottom: 3px;'><i class='far fa-1x fa-calendar-alt mr-2'></i> 쉬는날</p><p class='ml-3 mb-3'>"+data[9]+"</p>");
 					break;
 			}
 		}
 	</script>
 	<style>
+	@font-face {
+    font-family: 'Bazzi';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-04@2.1/Bazzi.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+	}
+	
+ 	body {
+     font-family: 'Bazzi';
+   }
   
   * {
     margin: 0;
@@ -122,6 +132,10 @@
       height: 100%;
       overflow: visible;
       margin: 0 auto;
+  }
+  
+  .inner_wrap .details p{
+      margin: 0;
   }
   
   .banner {
@@ -164,8 +178,9 @@
   }  
   
   .titleArea .address {
-  	padding: 20px 10px;
+  	padding: 20px 30px;;
   	border: 3px solid #F0f0f0;
+  	border-radius: 10px;
   }  
 	
 	.overview {
@@ -211,7 +226,7 @@
 				</div>
 			</section>
 			
-			<section class="stu_section stu_exp_list stu_clearfix" style="margin-bottom: 10px;">
+			<section class="stu_section stu_exp_list stu_clearfix" style="padding: 20px;">
 				<div class="inner_wrap">
 					<div style="padding-left: 20px; padding-right: 20px" class="details">
 
