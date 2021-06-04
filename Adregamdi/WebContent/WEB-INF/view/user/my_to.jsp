@@ -132,7 +132,7 @@ function accept(subscriptionDTO) {
 				</ul>
 			</div>
 
-			<div class="row mx-5 my-4">
+			<div class="row mx-3 my-3">
  			<c:choose>
 	 			<c:when test="${myToCount eq '0' }">	
 					<div class="col-sm-12 text-center">
