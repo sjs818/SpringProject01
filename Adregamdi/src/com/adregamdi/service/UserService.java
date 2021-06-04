@@ -178,6 +178,10 @@ public class UserService {
 		
 		return userDAO.setChatUser(chatroomDTO) > 0;
 	}
+
+	public List<TogetherDTO> getMySub(int user_no) {
+		return userDAO.getMySub(user_no);
+	}
 	
 
 }
