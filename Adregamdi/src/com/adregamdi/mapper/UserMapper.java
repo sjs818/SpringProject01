@@ -68,6 +68,11 @@ public interface UserMapper {
 			"AND S.SUB_STATUS=0 ORDER BY S.SUB_NO")
 	List<SubscriptionDTO> getToNotification(int to_no);
 	
+	@Select("SELECT \n"
+			+ "t.to_no, t.to_writer_no, t.to_writer, t.to_title, t.to_place_name, t.to_content, t.to_date,\n"
+			+ "t.to_curr, t.to_total, t.to_meet, t.to_state, s.sub_status status FROM TOGETHER T, SUBSCRIPTION S WHERE T.TO_NO = S.TO_NO AND S.SUB_WRITER=#{user_no}")
+	List<TogetherDTO> getMySub(int user_no);
+	
 	@Update("UPDATE SUBSCRIPTION SET sub_status=2 WHERE sub_no=#{sub_no}")
 	int subCancel(int sub_no);
 

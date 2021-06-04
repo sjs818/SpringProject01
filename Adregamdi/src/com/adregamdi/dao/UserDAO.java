@@ -122,4 +122,9 @@ public class UserDAO {
 	public ChatroomDTO getChatroom (int to_no) {
 		return userMapper.getChatroom(to_no);
 	}
+
+
+	public List<TogetherDTO> getMySub(int user_no) {
+		return userMapper.getMySub(user_no);
+	}
 }

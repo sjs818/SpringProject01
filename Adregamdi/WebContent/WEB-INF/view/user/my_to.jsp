@@ -132,23 +132,26 @@ function accept(subscriptionDTO) {
 				</ul>
 			</div>
 
-			<div class="row mx-3 my-3">
  			<c:choose>
-	 			<c:when test="${myToCount eq '0' }">	
-					<div class="col-sm-12 text-center">
-					<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
-					  <div class="container">
-					    <h1 class="display-5">새로운 동행을 찾아보세요!<i class="fas fa-user-friends ml-2"></i></h1>
-					    <p class="lead">아래 버튼을 눌러 아름다운 제주여행을 함께할 동행을 찾아보세요!</p>
-					  </div>
-					</div>
-						<a class="btn btn-outline-success btn-lg mb-5" href="${root }together/list">동행 찾기</a>
+	 			<c:when test="${myToCount eq '0' && mySub eq null }">	
+					<div class="row mx-3 my-3">
+						<div class="col-sm-12 text-center">
+						<div class="jumbotron jumbotron-fluid bg-white" style="padding:2rem 0; margin-bottom:-20px;">
+						  <div class="container">
+						    <h1 class="display-5">새로운 동행을 찾아보세요!<i class="fas fa-user-friends ml-2"></i></h1>
+						    <p class="lead">아래 버튼을 눌러 아름다운 제주여행을 함께할 동행을 찾아보세요!</p>
+						  </div>
+						</div>
+							<a class="btn btn-outline-success btn-lg mb-5" href="${root }together/list">동행 찾기</a>
+						</div>
 					</div>
 				</c:when>
 					
 					
 				<c:otherwise>			
+					<div class="row mx-5 my-4">
 					<div class="accordion col-sm-12" id="accordionExample">
+					<div class="mb-2"><i class="fas fa-pencil-alt mr-1"></i>내가만든 동행</div>
 					<c:forEach var="togetherDTO" items="${myTo }" >
 						<div class="card px-0 mb-3 shadow-sm rounded">
 						    <div class="card-header p-2" id="headingOne">
@@ -240,12 +243,45 @@ function accept(subscriptionDTO) {
 					
 					</c:forEach>
 					</div>
+						<c:if test="${mySub ne null }">
+							<div class="accordion col-sm-12" id="accordionExample">
+							<div class="my-2"><i class="far fa-paper-plane mr-1"></i>신청한 동행</div>
+							<c:forEach var="togetherDTO" items="${mySub }" >
+								<div class="card px-0 mb-3 shadow-sm rounded">
+								    <div class="card-header p-2" id="headingOne" style="background-color:rgba(255,220,163,0.3);">
+								      <h2 class="mb-0">
+								        <button class="btn btn-link" value="${togetherDTO.to_no }" type="button" data-toggle="collapse" data-target="#${togetherDTO.to_no }" style="color:black; text-decoration:none; width:91%;">
+								         <a href="${root }together/read?content_idx=${togetherDTO.to_no }">
+								          <span class="card_hover d-flex justify-content-between">
+									        <span>
+									          <li class="mr-2">${togetherDTO.to_title } <span class="ml-2" style="color:#868e96;">[ ${togetherDTO.to_place_name } ]</span></li>
+								          	</span>
+								          	<span>
+								          	<c:choose>
+								          	  <c:when test="${togetherDTO.status eq 0 }">
+										          <span class="badge px-2 py-1 badge-secondary mr-1">&nbsp신청대기&nbsp</span>
+									          </c:when>
+								          	  <c:when test="${togetherDTO.status eq 1 }">
+										          <span class="badge px-2 py-1 badge-pill badge-success mr-1">&nbsp참가승인&nbsp</span>
+									          </c:when>
+								          	</c:choose>
+									          <span class="badge badge-pill badge-secondary px-2 mr-3"> ${togetherDTO.to_curr } / ${togetherDTO.to_total } </span>
+									        </span>
+								          </span>
+								          </a>
+								        </button>
+								        <button class="btn btn-sm btn-info float-right mt-1 mr-2"><a href="${root }together/read?content_idx=${togetherDTO.to_no }" class="text-white">게시판으로</a></button>
+								      </h2>
+								    </div>
+						 		</div>
+						 	</c:forEach>
+						 	</div>
+						</c:if>
+					</div>
 				</c:otherwise>
 			</c:choose>
 		</div>
-
 	</div>
-</div>
   
 
 <!-- 하단 -->
