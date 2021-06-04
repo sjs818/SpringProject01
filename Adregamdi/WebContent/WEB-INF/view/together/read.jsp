@@ -517,6 +517,17 @@
       	</div>
     	</div>
    	</div>
+   	<div class="form-group float-right" style="margin-top : 25px;">
+   		<c:choose>
+   			<c:when test="${chatroomDTO.to_writer_no == loginUserDTO.user_no}">
+   				<a href="${root }together/list" class="btn btn-info" style="margin-right : 5px;">목록보기</a>
+   				<a href="${root }together/modify?content_idx=${togetherDTO.to_no }" class="btn btn-success" style="margin-right : 5px;">수정하기</a>
+   			</c:when>
+   			<c:otherwise>
+   				<a href="${root }together/list" class="btn btn-info" style="margin-right : 5px;">목록보기</a>
+   			</c:otherwise>
+   		</c:choose>
+    </div>
  	</div>
      
   <!-- Modal -->
