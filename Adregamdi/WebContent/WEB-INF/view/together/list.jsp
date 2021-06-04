@@ -82,12 +82,12 @@
 					<tr>
 						<td class="text-left">
 							<c:choose>
-								<c:when test="${TogetherDTO.to_state == 0 }">
+								<c:when test="${TogetherDTO.to_curr != TogetherDTO.to_total }">
 									<span class="badge badge-pill badge-danger mr-2">모집중</span>
 								</c:when>	
-								<c:otherwise>
-									<span class="badge badge-pill badge-secondary mr-2">모집완료</span>
-								</c:otherwise>	
+								<c:when test="${TogetherDTO.to_curr == TogetherDTO.to_total }">
+									<span class="badge badge-pill badge-secondary mr-2">마감</span>
+								</c:when>	
 							</c:choose>
 							<a href="${root}together/read?content_idx=${TogetherDTO.to_no}">${TogetherDTO.to_title }</a>
 						</td>

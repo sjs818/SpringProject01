@@ -30,7 +30,7 @@ ALTER TABLE [각 게시판 테이블] DROP CONSTRAINT [외래키 이름];
 
 -- ON DELETE CASCADE 를 적용한 외래키 재생성
 ALTER TABLE [각 게시판 테이블] ADD CONSTRAINT [외래키 이름] FOREIGN KEY ([외래키 자식 컬럼])
-REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
+REFERENCES USER_INFO(USER_NO) ON DELETE CASCADE;
 
 -- PROVIDER(0) : 관리자(ADMINISTRATOR)
 
@@ -53,6 +53,10 @@ CREATE SEQUENCE NOTICE_SEQ
 START WITH 1
 INCREMENT BY 1;
 
+ALTER TABLE notice DROP CONSTRAINT notice_fk;
+
+ALTER TABLE notice ADD CONSTRAINT notice_fk FOREIGN KEY (notice_user_no)
+REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
 -- 3. 자유게시판 --
 
@@ -91,12 +95,16 @@ CREATE SEQUENCE CONTENT_CNT_SEQ
 START WITH 1
 INCREMENT BY 1;
 
+ALTER TABLE FREEDOMBOARD DROP CONSTRAINT FREEDOMBOARD_FK;
+
+ALTER TABLE FREEDOMBOARD ADD CONSTRAINT FREEDOMBOARD_FK FOREIGN KEY (free_writer)
+REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
 
 -- 4. 여행지 --
 
-select rownum, like_idx, content_id, like_cnt, review_cnt 
-from (select * from spot_info order by like_cnt desc)
-where rownum <= 3;
+SELECT ROWNUM, LIKE_IDX, CONTENT_ID, LIKE_CNT, REVIEW_CNT 
+FROM (SELECT * FROM SPOT_INFO ORDER BY LIKE_CNT DESC)
+WHERE ROWNUM <= 3;
 
 
 -- (1) 테이블 생성 --
@@ -133,6 +141,12 @@ CREATE SEQUENCE REVIEW_SEQ
 START WITH 1
 INCREMENT BY 1;
 
+ALTER TABLE REVIEW_INFO DROP CONSTRAINT REVIEW_FK2;
+
+ALTER TABLE REVIEW_INFO ADD CONSTRAINT REVIEW_FK2 FOREIGN KEY (USER_NO)
+REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
+
+
 -- 5. 여행 일정 만들기 --
 
 -- (1) 테이블 생성 --
@@ -148,6 +162,11 @@ CREATE TABLE PLAN (
     PLAN_PRIVATE   VARCHAR(1)       DEFAULT 'N'
 );
 
+ALTER TABLE PLAN DROP CONSTRAINT PLAN_FK;
+
+ALTER TABLE PLAN ADD CONSTRAINT PLAN_FK FOREIGN KEY (USER_NO)
+REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
+
 -- PLAN_IMG
 DROP TABLE PLAN_IMG PURGE;
 CREATE TABLE PLAN_IMG (
@@ -156,6 +175,11 @@ CREATE TABLE PLAN_IMG (
     PLAN_IMG   VARCHAR2(300)   NOT NULL,
     REGDATE    DATE            NOT NULL
 );
+
+ALTER TABLE PLAN_IMG DROP CONSTRAINT PLAN_IMG_FK;
+
+ALTER TABLE PLAN_IMG ADD CONSTRAINT PLAN_IMG_FK FOREIGN KEY (PLAN_NO)
+REFERENCES PLAN(PLAN_NO) ON DELETE CASCADE;
 
 -- USER_PLAN
 DROP TABLE USER_PLAN PURGE;
@@ -186,6 +210,11 @@ CREATE SEQUENCE PLAN_SEQ
 START WITH 1
 INCREMENT BY 1;
 
+ALTER TABLE USER_PLAN DROP CONSTRAINT USER_PLAN_FK;
+
+ALTER TABLE USER_PLAN ADD CONSTRAINT USER_PLAN_FK FOREIGN KEY (PLAN_NO)
+REFERENCES PLAN(PLAN_NO) ON DELETE CASCADE;
+
 -- 6. 동행 게시판
 
 -- (1) 테이블 생성 --
@@ -193,13 +222,29 @@ INCREMENT BY 1;
 -- TOGETHER
 DROP TABLE TOGETHER PURGE;
 CREATE TABLE TOGETHER(
-    TO_NO        INT              CONSTRAINT TOGETHER_PK PRIMARY KEY,
-    TO_WRITER    INT              CONSTRAINT TOGETHER_FK REFERENCES USER_INFO(USER_NO),
-    TO_TITLE     VARCHAR2(300)    NOT NULL, 
-    TO_CNT       NUMBER           NOT NULL, 
-    TO_DATE      DATE             NOT NULL, 
-    TO_CONTENT   VARCHAR2(4000)   NOT NULL
+    TO_NO          NUMBER           CONSTRAINT TOGETHER_PK PRIMARY KEY,                     
+    TO_WRITER_NO   NUMBER           CONSTRAINT TOGETHER_FK1 REFERENCES USER_INFO(USER_NO),  
+    TO_WRITER      VARCHAR2(50)     CONSTRAINT TOGETHER_FK2 REFERENCES USER_INFO(USER_ID),  
+    TO_TITLE       VARCHAR2(300)    NOT NULL,                                                
+    TO_PLACE       VARCHAR2(300)    NOT NULL,                                             
+    TO_PLACE_NAME  VARCHAR2(100)    NOT NULL,
+    TO_CONTENT     VARCHAR2(4000)   NOT NULL,                                              
+    TO_DATE        DATE             NOT NULL,                                            
+    TO_CURR        NUMBER           DEFAULT '1',                                          
+    TO_TOTAL       NUMBER           NOT NULL,                                           
+    TO_MEET        VARCHAR2(100)    NOT NULL,                                             
+    TO_STATE    N   UMBER           NOT NULL                                              
 );
+
+ALTER TABLE TOGETHER DROP CONSTRAINT together_fk1
+
+ALTER TABLE TOGETHER ADD CONSTRAINT together_fk1 FOREIGN KEY (TO_WRITER_NO)
+REFERENCES USER_INFO(user_no) ON DELETE CASCADE;
+
+ALTER TABLE TOGETHER DROP CONSTRAINT together_fk2;
+
+ALTER TABLE TOGETHER ADD CONSTRAINT together_fk2 FOREIGN KEY (TO_WRITER)
+REFERENCES USER_INFO(user_id) ON DELETE CASCADE;
 
 -- TOGETHERREPLY
 DROP TABLE TOGETHERREPLY PURGE;
@@ -209,6 +254,28 @@ CREATE TABLE TOGETHERREPLY (
     REPLY_WRITER    VARCHAR2(100)    NOT NULL,
     REPLY_CONTENT   VARCHAR2(1000)   NOT NULL,
     REPLY_DATE      DATE             NOT NULL
+);
+
+-- SUBSCRIPTION
+DROP TABLE SUBSCRIPTION PURGE;
+CREATE TABLE SUBSCRIPTION (
+    SUB_NO          NUMBER  CONSTRAINT SUBSCRIPTION_PK PRIMARY KEY,
+    TO_NO           NUMBER  CONSTRAINT SUBSCRIPTION_FK REFERENCES TOGETHER(TO_NO),
+    TO_WRITER_NO    NUMBER,
+    SUB_MESSAGE     VARCHAR2(500),
+    SUB_WRITER      NUMBER,
+    SUB_STATUS      VARCHAR(1) DEFAULT '0',
+    SUB_DATE        DATE
+);
+
+-- CHATROOM
+DROP TABLE CHATROOM PURGE;
+CREATE TABLE CHATROOM(
+    TO_NO           NUMBER   CONSTRAINT CHATROOM_FK1 REFERENCES TOGETHER(TO_NO),
+    TO_WRITER_NO    NUMBER   CONSTRAINT CHATROOM_FK2 REFERENCES TOGETHER(TO_WRITER_NO),
+    USER1           NUMBER   DEFAULT '0',
+    USER2           NUMBER   DEFAULT '0',
+    USER3           NUMBER   DEFAULT '0'
 );
 
 -- (2) 시퀀스 생성 --
@@ -223,70 +290,7 @@ CREATE SEQUENCE TOGETHER_REPLY_SEQ
 START WITH 1
 INCREMENT BY 1;.
 
-select rownum, like_idx, content_id, like_cnt, review_cnt 
-from (select * from spot_info order by like_cnt desc)
-where rownum <= 3;
-
-select * from user_plan;
-select * from plan;
-
-DROP TABLE TOGETHER PURGE;
-create table together(
-
-    to_no       NUMBER              constraint together_pk primary key,                      -- 게시글번호
-    to_writer_no   number           constraint together_fk1 references user_info(user_no),   -- 회원번호
-    to_writer   varchar2(50)        constraint together_fk2 references user_info(user_id),   -- 회원번호
-    to_title    varchar2(300)       not null,                                                -- 공고제목   
-    to_place    varchar2(300)       not null,                                                -- 여행장소    
-    to_place_name varchar2(100)     not null,
-    to_content  varchar2(4000)      not null,                                                -- 공고문
-    to_date     date                not null,                                                -- 작성날짜   
-    to_curr     number              DEFAULT '1',                                            -- 현재인원    
-    to_total    number              not null,                                                -- 모집인원   
-    to_meet     varchar2(100)       not null,                                                -- 여행날짜   
-    to_state    number              not null                                                 -- 공고현황   
-);
-        
-SELECT * FROM TOGETHER;
-commit;
-
--- TOGETHERREPLY
-DROP TABLE TOGETHERREPLY PURGE;
-DROP TABLE TOGETHER_REPLY PURGE;
-CREATE TABLE TOGETHERREPLY (
-    REPLY_NUM       NUMBER           CONSTRAINT TOGETHERREPLY_PK PRIMARY KEY,
-    TOGETHER_NUM    NUMBER           CONSTRAINT TOGETHERREPLY_FK REFERENCES TOGETHER(TO_NO),
-    REPLY_WRITER    VARCHAR2(100)    NOT NULL,
-    REPLY_CONTENT   VARCHAR2(1000)   NOT NULL,
-    REPLY_DATE      DATE             NOT NULL
-);
-
-
-drop sequence together_seq;
-create sequence together_seq
-start with 1
-increment by 1;
-
-select * from together;
-
-insert into together values (together_seq.nextval, 1, '휴애리자연생활공원 가실 분', '322836', '6월 6일에 휴애리 자연생활농원 놀러가실 분 구합니다!!', sysdate, 1, 3, sysdate, 0); 
-SELECT T.TO_NO, U.USER_NO TO_WRITER, U.USER_ID TO_ID, TO_CHAR(T.TO_DATE, 'YYYY-MM-DD HH24:MI:SS') TO_DATE, T.TO_TITLE, T.TO_CONTENT, T.TO_CURR, T.TO_TOTAL, T.TO_MEET, T.TO_STATE FROM USER_INFO U, TOGETHER T WHERE U.USER_NO = T.TO_WRITER AND T.TO_NO = 1;
-commit;
-
-SELECT TO_NO, TO_WRITER_NO, TO_WRITER, TO_TITLE, TO_PLACE, TO_PLACE_NAME, TO_CONTENT, TO_CHAR(TO_DATE, 'YYYY-MM-DD HH24:MI') TO_DATE, TO_CURR, TO_TOTAL, TO_MEET, TO_STATE FROM TOGETHER WHERE TO_NO = 1;
-
-DROP TABLE SUBSCRIPTION PURGE;
-CREATE TABLE SUBSCRIPTION (
-    sub_no          NUMBER  CONSTRAINT SUBSCRIPTION_PK PRIMARY KEY,
-    to_no           NUMBER constraint SUBSCRIPTION_FK references TOGETHER(to_no),
-    to_writer_no    NUMBER,
-    sub_message     VARCHAR2(500),
-    sub_writer      NUMBER,
-    sub_status      VARCHAR(1) DEFAULT '0',
-    sub_date        DATE
-);
-
-drop sequence SUBSCRIPTION_seq;
-create sequence SUBSCRIPTION_seq
-start with 1
-increment by 1;
+DROP SEQUENCE SUBSCRIPTION_SEQ;
+CREATE SEQUENCE SUBSCRIPTION_SEQ
+START WITH 1
+INCREMENT BY 1;
