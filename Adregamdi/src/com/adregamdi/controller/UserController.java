@@ -198,8 +198,10 @@ public class UserController {
 		
 		List<TogetherDTO> mySub
 		= userService.getMySub(loginUserDTO.getUser_no());
-		model.addAttribute("mySub", mySub);
-
+		
+		if(!(mySub.isEmpty())) {
+			model.addAttribute("mySub", mySub);			
+		}
 
 		String myPublicCount = userService.getPublicCount(loginUserDTO.getUser_no());
 		String myPrivatCount = userService.getPrivateCount(loginUserDTO.getUser_no());
