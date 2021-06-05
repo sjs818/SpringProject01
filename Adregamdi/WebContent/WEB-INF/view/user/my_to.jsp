@@ -151,7 +151,9 @@ function accept(subscriptionDTO) {
 				<c:otherwise>			
 					<div class="row mx-5 my-4">
 					<div class="accordion col-sm-12" id="accordionExample">
-					<div class="mb-2"><i class="fas fa-pencil-alt mr-1"></i>내가만든 동행</div>
+					<c:if test="${myToCount ne '0' }">
+						<div class="mb-2"><i class="fas fa-pencil-alt mr-1"></i>내가만든 동행</div>
+					</c:if>
 					<c:forEach var="togetherDTO" items="${myTo }" >
 						<div class="card px-0 mb-3 shadow-sm rounded">
 						    <div class="card-header p-2" id="headingOne">
